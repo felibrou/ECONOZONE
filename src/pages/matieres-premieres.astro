@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="ECONOZONE — Matières premières">
+
+    <div class="breadcrumb">ECONOZONE &rsaquo; Matières premières</div>
+    <h1>Matières premières</h1>
+    <p class="dek">Pétrole, or, cacao, coton, gaz : ces marchés mondiaux ne produisent jamais un effet unique sur l'Afrique de l'Ouest — un même mouvement de prix peut simultanément soutenir un pays exportateur et pénaliser un pays importateur.</p>
+
+    <h2>Grille de lecture par matière première</h2>
+    <table class="z">
+      <thead><tr><th>Matière première</th><th>Pays particulièrement exposés</th><th>Canal de transmission</th></tr></thead>
+      <tbody>
+        <tr><td><b>Pétrole (Brent/WTI)</b></td><td>Nigeria, Ghana, Côte d'Ivoire, Sénégal (producteurs) ; toute la région (importateurs)</td><td>Recettes d'exportation vs coût du carburant et du transport</td></tr>
+        <tr><td><b>Or</b></td><td>Mali, Burkina Faso, Côte d'Ivoire, Sénégal (UEMOA) ; Ghana (CEDEAO, 1ᵉʳ producteur du continent)</td><td>Recettes d'exportation et fiscales, avec décalage</td></tr>
+        <tr><td><b>Cacao</b></td><td>Côte d'Ivoire (1ᵉʳ producteur mondial), Ghana</td><td>Revenus des producteurs et recettes d'exportation directes</td></tr>
+        <tr><td><b>Coton</b></td><td>Bénin, Burkina Faso, Mali, Côte d'Ivoire, Togo</td><td>Revenus ruraux et recettes d'exportation</td></tr>
+        <tr><td><b>Hévéa / caoutchouc</b></td><td>Côte d'Ivoire, Liberia, Ghana</td><td>Demande industrielle et automobile asiatique</td></tr>
+        <tr><td><b>Gaz / GNL</b></td><td>Nigeria, Sénégal</td><td>Recettes d'exportation vs coût de l'énergie importée ailleurs</td></tr>
+        <tr><td><b>Bauxite / aluminium</b></td><td>Guinée</td><td>Demande chinoise, cycle industriel</td></tr>
+        <tr><td><b>Minerai de fer</b></td><td>Guinée, Liberia, Sierra Leone</td><td>Cycle industriel et immobilier chinois</td></tr>
+        <tr><td><b>Uranium</b></td><td>Niger</td><td>Géopolitique, sécurisation des approvisionnements mondiaux</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Qui gagne, qui perd selon le pays</h2>
+
+    <div class="country-card">
+      <h3>Côte d'Ivoire</h3>
+      <span class="tag tag-down">Cacao ▼ vulnérable</span><span class="tag tag-up">Or ▲ amortisseur</span><span class="tag tag-down">Pétrole cher ▼ coût importé</span>
+      <p style="margin:8px 0 0;">Exposition simultanée au cacao, à l'hévéa, à l'or et au pétrole (à la fois producteur marginal et importateur net) — une faiblesse du cacao peut être partiellement compensée par un environnement minier ou pétrolier plus favorable, selon le poids relatif de chaque filière dans l'économie du moment.</p>
+    </div>
+
+    <div class="country-card">
+      <h3>Ghana</h3>
+      <span class="tag tag-up">Or ▲</span><span class="tag tag-down">Cacao ▼</span><span class="tag tag-up">Pétrole ▲ (producteur)</span>
+      <p style="margin:8px 0 0;">Combinaison or/cacao/pétrole unique dans la région — 1ᵉʳ producteur d'or d'Afrique (hors UEMOA), mais partage avec la Côte d'Ivoire la vulnérabilité au cours du cacao.</p>
+    </div>
+
+    <div class="country-card">
+      <h3>Nigeria</h3>
+      <span class="tag tag-up">Pétrole / Gaz ▲▲</span>
+      <p style="margin:8px 0 0;">Dépendance de loin la plus forte de la région au pétrole et au gaz — les recettes budgétaires suivent presque mécaniquement le cours du baril.</p>
+    </div>
+
+    <div class="country-card">
+      <h3>Mali &amp; Burkina Faso</h3>
+      <span class="tag tag-up">Or ▲▲</span><span class="tag tag-down">Coton ▼</span>
+      <p style="margin:8px 0 0;">Exposition dominante à l'or (recettes d'exportation et fiscales) et au coton (revenus ruraux) — deux matières premières qui ne bougent pas nécessairement dans le même sens.</p>
+    </div>
+
+    <div class="country-card">
+      <h3>Guinée</h3>
+      <span class="tag tag-down">Bauxite / Fer — dépendance Chine</span>
+      <p style="margin:8px 0 0;">Économie la plus directement corrélée au cycle industriel et immobilier chinois parmi les pays de la sous-région, via la bauxite et le minerai de fer.</p>
+    </div>
+
+    <div class="country-card">
+      <h3>Niger</h3>
+      <span class="tag tag-up">Uranium — enjeu stratégique</span>
+      <p style="margin:8px 0 0;">La valeur de l'uranium nigérien dépend autant de la géopolitique et des contrats de long terme que du prix spot du marché — un cas particulier dans cette grille.</p>
+    </div>
+
+    <p style="margin-top:24px; font-size:13px;"><b>Ce qu'il faut retenir :</b> les matières premières ne constituent pas un risque unique pour l'Afrique de l'Ouest, mais une série de transferts de revenus entre producteurs, importateurs, États, entreprises et ménages — la bonne question n'est jamais "les prix montent ou baissent", mais "quel canal relie ce mouvement précis à quel pays, et dans quel sens".</p>
+
+    <div class="disclaimer">Avertissement : ce contenu est publié à des fins purement informatives et ne constitue pas un conseil en investissement.</div>
+</Layout>
+
+<style>
+:root { --bg:#FAF8F4; --panel:#FFFFFF; --border:#E8E2D6; --row-border:#F1EDE4; --navy:#0B2545; --text:#1C1A15; --text-muted:#4A4438; --label:#8A8272; --accent:#A9762F; --up:#1B7A43; --down:#A8382A; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+  .topbar { width: 100%; background: var(--navy); }
+  .topbar-inner { max-width: 1000px; margin: 0 auto; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .brand { color: #fff; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; }
+  .col { width: 100%; max-width: 1000px; padding: 28px 24px 80px; }
+  .breadcrumb { font-size: 12px; color: var(--label); margin-bottom: 14px; }
+  h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600; color: var(--navy); margin: 0 0 8px; letter-spacing: -0.01em; line-height: 1.15; }
+  .dek { font-size: 15px; color: var(--text-muted); max-width: 720px; margin: 0 0 24px; line-height: 1.6; }
+  h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--navy); margin: 36px 0 8px; padding-top: 18px; border-top: 1px solid var(--border); }
+  p { font-size: 14.5px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 0 12px; }
+  table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 13px; margin: 16px 0; }
+  table.z th { background: #F7F9FB; text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--label); text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  table.z td { padding: 10px 14px; border-bottom: 1px solid var(--row-border); }
+  .country-card { background: var(--panel); border: 1px solid var(--border); padding: 18px 20px; margin: 12px 0; }
+  .country-card h3 { margin: 0 0 6px; font-size: 15px; color: var(--navy); }
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px; margin-right: 4px; margin-bottom: 4px; }
+  .tag-up { background: #E6F4EC; color: var(--up); }
+  .tag-down { background: #FBEAEA; color: var(--down); }
+  .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--label); }
+</style>

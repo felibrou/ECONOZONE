@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Robots agrégateurs commerciaux connus — accès découragé
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+Sitemap: https://econozone.example.com/sitemap.xml

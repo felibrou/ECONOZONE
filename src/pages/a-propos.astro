@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="ECONOZONE — À propos &amp; Méthodologie">
+
+    <div class="breadcrumb">ECONOZONE &rsaquo; À propos</div>
+    <h1>À propos du site</h1>
+    <p class="dek">Un média d'information économique et financière indépendant, centré sur la BRVM, l'UEMOA et les marchés mondiaux qui influencent la région.</p>
+
+    <div class="toc">
+      <a href="#mission">Notre mission</a>
+      <a href="#methodologie">Méthodologie</a>
+      <a href="#ia">Charte IA</a>
+      <a href="#avertissement">Avertissement légal</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <h2 id="mission">Notre mission</h2>
+    <p>ECONOZONE couvre chaque jour ouvré l'actualité boursière de la BRVM, la conjoncture macroéconomique de l'UEMOA, et les marchés mondiaux — mais uniquement lorsqu'ils ont un lien de transmission identifiable vers l'Afrique de l'Ouest. Nous ne cherchons pas à couvrir l'actualité financière mondiale dans son ensemble, mais à répondre à une question précise à chaque fois : pourquoi ce mouvement compte-t-il pour un lecteur de la région ?</p>
+
+    <h2 id="methodologie">Méthodologie</h2>
+    <p>Une partie de nos analyses boursières s'appuie sur un moteur d'analyse quantitatif propriétaire, développé en interne, qui combine des indicateurs fondamentaux (croissance du bénéfice, valorisation relative au secteur et à l'historique du titre) et techniques (régime de marché, momentum) pour produire un diagnostic sur chaque valeur suivie. Nous ne publions pas le détail de cette méthodologie, à l'image de la plupart des maisons d'analyse financière — mais nous nous engageons sur les principes suivants :</p>
+    <ul>
+      <li>Toute donnée chiffrée citée (cours, capitalisation, taux) est datée et sourcée.</li>
+      <li>Lorsqu'une source officielle (BRVM, BCEAO, AMF-UMOA) existe, elle prime toujours sur une estimation tierce.</li>
+      <li>Un écart constaté entre deux sources est signalé explicitement plutôt que résolu arbitrairement.</li>
+      <li>Nos analyses décrivent ce que disent les chiffres — elles ne constituent jamais une recommandation d'achat ou de vente.</li>
+    </ul>
+
+    <h2 id="ia">Charte sur l'usage de l'intelligence artificielle</h2>
+    <p>Une partie de la rédaction d'ECONOZONE est assistée par l'intelligence artificielle, sous supervision éditoriale humaine systématique avant publication. Nous appliquons les principes suivants :</p>
+    <ul>
+      <li>L'IA aide à structurer et rédiger un premier jet à partir de données déjà vérifiées — elle ne invente pas de données ni de sources.</li>
+      <li>Chaque article publié porte une note de la rédaction, rédigée par un humain, qui met le sujet en perspective.</li>
+      <li>Le ton reste toujours descriptif : nous expliquons ce qu'un mouvement de marché signifie, jamais ce qu'il faudrait en faire.</li>
+      <li>Toute erreur signalée par un lecteur fait l'objet d'une correction publique et datée.</li>
+    </ul>
+
+    <h2 id="avertissement">Avertissement légal</h2>
+    <div class="legal-box">
+      <p style="margin:0;">Les contenus publiés sur ECONOZONE sont fournis à des fins purement informatives et éducatives. Ils ne constituent en aucun cas des conseils en investissement, des recommandations d'achat ou de vente de titres financiers, ni une incitation à investir sur la BRVM ou tout autre marché mentionné. ECONOZONE n'est pas un conseiller financier agréé et n'est affilié à aucune Société de Gestion et d'Intermédiation (SGI), à la BRVM, à la BCEAO ni à l'AMF-UMOA. Les données de marché citées proviennent de sources publiques et peuvent contenir des délais ou des écarts par rapport aux cours officiels — nous encourageons systématiquement la vérification auprès des sources primaires avant toute décision. Investir comporte des risques de perte en capital.</p>
+    </div>
+
+    <h2 id="contact">Contact</h2>
+    <p>Pour toute question, correction à signaler, ou proposition de partenariat, contactez la rédaction via [adresse à définir].</p>
+
+    <div class="disclaimer">ECONOZONE — média indépendant d'information économique et financière sur l'Afrique de l'Ouest.</div>
+</Layout>
+
+<style>
+:root { --bg:#FAF8F4; --panel:#FFFFFF; --border:#E8E2D6; --navy:#0B2545; --text:#1C1A15; --text-muted:#4A4438; --label:#8A8272; --accent:#A9762F; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+  .topbar { width: 100%; background: var(--navy); }
+  .topbar-inner { max-width: 1000px; margin: 0 auto; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .brand { color: #fff; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; }
+  .col { width: 100%; max-width: 1000px; padding: 28px 24px 80px; }
+  .breadcrumb { font-size: 12px; color: var(--label); margin-bottom: 14px; }
+  h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600; color: var(--navy); margin: 0 0 8px; letter-spacing: -0.01em; line-height: 1.15; }
+  .dek { font-size: 15px; color: var(--text-muted); max-width: 720px; margin: 0 0 28px; line-height: 1.6; }
+  h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--navy); margin: 40px 0 8px; padding-top: 18px; border-top: 1px solid var(--border); scroll-margin-top: 20px; }
+  h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin: 20px 0 6px; letter-spacing: -0.005em; }
+  p { font-size: 14.5px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 0 12px; }
+  .toc { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 32px; font-size: 13px; }
+  .toc a { color: var(--accent); font-weight: 600; }
+  ul { padding-left: 20px; max-width: 700px; }
+  li { font-size: 14px; line-height: 1.65; color: var(--text-muted); margin-bottom: 6px; }
+  .legal-box { background: var(--panel); border: 1px solid var(--border); padding: 20px 22px; margin: 16px 0; }
+  .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--label); }
+</style>

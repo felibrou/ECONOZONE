@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const editions = [
+  { date: '2026-09-21', label: 'Lundi 21 septembre 2026', type: 'Édition de clôture', href: '/essentiel/2026-09-21' },
+  { date: '2026-09-20', label: 'Dimanche 20 septembre 2026', type: 'Synthèse hebdomadaire', href: '/essentiel/2026-09-20' },
+  { date: '2026-09-19', label: 'Samedi 19 septembre 2026', type: 'Bilan hebdomadaire', href: '/essentiel/2026-09-19' },
+  { date: '2026-09-18', label: 'Vendredi 18 septembre 2026', type: 'Édition de clôture', href: '/essentiel/2026-09-18' },
+];
+---
+<Layout title="ECONOZONE — Archives de L'Essentiel">
+  <div class="breadcrumb">ECONOZONE &rsaquo; L'Essentiel &rsaquo; Archives</div>
+  <h1>Archives de L'Essentiel</h1>
+  <p class="dek">Toutes les éditions passées de L'Essentiel | BRVM &bull; Économie &bull; Marchés.</p>
+
+  <div class="archive-list">
+    {editions.map(e => (
+      <a class="archive-row" href={e.href}>
+        <span class="archive-date">{e.label}</span>
+        <span class="archive-type">{e.type}</span>
+      </a>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .archive-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 20px; }
+  .archive-row { background: var(--panel); padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .archive-row:hover { background: #F7F4EC; }
+  .archive-date { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; color: var(--navy); font-weight: 600; }
+  .archive-type { font-size: 12px; color: var(--label); }
+</style>

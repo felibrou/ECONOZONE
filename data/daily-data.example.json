@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-18",
+  "indices": {
+    "composite": { "valeur": "548,07", "variation": "-0,27%" },
+    "brvm30": { "valeur": "265,31", "variation": "-0,41%" },
+    "prestige": { "valeur": "199,42", "variation": "-0,57%" },
+    "transactions": "3,34 milliards FCFA"
+  },
+  "largeur_marche": { "hausse": 13, "baisse": 29, "stable": 5 },
+  "faits_marquants": [
+    "SMB clôture à 17 000 FCFA (-7,56%), le jour du détachement d'un dividende de 800 FCFA.",
+    "SITAB rebondit de 5,12% à 21 970 FCFA sur 3 752 titres échangés."
+  ],
+  "radar_titres": [
+    { "symbole": "SITAB", "variation": "+5,12%", "commentaire": "Rebond avec volume significatif" },
+    { "symbole": "SMBC", "variation": "-7,56%", "commentaire": "Décote au-delà du dividende" }
+  ],
+  "macro_uemoa": {
+    "croissance_t2": "6,0%",
+    "inflation_t2": "0,4%",
+    "taux_directeur_bceao": "3,00%"
+  },
+  "marches_mondiaux": [
+    { "marche": "Nasdaq", "variation": "+1,69%" },
+    { "marche": "S&P 500", "variation": "+1,14%" }
+  ],
+  "matieres_premieres": [
+    { "nom": "Brent", "variation": "-1%", "niveau": "104,82 $/bbl" },
+    { "nom": "Or", "variation": "+2%", "niveau": "niveau élevé" }
+  ],
+  "note_redaction": ""
+}
