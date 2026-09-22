@@ -1,16 +1,16 @@
 // scripts/providers.mjs
-// Interface unifiée pour les fournisseurs IA utilisés par L'Essentiel.
 //
-// Fournisseurs actifs :
-// - ChatGPT / OpenAI
-// - Gemini / Google
-// - Grok / xAI
+// Fournisseurs IA utilisés par ECONOZONE.
 //
-// Claude est volontairement désactivé pour le moment.
+// Rôles :
+// - OpenAI / ChatGPT : rédaction automatique principale de L'Essentiel
+// - Gemini / Google : contrôle qualité indépendant
+// - Claude / Anthropic : conservé comme option disponible,
+//   mais non utilisé automatiquement dans le pipeline actuel.
 //
 // Chaque fonction prend :
 //   (systemPrompt, userMessage)
-// et retourne une chaîne HTML générée par le modèle.
+// et retourne une chaîne de texte.
 
 
 // -----------------------------------------------------------------------------
@@ -24,29 +24,27 @@ async function callOpenAI(systemPrompt, userMessage) {
     throw new Error('OPENAI_API_KEY manquante');
   }
 
-  const res = await fetch('https://api.openai.com/v1/responses', {
-    method: 'POST',
+  const res = await fetch(
+    'https://api.openai.com/v1/responses',
+    {
+      method: 'POST',
 
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
 
-    body: JSON.stringify({
-      // Modèle économique adapté à une génération éditoriale quotidienne.
-      //
-      // Alternatives :
-      // gpt-5.6-terra -> meilleure qualité, plus cher
-      // gpt-5.6-sol   -> qualité maximale, plus cher
-      model: 'gpt-5.6-luna',
+      body: JSON.stringify({
+        model: 'gpt-5.6-luna',
 
-      instructions: systemPrompt,
+        instructions: systemPrompt,
 
-      input: userMessage,
+        input: userMessage,
 
-      max_output_tokens: 8000
-    })
-  });
+        max_output_tokens: 10000
+      })
+    }
+  );
 
   if (!res.ok) {
     const errorText = await res.text();
@@ -58,8 +56,6 @@ async function callOpenAI(systemPrompt, userMessage) {
 
   const data = await res.json();
 
-  // Responses API :
-  // on récupère tous les blocs output_text.
   const text =
     data.output
       ?.flatMap(item => item.content || [])
@@ -88,15 +84,6 @@ async function callGemini(systemPrompt, userMessage) {
   if (!apiKey) {
     throw new Error('GEMINI_API_KEY manquante');
   }
-
-  // gemini-2.0-flash est retiré.
-  //
-  // Choix robuste :
-  // gemini-2.5-flash
-  //
-  // Si ton compte donne accès à Gemini 3.8 Flash,
-  // tu pourras ensuite remplacer par :
-  // gemini-3.8-flash
 
   const model = 'gemini-2.5-flash';
 
@@ -133,7 +120,8 @@ async function callGemini(systemPrompt, userMessage) {
       ],
 
       generationConfig: {
-        maxOutputTokens: 8000
+        maxOutputTokens: 10000,
+        temperature: 0
       }
     })
   });
@@ -174,38 +162,38 @@ async function callGemini(systemPrompt, userMessage) {
 
 
 // -----------------------------------------------------------------------------
-// xAI / GROK
+// CLAUDE / ANTHROPIC
+//
+// Conservé comme option disponible.
+// Non appelé automatiquement dans le pipeline de publication actuel.
 // -----------------------------------------------------------------------------
 
-async function callGrok(systemPrompt, userMessage) {
-  const apiKey = process.env.XAI_API_KEY;
+async function callClaude(systemPrompt, userMessage) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
-    throw new Error('XAI_API_KEY manquante');
+    throw new Error('ANTHROPIC_API_KEY manquante');
   }
 
   const res = await fetch(
-    'https://api.x.ai/v1/chat/completions',
+    'https://api.anthropic.com/v1/messages',
     {
       method: 'POST',
 
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
       },
 
       body: JSON.stringify({
-        // Modèle xAI actuel.
-        model: 'grok-4.7',
+        model: 'claude-sonnet-4-6',
 
-        max_tokens: 8000,
+        max_tokens: 10000,
+
+        system: systemPrompt,
 
         messages: [
-          {
-            role: 'system',
-            content: systemPrompt
-          },
-
           {
             role: 'user',
             content: userMessage
@@ -219,18 +207,22 @@ async function callGrok(systemPrompt, userMessage) {
     const errorText = await res.text();
 
     throw new Error(
-      `Grok API: ${res.status} ${errorText}`
+      `Claude API: ${res.status} ${errorText}`
     );
   }
 
   const data = await res.json();
 
   const text =
-    data.choices?.[0]?.message?.content?.trim();
+    data.content
+      ?.filter(block => block.type === 'text')
+      ?.map(block => block.text)
+      ?.join('\n')
+      ?.trim();
 
   if (!text) {
     throw new Error(
-      'Grok API : réponse reçue mais aucun texte exploitable'
+      'Claude API : réponse reçue mais aucun texte exploitable'
     );
   }
 
@@ -256,10 +248,10 @@ export const PROVIDERS = {
     call: callGemini
   },
 
-  grok: {
-    label: 'Grok (xAI)',
-    envKey: 'XAI_API_KEY',
-    call: callGrok
+  claude: {
+    label: 'Claude (Anthropic)',
+    envKey: 'ANTHROPIC_API_KEY',
+    call: callClaude
   }
 
 };
