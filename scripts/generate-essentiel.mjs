@@ -123,103 +123,108 @@ Le champ "note_redaction" du JSON d'entrée, s'il est vide, doit rester "[Note d
 Ne fournis pas d'explication sur la méthode utilisée, de notes internes, de données privées, ni de commentaire adressé au propriétaire du site.`;
 
 async function main() {
-  // Claude est volontairement exclu pour le moment.
-  const ACTIVE_PROVIDERS = ['chatgpt', 'gemini', 'grok'];
+  const provider = PROVIDERS.chatgpt;
 
-  // ChatGPT est le fournisseur par défaut.
-  const requestedProvider = (process.env.AI_PROVIDER || 'chatgpt').toLowerCase();
+  console.log('');
+  console.log('==========================================');
+  console.log("✍️  RÉDACTION DE L'ESSENTIEL — OPENAI");
+  console.log('==========================================');
 
-  if (!ACTIVE_PROVIDERS.includes(requestedProvider)) {
-    console.warn(
-      `⚠️ AI_PROVIDER="${requestedProvider}" n'est pas actif. ` +
-      `Fournisseurs autorisés : ${ACTIVE_PROVIDERS.join(', ')}. ` +
-      `Bascule automatique sur chatgpt.`
+  if (!provider) {
+    console.error(
+      '❌ Le fournisseur "chatgpt" est absent de scripts/providers.mjs.'
     );
+    process.exit(1);
   }
 
-  const firstProvider = ACTIVE_PROVIDERS.includes(requestedProvider)
-    ? requestedProvider
-    : 'chatgpt';
+  if (!process.env.OPENAI_API_KEY) {
+    console.error(
+      '❌ OPENAI_API_KEY est absente des secrets GitHub.'
+    );
+    process.exit(1);
+  }
 
-  const orderedProviders = [
-    firstProvider,
-    ...ACTIVE_PROVIDERS.filter((name) => name !== firstProvider),
-  ];
+  if (!fs.existsSync(DATA_PATH)) {
+    console.error(
+      `❌ Fichier de données introuvable : ${DATA_PATH}`
+    );
+    process.exit(1);
+  }
 
-  const raw = fs.readFileSync(DATA_PATH, 'utf-8');
-  const data = JSON.parse(raw);
+  let data;
+
+  try {
+    const raw = fs.readFileSync(DATA_PATH, 'utf-8');
+    data = JSON.parse(raw);
+  } catch (err) {
+    console.error(
+      '❌ Impossible de lire data/daily-data.json :',
+      err.message || err
+    );
+    process.exit(1);
+  }
+
+  if (!data.date) {
+    console.error(
+      '❌ Le champ "date" est absent de data/daily-data.json.'
+    );
+    process.exit(1);
+  }
 
   const userMessage =
     `Voici les données du ${data.date} :\n\n` +
     `${JSON.stringify(data, null, 2)}\n\n` +
-    `Génère le contenu de la page.`;
+    `À partir exclusivement des informations exploitables ci-dessus et des règles ` +
+    `du prompt éditorial, génère le contenu HTML de la page L'Essentiel. ` +
+    `N'invente aucune donnée absente ou non vérifiable.`;
 
-  console.log('');
-  console.log('=== ÉTAT DES FOURNISSEURS IA ===');
+  console.log(`→ Données chargées pour le ${data.date}`);
+  console.log(`→ Génération via ${provider.label}...`);
 
-  let bodyHtml = null;
-  let providerUsed = null;
-  const failures = [];
+  let bodyHtml;
 
-  for (const providerName of orderedProviders) {
-    const provider = PROVIDERS[providerName];
-
-    if (!provider) {
-      console.log(`⚪ ${providerName} : fournisseur absent de providers.mjs`);
-      failures.push(`${providerName}: fournisseur non configuré`);
-      continue;
-    }
-
-    if (!process.env[provider.envKey]) {
-      console.log(
-        `⚪ ${provider.label} : clé ${provider.envKey} absente — fournisseur ignoré`
-      );
-      failures.push(`${provider.label}: clé API absente`);
-      continue;
-    }
-
-    console.log(`→ Tentative de génération via ${provider.label}...`);
-
-    try {
-      const result = await provider.call(SYSTEM_PROMPT, userMessage);
-
-      if (!result || !String(result).trim()) {
-        throw new Error('Réponse vide reçue');
-      }
-
-      bodyHtml = result;
-      providerUsed = provider;
-
-      console.log(`✅ ${provider.label} : génération réussie`);
-      break;
-
-    } catch (err) {
-      const message = err?.message || String(err);
-
-      console.error(`❌ ${provider.label} : ${message}`);
-      failures.push(`${provider.label}: ${message}`);
-
-      console.log('→ Passage au fournisseur suivant...');
-    }
+  try {
+    bodyHtml = await provider.call(
+      SYSTEM_PROMPT,
+      userMessage
+    );
+  } catch (err) {
+    console.error('');
+    console.error(
+      `❌ Échec de la rédaction avec ${provider.label} :`
+    );
+    console.error(
+      err?.message || String(err)
+    );
+    process.exit(1);
   }
 
-  console.log('===============================');
-  console.log('');
-
-  if (!bodyHtml || !providerUsed) {
+  if (!bodyHtml || !String(bodyHtml).trim()) {
     console.error(
-      '❌ Aucun fournisseur IA disponible n’a réussi à générer le contenu.'
+      '❌ OpenAI a retourné une réponse vide.'
     );
+    process.exit(1);
+  }
 
-    if (failures.length) {
-      console.error('');
-      console.error('Détails des échecs :');
+  bodyHtml = String(bodyHtml).trim();
 
-      for (const failure of failures) {
-        console.error(`- ${failure}`);
-      }
-    }
+  if (
+    bodyHtml.startsWith('```html') ||
+    bodyHtml.startsWith('```')
+  ) {
+    console.error(
+      '❌ OpenAI a retourné du Markdown au lieu du HTML attendu.'
+    );
+    process.exit(1);
+  }
 
+  if (
+    bodyHtml.includes('<Layout') ||
+    bodyHtml.includes('</Layout>')
+  ) {
+    console.error(
+      '❌ OpenAI a retourné une balise <Layout>.'
+    );
     process.exit(1);
   }
 
@@ -232,14 +237,38 @@ ${bodyHtml}
 </Layout>
 `;
 
-  fs.writeFileSync(OUTPUT_PATH, astroFile, 'utf-8');
+  try {
+    fs.writeFileSync(
+      OUTPUT_PATH,
+      astroFile,
+      'utf-8'
+    );
+  } catch (err) {
+    console.error(
+      '❌ Impossible d’écrire essentiel.astro :',
+      err.message || err
+    );
+    process.exit(1);
+  }
 
+  console.log('');
   console.log(
-    `✓ ${OUTPUT_PATH} régénéré pour le ${data.date} via ${providerUsed.label}.`
+    `✅ ${OUTPUT_PATH} régénéré pour le ${data.date}.`
   );
+  console.log(
+    `✅ Rédacteur automatique : ${provider.label}`
+  );
+  console.log(
+    '→ Étape suivante : contrôle qualité indépendant par Gemini.'
+  );
+  console.log('==========================================');
 }
 
 main().catch((err) => {
-  console.error('Échec général de la génération :', err);
+  console.error(
+    '❌ Échec général de la génération :',
+    err?.message || err
+  );
+
   process.exit(1);
 });
