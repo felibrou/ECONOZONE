@@ -23,7 +23,7 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const MODEL = 'gemini-2.5-flash';
+const MODEL = 'gemini-3.6-flash';
 
 const QA_PROMPT = `
 Tu es le contrôleur qualité éditorial et technique du média économique
