@@ -1,71 +1,195 @@
-name: Générer L'Essentiel du jour
+name: Générer et publier L'Essentiel
 
-# Se déclenche automatiquement quand vous mettez à jour data/daily-data.json,
-# ou manuellement depuis l'onglet "Actions" de GitHub — avec le choix du fournisseur IA.
+# ---------------------------------------------------------------------------
+# DÉCLENCHEMENT
+#
+# 1. Automatiquement lorsque data/daily-data.json est mis à jour sur main
+# 2. Manuellement depuis l'onglet Actions de GitHub
+# ---------------------------------------------------------------------------
+
 on:
   push:
+    branches:
+      - main
     paths:
       - 'data/daily-data.json'
-  workflow_dispatch:
-    inputs:
-      ai_provider:
-        description: 'Fournisseur IA à utiliser'
-        required: true
-        default: 'claude'
-        type: choice
-        options:
-          - claude
-          - chatgpt
-          - gemini
-          - grok
-          - copilot
 
+  workflow_dispatch:
+
+# Évite deux générations simultanées de L'Essentiel.
+concurrency:
+  group: essentiel-production
+  cancel-in-progress: false
+
+# Le workflow doit pouvoir écrire la nouvelle édition dans le dépôt.
 permissions:
   contents: write
-  pull-requests: write
+
 
 jobs:
-  generate-and-pr:
+
+  generate-check-publish:
+
+    name: Rédaction → Contrôle → Publication
+
     runs-on: ubuntu-latest
+
     steps:
+
+      # ---------------------------------------------------------------------
+      # 1. RÉCUPÉRER LE DÉPÔT
+      # ---------------------------------------------------------------------
+
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+
+      # ---------------------------------------------------------------------
+      # 2. INSTALLER NODE.JS
+      # ---------------------------------------------------------------------
 
       - name: Installer Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+
+      # ---------------------------------------------------------------------
+      # 3. INSTALLER LES DÉPENDANCES
+      # ---------------------------------------------------------------------
+
       - name: Installer les dépendances
         run: npm install
 
-      - name: Générer le contenu via l'IA choisie
+
+      # ---------------------------------------------------------------------
+      # 4. OPENAI RÉDIGE L'ESSENTIEL
+      #
+      # OpenAI est le rédacteur automatique principal.
+      # Claude, Grok et Copilot ne sont PAS appelés.
+      # ---------------------------------------------------------------------
+
+      - name: Rédiger L'Essentiel avec OpenAI
         env:
-          AI_PROVIDER: ${{ github.event.inputs.ai_provider || 'claude' }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AI_PROVIDER: chatgpt
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "✍️  RÉDACTION DE L'ESSENTIEL — OPENAI"
+          echo "=========================================="
+          node scripts/generate-essentiel.mjs
+
+
+      # ---------------------------------------------------------------------
+      # 5. GEMINI CONTRÔLE LE CONTENU
+      #
+      # Gemini ne réécrit pas l'article.
+      # Il sert de contrôleur qualité indépendant.
+      #
+      # PASS → workflow continue
+      # FAIL → workflow s'arrête, aucune publication
+      # ---------------------------------------------------------------------
+
+      - name: Contrôler L'Essentiel avec Gemini
+        env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
-          # Optionnel — voir README : présent = Copilot natif (facturation Copilot),
-          # absent = Copilot en mode BYOK via ANTHROPIC_API_KEY (aucun coût Copilot).
-          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
-        run: node scripts/generate-essentiel.mjs
 
-      - name: Ouvrir une Pull Request pour relecture
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "Essentiel du jour — généré automatiquement (${{ github.event.inputs.ai_provider || 'claude' }})"
-          title: "L'Essentiel — édition à relire avant publication"
-          body: |
-            Cette page a été générée automatiquement à partir de `data/daily-data.json`,
-            via le fournisseur **${{ github.event.inputs.ai_provider || 'claude' }}**.
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "🔎 CONTRÔLE QUALITÉ — GEMINI"
+          echo "=========================================="
+          node scripts/qa-essentiel.mjs
 
-            **Avant de fusionner (Merge) :**
-            - [ ] Vérifier les chiffres cités
-            - [ ] Compléter la "Note de la rédaction"
-            - [ ] Remplacer chaque `<!-- PHOTO: ... -->` par une vraie image (recherche manuelle, droits respectés)
-            - [ ] Ouvrir le lien d'aperçu Vercel ci-dessous pour voir le rendu réel
 
-            Rien n'est publié sur le site tant que cette PR n'est pas fusionnée.
-          branch: essentiel-du-jour
-          delete-branch: true
+      # ---------------------------------------------------------------------
+      # 6. CONTRÔLE TECHNIQUE ASTRO
+      #
+      # Même si Gemini donne PASS, on vérifie que le nouveau contenu
+      # ne casse pas le site.
+      # ---------------------------------------------------------------------
+
+      - name: Vérifier la compilation du site
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "🧪 TEST DE COMPILATION DU SITE"
+          echo "=========================================="
+          npm run build
+
+
+      # ---------------------------------------------------------------------
+      # 7. VÉRIFIER LES MODIFICATIONS
+      # ---------------------------------------------------------------------
+
+      - name: Vérifier qu'une nouvelle édition a été générée
+        id: changes
+        run: |
+          git add src/pages/essentiel.astro
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "ℹ️ Aucune modification détectée dans essentiel.astro."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Une nouvelle édition a été générée."
+          fi
+
+
+      # ---------------------------------------------------------------------
+      # 8. COMMIT ET PUBLICATION SUR MAIN
+      #
+      # Cette étape n'est exécutée que :
+      # - si OpenAI a réussi ;
+      # - si Gemini a donné PASS ;
+      # - si npm run build a réussi ;
+      # - si essentiel.astro a réellement changé.
+      #
+      # Vercel détectera ensuite le commit sur main.
+      # ---------------------------------------------------------------------
+
+      - name: Publier L'Essentiel sur GitHub
+        if: steps.changes.outputs.changed == 'true'
+
+        run: |
+          git config user.name "ECONOZONE Automation"
+          git config user.email "actions@github.com"
+
+          git commit -m "Publication automatique de L'Essentiel"
+          git push origin main
+
+
+      # ---------------------------------------------------------------------
+      # 9. CONFIRMATION
+      # ---------------------------------------------------------------------
+
+      - name: Confirmer la publication
+        if: steps.changes.outputs.changed == 'true'
+
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "✅ PUBLICATION AUTORISÉE"
+          echo "=========================================="
+          echo "OpenAI        : rédaction réussie"
+          echo "Gemini        : contrôle qualité réussi"
+          echo "Astro         : compilation réussie"
+          echo "GitHub        : nouvelle édition enregistrée"
+          echo "Vercel        : déploiement attendu automatiquement"
+          echo "=========================================="
+
+
+      # ---------------------------------------------------------------------
+      # 10. CAS OÙ AUCUNE MODIFICATION N'EST NÉCESSAIRE
+      # ---------------------------------------------------------------------
+
+      - name: Aucune publication nécessaire
+        if: steps.changes.outputs.changed == 'false'
+
+        run: |
+          echo "ℹ️ Le contenu généré est identique au contenu déjà publié."
+          echo "Aucun nouveau commit n'a été créé."
