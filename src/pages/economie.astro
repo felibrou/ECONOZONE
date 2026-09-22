@@ -64,54 +64,52 @@ import Layout from '../layouts/Layout.astro';
     </table>
     <div class="note"><b>Pourquoi cet écart :</b> l'arrimage du franc CFA à l'euro limite mécaniquement les dérapages de prix qui frappent le Ghana et surtout le Nigeria, dont la monnaie flottante s'est dépréciée en continu depuis la suppression des subventions sur le carburant. Une partie de l'avantage inflationniste de l'UEMOA est donc un effet de régime monétaire, pas seulement une meilleure gestion conjoncturelle — une nuance à garder en tête dans toute comparaison entre la zone franc et ses voisins CEDEAO, quel que soit le pays choisi.</div>
 
-    <h2 id="historique">Données historiques : BRVM et croissance UEMOA</h2>
-    <p>Deux séries longues, construites à partir de sources officielles (BRVM, BCEAO) plutôt que d'estimations — sélectionnez l'horizon disponible.</p>
+    <h2 id="historique">Données historiques : croissance UEMOA / CEDEAO</h2>
+    <p>Une série construite à partir de sources officielles (BCEAO) plutôt que d'estimations — sélectionnez l'horizon pour filtrer les années affichées.</p>
 
     <div class="horizon-bar">
-      <button class="h-chip active" data-horizon="1a">1 an</button>
+      <button class="h-chip" data-horizon="1a">1 an</button>
       <button class="h-chip" data-horizon="3a">3 ans</button>
-      <button class="h-chip" data-horizon="5a">5 ans</button>
+      <button class="h-chip active" data-horizon="5a">5 ans</button>
       <button class="h-chip disabled" data-horizon="10a" title="Nécessite une source de données historiques supplémentaire">10 ans</button>
       <button class="h-chip disabled" data-horizon="20a" title="Nécessite une source de données historiques supplémentaire">20 ans</button>
       <button class="h-chip disabled" data-horizon="30a" title="Nécessite une source de données historiques supplémentaire">30 ans</button>
     </div>
     <p style="font-size:11px; color:var(--label); margin-top:-4px;">Horizons grisés : pas encore de source vérifiée disponible — activés dès qu'une base de données historique fiable est branchée, plutôt que remplis par estimation.</p>
 
-    <h3>BRVM Composite — performance annuelle</h3>
-    <div class="chart-box" id="chart-brvm">
-      <svg viewBox="0 0 520 200" style="width:100%; height:auto;">
-        <line x1="40" y1="10" x2="40" y2="170" stroke="var(--border)" stroke-width="1"/>
-        <line x1="40" y1="170" x2="500" y2="170" stroke="var(--border)" stroke-width="1"/>
-        <!-- barres : hauteur proportionnelle à la variation annuelle (max 39.15% = 150px) -->
-        <g class="bar-2021"><rect x="60" y="26" width="50" height="144" fill="var(--up)"/><text x="85" y="20" text-anchor="middle" font-size="11" fill="var(--text)">+39,2%</text><text x="85" y="185" text-anchor="middle" font-size="11" fill="var(--label)">2021</text></g>
-        <g class="bar-2022"><rect x="130" y="168" width="50" height="2" fill="var(--up)"/><text x="155" y="20" text-anchor="middle" font-size="11" fill="var(--text)">+0,5%</text><text x="155" y="185" text-anchor="middle" font-size="11" fill="var(--label)">2022</text></g>
-        <g class="bar-3a"><rect x="200" y="149" width="50" height="21" fill="var(--up)"/><text x="225" y="20" text-anchor="middle" font-size="11" fill="var(--text)">+5,4%</text><text x="225" y="185" text-anchor="middle" font-size="11" fill="var(--label)">2023</text></g>
-        <g class="bar-3a"><rect x="270" y="63" width="50" height="107" fill="var(--up)"/><text x="295" y="20" text-anchor="middle" font-size="11" fill="var(--text)">+28,9%</text><text x="295" y="185" text-anchor="middle" font-size="11" fill="var(--label)">2024</text></g>
-        <g class="bar-5a"><rect x="340" y="72" width="50" height="98" fill="var(--up)"/><text x="365" y="20" text-anchor="middle" font-size="11" fill="var(--text)">+25,3%</text><text x="365" y="185" text-anchor="middle" font-size="11" fill="var(--label)">2025</text></g>
-      </svg>
-    </div>
-    <p style="font-size:12px; color:var(--label);">L'indice est passé de 145,37 points (1ᵉʳ janvier 2021) à 345,75 points (31 décembre 2025), soit +99,15 % cumulé en 5 ans. Source : communiqué officiel BRVM, "2025 : la consolidation quinquennale".</p>
-
     <h3>Croissance du PIB réel — UEMOA</h3>
     <table class="z">
       <thead><tr><th>Année</th><th>Croissance PIB UEMOA</th><th>Source</th></tr></thead>
-      <tbody>
-        <tr><td>2021</td><td class="up">5,8 %</td><td>BCEAO</td></tr>
-        <tr><td>2022</td><td class="flat">n. d.</td><td>&mdash;</td></tr>
-        <tr><td>2023</td><td class="up">5,7 %</td><td>BCEAO (rapport déc. 2023)</td></tr>
-        <tr><td>2024</td><td class="up">6,2 %</td><td>BCEAO (rapport annuel)</td></tr>
-        <tr class="highlight"><td>2025</td><td class="up">6,7 %</td><td>BCEAO (rapport annuel, juil. 2026)</td></tr>
+      <tbody id="growth-table-body">
+        <tr data-year="2021"><td>2021</td><td class="up">5,8 %</td><td>BCEAO</td></tr>
+        <tr data-year="2022"><td>2022</td><td class="flat">n. d.</td><td>&mdash;</td></tr>
+        <tr data-year="2023"><td>2023</td><td class="up">5,7 %</td><td>BCEAO (rapport déc. 2023)</td></tr>
+        <tr data-year="2024"><td>2024</td><td class="up">6,2 %</td><td>BCEAO (rapport annuel)</td></tr>
+        <tr data-year="2025" class="highlight"><td>2025</td><td class="up">6,7 %</td><td>BCEAO (rapport annuel, juil. 2026)</td></tr>
       </tbody>
     </table>
 
     <script>
+      var horizonYears = {
+        '1a': ['2025'],
+        '3a': ['2023', '2024', '2025'],
+        '5a': ['2021', '2022', '2023', '2024', '2025']
+      };
+      function applyHorizon(key) {
+        var years = horizonYears[key];
+        document.querySelectorAll('#growth-table-body tr').forEach(function (row) {
+          row.style.display = years.includes(row.getAttribute('data-year')) ? '' : 'none';
+        });
+      }
       document.querySelectorAll('.h-chip').forEach(function (btn) {
         if (btn.classList.contains('disabled')) return;
         btn.addEventListener('click', function () {
           document.querySelectorAll('.h-chip').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          applyHorizon(btn.getAttribute('data-horizon'));
         });
       });
+      applyHorizon('5a');
     </script>
 
     <h2>Croissance ≠ mieux-être : ce que le PIB ne montre pas</h2>
@@ -132,9 +130,9 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 :root {
-    --bg: #FAF8F4; --panel: #FFFFFF; --border: #E8E2D6; --row-border: #F1EDE4;
-    --navy: #0B2545; --text: #1C1A15; --text-muted: #4A4438; --label: #8A8272; --accent: #A9762F;
-    --up: #1B7A43; --down: #A8382A;
+    --bg: #FFFFFF; --panel: #FFFFFF; --panel-alt: #F4F7FB; --border: #D9E0EA; --row-border: #EEF2F7;
+    --blue: #003DA5; --blue-dark: #00286E; --green: #00843D; --navy: #003DA5; --text: #10182B; --text-muted: #3D4759; --label: #64708A; --accent: #00843D;
+    --up: #00843D; --down: #C0392B;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; }

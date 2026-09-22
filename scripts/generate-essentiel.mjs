@@ -1,18 +1,12 @@
 // scripts/generate-essentiel.mjs
-// Lit data/daily-data.json, appelle un fournisseur IA disponible avec le prompt maître
-// éditorial, puis réécrit src/pages/essentiel.astro.
+// Lit data/daily-data.json, appelle OpenAI (rédacteur automatique principal) avec le
+// prompt maître éditorial, puis réécrit src/pages/essentiel.astro.
 //
-// // OpenAI / ChatGPT est le rédacteur automatique unique de L'Essentiel.
+// Gemini intervient séparément dans qa-essentiel.mjs comme contrôleur qualité indépendant.
+// Claude reste disponible pour le développement du site, mais n'intervient pas dans ce
+// pipeline automatique.
 //
-// Gemini intervient séparément dans qa-essentiel.mjs
-// comme contrôleur qualité indépendant.
-//
-// Claude reste utilisé pour le développement du site,
-// mais n'intervient pas dans ce pipeline automatique.
-//
-// Chaque fournisseur a besoin de sa propre clé API en secret GitHub.
-//
-// Usage local : AI_PROVIDER=chatgpt node scripts/generate-essentiel.mjs
+// Usage local : node scripts/generate-essentiel.mjs
 // Usage CI     : appelé par .github/workflows/daily-essentiel.yml
 
 import fs from 'node:fs';
@@ -132,43 +126,31 @@ async function main() {
   console.log('==========================================');
 
   if (!provider) {
-    console.error(
-      '❌ Le fournisseur "chatgpt" est absent de scripts/providers.mjs.'
-    );
+    console.error('❌ Le fournisseur "chatgpt" est absent de scripts/providers.mjs.');
     process.exit(1);
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    console.error(
-      '❌ OPENAI_API_KEY est absente des secrets GitHub.'
-    );
+    console.error('❌ OPENAI_API_KEY est absente des secrets GitHub.');
     process.exit(1);
   }
 
   if (!fs.existsSync(DATA_PATH)) {
-    console.error(
-      `❌ Fichier de données introuvable : ${DATA_PATH}`
-    );
+    console.error(`❌ Fichier de données introuvable : ${DATA_PATH}`);
     process.exit(1);
   }
 
   let data;
-
   try {
     const raw = fs.readFileSync(DATA_PATH, 'utf-8');
     data = JSON.parse(raw);
   } catch (err) {
-    console.error(
-      '❌ Impossible de lire data/daily-data.json :',
-      err.message || err
-    );
+    console.error('❌ Impossible de lire data/daily-data.json :', err.message || err);
     process.exit(1);
   }
 
   if (!data.date) {
-    console.error(
-      '❌ Le champ "date" est absent de data/daily-data.json.'
-    );
+    console.error('❌ Le champ "date" est absent de data/daily-data.json.');
     process.exit(1);
   }
 
@@ -183,49 +165,29 @@ async function main() {
   console.log(`→ Génération via ${provider.label}...`);
 
   let bodyHtml;
-
   try {
-    bodyHtml = await provider.call(
-      SYSTEM_PROMPT,
-      userMessage
-    );
+    bodyHtml = await provider.call(SYSTEM_PROMPT, userMessage);
   } catch (err) {
     console.error('');
-    console.error(
-      `❌ Échec de la rédaction avec ${provider.label} :`
-    );
-    console.error(
-      err?.message || String(err)
-    );
+    console.error(`❌ Échec de la rédaction avec ${provider.label} :`);
+    console.error(err?.message || String(err));
     process.exit(1);
   }
 
   if (!bodyHtml || !String(bodyHtml).trim()) {
-    console.error(
-      '❌ OpenAI a retourné une réponse vide.'
-    );
+    console.error('❌ OpenAI a retourné une réponse vide.');
     process.exit(1);
   }
 
   bodyHtml = String(bodyHtml).trim();
 
-  if (
-    bodyHtml.startsWith('```html') ||
-    bodyHtml.startsWith('```')
-  ) {
-    console.error(
-      '❌ OpenAI a retourné du Markdown au lieu du HTML attendu.'
-    );
+  if (bodyHtml.startsWith('```html') || bodyHtml.startsWith('```')) {
+    console.error('❌ OpenAI a retourné du Markdown au lieu du HTML attendu.');
     process.exit(1);
   }
 
-  if (
-    bodyHtml.includes('<Layout') ||
-    bodyHtml.includes('</Layout>')
-  ) {
-    console.error(
-      '❌ OpenAI a retourné une balise <Layout>.'
-    );
+  if (bodyHtml.includes('<Layout') || bodyHtml.includes('</Layout>')) {
+    console.error('❌ OpenAI a retourné une balise <Layout>.');
     process.exit(1);
   }
 
@@ -239,37 +201,20 @@ ${bodyHtml}
 `;
 
   try {
-    fs.writeFileSync(
-      OUTPUT_PATH,
-      astroFile,
-      'utf-8'
-    );
+    fs.writeFileSync(OUTPUT_PATH, astroFile, 'utf-8');
   } catch (err) {
-    console.error(
-      '❌ Impossible d’écrire essentiel.astro :',
-      err.message || err
-    );
+    console.error("❌ Impossible d'écrire essentiel.astro :", err.message || err);
     process.exit(1);
   }
 
   console.log('');
-  console.log(
-    `✅ ${OUTPUT_PATH} régénéré pour le ${data.date}.`
-  );
-  console.log(
-    `✅ Rédacteur automatique : ${provider.label}`
-  );
-  console.log(
-    '→ Étape suivante : contrôle qualité indépendant par Gemini.'
-  );
+  console.log(`✅ ${OUTPUT_PATH} régénéré pour le ${data.date}.`);
+  console.log(`✅ Rédacteur automatique : ${provider.label}`);
+  console.log('→ Étape suivante : contrôle qualité indépendant par Gemini.');
   console.log('==========================================');
 }
 
 main().catch((err) => {
-  console.error(
-    '❌ Échec général de la génération :',
-    err?.message || err
-  );
-
+  console.error('❌ Échec général de la génération :', err?.message || err);
   process.exit(1);
 });

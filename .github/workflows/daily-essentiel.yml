@@ -1,4 +1,4 @@
-name: Générer et publier L'Essentiel
+name: Générer et publier L'Essentiel et Matières premières
 
 # ---------------------------------------------------------------------------
 # DÉCLENCHEMENT
@@ -16,7 +16,7 @@ on:
 
   workflow_dispatch:
 
-# Évite deux générations simultanées de L'Essentiel.
+# Évite deux générations simultanées.
 concurrency:
   group: essentiel-production
   cancel-in-progress: false
@@ -66,16 +66,11 @@ jobs:
 
       # ---------------------------------------------------------------------
       # 4. OPENAI RÉDIGE L'ESSENTIEL
-      #
-      # OpenAI est le rédacteur automatique principal.
-      # Claude, Grok et Copilot ne sont PAS appelés.
       # ---------------------------------------------------------------------
 
       - name: Rédiger L'Essentiel avec OpenAI
         env:
-          AI_PROVIDER: chatgpt
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
         run: |
           echo ""
           echo "=========================================="
@@ -85,10 +80,7 @@ jobs:
 
 
       # ---------------------------------------------------------------------
-      # 5. GEMINI CONTRÔLE LE CONTENU
-      #
-      # Gemini ne réécrit pas l'article.
-      # Il sert de contrôleur qualité indépendant.
+      # 5. GEMINI CONTRÔLE L'ESSENTIEL
       #
       # PASS → workflow continue
       # FAIL → workflow s'arrête, aucune publication
@@ -97,20 +89,49 @@ jobs:
       - name: Contrôler L'Essentiel avec Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
         run: |
           echo ""
           echo "=========================================="
-          echo "🔎 CONTRÔLE QUALITÉ — GEMINI"
+          echo "🔎 CONTRÔLE QUALITÉ — L'ESSENTIEL"
           echo "=========================================="
           node scripts/qa-essentiel.mjs
 
 
       # ---------------------------------------------------------------------
-      # 6. CONTRÔLE TECHNIQUE ASTRO
+      # 6. OPENAI RÉDIGE LA ZONE DYNAMIQUE DE MATIÈRES PREMIÈRES
+      # ---------------------------------------------------------------------
+
+      - name: Rédiger Matières premières avec OpenAI
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "✍️  RÉDACTION MATIÈRES PREMIÈRES — OPENAI"
+          echo "=========================================="
+          node scripts/generate-commodities.mjs
+
+
+      # ---------------------------------------------------------------------
+      # 7. GEMINI CONTRÔLE MATIÈRES PREMIÈRES
+      # ---------------------------------------------------------------------
+
+      - name: Contrôler Matières premières avec Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "🔎 CONTRÔLE QUALITÉ — MATIÈRES PREMIÈRES"
+          echo "=========================================="
+          node scripts/qa-commodities.mjs
+
+
+      # ---------------------------------------------------------------------
+      # 8. CONTRÔLE TECHNIQUE ASTRO
       #
-      # Même si Gemini donne PASS, on vérifie que le nouveau contenu
-      # ne casse pas le site.
+      # Même si Gemini donne PASS aux deux pages, on vérifie que le nouveau
+      # contenu ne casse pas le site.
       # ---------------------------------------------------------------------
 
       - name: Vérifier la compilation du site
@@ -123,17 +144,17 @@ jobs:
 
 
       # ---------------------------------------------------------------------
-      # 7. VÉRIFIER LES MODIFICATIONS
+      # 9. VÉRIFIER LES MODIFICATIONS
       # ---------------------------------------------------------------------
 
       - name: Vérifier qu'une nouvelle édition a été générée
         id: changes
         run: |
-          git add src/pages/essentiel.astro
+          git add src/pages/essentiel.astro src/pages/matieres-premieres.astro
 
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "ℹ️ Aucune modification détectée dans essentiel.astro."
+            echo "ℹ️ Aucune modification détectée."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "✅ Une nouvelle édition a été générée."
@@ -141,42 +162,40 @@ jobs:
 
 
       # ---------------------------------------------------------------------
-      # 8. COMMIT ET PUBLICATION SUR MAIN
+      # 10. COMMIT ET PUBLICATION SUR MAIN
       #
       # Cette étape n'est exécutée que :
-      # - si OpenAI a réussi ;
-      # - si Gemini a donné PASS ;
+      # - si OpenAI a réussi sur les deux pages ;
+      # - si Gemini a donné PASS sur les deux pages ;
       # - si npm run build a réussi ;
-      # - si essentiel.astro a réellement changé.
+      # - si du contenu a réellement changé.
       #
       # Vercel détectera ensuite le commit sur main.
       # ---------------------------------------------------------------------
 
-      - name: Publier L'Essentiel sur GitHub
+      - name: Publier sur GitHub
         if: steps.changes.outputs.changed == 'true'
-
         run: |
           git config user.name "ECONOZONE Automation"
           git config user.email "actions@github.com"
 
-          git commit -m "Publication automatique de L'Essentiel"
+          git commit -m "Publication automatique — L'Essentiel et Matières premières"
           git push origin main
 
 
       # ---------------------------------------------------------------------
-      # 9. CONFIRMATION
+      # 11. CONFIRMATION
       # ---------------------------------------------------------------------
 
       - name: Confirmer la publication
         if: steps.changes.outputs.changed == 'true'
-
         run: |
           echo ""
           echo "=========================================="
           echo "✅ PUBLICATION AUTORISÉE"
           echo "=========================================="
-          echo "OpenAI        : rédaction réussie"
-          echo "Gemini        : contrôle qualité réussi"
+          echo "OpenAI        : rédaction réussie (2 pages)"
+          echo "Gemini        : contrôle qualité réussi (2 pages)"
           echo "Astro         : compilation réussie"
           echo "GitHub        : nouvelle édition enregistrée"
           echo "Vercel        : déploiement attendu automatiquement"
@@ -184,12 +203,11 @@ jobs:
 
 
       # ---------------------------------------------------------------------
-      # 10. CAS OÙ AUCUNE MODIFICATION N'EST NÉCESSAIRE
+      # 12. CAS OÙ AUCUNE MODIFICATION N'EST NÉCESSAIRE
       # ---------------------------------------------------------------------
 
       - name: Aucune publication nécessaire
         if: steps.changes.outputs.changed == 'false'
-
         run: |
           echo "ℹ️ Le contenu généré est identique au contenu déjà publié."
           echo "Aucun nouveau commit n'a été créé."

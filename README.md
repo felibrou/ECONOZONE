@@ -31,65 +31,73 @@ Une fois déployé : Project Settings → Domains → entrez votre domaine achet
 
 Chaque page est un fichier `.astro` dans `src/pages/` — c'est du HTML avec un peu de logique. Vous pouvez éditer directement le texte entre les balises, ou me redonner ce projet à modifier dans une prochaine session.
 
-## Automatiser "L'Essentiel" avec relecture humaine obligatoire
+## Publication automatique quotidienne — L'Essentiel et Matières premières
 
-Le dossier `.github/workflows/`, `scripts/` et `data/` mettent en place un pipeline complet :
+Le pipeline publie directement sur `main` (donc sur le site en production) après un
+double contrôle automatique — **choix assumé pour préserver la fraîcheur quotidienne de
+l'information plutôt que d'introduire un délai de relecture avant chaque édition**. La
+supervision humaine reste réelle, mais prend une forme différente d'une Pull Request
+classique : vous suivez le déroulement du workflow **en direct** dans l'onglet Actions de
+GitHub (chaque étape s'affiche au fur et à mesure, y compris la décision PASS/FAIL de
+Gemini), avec la possibilité d'**interrompre l'exécution avant le push final** si quelque
+chose semble anormal. Si une erreur passe malgré tout, une **correction a posteriori**
+reste toujours possible par un commit normal, exactement comme pour tout le reste du site.
 
-1. **Chaque matin**, vous ouvrez `data/daily-data.json` sur GitHub (bouton crayon ✏️) et vous
-   remplissez les chiffres du jour (indices, radar titres, macro, marchés mondiaux, matières
-   premières) — copiez le format de `data/daily-data.example.json`.
-2. **Vous cliquez "Commit"** — ça déclenche automatiquement le workflow GitHub Actions.
-3. Le workflow appelle l'**API Claude** avec le prompt calibré, régénère `src/pages/essentiel.astro`,
-   et **ouvre une Pull Request** — le site public n'est *pas* modifié à ce stade.
-4. GitHub/Vercel génère un **lien d'aperçu** de cette PR — ouvrez-le pour voir le rendu réel.
-5. **Complétez la "Note de la rédaction"** directement dans la PR si besoin, relisez les chiffres.
-6. **Cliquez "Merge"** — c'est ce clic, et uniquement ce clic, qui publie la nouvelle édition.
+### Comment ça marche
+
+1. **Chaque matin**, ouvrez `data/daily-data.json` sur GitHub (bouton crayon ✏️) et
+   remplissez les chiffres du jour — copiez le format de `data/daily-data.example.json`,
+   y compris le tableau `matieres_premieres` enrichi (`nom`, `cours`, `unite`,
+   `variation`, `periode`, `pays_exposes`, `incidence_regionale` par matière première).
+2. **Committez sur `main`** — ça déclenche automatiquement le workflow GitHub Actions.
+3. **Ouvrez l'onglet Actions** pour suivre l'exécution en direct. Le workflow exécute,
+   dans l'ordre, et s'arrête au premier échec :
+   - **OpenAI (ChatGPT)** rédige `src/pages/essentiel.astro` ;
+   - **Gemini** contrôle L'Essentiel (PASS obligatoire pour continuer) ;
+   - **OpenAI** rédige la zone dynamique de `src/pages/matieres-premieres.astro`
+     (uniquement le tableau "Marchés du jour" — le reste de la page, grille de lecture et
+     cartes pays, est du contenu stable jamais régénéré) ;
+   - **Gemini** contrôle cette zone (PASS obligatoire) ;
+   - le site est compilé (`npm run build`) pour confirmer qu'il n'est pas cassé ;
+   - si tout est passé, le workflow committe et pousse directement sur `main`.
+   Si quelque chose semble anormal à n'importe quelle étape, **annulez le workflow**
+   (bouton "Cancel workflow" dans l'onglet Actions) avant que l'étape finale de publication
+   ne s'exécute.
+4. **Vercel** détecte le nouveau commit et redéploie automatiquement.
+5. **Une relecture reste possible après publication** — toute erreur repérée se corrige
+   par un commit normal, comme n'importe quelle autre modification du site.
+
+### Répartition des fournisseurs
+
+| Rôle | Fournisseur | Pourquoi |
+|---|---|---|
+| Rédaction automatique (L'Essentiel + Matières premières) | **ChatGPT** (`gpt-5.6-luna`) | Rapide et économique pour ce volume quotidien |
+| Contrôle qualité indépendant | **Gemini** (`gemini-2.5-flash`) | Modèle différent de celui qui rédige, pour une vraie vérification croisée |
+| Développement et modification du site | **Claude** | Utilisé manuellement (comme dans cette conversation), pas dans le pipeline automatique |
+
+Grok et Copilot ne sont pas utilisés dans ce pipeline — Grok par choix de coût, Copilot
+car il n'a pas d'API de génération de texte libre adaptée à cet usage.
 
 ### Configuration requise (une seule fois)
-Le site peut générer "L'Essentiel" avec **Claude, ChatGPT, Gemini ou Grok** — vous choisissez
-le fournisseur à chaque lancement (menu déroulant dans l'onglet "Actions" de GitHub, ou
-automatiquement Claude par défaut si déclenché par simple modification du fichier de données).
 
-Sur GitHub : Settings → Secrets and variables → Actions → New repository secret, pour
-**chaque** fournisseur que vous comptez utiliser (inutile de tous les configurer si vous
-n'en utilisez qu'un) :
+Sur GitHub : Settings → Secrets and variables → Actions → New repository secret :
 
-| Fournisseur | Nom du secret | Où obtenir la clé |
-|---|---|---|
-| Claude | `ANTHROPIC_API_KEY` | console.anthropic.com |
-| ChatGPT | `OPENAI_API_KEY` | platform.openai.com |
-| Gemini | `GEMINI_API_KEY` | aistudio.google.com |
-| Grok | `XAI_API_KEY` | console.x.ai |
-
-**Copilot** fonctionne différemment des quatre autres — deux modes possibles, choisis
-automatiquement selon ce que vous configurez :
-
-- **Sans rien configurer de plus** : si `ANTHROPIC_API_KEY` est déjà défini (pour Claude),
-  Copilot fonctionne aussitôt en mode BYOK ("Bring Your Own Key") — le prompt passe par le
-  moteur d'orchestration du Copilot SDK, mais c'est Claude qui répond. Aucun coût ni compte
-  Copilot nécessaire pour ce mode.
-- **Mode natif (plus tard, si utile)** : ajoutez un secret `COPILOT_GITHUB_TOKEN` (un token
-  GitHub avec accès Copilot) pour basculer sur un vrai modèle Copilot ("gpt-5"), facturé sur
-  votre abonnement Copilot. Dès que ce secret existe, il prend automatiquement le dessus sur
-  le mode BYOK.
-
-Cette double option a été mise en place maintenant, même sans abonnement Copilot actif,
-pour ne pas avoir à reconstruire l'intégration plus tard si Copilot devient l'option la
-plus adaptée.
+| Secret | Où l'obtenir |
+|---|---|
+| `OPENAI_API_KEY` | platform.openai.com |
+| `GEMINI_API_KEY` | aistudio.google.com |
+| `ANTHROPIC_API_KEY` | console.anthropic.com (optionnel — développement du site uniquement) |
 
 Ne mettez jamais une clé directement dans un fichier du dépôt — uniquement en secret GitHub.
 
-**Sur GitHub Copilot** : volontairement absent de cette liste. Copilot n'a pas d'API publique
-de génération de texte libre comme les quatre ci-dessus — c'est un assistant intégré aux
-éditeurs de code (VS Code, etc.), pas un service qu'on peut appeler pour rédiger un article
-via ce type de script automatisé. L'utiliser pour ce projet demanderait un mécanisme
-entièrement différent (ouvrir le fichier dans VS Code et déclencher Copilot Chat à la main),
-ce qui casserait justement l'automatisation recherchée ici.
+### Limites connues
 
-
-- Les photos réelles (Abidjan/Dakar/Bamako) ne sont pas incluses dans cette version — la page `/essentiel` utilise du texte structuré sans bandeau photo pour l'instant. Ajoutez vos images dans `public/` et référencez-les en `<img src="/mon-image.jpg">`.
-- Le contenu de "L'Essentiel" reste figé sur l'édition du 17 septembre 2026 — il faudra un processus pour le renouveler chaque jour (voir le prompt de génération d'article qu'on a calibré plus tôt dans le projet).
-- Le statut d'Oragroup (possible sortie de cote BRVM) reste à vérifier avant publication réelle.
+- Les photos réelles ne sont pas générées automatiquement — chaque `<!-- PHOTO: ... -->`
+  laissé par l'IA doit être remplacé manuellement par une image en droits (voir les
+  éditions déjà publiées dans `src/pages/essentiel/` pour des exemples réels, sourcés
+  Wikimedia Commons).
+- Le statut d'Oragroup (possible sortie de cote BRVM) reste à vérifier avant toute
+  mention dans une édition.
 
 ## Configurer le compteur de contacts SGI (page /sgi)
 
@@ -105,3 +113,25 @@ CounterAPI.dev (gratuit, sans base de données à gérer de notre côté).
 Le plan gratuit couvre 1 000 comptages par jour, largement suffisant pour démarrer.
 Sans cette configuration, le badge affiche "—" au lieu d'un chiffre, mais le reste du site
 continue de fonctionner normalement.
+
+## Pipeline Matières premières + contrôle qualité Gemini
+
+En plus de "L'Essentiel", le workflow génère maintenant la page **Matières premières** —
+mais seulement sa zone dynamique (le tableau "Marchés du jour" + une brève analyse),
+délimitée par les marqueurs `<!-- ZONE-DYNAMIQUE-DEBUT -->` / `<!-- ZONE-DYNAMIQUE-FIN -->`
+dans `src/pages/matieres-premieres.astro`. Le reste de la page (grille de lecture, cartes
+pays "Qui gagne, qui perd") reste du contenu stable, écrit une fois et jamais régénéré —
+pas de raison de payer un modèle pour réinventer des relations structurelles qui ne
+changent pas d'un jour à l'autre.
+
+Le champ `matieres_premieres` de `data/daily-data.json` doit inclure, par matière première :
+`nom`, `cours`, `unite`, `variation`, `periode`, `pays_exposes`, `incidence_regionale`
+(voir `data/daily-data.example.json` pour le format exact).
+
+**Contrôle qualité Gemini** : après chaque génération (L'Essentiel *et* Matières
+premières), Gemini relit le contenu produit face aux données sources et vérifie les
+unités, les chiffres, le sens des variations et la cohérence régionale. Ce contrôle
+n'empêche jamais la publication — le résultat est simplement ajouté à la description de
+la Pull Request, pour que vous le lisiez avant de cliquer "Merge". Nécessite le secret
+`GEMINI_API_KEY` (déjà configuré si vous suivez le README plus haut) ; sans lui, la PR
+indique simplement que le contrôle n'a pas pu s'exécuter, sans bloquer le reste.

@@ -25,8 +25,8 @@
     { "marche": "S&P 500", "variation": "+1,14%" }
   ],
   "matieres_premieres": [
-    { "nom": "Brent", "variation": "-1%", "niveau": "104,82 $/bbl" },
-    { "nom": "Or", "variation": "+2%", "niveau": "niveau élevé" }
+    { "nom": "Brent", "cours": "104,82", "unite": "$/baril", "variation": "-1,0%", "periode": "séance", "pays_exposes": "Nigeria, Ghana, Côte d'Ivoire, Sénégal", "incidence_regionale": "Repli limité, la facture énergétique des importateurs reste lourde" },
+    { "nom": "Or", "cours": "4 382,59", "unite": "$/once", "variation": "+2,0%", "periode": "séance", "pays_exposes": "Ghana, Mali, Burkina Faso, Côte d'Ivoire, Sénégal", "incidence_regionale": "Soutient les recettes minières des producteurs de la région" }
   ],
   "note_redaction": ""
 }

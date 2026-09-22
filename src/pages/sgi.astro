@@ -11,7 +11,202 @@ import Layout from '../layouts/Layout.astro';
     <p style="font-size:12px; color:var(--label); margin-top:-10px;">Dernière vérification des homologations AMF-UMOA : septembre 2026 (BICI Bourse : déc. 2024 · BOA Capital Securities : fév. 2024 · Atlantique Finance : 2024 · Coris Bourse : 29 janv. 2018 (décision CREPMF PCR/DA/2018/052, document officiel) · FGI : mars 2025 — aucune décision plus récente retrouvée à cette date).</p>
     <p style="font-size:12px; color:var(--label); margin-top:6px;"><b style="color:var(--navy);">ECONOZONE n'est affilié à aucune des SGI listées ci-dessous et ne perçoit aucune commission sur l'ouverture d'un compte.</b> Sauf indication contraire, les données proviennent de la grille tarifaire officielle homologuée de chaque SGI ; celles fondées sur des relevés de transactions réels ou une confirmation directe sont signalées comme telles.</p>
 
-    <h2 id="tableau-frais">1 — Frais et conditions d'accès</h2>
+
+    <p class="dek" style="margin-top:-8px;">Trois outils pour comparer les SGI de la BRVM : calculez d'abord le coût exact d'un ordre précis, simulez ensuite l'impact du courtage sur plusieurs années, puis consultez le détail complet des frais et conditions de chaque SGI.</p>
+
+    <h2 id="calculatrice-ordre">1 — Calculatrice d'ordre BRVM : combien coûte réellement mon achat ou ma vente ?</h2>
+    <p>Le simulateur ci-dessus projette un coût cumulé sur plusieurs années. Celui-ci répond à une question plus immédiate : <b>pour cet ordre précis, combien vais-je payer (à l'achat) ou recevoir net (à la vente) ?</b> Même logique que sur un relevé de transaction réel : montant brut, commission de courtage, commission BRVM/DC-BR fixe, montant total.</p>
+    <div id="op-sim-box" style="background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin:16px 0;">
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+        <label style="font-size:13px; color:var(--text-muted);">Type d'opération<br>
+          <select id="op-type" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
+            <option value="achat">Achat</option>
+            <option value="vente">Vente</option>
+          </select>
+        </label>
+        <label style="font-size:13px; color:var(--text-muted);">Cours de l'action (FCFA)<br>
+          <input id="op-cours" type="number" value="12000" step="5" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:140px; font-family:inherit;">
+        </label>
+        <label style="font-size:13px; color:var(--text-muted);">Nombre de titres<br>
+          <input id="op-qte" type="number" value="10" min="1" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;">
+        </label>
+        <label style="font-size:13px; color:var(--text-muted);">SGI<br>
+          <select id="op-sgi" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
+            <option value="0.7">BICIBourse (≈0,7 %)</option>
+            <option value="1" selected>Coris Bourse (≈1 %)</option>
+            <option value="1.25">CGF Bourse (≈1,25 %)</option>
+            <option value="1.225">SGI Togo (≈1,225 %)</option>
+            <option value="1.25">NSIA Finance (≈1,25 %)</option>
+            <option value="1.25">Sirius Capital (≈1,25 %)</option>
+            <option value="0.7">EDC Investment Corp. (≈0,7 %)</option>
+            <option value="0.85">SG Capital Securities (≈0,85 %)</option>
+            <option value="0.825">Atlantique Finance (≈0,825 %)</option>
+            <option value="1">Hudson &amp; Cie (1 %)</option>
+            <option value="2">Daba Finance (≈2 %, non officiel)</option>
+          </select>
+        </label>
+      </div>
+      <table class="z" style="margin:0;">
+        <tbody>
+          <tr><td>Montant brut (cours &times; titres)</td><td id="op-brut" style="text-align:right; font-weight:600;">—</td></tr>
+          <tr><td>Commission de courtage SGI</td><td id="op-courtage" style="text-align:right;">—</td></tr>
+          <tr><td>Commission BRVM / DC-BR (fixe, ≈0,3 %)</td><td id="op-brvm" style="text-align:right;">—</td></tr>
+          <tr id="op-total-row" style="border-top:2px solid var(--navy);"><td id="op-total-label" style="font-weight:700; color:var(--navy);">Montant total à payer</td><td id="op-total" style="text-align:right; font-weight:700; color:var(--navy);">—</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px; color:var(--label); margin:10px 0 0;">&#9888; Estimation à partir du taux de courtage médian publié ou observé pour la SGI choisie et d'une commission BRVM/DC-BR fixe indicative de 0,3 % — le taux réel exact dépend de votre contrat et doit être confirmé auprès de votre SGI. Ceci n'est pas un conseil en investissement.</p>
+    </div>
+    <script>
+      function ecoOpSimUpdate() {
+        var type = document.getElementById('op-type').value;
+        var cours = parseFloat(document.getElementById('op-cours').value) || 0;
+        var qte = parseFloat(document.getElementById('op-qte').value) || 0;
+        var rate = parseFloat(document.getElementById('op-sgi').value) / 100;
+        var brut = cours * qte;
+        var courtage = brut * rate;
+        var brvm = brut * 0.003;
+        var total = type === 'achat' ? (brut + courtage + brvm) : (brut - courtage - brvm);
+
+        function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' FCFA'; }
+        document.getElementById('op-brut').textContent = fmt(brut);
+        document.getElementById('op-courtage').textContent = fmt(courtage);
+        document.getElementById('op-brvm').textContent = fmt(brvm);
+        document.getElementById('op-total').textContent = fmt(total);
+        document.getElementById('op-total-label').textContent = type === 'achat' ? 'Montant total à payer' : 'Montant net à recevoir';
+      }
+      ['op-type', 'op-cours', 'op-qte', 'op-sgi'].forEach(function (id) {
+        document.getElementById(id).addEventListener('input', ecoOpSimUpdate);
+        document.getElementById(id).addEventListener('change', ecoOpSimUpdate);
+      });
+      ecoOpSimUpdate();
+    </script>
+
+    <h2 id="simulateur">2 — Simulateur : combien vous coûtent vraiment les frais de courtage ?</h2>
+    <p>Un écart de 0,5 point de courtage semble minime sur une seule opération. Répété sur plusieurs années, il devient un vrai montant en FCFA — sélectionnez 2 à 4 SGI pour comparer leur coût cumulé côte à côte.</p>
+    <div id="sim-box" style="background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin:16px 0;">
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;">
+        <label style="font-size:13px; color:var(--text-muted);">Budget investi (FCFA)<br>
+          <input id="sim-budget" type="number" value="500000" step="10000" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:160px; font-family:inherit;">
+        </label>
+        <label style="font-size:13px; color:var(--text-muted);">Opérations par an<br>
+          <input id="sim-ops" type="number" value="4" min="1" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;">
+        </label>
+      </div>
+
+      <div style="font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--label); text-transform:uppercase; margin-bottom:8px;">Comparer 2 à 4 SGI</div>
+      <div class="sim-select-grid">
+        <select class="sim-sgi-select" data-slot="1">
+          <option value="">— Aucune —</option>
+          <option value="0.7" data-name="BICIBourse" selected>BICIBourse (≈0,7 %)</option>
+          <option value="1" data-name="Coris Bourse">Coris Bourse (≈1 %)</option>
+          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
+          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
+          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
+          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
+          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
+          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
+          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
+          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
+          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
+        </select>
+        <select class="sim-sgi-select" data-slot="2">
+          <option value="">— Aucune —</option>
+          <option value="0.7" data-name="BICIBourse">BICIBourse (≈0,7 %)</option>
+          <option value="1" data-name="Coris Bourse" selected>Coris Bourse (≈1 %)</option>
+          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
+          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
+          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
+          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
+          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
+          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
+          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
+          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
+          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
+        </select>
+        <select class="sim-sgi-select" data-slot="3">
+          <option value="" selected>— Aucune —</option>
+          <option value="0.7" data-name="BICIBourse">BICIBourse (≈0,7 %)</option>
+          <option value="1" data-name="Coris Bourse">Coris Bourse (≈1 %)</option>
+          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
+          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
+          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
+          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
+          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
+          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
+          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
+          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
+          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
+        </select>
+        <select class="sim-sgi-select" data-slot="4">
+          <option value="" selected>— Aucune —</option>
+          <option value="0.7" data-name="BICIBourse">BICIBourse (≈0,7 %)</option>
+          <option value="1" data-name="Coris Bourse">Coris Bourse (≈1 %)</option>
+          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
+          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
+          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
+          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
+          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
+          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
+          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
+          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
+          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
+        </select>
+      </div>
+
+      <table class="z" style="margin:16px 0 0;">
+        <thead><tr><th>SGI</th><th>1 an</th><th>3 ans</th><th>5 ans</th></tr></thead>
+        <tbody id="sim-results">
+          <tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px; color:var(--label); margin:10px 0 0;">&#9888; Estimation à partir du milieu de fourchette de courtage publique, appliqué à chaque opération, sans tenir compte de la revalorisation du portefeuille ni des commissions BRVM/DC-BR fixes (~0,3 %). Confirmez le taux exact auprès de la SGI avant toute décision — ceci n'est pas un conseil en investissement.</p>
+    </div>
+    <style>
+      .sim-select-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+      .sim-select-grid select { padding: 7px 10px; border: 1px solid var(--border); font-family: inherit; font-size: 13px; width: 100%; }
+      #sim-results tr.sim-best td { font-weight: 700; color: var(--up); }
+    </style>
+    <script>
+      function ecoSimUpdate() {
+        var budget = parseFloat(document.getElementById('sim-budget').value) || 0;
+        var ops = parseFloat(document.getElementById('sim-ops').value) || 0;
+        var selects = document.querySelectorAll('.sim-sgi-select');
+        var rows = [];
+
+        selects.forEach(function (sel) {
+          if (!sel.value) return;
+          var rate = parseFloat(sel.value) / 100;
+          var opt = sel.options[sel.selectedIndex];
+          var name = opt.getAttribute('data-name');
+          var annual = budget * rate * ops;
+          rows.push({ name: name, y1: annual, y3: annual * 3, y5: annual * 5 });
+        });
+
+        function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' FCFA'; }
+        var tbody = document.getElementById('sim-results');
+
+        if (rows.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>';
+          return;
+        }
+
+        var minY5 = Math.min.apply(null, rows.map(function (r) { return r.y5; }));
+        tbody.innerHTML = rows.map(function (r) {
+          var cls = (rows.length > 1 && r.y5 === minY5) ? ' class="sim-best"' : '';
+          return '<tr' + cls + '><td>' + r.name + '</td><td>' + fmt(r.y1) + '</td><td>' + fmt(r.y3) + '</td><td>' + fmt(r.y5) + '</td></tr>';
+        }).join('');
+      }
+      document.getElementById('sim-budget').addEventListener('input', ecoSimUpdate);
+      document.getElementById('sim-ops').addEventListener('input', ecoSimUpdate);
+      document.querySelectorAll('.sim-sgi-select').forEach(function (sel) {
+        sel.addEventListener('change', ecoSimUpdate);
+      });
+      ecoSimUpdate();
+    </script>
+
+    <p style="font-size:12px; color:var(--label); margin-top:-2px;">* Coris Bourse : les 50 000 FCFA sont un dépôt initial, pas un frais — ce montant reste la propriété du client et sert à l'achat de ses premiers titres. Taux de courtage, conservation, tenue de compte et gestion sous mandat homologués par décision CREPMF n° PCR/DA/2018/052 (document officiel fourni par l'utilisateur, SGI cliente), confirmés indépendamment par Richbourse.</p>
+
+    <h2 id="tableau-frais">3 — Frais et conditions d'accès</h2>
 
     <div id="contact-counter" class="counter-badge">📊 <span id="counter-value">…</span> demandes de contact envoyées vers des SGI ce mois-ci via ECONOZONE</div>
 
@@ -25,6 +220,7 @@ import Layout from '../layouts/Layout.astro';
         <button class="chip" data-filter-type="country" data-filter-value="TG">🇹🇬 Togo</button>
         <button class="chip" data-filter-type="country" data-filter-value="ML">🇲🇱 Mali</button>
         <button class="chip" data-filter-type="country" data-filter-value="BJ">🇧🇯 Bénin</button>
+        <button class="chip" data-filter-type="country" data-filter-value="NE">🇳🇪 Niger</button>
       </div>
       <div class="filter-group">
         <span class="filter-label">Critères</span>
@@ -59,10 +255,11 @@ import Layout from '../layouts/Layout.astro';
         <p class="sgi-group">Groupe Coris (Coris Bank International)</p>
         <div class="sgi-stats">
           <div><span>Dépôt min.</span><b>50 000 FCFA*</b></div>
-          <div><span>Courtage</span><b>Max. 1 %</b></div>
-          <div><span>Conservation</span><b>Max. 0,5 %/an</b></div>
-          <div><span>Gestion mandat</span><b>Max. 1 %/an</b></div>
+          <div><span>Courtage</span><b>0,80 %*</b></div>
+          <div><span>Commission BRVM</span><b>0,20 %*</b></div>
+          <div><span>Commission DC/BR</span><b>0,10 %*</b></div>
         </div>
+        <p style="font-size:11px; color:var(--label); margin:4px 0 0;">+ taxe sur les activités financières (TAF) de 14,85 % appliquée sur la commission de courtage — d'après le barème officiel Frais &amp; Taxes fourni par un client SGI.</p>
         <a href="https://www.coris-bourse.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
       </div>
 
@@ -291,6 +488,225 @@ import Layout from '../layouts/Layout.astro';
         <a href="https://www.sgiglobalcapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
       </div>
 
+      <div class="sgi-card" data-country="BF" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
+        <h3>SA2IF</h3>
+        <p class="sgi-group">Société Africaine d'Ingénierie et d'Intermédiation Financières, Ouagadougou</p>
+        <div class="sgi-stats">
+          <div><span>Frais</span><b>Non communiqués</b></div>
+          <div><span>Localisation</span><b>Ouaga 2000</b></div>
+        </div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
+        <h3>ABCO Bourse</h3>
+        <p class="sgi-group">Dakar, Sénégal</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+221 33 822 68 00</b></div></div>
+        <a href="https://www.abcobourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
+        <h3>AGI (Africaine de Gestion et d'Intermédiation)</h3>
+        <p class="sgi-group">Cotonou, Bénin</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+229 21318733</b></div></div>
+        <a href="https://www.sgi-agi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>Attijari Securities West Africa</h3>
+        <p class="sgi-group">Groupe Attijariwafa Bank / SIB, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(225) 27 20 21 98 26</b></div></div>
+        <a href="https://www.sib.ci" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>BOA Capital Securities</h3>
+        <p class="sgi-group">Groupe Bank of Africa, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Homologation</span><b>Fév. 2024</b></div></div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>Bridge Securities</h3>
+        <p class="sgi-group">Abidjan, Cocody</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(225) 05 85 74 98 98</b></div></div>
+        <a href="https://www.bridge-securities.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>BSIC Capital</h3>
+        <p class="sgi-group">Groupe BSIC, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+225 27 20 31 71 11</b></div></div>
+        <a href="https://bsiccapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="ML" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇲🇱</span></div>
+        <h3>CIFA Bourse</h3>
+        <p class="sgi-group">Compagnie d'Ingénierie Financière et d'Assistance en Bourse, Bamako</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>00223 20 23 50 20</b></div></div>
+        <a href="https://www.cifabourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
+        <h3>Everest Finance</h3>
+        <p class="sgi-group">Dakar, Sénégal</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(221) 33 82 28 700</b></div></div>
+        <a href="https://www.everestfin.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
+        <h3>FGI — Finance Gestion Intermédiation</h3>
+        <p class="sgi-group">Dakar, Sénégal — homologuée mars 2025</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(+221) 33 867 60 42</b></div></div>
+        <a href="https://www.fgi-bourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>GEK Capital</h3>
+        <p class="sgi-group">Abidjan, Cocody</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+225 27 22 22 43 60</b></div></div>
+        <a href="https://www.gekcapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="ML" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇲🇱</span></div>
+        <h3>Global Capital</h3>
+        <p class="sgi-group">Bamako, Mali</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+223 44 90 59 74</b></div></div>
+        <a href="https://www.sgiglobalcapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BF" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
+        <h3>Image Finances Internationales</h3>
+        <p class="sgi-group">Ouagadougou, Burkina Faso</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+226 25 66 78 78</b></div></div>
+        <a href="https://www.image-finance.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
+        <h3>Invictus Capital &amp; Finance</h3>
+        <p class="sgi-group">Dakar, Sénégal</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(221) 33 864 58 58</b></div></div>
+        <a href="https://www.invictuscapfin.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>Matha Securities</h3>
+        <p class="sgi-group">Plateau, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+225 27 20 24 30 30</b></div></div>
+        <a href="https://mathasecurities.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>Oragroup Securities</h3>
+        <p class="sgi-group">Groupe Oragroup/Orabank, Cocody Mermoz</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(00225) 07 88 77 15 69</b></div></div>
+        <a href="https://www.oragroupsecurities.net" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>Phoenix Capital Management</h3>
+        <p class="sgi-group">Cocody Riviera, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>27 22 59 85 80</b></div></div>
+        <a href="https://phoenixafricaholding.com/pcm/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
+        <h3>SGI Africabourse</h3>
+        <p class="sgi-group">Cotonou, Bénin</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 31 88 35</b></div></div>
+        <a href="https://www.africabourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
+        <h3>SGI Bénin S.A.</h3>
+        <p class="sgi-group">Cotonou, Bénin</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 31 15 41</b></div></div>
+        <a href="https://www.sgibenin.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
+        <h3>SGI BIIC Financial Services</h3>
+        <p class="sgi-group">Cotonou, Bénin</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 32 48 75</b></div></div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>SGI BNI Finances</h3>
+        <p class="sgi-group">Groupe BNI, Plateau, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(225) 27 20 31 07 77</b></div></div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
+        <h3>Impaxis Securities</h3>
+        <p class="sgi-group">Sacré Cœur, Dakar</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(221) 33 869 31 40</b></div></div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
+        <h3>Mac African</h3>
+        <p class="sgi-group">Cocody Riviera M'Badon, Abidjan</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(225) 07 68 311 125</b></div></div>
+        <a href="https://www.macafricansgi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="ML" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇲🇱</span></div>
+        <h3>SGI Mali S.A.</h3>
+        <p class="sgi-group">Bamako, Mali</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(223) 20 29 41 19</b></div></div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="NE" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇳🇪</span></div>
+        <h3>SGI Niger S.A.</h3>
+        <p class="sgi-group">Niamey, Niger</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(227) 20 73 78 18</b></div></div>
+        <a href="https://www.sginiger.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BF" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
+        <h3>SGI SBIF</h3>
+        <p class="sgi-group">Ouagadougou, Burkina Faso</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(226) 25 33 04 91</b></div></div>
+        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
+      </div>
+
+      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
+        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
+        <h3>United Capital for Africa</h3>
+        <p class="sgi-group">Cotonou, Bénin</p>
+        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 31 00 21</b></div></div>
+        <a href="https://www.ucasgi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
     </div>
 
     <p style="font-size:12px; color:var(--label); margin-top:8px;">* Chiffre confirmé par écrit directement par la SGI. Montants pour un compte en <b>gestion libre</b> (autogérée) — la <b>gestion sous mandat</b> exige généralement un dépôt nettement supérieur, parfois 5 000 000 FCFA ou plus (NSIA Finance, Sirius Capital). "Accès digital confirmé" signifie une ouverture de compte ou un suivi de portefeuille en ligne effectivement vérifié pour cette SGI — l'absence de coche ne veut pas dire "non disponible", seulement "non confirmé à ce stade".</p>
@@ -335,198 +751,6 @@ import Layout from '../layouts/Layout.astro';
 
         applyFilters();
       })();
-    </script>
-
-    <h2 id="simulateur">2 — Simulateur : combien vous coûtent vraiment les frais de courtage ?</h2>
-    <p>Un écart de 0,5 point de courtage semble minime sur une seule opération. Répété sur plusieurs années, il devient un vrai montant en FCFA — sélectionnez 2 à 4 SGI pour comparer leur coût cumulé côte à côte.</p>
-    <div id="sim-box" style="background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin:16px 0;">
-      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;">
-        <label style="font-size:13px; color:var(--text-muted);">Budget investi (FCFA)<br>
-          <input id="sim-budget" type="number" value="500000" step="10000" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:160px; font-family:inherit;">
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">Opérations par an<br>
-          <input id="sim-ops" type="number" value="4" min="1" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;">
-        </label>
-      </div>
-
-      <div style="font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--label); text-transform:uppercase; margin-bottom:8px;">Comparer 2 à 4 SGI</div>
-      <div class="sim-select-grid">
-        <select class="sim-sgi-select" data-slot="1">
-          <option value="">— Aucune —</option>
-          <option value="0.7" data-name="BICIBourse" selected>BICIBourse (≈0,7 %)</option>
-          <option value="1" data-name="Coris Bourse">Coris Bourse (≈1 %)</option>
-          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
-          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
-          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
-          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
-          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
-          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
-          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
-          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
-          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
-        </select>
-        <select class="sim-sgi-select" data-slot="2">
-          <option value="">— Aucune —</option>
-          <option value="0.7" data-name="BICIBourse">BICIBourse (≈0,7 %)</option>
-          <option value="1" data-name="Coris Bourse" selected>Coris Bourse (≈1 %)</option>
-          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
-          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
-          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
-          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
-          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
-          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
-          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
-          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
-          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
-        </select>
-        <select class="sim-sgi-select" data-slot="3">
-          <option value="" selected>— Aucune —</option>
-          <option value="0.7" data-name="BICIBourse">BICIBourse (≈0,7 %)</option>
-          <option value="1" data-name="Coris Bourse">Coris Bourse (≈1 %)</option>
-          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
-          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
-          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
-          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
-          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
-          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
-          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
-          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
-          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
-        </select>
-        <select class="sim-sgi-select" data-slot="4">
-          <option value="" selected>— Aucune —</option>
-          <option value="0.7" data-name="BICIBourse">BICIBourse (≈0,7 %)</option>
-          <option value="1" data-name="Coris Bourse">Coris Bourse (≈1 %)</option>
-          <option value="1.25" data-name="CGF Bourse">CGF Bourse (≈1,25 %)</option>
-          <option value="1.225" data-name="SGI Togo">SGI Togo (≈1,225 %)</option>
-          <option value="1.25" data-name="NSIA Finance">NSIA Finance (≈1,25 %)</option>
-          <option value="1.25" data-name="Sirius Capital">Sirius Capital (≈1,25 %)</option>
-          <option value="0.7" data-name="EDC Investment Corporation">EDC Investment Corp. (≈0,7 %)</option>
-          <option value="0.85" data-name="SG Capital Securities">SG Capital Securities (≈0,85 %)</option>
-          <option value="0.825" data-name="Atlantique Finance">Atlantique Finance (≈0,825 %)</option>
-          <option value="1" data-name="Hudson & Cie">Hudson &amp; Cie (1 %)</option>
-          <option value="2" data-name="Daba Finance">Daba Finance (≈2 %, non officiel)</option>
-        </select>
-      </div>
-
-      <table class="z" style="margin:16px 0 0;">
-        <thead><tr><th>SGI</th><th>1 an</th><th>3 ans</th><th>5 ans</th></tr></thead>
-        <tbody id="sim-results">
-          <tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:11px; color:var(--label); margin:10px 0 0;">&#9888; Estimation à partir du milieu de fourchette de courtage publique, appliqué à chaque opération, sans tenir compte de la revalorisation du portefeuille ni des commissions BRVM/DC-BR fixes (~0,3 %). Confirmez le taux exact auprès de la SGI avant toute décision — ceci n'est pas un conseil en investissement.</p>
-    </div>
-    <style>
-      .sim-select-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
-      .sim-select-grid select { padding: 7px 10px; border: 1px solid var(--border); font-family: inherit; font-size: 13px; width: 100%; }
-      #sim-results tr.sim-best td { font-weight: 700; color: var(--up); }
-    </style>
-    <script>
-      function ecoSimUpdate() {
-        var budget = parseFloat(document.getElementById('sim-budget').value) || 0;
-        var ops = parseFloat(document.getElementById('sim-ops').value) || 0;
-        var selects = document.querySelectorAll('.sim-sgi-select');
-        var rows = [];
-
-        selects.forEach(function (sel) {
-          if (!sel.value) return;
-          var rate = parseFloat(sel.value) / 100;
-          var opt = sel.options[sel.selectedIndex];
-          var name = opt.getAttribute('data-name');
-          var annual = budget * rate * ops;
-          rows.push({ name: name, y1: annual, y3: annual * 3, y5: annual * 5 });
-        });
-
-        function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' FCFA'; }
-        var tbody = document.getElementById('sim-results');
-
-        if (rows.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>';
-          return;
-        }
-
-        var minY5 = Math.min.apply(null, rows.map(function (r) { return r.y5; }));
-        tbody.innerHTML = rows.map(function (r) {
-          var cls = (rows.length > 1 && r.y5 === minY5) ? ' class="sim-best"' : '';
-          return '<tr' + cls + '><td>' + r.name + '</td><td>' + fmt(r.y1) + '</td><td>' + fmt(r.y3) + '</td><td>' + fmt(r.y5) + '</td></tr>';
-        }).join('');
-      }
-      document.getElementById('sim-budget').addEventListener('input', ecoSimUpdate);
-      document.getElementById('sim-ops').addEventListener('input', ecoSimUpdate);
-      document.querySelectorAll('.sim-sgi-select').forEach(function (sel) {
-        sel.addEventListener('change', ecoSimUpdate);
-      });
-      ecoSimUpdate();
-    </script>
-
-    <p style="font-size:12px; color:var(--label); margin-top:-2px;">* Coris Bourse : les 50 000 FCFA sont un dépôt initial, pas un frais — ce montant reste la propriété du client et sert à l'achat de ses premiers titres. Taux de courtage, conservation, tenue de compte et gestion sous mandat homologués par décision CREPMF n° PCR/DA/2018/052 (document officiel fourni par l'utilisateur, SGI cliente), confirmés indépendamment par Richbourse.</p>
-
-    <h2 id="calculatrice-ordre">3 — Calculatrice d'ordre BRVM : combien coûte réellement mon achat ou ma vente ?</h2>
-    <p>Le simulateur ci-dessus projette un coût cumulé sur plusieurs années. Celui-ci répond à une question plus immédiate : <b>pour cet ordre précis, combien vais-je payer (à l'achat) ou recevoir net (à la vente) ?</b> Même logique que sur un relevé de transaction réel : montant brut, commission de courtage, commission BRVM/DC-BR fixe, montant total.</p>
-    <div id="op-sim-box" style="background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin:16px 0;">
-      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
-        <label style="font-size:13px; color:var(--text-muted);">Type d'opération<br>
-          <select id="op-type" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
-            <option value="achat">Achat</option>
-            <option value="vente">Vente</option>
-          </select>
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">Cours de l'action (FCFA)<br>
-          <input id="op-cours" type="number" value="12000" step="5" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:140px; font-family:inherit;">
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">Nombre de titres<br>
-          <input id="op-qte" type="number" value="10" min="1" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;">
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">SGI<br>
-          <select id="op-sgi" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
-            <option value="0.7">BICIBourse (≈0,7 %)</option>
-            <option value="1" selected>Coris Bourse (≈1 %)</option>
-            <option value="1.25">CGF Bourse (≈1,25 %)</option>
-            <option value="1.225">SGI Togo (≈1,225 %)</option>
-            <option value="1.25">NSIA Finance (≈1,25 %)</option>
-            <option value="1.25">Sirius Capital (≈1,25 %)</option>
-            <option value="0.7">EDC Investment Corp. (≈0,7 %)</option>
-            <option value="0.85">SG Capital Securities (≈0,85 %)</option>
-            <option value="0.825">Atlantique Finance (≈0,825 %)</option>
-            <option value="1">Hudson &amp; Cie (1 %)</option>
-            <option value="2">Daba Finance (≈2 %, non officiel)</option>
-          </select>
-        </label>
-      </div>
-      <table class="z" style="margin:0;">
-        <tbody>
-          <tr><td>Montant brut (cours &times; titres)</td><td id="op-brut" style="text-align:right; font-weight:600;">—</td></tr>
-          <tr><td>Commission de courtage SGI</td><td id="op-courtage" style="text-align:right;">—</td></tr>
-          <tr><td>Commission BRVM / DC-BR (fixe, ≈0,3 %)</td><td id="op-brvm" style="text-align:right;">—</td></tr>
-          <tr id="op-total-row" style="border-top:2px solid var(--navy);"><td id="op-total-label" style="font-weight:700; color:var(--navy);">Montant total à payer</td><td id="op-total" style="text-align:right; font-weight:700; color:var(--navy);">—</td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:11px; color:var(--label); margin:10px 0 0;">&#9888; Estimation à partir du taux de courtage médian publié ou observé pour la SGI choisie et d'une commission BRVM/DC-BR fixe indicative de 0,3 % — le taux réel exact dépend de votre contrat et doit être confirmé auprès de votre SGI. Ceci n'est pas un conseil en investissement.</p>
-    </div>
-    <script>
-      function ecoOpSimUpdate() {
-        var type = document.getElementById('op-type').value;
-        var cours = parseFloat(document.getElementById('op-cours').value) || 0;
-        var qte = parseFloat(document.getElementById('op-qte').value) || 0;
-        var rate = parseFloat(document.getElementById('op-sgi').value) / 100;
-        var brut = cours * qte;
-        var courtage = brut * rate;
-        var brvm = brut * 0.003;
-        var total = type === 'achat' ? (brut + courtage + brvm) : (brut - courtage - brvm);
-
-        function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' FCFA'; }
-        document.getElementById('op-brut').textContent = fmt(brut);
-        document.getElementById('op-courtage').textContent = fmt(courtage);
-        document.getElementById('op-brvm').textContent = fmt(brvm);
-        document.getElementById('op-total').textContent = fmt(total);
-        document.getElementById('op-total-label').textContent = type === 'achat' ? 'Montant total à payer' : 'Montant net à recevoir';
-      }
-      ['op-type', 'op-cours', 'op-qte', 'op-sgi'].forEach(function (id) {
-        document.getElementById(id).addEventListener('input', ecoOpSimUpdate);
-        document.getElementById(id).addEventListener('change', ecoOpSimUpdate);
-      });
-      ecoOpSimUpdate();
     </script>
 
     <h2>4 — Synthèse des scores (sur 5 par critère)</h2>
@@ -665,9 +889,9 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 :root {
-    --bg: #FAF8F4; --panel: #FFFFFF; --border: #E8E2D6; --row-border: #F1EDE4;
-    --navy: #0B2545; --text: #1C1A15; --text-muted: #4A4438; --label: #8A8272;
-    --accent: #A9762F; --up: #1B7A43; --down: #A8382A;
+    --bg: #FFFFFF; --panel: #FFFFFF; --panel-alt: #F4F7FB; --border: #D9E0EA; --row-border: #EEF2F7;
+    --blue: #003DA5; --blue-dark: #00286E; --green: #00843D; --navy: #003DA5; --text: #10182B; --text-muted: #3D4759; --label: #64708A;
+    --accent: #00843D; --up: #00843D; --down: #C0392B;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; }

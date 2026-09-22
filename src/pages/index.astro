@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 
 const cards = [
-  { tag: "ECONOZONE Daily", title: "L'Essentiel", desc: "La synthèse quotidienne : clôture BRVM, macro UEMOA, marchés mondiaux, matières premières.", href: "/essentiel" },
-  { tag: "ECONOZONE Studio", title: "Comparatif des SGI agréées BRVM", desc: "Comparatif de 10 SGI, Daba Finance, simulateurs de coûts, glossaire et FAQ.", href: "/sgi" },
+  { tag: "ECONOZONE Daily", title: "Actualités", desc: "La synthèse quotidienne : clôture BRVM, macro UEMOA, marchés mondiaux, matières premières.", href: "/essentiel" },
   { tag: "ECONOZONE Studio", title: "Calculatrice d'ordre BRVM", desc: "Combien coûte réellement un achat ou une vente : montant brut, courtage, commission BRVM.", href: "/sgi#calculatrice-ordre" },
+  { tag: "ECONOZONE Studio", title: "Comparatif des SGI agréées BRVM", desc: "Comparatif de 48 SGI, Daba Finance, simulateurs de coûts, glossaire et FAQ.", href: "/sgi" },
   { tag: "ECONOZONE Insights", title: "Sociétés cotées à la BRVM", desc: "47 fiches entreprises + Bridge Bank Group, événements corporate, comparateur.", href: "/societes-cotees" },
   { tag: "ECONOZONE Afrique", title: "Économie Ouest Africaine", desc: "Conjoncture UEMOA, comparaisons avec d'autres économies de la CEDEAO.", href: "/economie" },
   { tag: "ECONOZONE Markets", title: "Matières premières", desc: "Or, cacao, pétrole, coton — impact pays par pays sur l'UEMOA et la CEDEAO.", href: "/matieres-premieres" },
@@ -20,22 +20,22 @@ const cards = [
   <div class="grid">
     {cards.map(c => (
       <a class="card" href={c.href}>
+        <div class="card-accent"></div>
         <div class="tag">{c.tag}</div>
         <h3>{c.title}</h3>
         <p>{c.desc}</p>
-        <div class="status live">● Disponible</div>
       </a>
     ))}
   </div>
 </Layout>
 
 <style>
-  .grid { width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 32px; }
-  .card { background: var(--panel); border: 1px solid var(--border); padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: all .15s; }
-  .card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(169,118,47,0.08); }
-  .card .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: var(--accent); text-transform: uppercase; }
-  .card h3 { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 18px; font-weight: 600; color: var(--navy); }
-  .card p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-  .status { font-size: 11px; font-weight: 600; margin-top: 6px; }
-  .status.live { color: #0F8B45; }
+  .grid { width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 36px; }
+  .card { position: relative; background: var(--panel); border: 1px solid var(--border); padding: 26px 24px 22px; display: flex; flex-direction: column; gap: 10px; transition: all .18s; overflow: hidden; }
+  .card-accent { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform .2s; }
+  .card:hover { border-color: var(--blue); box-shadow: 0 6px 20px rgba(0,61,165,0.12); transform: translateY(-2px); }
+  .card:hover .card-accent { transform: scaleX(1); }
+  .card .tag { font-size: 11px; font-weight: 800; letter-spacing: 0.6px; color: var(--green); text-transform: uppercase; }
+  .card h3 { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 700; color: var(--blue); }
+  .card p { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.55; }
 </style>

@@ -11,62 +11,77 @@ import Analytics from '@vercel/analytics/astro';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700;8..60,800&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap">
   <style is:global>
     :root {
-      --bg: #FAF8F4; --panel: #FFFFFF; --border: #E8E2D6; --row-border: #F1EDE4;
-      --navy: #0B2545; --text: #1C1A15; --text-muted: #4A4438; --label: #8A8272;
-      --accent: #A9762F; --up: #1B7A43; --down: #A8382A;
+      --bg: #FFFFFF; --panel: #FFFFFF; --panel-alt: #F4F7FB; --border: #D9E0EA; --row-border: #EEF2F7;
+      --blue: #003DA5; --blue-dark: #00286E; --green: #00843D; --green-dark: #005E2B;
+      --navy: #003DA5; --text: #10182B; --text-muted: #3D4759; --label: #64708A;
+      --accent: #00843D; --up: #00843D; --down: #C0392B;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; }
     a { color: inherit; text-decoration: none; }
     .wrap { width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-    .topbar { width: 100%; background: var(--navy); }
-    .topbar-inner { max-width: 1000px; margin: 0 auto; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .brand { color: #fff; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: 16px; letter-spacing: 0.5px; }
-    nav { display: flex; gap: 18px; flex-wrap: wrap; }
-    nav a { color: #B9C4D6; font-size: 12px; font-weight: 500; }
-    nav a:hover { color: #fff; }
+
+    .topstripe { width: 100%; height: 6px; background: linear-gradient(90deg, var(--green) 0%, var(--green) 50%, var(--blue) 50%, var(--blue) 100%); }
+    .topbar { width: 100%; background: var(--blue); box-shadow: 0 2px 8px rgba(0,61,165,0.15); }
+    .topbar-inner { max-width: 1080px; margin: 0 auto; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .brand { color: #fff; font-family: 'Source Serif 4', Georgia, serif; font-weight: 800; font-size: 24px; letter-spacing: 0.3px; }
+    .brand .dot { color: var(--green); }
+    nav { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+    nav a { color: #DCE6F7; font-size: 14px; font-weight: 600; padding: 6px 2px; border-bottom: 2px solid transparent; transition: all .15s; }
+    nav a:hover { color: #fff; border-bottom-color: var(--green); }
+    .nav-home { display: flex; align-items: center; }
+    .nav-home svg { width: 18px; height: 18px; }
     .nav-dropdown { position: relative; }
-    .nav-dropdown-trigger { background: none; border: none; color: #B9C4D6; font-size: 12px; font-weight: 500; font-family: 'IBM Plex Sans'; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 3px; }
-    .nav-dropdown-trigger:hover, .nav-dropdown.open .nav-dropdown-trigger { color: #fff; }
-    .nav-dropdown .caret { font-size: 9px; }
-    .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 14px; background: var(--navy); border: 1px solid rgba(255,255,255,0.15); min-width: 160px; padding: 6px 0; z-index: 20; }
-    .nav-dropdown-menu a { display: block; padding: 8px 14px; font-size: 12px; color: #B9C4D6; }
-    .nav-dropdown-menu a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-dropdown-trigger { background: none; border: none; color: #DCE6F7; font-size: 14px; font-weight: 600; font-family: 'IBM Plex Sans'; cursor: pointer; padding: 6px 2px; display: flex; align-items: center; gap: 4px; border-bottom: 2px solid transparent; }
+    .nav-dropdown-trigger:hover, .nav-dropdown.open .nav-dropdown-trigger { color: #fff; border-bottom-color: var(--green); }
+    .nav-dropdown .caret { font-size: 10px; }
+    .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 12px; background: #fff; border: 1px solid var(--border); border-top: 3px solid var(--green); min-width: 210px; padding: 8px 0; z-index: 20; box-shadow: 0 8px 24px rgba(0,20,60,0.15); }
+    .nav-dropdown-menu a { display: block; padding: 10px 16px; font-size: 14px; color: var(--text); font-weight: 500; border-bottom: none; }
+    .nav-dropdown-menu a:hover { color: var(--blue); background: var(--panel-alt); }
     .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown.open .nav-dropdown-menu { display: block; }
-    @media (hover: none) {
-      .nav-dropdown:hover .nav-dropdown-menu { display: none; }
-    }
-    .col { width: 100%; max-width: 1000px; padding: 32px 24px 80px; }
-    .breadcrumb { font-size: 12px; color: var(--label); margin-bottom: 14px; }
-    h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600; color: var(--navy); margin: 0 0 8px; letter-spacing: -0.01em; line-height: 1.15; }
-    h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--navy); margin: 40px 0 8px; padding-top: 18px; border-top: 1px solid var(--border); scroll-margin-top: 20px; }
-    h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin: 20px 0 6px; letter-spacing: -0.005em; }
-    p { font-size: 14.5px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 0 12px; }
-    .dek { font-size: 15px; color: var(--text-muted); max-width: 720px; margin: 0 0 24px; line-height: 1.6; }
-    table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 13px; margin: 16px 0; }
-    table.z th { background: #F7F4EC; text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--label); text-transform: uppercase; border-bottom: 1px solid var(--border); }
-    table.z td { padding: 10px 14px; border-bottom: 1px solid var(--row-border); }
-    .note { background: var(--panel); border: 1px solid var(--border); padding: 16px 18px; font-size: 13px; color: var(--text-muted); margin: 16px 0; }
-    .note b { color: var(--navy); }
-    .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--label); }
-    footer.site-footer { width: 100%; max-width: 1000px; padding: 20px 24px 40px; }
-    footer.site-footer p { font-size: 11px; color: var(--label); }
-    .social-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; font-size: 12px; color: var(--label); }
-    .social-row a { font-weight: 600; color: var(--accent); }
+    @media (hover: none) { .nav-dropdown:hover .nav-dropdown-menu { display: none; } }
+
+    .col { width: 100%; max-width: 1080px; padding: 36px 24px 90px; }
+    .breadcrumb { font-size: 13px; color: var(--label); margin-bottom: 16px; font-weight: 500; }
+    h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 38px; font-weight: 700; color: var(--blue); margin: 0 0 10px; letter-spacing: -0.01em; line-height: 1.15; }
+    h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 24px; font-weight: 700; color: var(--blue); margin: 44px 0 10px; padding-top: 20px; border-top: 3px solid var(--panel-alt); scroll-margin-top: 20px; }
+    h3 { font-size: 18px; font-weight: 700; color: var(--blue-dark); margin: 22px 0 8px; letter-spacing: -0.005em; }
+    p { font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 740px; margin: 0 0 14px; }
+    .dek { font-size: 17px; color: var(--text-muted); max-width: 740px; margin: 0 0 26px; line-height: 1.65; }
+    table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 14px; margin: 18px 0; }
+    table.z th { background: var(--panel-alt); text-align: left; padding: 11px 15px; font-size: 12px; font-weight: 700; letter-spacing: 0.4px; color: var(--blue-dark); text-transform: uppercase; border-bottom: 2px solid var(--border); }
+    table.z td { padding: 11px 15px; border-bottom: 1px solid var(--row-border); }
+    .note { background: var(--panel-alt); border-left: 4px solid var(--blue); padding: 16px 18px; font-size: 14px; color: var(--text-muted); margin: 18px 0; }
+    .note b { color: var(--blue); }
+    .disclaimer { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 12px; color: var(--label); }
+    .page-meta { font-size: 13px; color: var(--label); margin: -8px 0 22px; display: flex; gap: 16px; flex-wrap: wrap; }
+    .page-meta b { color: var(--text-muted); font-weight: 600; }
+
+    footer.site-footer { width: 100%; background: var(--panel-alt); border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; padding: 32px 24px; }
+    footer.site-footer p { font-size: 12px; color: var(--label); }
+    .social-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; font-size: 13px; color: var(--label); font-weight: 500; }
+    .social-row a { font-weight: 700; color: var(--blue); }
     .social-row a:hover { text-decoration: underline; }
+    .footer-links { margin-top: 4px; }
+    .footer-links a { font-size: 12px; color: var(--label); text-decoration: underline; }
+    .footer-links a:hover { color: var(--blue); }
   </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="topstripe"></div>
   <div class="topbar">
     <div class="topbar-inner">
-      <a href="/"><div class="brand">ECONOZONE</div></a>
+      <a href="/"><div class="brand">ECONOZONE<span class="dot">.</span></div></a>
       <nav>
-        <a href="/">Accueil</a>
-        <a href="/essentiel">L'Essentiel</a>
+        <a href="/" class="nav-home" aria-label="Accueil">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L12 4l9 7.5M5.5 10v9a1 1 0 0 0 1 1H10v-5.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V20h3.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/essentiel">Actualités</a>
         <div class="nav-dropdown">
           <button class="nav-dropdown-trigger" aria-expanded="false">BRVM <span class="caret">&#9662;</span></button>
           <div class="nav-dropdown-menu">
@@ -87,14 +102,17 @@ import Analytics from '@vercel/analytics/astro';
     <slot />
   </div>
   <footer class="site-footer">
-    <div class="social-row">
-      <span>Suivez-nous</span>
-      <a href="#" aria-label="LinkedIn">LinkedIn</a>
-      <a href="#" aria-label="X (Twitter)">X</a>
-      <a href="#" aria-label="WhatsApp">WhatsApp</a>
+    <div class="footer-inner">
+      <div class="social-row">
+        <span>Suivez-nous</span>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="X (Twitter)">X</a>
+        <a href="#" aria-label="WhatsApp">WhatsApp</a>
+      </div>
+      <p>ECONOZONE — contenu publié à des fins purement informatives, ne constitue pas un conseil en investissement.</p>
+      <p>&copy; {new Date().getFullYear()} ECONOZONE. Tous droits réservés. Toute reproduction ou réutilisation du contenu, en tout ou en partie, sans autorisation écrite préalable, est interdite.</p>
+      <p class="footer-links"><a href="/desabonnement">Se désabonner de nos communications</a></p>
     </div>
-    <p>ECONOZONE — contenu publié à des fins purement informatives, ne constitue pas un conseil en investissement.</p>
-    <p>&copy; {new Date().getFullYear()} ECONOZONE. Tous droits réservés. Toute reproduction ou réutilisation du contenu, en tout ou en partie, sans autorisation écrite préalable, est interdite.</p>
   </footer>
   <Analytics />
   <script>

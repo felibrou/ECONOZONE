@@ -14,12 +14,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const PAGE_PATH = path.join(
-  process.cwd(),
-  'src',
-  'pages',
-  'essentiel.astro'
-);
+const PAGE_PATH = path.join(process.cwd(), 'src', 'pages', 'essentiel.astro');
 
 const apiKey = process.env.GEMINI_API_KEY;
 
@@ -241,43 +236,20 @@ Aucun texte avant ou après le JSON.
 `;
 
 async function callGemini(content) {
-  const url =
-    `https://generativelanguage.googleapis.com/v1beta/models/` +
-    `${MODEL}:generateContent`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
   const res = await fetch(url, {
     method: 'POST',
-
     headers: {
       'Content-Type': 'application/json',
       'x-goog-api-key': apiKey
     },
-
     body: JSON.stringify({
-      systemInstruction: {
-        parts: [
-          {
-            text: QA_PROMPT
-          }
-        ]
-      },
-
-      contents: [
-        {
-          role: 'user',
-          parts: [
-            {
-              text:
-                `Contrôle cette édition avant publication :\n\n${content}`
-            }
-          ]
-        }
-      ],
-
+      systemInstruction: { parts: [{ text: QA_PROMPT }] },
+      contents: [{ role: 'user', parts: [{ text: `Contrôle cette édition avant publication :\n\n${content}` }] }],
       generationConfig: {
         temperature: 0,
         maxOutputTokens: 3000,
-
         responseMimeType: 'application/json'
       }
     })
@@ -285,24 +257,14 @@ async function callGemini(content) {
 
   if (!res.ok) {
     const errorText = await res.text();
-
-    throw new Error(
-      `Gemini QA API: ${res.status} ${errorText}`
-    );
+    throw new Error(`Gemini QA API: ${res.status} ${errorText}`);
   }
 
   const data = await res.json();
-
-  const text =
-    data.candidates?.[0]?.content?.parts
-      ?.map(part => part.text || '')
-      ?.join('')
-      ?.trim();
+  const text = data.candidates?.[0]?.content?.parts?.map(part => part.text || '')?.join('')?.trim();
 
   if (!text) {
-    throw new Error(
-      'Gemini QA : aucune réponse exploitable.'
-    );
+    throw new Error('Gemini QA : aucune réponse exploitable.');
   }
 
   return text;
@@ -311,60 +273,40 @@ async function callGemini(content) {
 async function main() {
   console.log('');
   console.log('======================================');
-  console.log('🔎 CONTRÔLE QUALITÉ — L’ESSENTIEL');
+  console.log('🔎 CONTRÔLE QUALITÉ — L\u2019ESSENTIEL');
   console.log('======================================');
 
   if (!fs.existsSync(PAGE_PATH)) {
-    console.error(
-      `❌ Fichier introuvable : ${PAGE_PATH}`
-    );
-
+    console.error(`❌ Fichier introuvable : ${PAGE_PATH}`);
     process.exit(1);
   }
 
-  const page = fs.readFileSync(
-    PAGE_PATH,
-    'utf-8'
-  );
+  const page = fs.readFileSync(PAGE_PATH, 'utf-8');
 
   if (!page.trim()) {
-    console.error(
-      '❌ Le fichier essentiel.astro est vide.'
-    );
-
+    console.error('❌ Le fichier essentiel.astro est vide.');
     process.exit(1);
   }
 
-  console.log(
-    `→ Analyse avec Gemini ${MODEL}...`
-  );
+  console.log(`→ Analyse avec Gemini ${MODEL}...`);
 
   const response = await callGemini(page);
 
   let result;
-
   try {
     result = JSON.parse(response);
   } catch {
-    console.error(
-      '❌ Gemini n’a pas retourné un JSON valide.'
-    );
-
+    console.error('❌ Gemini n\u2019a pas retourné un JSON valide.');
     console.error(response);
-
     process.exit(1);
   }
 
   console.log('');
   console.log(`Décision Gemini : ${result.status}`);
 
-  if (
-    Array.isArray(result.warnings) &&
-    result.warnings.length > 0
-  ) {
+  if (Array.isArray(result.warnings) && result.warnings.length > 0) {
     console.log('');
     console.log('⚠️ Avertissements :');
-
     for (const warning of result.warnings) {
       console.log(`- ${warning}`);
     }
@@ -377,17 +319,11 @@ async function main() {
 
   if (result.status !== 'PASS') {
     console.error('');
-    console.error(
-      '❌ PUBLICATION AUTOMATIQUE BLOQUÉE'
-    );
+    console.error('❌ PUBLICATION AUTOMATIQUE BLOQUÉE');
 
-    if (
-      Array.isArray(result.critical_errors) &&
-      result.critical_errors.length > 0
-    ) {
+    if (Array.isArray(result.critical_errors) && result.critical_errors.length > 0) {
       console.error('');
       console.error('Erreurs critiques :');
-
       for (const error of result.critical_errors) {
         console.error(`- ${error}`);
       }
@@ -397,24 +333,12 @@ async function main() {
   }
 
   console.log('');
-  console.log(
-    '✅ Contrôle qualité réussi.'
-  );
-
-  console.log(
-    '✅ Publication automatique autorisée.'
-  );
-
-  console.log(
-    '======================================'
-  );
+  console.log('✅ Contrôle qualité réussi.');
+  console.log('✅ Publication automatique autorisée.');
+  console.log('======================================');
 }
 
 main().catch((err) => {
-  console.error(
-    '❌ Échec du contrôle qualité :',
-    err.message || err
-  );
-
+  console.error('❌ Échec du contrôle qualité :', err.message || err);
   process.exit(1);
 });

@@ -3,14 +3,12 @@
 // Fournisseurs IA utilisés par ECONOZONE.
 //
 // Rôles :
-// - OpenAI / ChatGPT : rédaction automatique principale de L'Essentiel
+// - OpenAI / ChatGPT : rédaction automatique principale (L'Essentiel, Matières premières)
 // - Gemini / Google : contrôle qualité indépendant
-// - Claude / Anthropic : conservé comme option disponible,
-//   mais non utilisé automatiquement dans le pipeline actuel.
+// - Claude / Anthropic : conservé comme option disponible pour le développement du site,
+//   non appelé automatiquement dans le pipeline de publication.
 //
-// Chaque fonction prend :
-//   (systemPrompt, userMessage)
-// et retourne une chaîne de texte.
+// Chaque fonction prend (systemPrompt, userMessage) et retourne une chaîne de texte.
 
 
 // -----------------------------------------------------------------------------
@@ -24,50 +22,36 @@ async function callOpenAI(systemPrompt, userMessage) {
     throw new Error('OPENAI_API_KEY manquante');
   }
 
-  const res = await fetch(
-    'https://api.openai.com/v1/responses',
-    {
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-
-      body: JSON.stringify({
-        model: 'gpt-5.6-luna',
-
-        instructions: systemPrompt,
-
-        input: userMessage,
-
-        max_output_tokens: 10000
-      })
-    }
-  );
+  const res = await fetch('https://api.openai.com/v1/responses', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: 'gpt-5.6-luna',
+      instructions: systemPrompt,
+      input: userMessage,
+      max_output_tokens: 10000
+    })
+  });
 
   if (!res.ok) {
     const errorText = await res.text();
-
-    throw new Error(
-      `OpenAI API: ${res.status} ${errorText}`
-    );
+    throw new Error(`OpenAI API: ${res.status} ${errorText}`);
   }
 
   const data = await res.json();
 
-  const text =
-    data.output
-      ?.flatMap(item => item.content || [])
-      ?.filter(item => item.type === 'output_text')
-      ?.map(item => item.text)
-      ?.join('\n')
-      ?.trim();
+  const text = data.output
+    ?.flatMap(item => item.content || [])
+    ?.filter(item => item.type === 'output_text')
+    ?.map(item => item.text)
+    ?.join('\n')
+    ?.trim();
 
   if (!text) {
-    throw new Error(
-      'OpenAI API : réponse reçue mais aucun texte exploitable'
-    );
+    throw new Error('OpenAI API : réponse reçue mais aucun texte exploitable');
   }
 
   return text;
@@ -86,75 +70,37 @@ async function callGemini(systemPrompt, userMessage) {
   }
 
   const model = 'gemini-2.5-flash';
-
-  const url =
-    `https://generativelanguage.googleapis.com/v1beta/models/` +
-    `${model}:generateContent`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
   const res = await fetch(url, {
     method: 'POST',
-
     headers: {
       'Content-Type': 'application/json',
       'x-goog-api-key': apiKey
     },
-
     body: JSON.stringify({
-      systemInstruction: {
-        parts: [
-          {
-            text: systemPrompt
-          }
-        ]
-      },
-
-      contents: [
-        {
-          role: 'user',
-          parts: [
-            {
-              text: userMessage
-            }
-          ]
-        }
-      ],
-
-      generationConfig: {
-        maxOutputTokens: 10000,
-        temperature: 0
-      }
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+      generationConfig: { maxOutputTokens: 10000, temperature: 0 }
     })
   });
 
   if (!res.ok) {
     const errorText = await res.text();
-
-    throw new Error(
-      `Gemini API: ${res.status} ${errorText}`
-    );
+    throw new Error(`Gemini API: ${res.status} ${errorText}`);
   }
 
   const data = await res.json();
-
   const candidate = data.candidates?.[0];
 
   if (!candidate) {
-    throw new Error(
-      'Gemini API : aucun candidat retourné'
-    );
+    throw new Error('Gemini API : aucun candidat retourné');
   }
 
-  const text =
-    candidate.content
-      ?.parts
-      ?.map(part => part.text || '')
-      ?.join('\n')
-      ?.trim();
+  const text = candidate.content?.parts?.map(part => part.text || '')?.join('\n')?.trim();
 
   if (!text) {
-    throw new Error(
-      'Gemini API : réponse reçue mais aucun texte exploitable'
-    );
+    throw new Error('Gemini API : réponse reçue mais aucun texte exploitable');
   }
 
   return text;
@@ -164,8 +110,8 @@ async function callGemini(systemPrompt, userMessage) {
 // -----------------------------------------------------------------------------
 // CLAUDE / ANTHROPIC
 //
-// Conservé comme option disponible.
-// Non appelé automatiquement dans le pipeline de publication actuel.
+// Conservé comme option disponible pour le développement/modification du site.
+// Non appelé automatiquement dans le pipeline de publication.
 // -----------------------------------------------------------------------------
 
 async function callClaude(systemPrompt, userMessage) {
@@ -175,55 +121,31 @@ async function callClaude(systemPrompt, userMessage) {
     throw new Error('ANTHROPIC_API_KEY manquante');
   }
 
-  const res = await fetch(
-    'https://api.anthropic.com/v1/messages',
-    {
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
-      },
-
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-
-        max_tokens: 10000,
-
-        system: systemPrompt,
-
-        messages: [
-          {
-            role: 'user',
-            content: userMessage
-          }
-        ]
-      })
-    }
-  );
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 10000,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userMessage }]
+    })
+  });
 
   if (!res.ok) {
     const errorText = await res.text();
-
-    throw new Error(
-      `Claude API: ${res.status} ${errorText}`
-    );
+    throw new Error(`Claude API: ${res.status} ${errorText}`);
   }
 
   const data = await res.json();
-
-  const text =
-    data.content
-      ?.filter(block => block.type === 'text')
-      ?.map(block => block.text)
-      ?.join('\n')
-      ?.trim();
+  const text = data.content?.filter(block => block.type === 'text')?.map(block => block.text)?.join('\n')?.trim();
 
   if (!text) {
-    throw new Error(
-      'Claude API : réponse reçue mais aucun texte exploitable'
-    );
+    throw new Error('Claude API : réponse reçue mais aucun texte exploitable');
   }
 
   return text;
@@ -235,23 +157,7 @@ async function callClaude(systemPrompt, userMessage) {
 // -----------------------------------------------------------------------------
 
 export const PROVIDERS = {
-
-  chatgpt: {
-    label: 'ChatGPT (OpenAI)',
-    envKey: 'OPENAI_API_KEY',
-    call: callOpenAI
-  },
-
-  gemini: {
-    label: 'Gemini (Google)',
-    envKey: 'GEMINI_API_KEY',
-    call: callGemini
-  },
-
-  claude: {
-    label: 'Claude (Anthropic)',
-    envKey: 'ANTHROPIC_API_KEY',
-    call: callClaude
-  }
-
+  chatgpt: { label: 'ChatGPT (OpenAI)', envKey: 'OPENAI_API_KEY', call: callOpenAI },
+  gemini: { label: 'Gemini (Google)', envKey: 'GEMINI_API_KEY', call: callGemini },
+  claude: { label: 'Claude (Anthropic)', envKey: 'ANTHROPIC_API_KEY', call: callClaude }
 };
