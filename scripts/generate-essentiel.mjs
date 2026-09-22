@@ -2,12 +2,13 @@
 // Lit data/daily-data.json, appelle un fournisseur IA disponible avec le prompt maître
 // éditorial, puis réécrit src/pages/essentiel.astro.
 //
-// Fournisseurs actifs par défaut : ChatGPT -> Gemini -> Grok.
-// Claude est volontairement désactivé du fallback automatique.
+// // OpenAI / ChatGPT est le rédacteur automatique unique de L'Essentiel.
 //
-// Variable d'environnement optionnelle AI_PROVIDER : chatgpt | gemini | grok
-// Si AI_PROVIDER est défini, ce fournisseur est essayé en premier, puis les autres
-// fournisseurs actifs prennent le relais en cas d'échec.
+// Gemini intervient séparément dans qa-essentiel.mjs
+// comme contrôleur qualité indépendant.
+//
+// Claude reste utilisé pour le développement du site,
+// mais n'intervient pas dans ce pipeline automatique.
 //
 // Chaque fournisseur a besoin de sa propre clé API en secret GitHub.
 //
