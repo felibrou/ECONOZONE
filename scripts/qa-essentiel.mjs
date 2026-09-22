@@ -2,19 +2,25 @@
 //
 // Contrôle qualité automatique de L'Essentiel avant publication.
 //
-// Ce script :
-// 1. lit src/pages/essentiel.astro
-// 2. envoie le contenu à Gemini
-// 3. demande une décision stricte PASS / FAIL
-// 4. bloque la publication si une anomalie critique est détectée
+// Modèle principal : Gemini 3.6 Flash
+// Fallback : Gemini 3.5 Flash-Lite
 //
-// Gemini ne réécrit PAS l'article.
-// Il joue uniquement le rôle de contrôle qualité.
+// Le script :
+// 1. lit src/pages/essentiel.astro
+// 2. contrôle le contenu avec Gemini
+// 3. retente automatiquement en cas de panne temporaire
+// 4. bascule sur Flash-Lite si nécessaire
+// 5. autorise ou bloque la publication avec PASS / FAIL
 
 import fs from 'node:fs';
 import path from 'node:path';
 
-const PAGE_PATH = path.join(process.cwd(), 'src', 'pages', 'essentiel.astro');
+const PAGE_PATH = path.join(
+  process.cwd(),
+  'src',
+  'pages',
+  'essentiel.astro'
+);
 
 const apiKey = process.env.GEMINI_API_KEY;
 
@@ -23,7 +29,10 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const MODEL = 'gemini-3.6-flash';
+const PRIMARY_MODEL = 'gemini-3.6-flash';
+const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
+
+const MAX_RETRIES = 3;
 
 const QA_PROMPT = `
 Tu es le contrôleur qualité éditorial et technique du média économique
@@ -117,8 +126,7 @@ Vérifie :
 - incidence régionale.
 
 Ne pas accepter une comparaison graphique directe de matières premières
-ayant des unités incompatibles sauf si les séries ont été normalisées
-(par exemple base 100 ou variations en pourcentage).
+ayant des unités incompatibles sauf si les séries ont été normalisées.
 
 ==================================================
 5. SOURCES ET LIENS
@@ -235,78 +243,280 @@ Si publication bloquée :
 Aucun texte avant ou après le JSON.
 `;
 
-async function callGemini(content) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function isRetryableStatus(status) {
+  return [
+    429,
+    500,
+    502,
+    503,
+    504
+  ].includes(status);
+}
+
+async function callGeminiOnce(model, content) {
+  const url =
+    `https://generativelanguage.googleapis.com/v1beta/models/` +
+    `${model}:generateContent`;
 
   const res = await fetch(url, {
     method: 'POST',
+
     headers: {
       'Content-Type': 'application/json',
       'x-goog-api-key': apiKey
     },
+
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: QA_PROMPT }] },
-      contents: [{ role: 'user', parts: [{ text: `Contrôle cette édition avant publication :\n\n${content}` }] }],
+      systemInstruction: {
+        parts: [
+          {
+            text: QA_PROMPT
+          }
+        ]
+      },
+
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              text:
+                `Contrôle cette édition avant publication :\n\n${content}`
+            }
+          ]
+        }
+      ],
+
       generationConfig: {
-        temperature: 0,
         maxOutputTokens: 3000,
         responseMimeType: 'application/json'
       }
     })
   });
 
+  const responseText = await res.text();
+
   if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`Gemini QA API: ${res.status} ${errorText}`);
+    const error = new Error(
+      `Gemini QA API: ${res.status} ${responseText}`
+    );
+
+    error.status = res.status;
+
+    throw error;
   }
 
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.map(part => part.text || '')?.join('')?.trim();
+  let data;
+
+  try {
+    data = JSON.parse(responseText);
+  } catch {
+    throw new Error(
+      'Gemini QA : réponse HTTP valide mais JSON API illisible.'
+    );
+  }
+
+  const text =
+    data.candidates?.[0]?.content?.parts
+      ?.map(part => part.text || '')
+      ?.join('')
+      ?.trim();
 
   if (!text) {
-    throw new Error('Gemini QA : aucune réponse exploitable.');
+    throw new Error(
+      `Gemini QA (${model}) : aucune réponse exploitable.`
+    );
   }
 
   return text;
 }
 
+async function callGeminiWithRetry(model, content) {
+  let lastError;
+
+  for (
+    let attempt = 1;
+    attempt <= MAX_RETRIES;
+    attempt++
+  ) {
+    try {
+      console.log(
+        `→ ${model} — tentative ${attempt}/${MAX_RETRIES}`
+      );
+
+      return await callGeminiOnce(
+        model,
+        content
+      );
+
+    } catch (err) {
+      lastError = err;
+
+      console.error(
+        `⚠️ ${model} — tentative ${attempt} échouée :`
+      );
+
+      console.error(
+        err.message || err
+      );
+
+      if (
+        !isRetryableStatus(err.status) ||
+        attempt === MAX_RETRIES
+      ) {
+        break;
+      }
+
+      const waitTime =
+        attempt === 1
+          ? 5000
+          : attempt === 2
+            ? 10000
+            : 15000;
+
+      console.log(
+        `→ Nouvelle tentative dans ${waitTime / 1000} secondes...`
+      );
+
+      await sleep(waitTime);
+    }
+  }
+
+  throw lastError;
+}
+
+async function callGemini(content) {
+  try {
+    console.log('');
+    console.log(
+      `→ Contrôle principal avec ${PRIMARY_MODEL}`
+    );
+
+    return {
+      text: await callGeminiWithRetry(
+        PRIMARY_MODEL,
+        content
+      ),
+      model: PRIMARY_MODEL
+    };
+
+  } catch (primaryError) {
+    console.error('');
+    console.error(
+      `⚠️ ${PRIMARY_MODEL} reste indisponible.`
+    );
+
+    console.log(
+      `→ Bascule sur ${FALLBACK_MODEL}...`
+    );
+
+    try {
+      return {
+        text: await callGeminiWithRetry(
+          FALLBACK_MODEL,
+          content
+        ),
+        model: FALLBACK_MODEL
+      };
+
+    } catch (fallbackError) {
+      console.error('');
+      console.error(
+        '❌ Les deux modèles Gemini ont échoué.'
+      );
+
+      throw new Error(
+        `Principal : ${primaryError.message}\n` +
+        `Fallback : ${fallbackError.message}`
+      );
+    }
+  }
+}
+
 async function main() {
   console.log('');
   console.log('======================================');
-  console.log('🔎 CONTRÔLE QUALITÉ — L\u2019ESSENTIEL');
+  console.log('🔎 CONTRÔLE QUALITÉ — L’ESSENTIEL');
   console.log('======================================');
 
   if (!fs.existsSync(PAGE_PATH)) {
-    console.error(`❌ Fichier introuvable : ${PAGE_PATH}`);
+    console.error(
+      `❌ Fichier introuvable : ${PAGE_PATH}`
+    );
+
     process.exit(1);
   }
 
-  const page = fs.readFileSync(PAGE_PATH, 'utf-8');
+  const page = fs.readFileSync(
+    PAGE_PATH,
+    'utf-8'
+  );
 
   if (!page.trim()) {
-    console.error('❌ Le fichier essentiel.astro est vide.');
+    console.error(
+      '❌ Le fichier essentiel.astro est vide.'
+    );
+
     process.exit(1);
   }
 
-  console.log(`→ Analyse avec Gemini ${MODEL}...`);
+  let geminiResponse;
 
-  const response = await callGemini(page);
+  try {
+    geminiResponse =
+      await callGemini(page);
+
+  } catch (err) {
+    console.error('');
+    console.error(
+      '❌ Impossible d’effectuer le contrôle qualité Gemini.'
+    );
+
+    console.error(
+      err.message || err
+    );
+
+    process.exit(1);
+  }
 
   let result;
+
   try {
-    result = JSON.parse(response);
+    result =
+      JSON.parse(geminiResponse.text);
+
   } catch {
-    console.error('❌ Gemini n\u2019a pas retourné un JSON valide.');
-    console.error(response);
+    console.error(
+      '❌ Gemini n’a pas retourné un JSON valide.'
+    );
+
+    console.error(
+      geminiResponse.text
+    );
+
     process.exit(1);
   }
 
   console.log('');
-  console.log(`Décision Gemini : ${result.status}`);
+  console.log(
+    `Modèle QA utilisé : ${geminiResponse.model}`
+  );
 
-  if (Array.isArray(result.warnings) && result.warnings.length > 0) {
+  console.log(
+    `Décision Gemini : ${result.status}`
+  );
+
+  if (
+    Array.isArray(result.warnings) &&
+    result.warnings.length > 0
+  ) {
     console.log('');
     console.log('⚠️ Avertissements :');
+
     for (const warning of result.warnings) {
       console.log(`- ${warning}`);
     }
@@ -314,18 +524,31 @@ async function main() {
 
   if (result.summary) {
     console.log('');
-    console.log(`Résumé : ${result.summary}`);
+    console.log(
+      `Résumé : ${result.summary}`
+    );
   }
 
   if (result.status !== 'PASS') {
     console.error('');
-    console.error('❌ PUBLICATION AUTOMATIQUE BLOQUÉE');
+    console.error(
+      '❌ PUBLICATION AUTOMATIQUE BLOQUÉE'
+    );
 
-    if (Array.isArray(result.critical_errors) && result.critical_errors.length > 0) {
+    if (
+      Array.isArray(result.critical_errors) &&
+      result.critical_errors.length > 0
+    ) {
       console.error('');
       console.error('Erreurs critiques :');
-      for (const error of result.critical_errors) {
-        console.error(`- ${error}`);
+
+      for (
+        const error
+        of result.critical_errors
+      ) {
+        console.error(
+          `- ${error}`
+        );
       }
     }
 
@@ -333,12 +556,24 @@ async function main() {
   }
 
   console.log('');
-  console.log('✅ Contrôle qualité réussi.');
-  console.log('✅ Publication automatique autorisée.');
-  console.log('======================================');
+  console.log(
+    '✅ Contrôle qualité réussi.'
+  );
+
+  console.log(
+    '✅ Publication automatique autorisée.'
+  );
+
+  console.log(
+    '======================================'
+  );
 }
 
 main().catch((err) => {
-  console.error('❌ Échec du contrôle qualité :', err.message || err);
+  console.error(
+    '❌ Échec du contrôle qualité :',
+    err?.message || err
+  );
+
   process.exit(1);
 });
