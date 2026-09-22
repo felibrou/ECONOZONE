@@ -113,7 +113,18 @@ Réponds UNIQUEMENT avec le contenu HTML qui remplace le contenu à l'intérieur
 
 Réutilise exactement les classes CSS déjà définies dans le thème du site : .masthead / .dek ; .kpi-strip / .kpi / .kpi-label / .kpi-value ; .z ; .up / .down / .flat ; .highlight ; .note ; .disclaimer.
 
-Le champ "note_redaction" du JSON d'entrée, s'il est vide, doit rester "[Note de la rédaction à compléter par l'éditeur]".
+13. NOTE DE LA RÉDACTION
+
+Ajoute systématiquement à la fin de chaque édition, juste avant l’avertissement final, la note publique suivante :
+
+<div class="note">
+  <b>Note de la rédaction —</b> Les données et informations de cette édition correspondent aux éléments disponibles à l’heure de clôture éditoriale. Elles peuvent être révisées ou complétées après publication. Cette analyse est destinée à l’information du public et ne constitue pas une recommandation d’investissement.
+</div>
+
+Cette note est destinée au public et doit toujours être publiée.
+
+Ne publie jamais les placeholders ou instructions internes tels que :
+"[Note de la rédaction à compléter par l'éditeur]".
 
 Ne fournis pas d'explication sur la méthode utilisée, de notes internes, de données privées, ni de commentaire adressé au propriétaire du site.`;
 
