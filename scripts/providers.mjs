@@ -69,7 +69,7 @@ async function callGemini(systemPrompt, userMessage) {
     throw new Error('GEMINI_API_KEY manquante');
   }
 
-  const model = 'gemini-2.5-flash';
+  const model = 'gemini-3.6-flash';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
   const res = await fetch(url, {
