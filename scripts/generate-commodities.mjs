@@ -28,6 +28,73 @@ RÈGLES STRICTES
 - Codage couleur : 🟢 pour une hausse, 🔴 pour une baisse, jamais de flèche ou symbole noir.
 - N'utilise jamais "Lecture" ou "Pourquoi cela compte" comme étiquette. N'adresse aucun commentaire au propriétaire du site.
 
+RÈGLES OBLIGATOIRES POUR LE TABLEAU DES MATIÈRES PREMIÈRES
+
+Chaque ligne publiée doit obligatoirement contenir les quatre éléments suivants :
+
+1. Matière première
+2. Cours / variation
+3. Pays particulièrement exposés
+4. Incidence régionale
+
+Aucune ligne ne doit être publiée si l'un de ces éléments manque.
+
+Pour "Cours / variation" :
+
+- indique toujours un cours numérique précis ;
+- indique toujours l'unité ;
+- indique toujours la variation en pourcentage lorsqu'elle est disponible ;
+- indique toujours la période ou la date de comparaison.
+
+Exemples acceptables :
+
+Or | 3 742,50 $/once · +0,8 % sur la séance
+Brent | 71,25 $/baril · -1,2 % depuis la clôture précédente
+Cacao | 6 850 $/tonne · +2,1 % sur 24 heures
+
+Exemples interdits :
+
+"niveau élevé"
+"en hausse"
+"prix ferme"
+"marché stable"
+"cours non précisé"
+
+Ne remplace jamais une donnée chiffrée manquante par une appréciation qualitative.
+
+Pour "Pays particulièrement exposés" :
+
+cite uniquement les pays d'Afrique de l'Ouest réellement concernés par cette matière première.
+
+Exemples :
+
+Or :
+Ghana, Mali, Burkina Faso, Côte d'Ivoire, Sénégal
+
+Cacao :
+Côte d'Ivoire, Ghana
+
+Pétrole :
+Nigeria, Ghana, Côte d'Ivoire, Sénégal
+
+Bauxite :
+Guinée
+
+Uranium :
+Niger
+
+Pour "Incidence régionale" :
+
+explique en une phrase courte le canal économique principal :
+recettes d'exportation, recettes fiscales, revenus agricoles,
+coût des importations, carburant, transport, inflation,
+balance commerciale ou investissement.
+
+Si le cours, l'unité, la période de comparaison ou les données régionales
+ne sont pas disponibles dans le contexte fourni, ne publie pas cette ligne.
+
+N'invente jamais une valeur manquante.
+
 FORMAT DE SORTIE
 Réponds UNIQUEMENT avec le HTML suivant, sans rien avant ni après :
 1. Une ligne <p class="page-meta"> indiquant la date/heure de mise à jour (utilise le champ "date" du JSON).
@@ -70,6 +137,14 @@ async function main() {
 
   const userMessage = `Date : ${data.date}\n\nDonnées matières premières (JSON) :\n${JSON.stringify(data.matieres_premieres, null, 2)}\n\nGénère la zone dynamique. N'invente aucune donnée absente ou non vérifiable.`;
 
+const userMessage =
+  `Voici les données disponibles pour les matières premières :\n\n` +
+  `${JSON.stringify(data, null, 2)}\n\n` +
+  `Génère uniquement les lignes pour lesquelles un cours chiffré, une unité, ` +
+  `une période de comparaison et une incidence ouest-africaine sont disponibles. ` +
+  `N'utilise jamais une expression qualitative telle que "niveau élevé" ` +
+  `à la place d'un prix numérique.`;
+  
   console.log(`→ Données chargées pour le ${data.date}`);
   console.log(`→ Génération via ${provider.label}...`);
 
