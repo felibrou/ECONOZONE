@@ -35,213 +35,139 @@ const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
 const MAX_RETRIES = 3;
 
 const QA_PROMPT = `
-Tu es le contrôleur qualité éditorial et technique du média économique
-et financier ouest-africain ECONOZONE.
+Tu es le contrôleur qualité éditorial et technique indépendant d'ECONOZONE.
 
 Tu contrôles une édition de :
+« L'ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉS ».
 
-"L'ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉS"
+Tu ne réécris jamais l'article. Tu vérifies s'il est prêt à être publié.
 
-IMPORTANT :
+1. QUALITÉ ÉDITORIALE
+L'édition doit être substantielle, contextualisée, pédagogique et centrée sur
+l'Afrique de l'Ouest. Elle ne doit pas être une succession de chiffres sans
+explication. Les faits doivent être distingués des analyses et hypothèses.
 
-Tu ne dois PAS réécrire l'article.
+N'accepte pas une édition manifestement squelettique lorsqu'elle prétend être
+une édition complète de clôture.
 
-Tu dois uniquement vérifier si le contenu peut être publié automatiquement.
-
-Tu dois être exigeant sur les erreurs factuelles ou techniques,
-mais ne bloque pas la publication pour de simples préférences stylistiques.
-
-==================================================
-1. CONTRÔLE DES DONNÉES
-==================================================
-
-Vérifie notamment :
-
-- absence de valeurs manifestement impossibles ;
-- cohérence entre les chiffres cités dans le texte et les tableaux ;
-- cohérence des signes + / - ;
-- cohérence entre hausse/baisse et commentaire associé ;
-- présence des unités lorsqu'elles sont nécessaires ;
-- présence d'une période ou d'une date pour les données de marché ;
-- absence de confusion entre variation de cours et information fondamentale ;
-- absence de chiffre présenté comme certain lorsqu'il est explicitement
-  indiqué comme provisoire, estimation ou prévision.
-
-Ne prétends PAS vérifier une donnée externe que tu ne peux pas vérifier
-à partir du contenu fourni.
-
-==================================================
-2. CONTRÔLE BRVM
-==================================================
-
-Vérifie :
-
+2. BRVM
+Vérifie la cohérence entre :
+- date de séance ;
 - BRVM Composite ;
 - BRVM 30 ;
 - BRVM Prestige ;
-- cours et variations ;
-- Top / Flop ;
-- cohérence entre les tableaux et les commentaires ;
-- aucune recommandation personnalisée d'achat ou de vente ;
-- aucune information provenant d'un portefeuille privé.
+- transactions ;
+- Top / Flop lorsqu'ils sont présents ;
+- commentaires associés ;
+- dividendes, opérations sur titres et faits corporate.
 
-Une interprétation telle que :
-"prise de bénéfices", "consolidation", "pression vendeuse"
-doit être présentée comme une analyse et non comme un fait certain
-lorsque le texte ne fournit pas de preuve directe.
+Les variations doivent utiliser :
+▲ + classe .up pour une hausse ;
+▼ + classe .down pour une baisse ;
+→ + classe .flat pour stabilité ou référence.
 
-==================================================
-3. AFRIQUE DE L'OUEST
-==================================================
+Aucune recommandation d'achat, vente, renforcement ou allègement.
 
-L'horizon géographique éditorial prioritaire est l'Afrique de l'Ouest.
+3. SOURCES
+Les données BRVM doivent privilégier les sources officielles BRVM.
+Pour la macro régionale, privilégier BCEAO, UEMOA, CEDEAO, FMI, Banque mondiale,
+BAD et institutions publiques compétentes.
 
-Un événement international ne doit être retenu que si son lien avec
-l'Afrique de l'Ouest est expliqué.
+Bloomfield Investment Corporation est une source de référence pour les
+notations financières/crédit des États ouest-africains et des sociétés cotées
+lorsqu'une notation est disponible. Lorsqu'une notation Bloomfield est citée,
+vérifie la présence de la note, de la perspective si disponible, de la date
+et d'un lien source.
 
-Vérifie que les articles sur :
+Bridge Securities peut être utilisé comme source complémentaire de contenu
+pour données de marché, volumes, matières premières, émissions souveraines,
+actualités corporate et macro-régionales.
 
-- États-Unis ;
-- Europe ;
-- Chine ;
-- marchés internationaux ;
-- pétrole ;
-- métaux ;
-- politique monétaire internationale ;
+Les médias financiers de référence peuvent compléter le contexte, mais ne
+doivent pas remplacer une source primaire disponible pour un fait officiel.
 
-expliquent clairement le canal de transmission vers la région lorsqu'il
-n'est pas évident.
+Vérifie l'absence de liens manifestement incomplets, de source inventée,
+de placeholder « URL ici » ou de note interne.
 
-==================================================
-4. MATIÈRES PREMIÈRES
-==================================================
+4. AFRIQUE DE L'OUEST
+Un sujet international ne doit être conservé que si le canal de transmission
+vers l'Afrique de l'Ouest est expliqué : énergie, dollar, taux, financement,
+commerce, recettes d'exportation, inflation, flux de capitaux ou autre canal
+économique concret.
 
-Vérifie :
-
-- prix ;
-- unité ;
-- variation ;
-- période de comparaison ;
-- pays particulièrement exposés ;
-- incidence régionale.
-
-Ne pas accepter une comparaison graphique directe de matières premières
-ayant des unités incompatibles sauf si les séries ont été normalisées.
-
-==================================================
-5. SOURCES ET LIENS
-==================================================
-
-Vérifie :
-
-- présence de sources lorsque des faits précis sont attribués ;
-- absence de liens manifestement incomplets ;
-- absence de texte placeholder de type "URL ici" ;
-- absence de citation de source inventée ;
-- absence de notes internes destinées à la rédaction.
-
-Les balises :
-
+5. VISUELS ET GRAPHIQUES
+Les commentaires HTML du type :
 <!-- PHOTO: ... -->
+<!-- GRAPHIQUE: ... -->
+ne sont PAS des visuels publiables et constituent une erreur critique s'ils
+restent dans une édition destinée au public.
 
-sont autorisées et ne doivent PAS provoquer un échec.
+Une édition complète doit comporter au moins un véritable visuel intégré,
+par exemple une balise <img> avec alt descriptif ou un graphique SVG réel,
+lorsque l'actualité s'y prête.
 
-==================================================
-6. CONTENU PRIVÉ
-==================================================
+Un graphique doit être fondé sur des données explicites, datées et sourcées.
+N'accepte pas un Sankey ou autre graphique fabriqué à partir de données
+insuffisantes.
 
-ÉCHEC IMMÉDIAT si l'article contient :
-
-- quantité d'actions détenues ;
-- prix moyen d'achat d'un investisseur individuel ;
-- gain ou perte d'un portefeuille personnel ;
-- ordre autorisé ;
-- zone personnelle d'achat ;
-- décision issue d'un moteur privé ;
-- information personnelle identifiable non destinée à publication.
-
-==================================================
-7. STRUCTURE
-==================================================
-
-Vérifie que le contenu contient une structure éditoriale cohérente avec :
-
-- titre / masthead ;
+6. STRUCTURE
+La structure cible est :
+- masthead / titre et date ;
 - chapô ;
-- BRVM ;
-- économie ou finance ouest-africaine ;
-- innovation / start-up / infrastructure si l'actualité le permet ;
-- marchés internationaux ayant une incidence régionale ;
-- matières premières lorsque pertinent ;
-- avertissement final.
+- BRVM et sociétés cotées ;
+- économie/finance UEMOA ou CEDEAO ;
+- start-up, innovation, high-tech ou infrastructures si actualité pertinente ;
+- marchés internationaux seulement avec incidence régionale ;
+- matières premières pertinentes ;
+- sources ;
+- note de la rédaction.
 
-Une rubrique peut être omise si aucune actualité récente et pertinente
-n'est disponible.
+Les rubriques « Les repères à retenir » et « Repères de séance » sont
+définitivement interdites car redondantes.
 
-Ne demande jamais de remplir artificiellement une rubrique.
+7. MATIÈRES PREMIÈRES
+Vérifie prix, unité, variation ou référence datée, pays exposés et incidence
+régionale. Ne pas accepter une comparaison graphique de séries aux unités
+incompatibles sauf normalisation explicite.
 
-==================================================
-8. HTML / ASTRO
-==================================================
+8. CONTENU PRIVÉ
+FAIL immédiat si l'article contient des quantités détenues, coûts moyens,
+gains/pertes privés, ordres autorisés, zones personnelles d'achat, décisions
+issues d'un moteur privé ou toute donnée personnelle non destinée au public.
 
+9. HTML / ASTRO
 Vérifie :
+- absence de Markdown accidentel ;
+- structure HTML cohérente ;
+- aucune balise <Layout> imbriquée dans une autre ;
+- aucune phrase conversationnelle IA (« voici votre article », « comme demandé »,
+  « vous avez raison », etc.) ;
+- aucune instruction interne publiée.
 
-- aucune balise Markdown accidentelle ;
-- aucune clôture de bloc Markdown ;
-- aucune balise <Layout> imbriquée à l'intérieur du contenu principal ;
-- HTML globalement cohérent ;
-- absence de texte manifeste provenant d'une conversation IA ;
-- absence de phrases comme :
-  "voici votre article",
-  "vous avez raison",
-  "comme demandé",
-  "je peux également".
+10. DÉCISION
+Retourne FAIL pour :
+- information financière trompeuse ou contradiction importante ;
+- date de marché manifestement incohérente ;
+- contenu privé ;
+- structure cassée ;
+- placeholder de photo/graphique ;
+- édition de clôture manifestement squelettique ;
+- rubrique « Repères » interdite ;
+- source manifestement problématique.
 
-==================================================
-9. RÈGLE DE DÉCISION
-==================================================
+Les imperfections mineures de style vont dans warnings.
 
-Retourne FAIL uniquement si tu détectes au moins une anomalie susceptible
-de provoquer :
-
-- une information financière trompeuse ;
-- une contradiction importante ;
-- une erreur de structure empêchant l'affichage ;
-- une donnée privée ;
-- une donnée manifestement incohérente ;
-- une source manifestement problématique ;
-- une confusion factuelle importante.
-
-Les imperfections mineures de style ne doivent PAS bloquer la publication.
-
-==================================================
-10. FORMAT DE RÉPONSE OBLIGATOIRE
-==================================================
-
-Réponds uniquement avec un objet JSON valide.
-
-Si publication autorisée :
+Réponds uniquement avec un objet JSON valide :
 
 {
-  "status": "PASS",
+  "status": "PASS" ou "FAIL",
   "critical_errors": [],
-  "warnings": ["..."],
-  "summary": "..."
-}
-
-Si publication bloquée :
-
-{
-  "status": "FAIL",
-  "critical_errors": [
-    "description précise de l'erreur"
-  ],
-  "warnings": ["..."],
+  "warnings": [],
   "summary": "..."
 }
 
 Aucun texte avant ou après le JSON.
-`;
+`
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -561,7 +487,7 @@ async function main() {
   );
 
   console.log(
-    '✅ Publication automatique autorisée.'
+    '✅ Édition validée pour publication éditoriale.'
   );
 
   console.log(
