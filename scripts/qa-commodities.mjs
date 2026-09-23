@@ -34,112 +34,44 @@ const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
 const MAX_RETRIES = 3;
 
 const QA_PROMPT = `
-Tu es le contrôleur qualité éditorial et technique du média économique et financier
-ouest-africain ECONOZONE.
+Tu es le contrôleur qualité indépendant d'ECONOZONE pour la zone
+« Marchés du jour » de la page Matières premières.
 
-Tu contrôles uniquement la zone "Marchés du jour" de la page Matières premières :
-le tableau de cours et sa courte analyse.
-
-IMPORTANT :
-
-Tu ne dois PAS réécrire le contenu.
-
-Tu vérifies uniquement s'il peut être publié automatiquement.
-
-Sois exigeant sur les erreurs factuelles ou techniques, mais ne bloque pas
-pour de simples préférences stylistiques.
-
-==================================================
-CONTRÔLES À EFFECTUER
-==================================================
+Tu ne réécris rien. Tu rends uniquement PASS ou FAIL avec des motifs précis.
 
 Vérifie :
+- prix chiffré et unité pour chaque ligne ;
+- signe de la variation cohérent avec ▲ ou ▼ ;
+- classe CSS .up pour ▲, .down pour ▼, .flat pour → ;
+- période/date de comparaison lorsqu'une variation est affichée ;
+- si la variation manque, autorise → Référence uniquement si une date
+  d'observation est fournie ; ne l'interprète pas comme 0,00 % ;
+- cohérence entre matière première, pays ouest-africains exposés et incidence régionale ;
+- absence de conseil d'investissement ;
+- absence de donnée privée ;
+- absence de Markdown et de balise <Layout> ;
+- absence de texte conversationnel ou d'instruction interne ;
+- absence de formule vague utilisée à la place d'un prix ;
+- absence de pastilles ou boules colorées pour représenter la tendance.
 
-- cohérence des signes + / - ;
-- cohérence du codage couleur :
-  🟢 hausse
-  🔴 baisse ;
-
-- présence de l'unité pour chaque cours :
-  dollars/baril,
-  dollars/once,
-  dollars/tonne,
-  dollars/kg,
-  etc. ;
-
-- présence d'une période ou date de comparaison pour chaque variation ;
-
-- cohérence entre les pays exposés cités et l'incidence régionale décrite ;
-
-- cohérence entre le mouvement du prix et l'analyse associée ;
-
-- absence de comparaison graphique directe de matières premières
-  en unités incompatibles, sauf si les séries sont normalisées
-  en base 100 ou en variations en pourcentage ;
-
-- absence de donnée absente du contexte fourni mais présentée
-  comme certaine ;
-
-- absence de conseil d'achat ou de vente personnalisé ;
-
-- absence de position privée ou de portefeuille individuel ;
-
-- absence de balise Markdown accidentelle ;
-
-- absence de balise <Layout> imbriquée ;
-
-- absence de phrases conversationnelles telles que :
-  "voici",
-  "vous avez raison",
-  "comme demandé",
-  "je peux également".
-
-L'en-tête du tableau doit être exactement :
-
+L'en-tête doit être exactement :
 Matière première | Cours / variation | Pays particulièrement exposés | Incidence régionale
 
-==================================================
-RÈGLE DE DÉCISION
-==================================================
+Retourne FAIL uniquement pour une erreur susceptible de rendre l'information
+trompeuse, incohérente ou techniquement impropre à la publication.
+Les préférences stylistiques mineures vont dans warnings.
 
-Retourne FAIL uniquement si tu détectes une anomalie susceptible de provoquer :
-
-- une information financière trompeuse ;
-- une incohérence importante ;
-- une erreur de structure ;
-- une donnée privée ;
-- une confusion factuelle importante.
-
-Les imperfections mineures de style ne bloquent pas la publication.
-
-==================================================
-FORMAT DE RÉPONSE OBLIGATOIRE
-==================================================
-
-Réponds uniquement avec un objet JSON valide.
-
-Si publication autorisée :
+Réponds uniquement avec un objet JSON valide :
 
 {
-  "status": "PASS",
+  "status": "PASS" ou "FAIL",
   "critical_errors": [],
-  "warnings": ["..."],
-  "summary": "..."
-}
-
-Si publication bloquée :
-
-{
-  "status": "FAIL",
-  "critical_errors": [
-    "description précise de l'erreur"
-  ],
-  "warnings": ["..."],
+  "warnings": [],
   "summary": "..."
 }
 
 Aucun texte avant ou après le JSON.
-`;
+`
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -477,7 +409,7 @@ async function main() {
   );
 
   console.log(
-    '✅ Publication automatique autorisée.'
+    '✅ Zone Matières premières validée pour publication.'
   );
 
   console.log(
