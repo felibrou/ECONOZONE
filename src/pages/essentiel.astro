@@ -46,8 +46,15 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 5px;
   }
 
+  .article-photo.startup {
+    text-align: center;
+  }
+
   .article-photo.startup img {
-    max-height: 500px;
+    display: inline-block;
+    width: 100%;
+    max-width: 620px;
+    max-height: 360px;
     object-fit: contain;
     background: #f7f8fa;
   }
@@ -57,6 +64,7 @@ import Layout from '../layouts/Layout.astro';
     color: #667085;
     font-size: 0.82rem;
     line-height: 1.45;
+    text-align: left;
   }
 
   section {
@@ -176,17 +184,6 @@ import Layout from '../layouts/Layout.astro';
     color: #0d47a1;
   }
 
-  .repere-box {
-    background: #f5f7fa;
-    padding: 18px 22px;
-    margin: 28px 0;
-    border-radius: 6px;
-  }
-
-  .repere-box ul {
-    margin-bottom: 0;
-  }
-
   .note {
     margin-top: 40px;
     padding: 18px 20px;
@@ -232,6 +229,11 @@ import Layout from '../layouts/Layout.astro';
     .market-table {
       font-size: 0.88rem;
     }
+
+    .article-photo.startup img {
+      max-width: 100%;
+      max-height: 300px;
+    }
   }
 
   @media (max-width: 480px) {
@@ -251,7 +253,6 @@ import Layout from '../layouts/Layout.astro';
     </p>
   </div>
 
-
   <p class="chapô">
     La BRVM a connu une séance difficile mardi, avec un recul simultané de ses
     trois principaux indices et une pression vendeuse particulièrement marquée
@@ -263,7 +264,6 @@ import Layout from '../layouts/Layout.astro';
     artificielle soutiennent le Nasdaq dans un environnement toujours fortement
     influencé par le pétrole et les taux d’intérêt.
   </p>
-
 
   <figure class="hero-photo">
     <img
@@ -277,16 +277,10 @@ import Layout from '../layouts/Layout.astro';
     </figcaption>
   </figure>
 
-
-  <!-- ========================================================= -->
-  <!-- 1. BRVM                                                   -->
-  <!-- ========================================================= -->
-
   <section>
     <h2>1. BRVM : forte pression vendeuse sur la cote</h2>
 
     <div class="kpi-strip">
-
       <div class="kpi">
         <div class="kpi-label">BRVM Composite</div>
         <div class="kpi-value">
@@ -317,9 +311,7 @@ import Layout from '../layouts/Layout.astro';
           3,21 milliards FCFA
         </div>
       </div>
-
     </div>
-
 
     <p>
       La séance du 22 septembre s’est soldée par un repli généralisé.
@@ -336,7 +328,6 @@ import Layout from '../layouts/Layout.astro';
       La séance reflète ainsi une faiblesse assez large du marché, au-delà
       d’un simple mouvement isolé sur quelques titres.
     </p>
-
 
     <h3>Radar BRVM — Top 5 / Flop 5</h3>
 
@@ -434,7 +425,6 @@ import Layout from '../layouts/Layout.astro';
       </tbody>
     </table>
 
-
     <div class="highlight">
       <h3>Bridge Bank Group CI entre en scène le 24 septembre</h3>
 
@@ -448,7 +438,6 @@ import Layout from '../layouts/Layout.astro';
       </p>
     </div>
 
-
     <p class="source-line">
       Source :
       <a
@@ -460,11 +449,6 @@ import Layout from '../layouts/Layout.astro';
       </a>.
     </p>
   </section>
-
-
-  <!-- ========================================================= -->
-  <!-- 2. UEMOA                                                  -->
-  <!-- ========================================================= -->
 
   <section>
     <h2>
@@ -491,13 +475,7 @@ import Layout from '../layouts/Layout.astro';
       <b>3,00 %</b> et le taux du guichet de prêt marginal à 5,00 %.
     </p>
 
-
-    <!-- ======================================================= -->
-    <!-- GRAPHIQUE RÉEL : DÉFICIT BUDGÉTAIRE UEMOA              -->
-    <!-- ======================================================= -->
-
     <div class="chart-card">
-
       <p class="chart-title">
         Déficit budgétaire de l’UEMOA
       </p>
@@ -508,13 +486,11 @@ import Layout from '../layouts/Layout.astro';
       </p>
 
       <div class="chart-wrap">
-
         <svg
           viewBox="0 0 760 330"
           role="img"
           aria-labelledby="budget-chart-title budget-chart-desc"
         >
-
           <title id="budget-chart-title">
             Déficit budgétaire de l’UEMOA
           </title>
@@ -526,26 +502,11 @@ import Layout from '../layouts/Layout.astro';
             et 3,1 % projeté en 2027.
           </desc>
 
-
-          <!-- grille -->
-
-          <line x1="90" y1="250" x2="710" y2="250"
-                stroke="#bcc4cf" stroke-width="1" />
-
-          <line x1="90" y1="200" x2="710" y2="200"
-                stroke="#e3e7ed" stroke-width="1" />
-
-          <line x1="90" y1="150" x2="710" y2="150"
-                stroke="#e3e7ed" stroke-width="1" />
-
-          <line x1="90" y1="100" x2="710" y2="100"
-                stroke="#e3e7ed" stroke-width="1" />
-
-          <line x1="90" y1="50" x2="710" y2="50"
-                stroke="#e3e7ed" stroke-width="1" />
-
-
-          <!-- axe Y -->
+          <line x1="90" y1="250" x2="710" y2="250" stroke="#bcc4cf" stroke-width="1" />
+          <line x1="90" y1="200" x2="710" y2="200" stroke="#e3e7ed" stroke-width="1" />
+          <line x1="90" y1="150" x2="710" y2="150" stroke="#e3e7ed" stroke-width="1" />
+          <line x1="90" y1="100" x2="710" y2="100" stroke="#e3e7ed" stroke-width="1" />
+          <line x1="90" y1="50" x2="710" y2="50" stroke="#e3e7ed" stroke-width="1" />
 
           <text x="48" y="255" font-size="13" fill="#667085">0</text>
           <text x="48" y="205" font-size="13" fill="#667085">1</text>
@@ -553,153 +514,28 @@ import Layout from '../layouts/Layout.astro';
           <text x="48" y="105" font-size="13" fill="#667085">3</text>
           <text x="48" y="55" font-size="13" fill="#667085">4 %</text>
 
+          <rect x="125" y="90" width="90" height="160" rx="3" fill="#315fa8" />
+          <text x="170" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#173c73">3,2 %</text>
+          <text x="170" y="278" text-anchor="middle" font-size="14" fill="#344054">2025</text>
 
-          <!-- 2025 : 3,2 -->
+          <rect x="270" y="80" width="90" height="170" rx="3" fill="#315fa8" />
+          <text x="315" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#173c73">3,4 %</text>
+          <text x="315" y="278" text-anchor="middle" font-size="14" fill="#344054">S1 2026</text>
 
-          <rect
-            x="125"
-            y="90"
-            width="90"
-            height="160"
-            rx="3"
-            fill="#315fa8"
-          />
+          <rect x="415" y="75" width="90" height="175" rx="3" fill="#8094b5" />
+          <text x="460" y="63" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5f7c">3,5 %</text>
+          <text x="460" y="278" text-anchor="middle" font-size="14" fill="#344054">2026 prév.</text>
 
-          <text
-            x="170"
-            y="78"
-            text-anchor="middle"
-            font-size="16"
-            font-weight="700"
-            fill="#173c73"
-          >
-            3,2 %
-          </text>
-
-          <text
-            x="170"
-            y="278"
-            text-anchor="middle"
-            font-size="14"
-            fill="#344054"
-          >
-            2025
-          </text>
-
-
-          <!-- S1 2026 : 3,4 -->
-
-          <rect
-            x="270"
-            y="80"
-            width="90"
-            height="170"
-            rx="3"
-            fill="#315fa8"
-          />
-
-          <text
-            x="315"
-            y="68"
-            text-anchor="middle"
-            font-size="16"
-            font-weight="700"
-            fill="#173c73"
-          >
-            3,4 %
-          </text>
-
-          <text
-            x="315"
-            y="278"
-            text-anchor="middle"
-            font-size="14"
-            fill="#344054"
-          >
-            S1 2026
-          </text>
-
-
-          <!-- 2026 projection : 3,5 -->
-
-          <rect
-            x="415"
-            y="75"
-            width="90"
-            height="175"
-            rx="3"
-            fill="#8094b5"
-          />
-
-          <text
-            x="460"
-            y="63"
-            text-anchor="middle"
-            font-size="16"
-            font-weight="700"
-            fill="#4b5f7c"
-          >
-            3,5 %
-          </text>
-
-          <text
-            x="460"
-            y="278"
-            text-anchor="middle"
-            font-size="14"
-            fill="#344054"
-          >
-            2026 prév.
-          </text>
-
-
-          <!-- 2027 projection : 3,1 -->
-
-          <rect
-            x="560"
-            y="95"
-            width="90"
-            height="155"
-            rx="3"
-            fill="#8094b5"
-          />
-
-          <text
-            x="605"
-            y="83"
-            text-anchor="middle"
-            font-size="16"
-            font-weight="700"
-            fill="#4b5f7c"
-          >
-            3,1 %
-          </text>
-
-          <text
-            x="605"
-            y="278"
-            text-anchor="middle"
-            font-size="14"
-            fill="#344054"
-          >
-            2027 prév.
-          </text>
-
-
-          <!-- légende -->
+          <rect x="560" y="95" width="90" height="155" rx="3" fill="#8094b5" />
+          <text x="605" y="83" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5f7c">3,1 %</text>
+          <text x="605" y="278" text-anchor="middle" font-size="14" fill="#344054">2027 prév.</text>
 
           <rect x="205" y="305" width="12" height="12" fill="#315fa8" />
-          <text x="224" y="315" font-size="12" fill="#667085">
-            Réalisé
-          </text>
+          <text x="224" y="315" font-size="12" fill="#667085">Réalisé</text>
 
           <rect x="340" y="305" width="12" height="12" fill="#8094b5" />
-          <text x="359" y="315" font-size="12" fill="#667085">
-            Projection BCEAO
-          </text>
-
+          <text x="359" y="315" font-size="12" fill="#667085">Projection BCEAO</text>
         </svg>
-
       </div>
 
       <p class="source-line">
@@ -713,9 +549,7 @@ import Layout from '../layouts/Layout.astro';
           septembre 2026
         </a>.
       </p>
-
     </div>
-
 
     <p>
       Au premier semestre 2026, le déficit budgétaire global de l’Union
@@ -730,23 +564,14 @@ import Layout from '../layouts/Layout.astro';
       par plusieurs États pour amortir les conséquences économiques de la
       hausse des prix énergétiques.
     </p>
-
   </section>
 
-
-  <!-- ========================================================= -->
-  <!-- 3. START-UP                                               -->
-  <!-- ========================================================= -->
-
   <section>
-
     <h2>
       3. Start-up : la CEDEAO réunit 60 entreprises innovantes à Abuja
     </h2>
 
-
     <figure class="article-photo startup">
-
       <img
         src="https://www.ecowas.int/wp-content/uploads/2026/09/2nd-ECOWAS-Startup-Awards_White-918x1024.jpeg"
         alt="Affiche officielle des ECOWAS Startup Awards 2026"
@@ -758,9 +583,7 @@ import Layout from '../layouts/Layout.astro';
         21 au 30 septembre 2026 à Abuja.
         Visuel : Commission de la CEDEAO.
       </figcaption>
-
     </figure>
-
 
     <p>
       La Communauté économique des États de l’Afrique de l’Ouest organise
@@ -782,17 +605,15 @@ import Layout from '../layouts/Layout.astro';
     </p>
 
     <div class="highlight">
-
       <h3>Des prix, mais surtout un enjeu de changement d’échelle</h3>
 
       <p>
-        Les trois premiers projets recevront respectivement 
+        Les trois premiers projets recevront respectivement
         <b>30 000, 20 000 et 15 000 dollars</b> de financement d’amorçage.
         La CEDEAO indique également viser la génération de
         <b>5 millions de dollars de contrats</b> à travers les différents
         secteurs représentés.
       </p>
-
     </div>
 
     <p>
@@ -814,16 +635,9 @@ import Layout from '../layouts/Layout.astro';
         Commission de la CEDEAO — ECOWAS Startup Awards
       </a>.
     </p>
-
   </section>
 
-
-  <!-- ========================================================= -->
-  <!-- 4. MARCHÉS INTERNATIONAUX                                 -->
-  <!-- ========================================================= -->
-
   <section>
-
     <h2>
       4. Marchés internationaux : l’IA porte le Nasdaq, le pétrole redescend
     </h2>
@@ -836,17 +650,15 @@ import Layout from '../layouts/Layout.astro';
     </p>
 
     <table class="market-table">
-
       <thead>
         <tr>
           <th>Marché</th>
           <th>Situation du 22 septembre</th>
-          <th>Lecture</th>
+          <th>Commentaire</th>
         </tr>
       </thead>
 
       <tbody>
-
         <tr>
           <td>Nasdaq Composite</td>
           <td class="up">▲ Nouveau record</td>
@@ -871,11 +683,8 @@ import Layout from '../layouts/Layout.astro';
             d’approvisionnement au Moyen-Orient.
           </td>
         </tr>
-
       </tbody>
-
     </table>
-
 
     <p>
       Pour l’Afrique de l’Ouest, le mouvement du pétrole demeure nettement
@@ -902,22 +711,14 @@ import Layout from '../layouts/Layout.astro';
         Reuters — marchés mondiaux, 22 septembre 2026
       </a>.
     </p>
-
   </section>
 
-
-  <!-- ========================================================= -->
-  <!-- 5. MATIÈRES PREMIÈRES                                     -->
-  <!-- ========================================================= -->
-
   <section>
-
     <h2>
       5. Matières premières : détente du pétrole, enjeu direct pour l’Afrique de l’Ouest
     </h2>
 
     <table class="market-table">
-
       <thead>
         <tr>
           <th>Matière première</th>
@@ -928,20 +729,16 @@ import Layout from '../layouts/Layout.astro';
       </thead>
 
       <tbody>
-
         <tr>
           <td>Brent</td>
-
           <td>
             Environ 99,92 $/baril<br />
             <span class="down">▼ −0,43 %</span>
           </td>
-
           <td>
             Nigeria, Ghana, Côte d’Ivoire, Sénégal et pays importateurs
             de produits pétroliers
           </td>
-
           <td>
             Impact sur les recettes pétrolières des producteurs et sur la
             facture énergétique, le transport et les finances publiques des
@@ -951,16 +748,13 @@ import Layout from '../layouts/Layout.astro';
 
         <tr>
           <td>Produits énergétiques</td>
-
           <td>
             <span class="up">▲ +19,9 %</span>
             au deuxième trimestre 2026
           </td>
-
           <td>
             Ensemble de l’UEMOA
           </td>
-
           <td>
             La BCEAO relie cette hausse trimestrielle essentiellement au
             renchérissement du pétrole brut.
@@ -969,26 +763,20 @@ import Layout from '../layouts/Layout.astro';
 
         <tr>
           <td>Matières premières UEMOA hors pétrole</td>
-
           <td>
             <span class="down">▼ −2,7 %</span>
             au deuxième trimestre 2026
           </td>
-
           <td>
             Principaux pays exportateurs agricoles et miniers de l’Union
           </td>
-
           <td>
             Repli des prix d’exportation, avec notamment des baisses
             relevées sur le café et l’or au cours du trimestre.
           </td>
         </tr>
-
       </tbody>
-
     </table>
-
 
     <p>
       Cette combinaison est importante pour la région :
@@ -996,37 +784,21 @@ import Layout from '../layouts/Layout.astro';
       alors qu’un affaiblissement parallèle du prix de certaines matières
       premières exportées peut réduire les recettes extérieures.
     </p>
-
   </section>
 
-
-  <!-- ========================================================= -->
-  <!-- NOTE DE LA RÉDACTION                                      -->
-  <!-- ========================================================= -->
-
   <div class="note">
-
     <b>Note de la rédaction —</b>
-
     Les données et informations de cette édition correspondent aux éléments
     disponibles à l’heure de clôture éditoriale. Elles peuvent être révisées
     ou complétées après publication. Cette analyse est destinée à
     l’information du public et ne constitue pas une recommandation
     d’investissement.
-
   </div>
 
-
-  <!-- ========================================================= -->
-  <!-- SOURCES                                                   -->
-  <!-- ========================================================= -->
-
   <div class="sources">
-
     <h2>Sources</h2>
 
     <ul>
-
       <li>
         <a
           href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation"
@@ -1078,11 +850,8 @@ import Layout from '../layouts/Layout.astro';
           Reuters — marchés internationaux du 22 septembre 2026
         </a>
       </li>
-
     </ul>
-
   </div>
-
 
   <p class="disclaimer">
     ECONOZONE — Contenu publié à des fins d’information économique et
