@@ -99,9 +99,9 @@ Ne mettez jamais une clé directement dans un fichier du dépôt — uniquement 
 - Le statut d'Oragroup (possible sortie de cote BRVM) reste à vérifier avant toute
   mention dans une édition.
 
-## Configurer le compteur de contacts SGI (page /sgi)
+## Configurer le compteur de clics SGI (page /sgi)
 
-La page SGI affiche "X demandes de contact envoyées vers des SGI ce mois-ci" — un vrai
+La page SGI affiche le nombre de clics sortants vers les sites des SGI — un vrai
 compteur qui s'incrémente à chaque clic sur un lien "Site officiel" vers une SGI, via
 CounterAPI.dev (gratuit, sans base de données à gérer de notre côté).
 

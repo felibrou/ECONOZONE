@@ -14,4 +14,4 @@ Disallow: /
 User-agent: ImagesiftBot
 Disallow: /
 
-Sitemap: https://econozone.example.com/sitemap.xml
+Sitemap: https://www.econozone.org/sitemap-index.xml

@@ -1,8 +1,13 @@
 ---
 export interface Props {
   title: string;
+  description?: string;
 }
-const { title } = Astro.props;
+const {
+  title,
+  description = "ECONOZONE décrypte la BRVM, l'économie ouest-africaine, les marchés et les politiques publiques avec rigueur et pédagogie."
+} = Astro.props;
+const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 import Analytics from '@vercel/analytics/astro';
 ---
 <!doctype html>
@@ -11,6 +16,17 @@ import Analytics from '@vercel/analytics/astro';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonicalURL}>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="ECONOZONE">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={canonicalURL}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700;8..60,800&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap">
   <style is:global>
     :root {
@@ -86,15 +102,15 @@ import Analytics from '@vercel/analytics/astro';
       filter: contrast(1.20) saturate(1.26) brightness(0.96);
     }
 
-    footer.site-footer { width: 100%; background: var(--panel-alt); border-top: 1px solid var(--border); margin-top: 40px; }
+    footer.site-footer { width: 100%; background: #17243A; border-top: 4px solid var(--green); margin-top: 40px; }
     .footer-inner { max-width: 1080px; margin: 0 auto; padding: 32px 24px; }
-    footer.site-footer p { font-size: 12px; color: var(--label); }
-    .social-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; font-size: 13px; color: var(--label); font-weight: 500; }
-    .social-row a { font-weight: 700; color: var(--blue); }
+    footer.site-footer p { font-size: 12px; color: #D7DFEC; }
+    .social-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; font-size: 13px; color: #D7DFEC; font-weight: 500; }
+    .social-row a { font-weight: 700; color: #FFFFFF; }
     .social-row a:hover { text-decoration: underline; }
-    .footer-links { margin-top: 4px; }
-    .footer-links a { font-size: 12px; color: var(--label); text-decoration: underline; }
-    .footer-links a:hover { color: var(--blue); }
+    .footer-links { margin-top: 4px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .footer-links a { font-size: 12px; color: #D7DFEC; text-decoration: underline; text-underline-offset: 2px; }
+    .footer-links a:hover { color: #FFFFFF; }
   </style>
 </head>
 <body>
@@ -137,7 +153,7 @@ import Analytics from '@vercel/analytics/astro';
       </div>
       <p>ECONOZONE — contenu publié à des fins purement informatives, ne constitue pas un conseil en investissement.</p>
       <p>&copy; {new Date().getFullYear()} ECONOZONE. Tous droits réservés. Toute reproduction ou réutilisation du contenu, en tout ou en partie, sans autorisation écrite préalable, est interdite.</p>
-      <p class="footer-links"><a href="/desabonnement">Se désabonner de nos communications</a></p>
+      <p class="footer-links"><a href="/politique-cookies">Politique relative aux cookies</a><a href="/desabonnement">Se désabonner de nos communications</a></p>
     </div>
   </footer>
   <Analytics />

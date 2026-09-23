@@ -1,4 +1,7 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
 export default defineConfig({
-  site: 'https://econozone.example.com'
+  site: 'https://www.econozone.org',
+  integrations: [sitemap()]
 });
