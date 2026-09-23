@@ -2,15 +2,1159 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="ECONOZONE — L'Essentiel">
+<Layout title="ECONOZONE — L'Essentiel | BRVM, Économie, Marchés — 22 septembre 2026">
+
+<style>
+  .essentiel {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 22px 64px;
+  }
+
+  .masthead {
+    margin-bottom: 24px;
+  }
+
+  .masthead h1 {
+    margin-bottom: 8px;
+  }
+
+  .edition-date {
+    margin: 0;
+    font-size: 1rem;
+    color: #5c6470;
+  }
+
+  .chapô {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    margin: 24px 0 30px;
+  }
+
+  .hero-photo,
+  .article-photo {
+    margin: 28px 0 30px;
+  }
+
+  .hero-photo img,
+  .article-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .article-photo.startup img {
+    max-height: 500px;
+    object-fit: contain;
+    background: #f7f8fa;
+  }
+
+  figcaption {
+    margin-top: 8px;
+    color: #667085;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  section {
+    margin-top: 46px;
+  }
+
+  section h2 {
+    margin-bottom: 20px;
+  }
+
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 22px 0 26px;
+  }
+
+  .kpi {
+    border-top: 3px solid #0d47a1;
+    padding: 12px 4px 8px;
+  }
+
+  .kpi-label {
+    font-size: 0.82rem;
+    color: #667085;
+    margin-bottom: 5px;
+  }
+
+  .kpi-value {
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .up {
+    color: #18864b;
+    font-weight: 700;
+  }
+
+  .down {
+    color: #c62828;
+    font-weight: 700;
+  }
+
+  .flat {
+    color: #5f6368;
+    font-weight: 600;
+  }
+
+  .market-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 26px;
+  }
+
+  .market-table th {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 2px solid #cfd6df;
+    font-size: 0.88rem;
+  }
+
+  .market-table td {
+    padding: 11px 8px;
+    border-bottom: 1px solid #e4e7ec;
+    vertical-align: top;
+  }
+
+  .highlight {
+    border-left: 4px solid #0d47a1;
+    background: #f6f8fb;
+    padding: 18px 20px;
+    margin: 24px 0;
+  }
+
+  .highlight h3 {
+    margin-top: 0;
+  }
+
+  .chart-card {
+    margin: 30px 0;
+    padding: 22px;
+    border: 1px solid #dde3ea;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .chart-title {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .chart-subtitle {
+    margin: 0 0 20px;
+    font-size: 0.86rem;
+    color: #667085;
+  }
+
+  .chart-wrap {
+    overflow-x: auto;
+  }
+
+  .chart-wrap svg {
+    width: 100%;
+    min-width: 620px;
+    height: auto;
+    display: block;
+  }
+
+  .source-line {
+    font-size: 0.82rem;
+    color: #667085;
+    margin-top: 12px;
+  }
+
+  .source-line a {
+    color: #0d47a1;
+  }
+
+  .repere-box {
+    background: #f5f7fa;
+    padding: 18px 22px;
+    margin: 28px 0;
+    border-radius: 6px;
+  }
+
+  .repere-box ul {
+    margin-bottom: 0;
+  }
+
+  .note {
+    margin-top: 40px;
+    padding: 18px 20px;
+    background: #f6f8fb;
+    border-left: 4px solid #0d47a1;
+    line-height: 1.65;
+  }
+
+  .sources {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid #d9dee7;
+  }
+
+  .sources h2 {
+    font-size: 1.15rem;
+  }
+
+  .sources li {
+    margin-bottom: 10px;
+  }
+
+  .sources a {
+    color: #0d47a1;
+  }
+
+  .disclaimer {
+    margin-top: 28px;
+    color: #667085;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 760px) {
+    .essentiel {
+      padding: 24px 16px 48px;
+    }
+
+    .kpi-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .market-table {
+      font-size: 0.88rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .kpi-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+
+<div class="essentiel">
+
   <div class="masthead">
     <h1>L’ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉS</h1>
-    <p class="dek">Actualité économique et financière de l’Afrique de l’Ouest</p>
+    <p class="edition-date">
+      <b>22 septembre 2026</b> — Édition de clôture
+    </p>
   </div>
 
+
+  <p class="chapô">
+    La BRVM a connu une séance difficile mardi, avec un recul simultané de ses
+    trois principaux indices et une pression vendeuse particulièrement marquée
+    sur plusieurs compartiments de la cote. Dans l’UEMOA, l’activité économique
+    reste robuste, avec une croissance de 6,0 % au deuxième trimestre, mais le
+    déficit budgétaire régional se creuse et l’inflation repart progressivement.
+    À Abuja, la CEDEAO rassemble parallèlement 60 start-up ouest-africaines,
+    tandis que sur les marchés internationaux la technologie et l’intelligence
+    artificielle soutiennent le Nasdaq dans un environnement toujours fortement
+    influencé par le pétrole et les taux d’intérêt.
+  </p>
+
+
+  <figure class="hero-photo">
+    <img
+      src="https://www.brvm.org/sites/default/files/styles/large/public/brvm-bannire-site-web-02_0.jpg?itok=7qogQMrV"
+      alt="Activité au siège de la BRVM à Abidjan"
+      loading="eager"
+    />
+    <figcaption>
+      La Bourse Régionale des Valeurs Mobilières à Abidjan.
+      Photo : BRVM.
+    </figcaption>
+  </figure>
+
+
+  <!-- ========================================================= -->
+  <!-- 1. BRVM                                                   -->
+  <!-- ========================================================= -->
+
   <section>
+    <h2>1. BRVM : forte pression vendeuse sur la cote</h2>
+
+    <div class="kpi-strip">
+
+      <div class="kpi">
+        <div class="kpi-label">BRVM Composite</div>
+        <div class="kpi-value">
+          535,90 pts<br />
+          <span class="down">▼ −1,61 %</span>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-label">BRVM 30</div>
+        <div class="kpi-value">
+          259,68 pts<br />
+          <span class="down">▼ −1,57 %</span>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-label">BRVM Prestige</div>
+        <div class="kpi-value">
+          198,54 pts<br />
+          <span class="down">▼ −0,48 %</span>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-label">Transactions</div>
+        <div class="kpi-value">
+          3,21 milliards FCFA
+        </div>
+      </div>
+
+    </div>
+
+
     <p>
-      Retrouvez ici les dernières éditions de L’Essentiel.
+      La séance du 22 septembre s’est soldée par un repli généralisé.
+      Le <b>BRVM Composite a abandonné 1,61 % à 535,90 points</b>,
+      le BRVM 30 a reculé de 1,57 % à 259,68 points et le BRVM Prestige
+      de 0,48 % à 198,54 points.
+    </p>
+
+    <p>
+      La valeur des transactions a atteint
+      <b>3,208 milliards de FCFA</b>, tandis que la capitalisation du marché
+      des actions s’est établie à environ
+      <b>20 665 milliards de FCFA</b>.
+      La séance reflète ainsi une faiblesse assez large du marché, au-delà
+      d’un simple mouvement isolé sur quelques titres.
+    </p>
+
+
+    <h3>Radar BRVM — Top 5 / Flop 5</h3>
+
+    <table class="market-table">
+      <thead>
+        <tr>
+          <th>Rang</th>
+          <th>Titre</th>
+          <th>Cours</th>
+          <th>Variation</th>
+          <th>Commentaire</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Africa Global Logistics CI (SDSC)</td>
+          <td>2 840 FCFA</td>
+          <td class="up">▲ +1,43 %</td>
+          <td>Première hausse de la séance parmi les valeurs cotées.</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>Société Générale CI (SGBC)</td>
+          <td>38 495 FCFA</td>
+          <td class="up">▲ +1,30 %</td>
+          <td>Progression dans une séance globalement orientée à la baisse.</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>Ecobank Côte d’Ivoire (ECOC)</td>
+          <td>17 145 FCFA</td>
+          <td class="up">▲ +0,85 %</td>
+          <td>Le titre termine parmi les rares valeurs en territoire positif.</td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td>SETAO CI (STAC)</td>
+          <td>2 115 FCFA</td>
+          <td class="up">▲ +0,48 %</td>
+          <td>Progression modérée.</td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td>Servair Abidjan (ABJC)</td>
+          <td>3 955 FCFA</td>
+          <td class="up">▲ +0,13 %</td>
+          <td>Variation légèrement positive.</td>
+        </tr>
+
+        <tr>
+          <td>↓ 1</td>
+          <td>BIIC Bénin (BICB)</td>
+          <td>9 250 FCFA</td>
+          <td class="down">▼ −7,50 %</td>
+          <td>Plus fort recul de la séance.</td>
+        </tr>
+
+        <tr>
+          <td>↓ 2</td>
+          <td>Vivo Energy CI (SHEC)</td>
+          <td>2 675 FCFA</td>
+          <td class="down">▼ −7,44 %</td>
+          <td>Forte correction après la progression enregistrée précédemment.</td>
+        </tr>
+
+        <tr>
+          <td>↓ 3</td>
+          <td>Filtisac CI (FTSC)</td>
+          <td>1 910 FCFA</td>
+          <td class="down">▼ −6,83 %</td>
+          <td>Repli marqué du titre industriel.</td>
+        </tr>
+
+        <tr>
+          <td>↓ 4</td>
+          <td>SAFCA CI (SAFC)</td>
+          <td>4 300 FCFA</td>
+          <td class="down">▼ −6,72 %</td>
+          <td>Forte baisse au sein d’une séance largement négative.</td>
+        </tr>
+
+        <tr>
+          <td>↓ 5</td>
+          <td>CIE CI (CIEC)</td>
+          <td>6 300 FCFA</td>
+          <td class="down">▼ −6,25 %</td>
+          <td>Le titre des services publics figure parmi les principales baisses.</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <div class="highlight">
+      <h3>Bridge Bank Group CI entre en scène le 24 septembre</h3>
+
+      <p>
+        Le marché se prépare également à l’arrivée de
+        <b>Bridge Bank Group Côte d’Ivoire</b>.
+        La BRVM a fixé sa première cotation au
+        <b>jeudi 24 septembre 2026</b>, au compartiment principal du marché
+        des actions. L’opération élargira encore la représentation du secteur
+        bancaire sur la cote régionale.
+      </p>
+    </div>
+
+
+    <p class="source-line">
+      Source :
+      <a
+        href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        BRVM — séance et avis de première cotation de Bridge Bank Group CI
+      </a>.
     </p>
   </section>
+
+
+  <!-- ========================================================= -->
+  <!-- 2. UEMOA                                                  -->
+  <!-- ========================================================= -->
+
+  <section>
+    <h2>
+      2. UEMOA : croissance solide, mais les finances publiques restent sous pression
+    </h2>
+
+    <p>
+      L’activité économique de l’Union économique et monétaire ouest-africaine
+      est restée dynamique au deuxième trimestre 2026 :
+      <b>le PIB réel a progressé de 6,0 % sur un an</b>, après 6,1 % au
+      trimestre précédent.
+    </p>
+
+    <p>
+      L’inflation est remontée à <b>0,4 %</b>, contre −0,2 % au premier
+      trimestre. La BCEAO attribue notamment ce mouvement au renchérissement
+      des transports et à une diminution moins marquée des prix alimentaires.
+      Le taux d’inflation sous-jacente s’est établi à 0,8 %.
+    </p>
+
+    <p>
+      Le Comité de politique monétaire de la BCEAO a par ailleurs maintenu
+      le 9 septembre son principal taux directeur à
+      <b>3,00 %</b> et le taux du guichet de prêt marginal à 5,00 %.
+    </p>
+
+
+    <!-- ======================================================= -->
+    <!-- GRAPHIQUE RÉEL : DÉFICIT BUDGÉTAIRE UEMOA              -->
+    <!-- ======================================================= -->
+
+    <div class="chart-card">
+
+      <p class="chart-title">
+        Déficit budgétaire de l’UEMOA
+      </p>
+
+      <p class="chart-subtitle">
+        En % du PIB — données BCEAO. S1 2026 = réalisation au premier semestre ;
+        2026 et 2027 = projections annuelles.
+      </p>
+
+      <div class="chart-wrap">
+
+        <svg
+          viewBox="0 0 760 330"
+          role="img"
+          aria-labelledby="budget-chart-title budget-chart-desc"
+        >
+
+          <title id="budget-chart-title">
+            Déficit budgétaire de l’UEMOA
+          </title>
+
+          <desc id="budget-chart-desc">
+            Le déficit représente 3,2 % du PIB en 2025,
+            3,4 % au premier semestre 2026,
+            3,5 % projeté sur l’ensemble de 2026
+            et 3,1 % projeté en 2027.
+          </desc>
+
+
+          <!-- grille -->
+
+          <line x1="90" y1="250" x2="710" y2="250"
+                stroke="#bcc4cf" stroke-width="1" />
+
+          <line x1="90" y1="200" x2="710" y2="200"
+                stroke="#e3e7ed" stroke-width="1" />
+
+          <line x1="90" y1="150" x2="710" y2="150"
+                stroke="#e3e7ed" stroke-width="1" />
+
+          <line x1="90" y1="100" x2="710" y2="100"
+                stroke="#e3e7ed" stroke-width="1" />
+
+          <line x1="90" y1="50" x2="710" y2="50"
+                stroke="#e3e7ed" stroke-width="1" />
+
+
+          <!-- axe Y -->
+
+          <text x="48" y="255" font-size="13" fill="#667085">0</text>
+          <text x="48" y="205" font-size="13" fill="#667085">1</text>
+          <text x="48" y="155" font-size="13" fill="#667085">2</text>
+          <text x="48" y="105" font-size="13" fill="#667085">3</text>
+          <text x="48" y="55" font-size="13" fill="#667085">4 %</text>
+
+
+          <!-- 2025 : 3,2 -->
+
+          <rect
+            x="125"
+            y="90"
+            width="90"
+            height="160"
+            rx="3"
+            fill="#315fa8"
+          />
+
+          <text
+            x="170"
+            y="78"
+            text-anchor="middle"
+            font-size="16"
+            font-weight="700"
+            fill="#173c73"
+          >
+            3,2 %
+          </text>
+
+          <text
+            x="170"
+            y="278"
+            text-anchor="middle"
+            font-size="14"
+            fill="#344054"
+          >
+            2025
+          </text>
+
+
+          <!-- S1 2026 : 3,4 -->
+
+          <rect
+            x="270"
+            y="80"
+            width="90"
+            height="170"
+            rx="3"
+            fill="#315fa8"
+          />
+
+          <text
+            x="315"
+            y="68"
+            text-anchor="middle"
+            font-size="16"
+            font-weight="700"
+            fill="#173c73"
+          >
+            3,4 %
+          </text>
+
+          <text
+            x="315"
+            y="278"
+            text-anchor="middle"
+            font-size="14"
+            fill="#344054"
+          >
+            S1 2026
+          </text>
+
+
+          <!-- 2026 projection : 3,5 -->
+
+          <rect
+            x="415"
+            y="75"
+            width="90"
+            height="175"
+            rx="3"
+            fill="#8094b5"
+          />
+
+          <text
+            x="460"
+            y="63"
+            text-anchor="middle"
+            font-size="16"
+            font-weight="700"
+            fill="#4b5f7c"
+          >
+            3,5 %
+          </text>
+
+          <text
+            x="460"
+            y="278"
+            text-anchor="middle"
+            font-size="14"
+            fill="#344054"
+          >
+            2026 prév.
+          </text>
+
+
+          <!-- 2027 projection : 3,1 -->
+
+          <rect
+            x="560"
+            y="95"
+            width="90"
+            height="155"
+            rx="3"
+            fill="#8094b5"
+          />
+
+          <text
+            x="605"
+            y="83"
+            text-anchor="middle"
+            font-size="16"
+            font-weight="700"
+            fill="#4b5f7c"
+          >
+            3,1 %
+          </text>
+
+          <text
+            x="605"
+            y="278"
+            text-anchor="middle"
+            font-size="14"
+            fill="#344054"
+          >
+            2027 prév.
+          </text>
+
+
+          <!-- légende -->
+
+          <rect x="205" y="305" width="12" height="12" fill="#315fa8" />
+          <text x="224" y="315" font-size="12" fill="#667085">
+            Réalisé
+          </text>
+
+          <rect x="340" y="305" width="12" height="12" fill="#8094b5" />
+          <text x="359" y="315" font-size="12" fill="#667085">
+            Projection BCEAO
+          </text>
+
+        </svg>
+
+      </div>
+
+      <p class="source-line">
+        Source :
+        <a
+          href="https://www.bceao.int/fr/publications/rapport-sur-la-politique-monetaire-dans-lumoa-septembre-2026"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          BCEAO — Rapport sur la politique monétaire dans l’UMOA,
+          septembre 2026
+        </a>.
+      </p>
+
+    </div>
+
+
+    <p>
+      Au premier semestre 2026, le déficit budgétaire global de l’Union
+      s’est établi à <b>2 492,9 milliards de FCFA</b>, soit
+      <b>3,4 % du PIB</b>, contre 3,2 % du PIB un an auparavant.
+    </p>
+
+    <p>
+      La BCEAO projette désormais un déficit de 3,5 % du PIB sur l’ensemble
+      de 2026, avant un retour à 3,1 % en 2027. Elle relie notamment la
+      détérioration attendue en 2026 aux mesures temporaires mises en œuvre
+      par plusieurs États pour amortir les conséquences économiques de la
+      hausse des prix énergétiques.
+    </p>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- 3. START-UP                                               -->
+  <!-- ========================================================= -->
+
+  <section>
+
+    <h2>
+      3. Start-up : la CEDEAO réunit 60 entreprises innovantes à Abuja
+    </h2>
+
+
+    <figure class="article-photo startup">
+
+      <img
+        src="https://www.ecowas.int/wp-content/uploads/2026/09/2nd-ECOWAS-Startup-Awards_White-918x1024.jpeg"
+        alt="Affiche officielle des ECOWAS Startup Awards 2026"
+        loading="lazy"
+      />
+
+      <figcaption>
+        La deuxième édition des ECOWAS Startup Awards se déroule du
+        21 au 30 septembre 2026 à Abuja.
+        Visuel : Commission de la CEDEAO.
+      </figcaption>
+
+    </figure>
+
+
+    <p>
+      La Communauté économique des États de l’Afrique de l’Ouest organise
+      du <b>21 au 30 septembre 2026</b>, à son nouveau siège d’Abuja,
+      la deuxième édition des <b>ECOWAS Startup Awards</b>.
+    </p>
+
+    <p>
+      Soixante start-up de la région ont été sélectionnées dans six domaines :
+      FinTech, HealthTech, AgriTech et systèmes alimentaires, EdTech,
+      technologies propres et climat, ainsi que tourisme et technologies
+      du voyage.
+    </p>
+
+    <p>
+      Après une série de masterclasses programmées du 21 au 25 septembre,
+      les présentations aux investisseurs, l’exposition et les remises de prix
+      doivent se dérouler du 28 au 30 septembre.
+    </p>
+
+    <div class="highlight">
+
+      <h3>Des prix, mais surtout un enjeu de changement d’échelle</h3>
+
+      <p>
+        Les trois premiers projets recevront respectivement
+        <b>30 000, 20 000 et 15 000 dollars</b> de financement d’amorçage.
+        La CEDEAO indique également viser la génération de
+        <b>5 millions de dollars de contrats</b> à travers les différents
+        secteurs représentés.
+      </p>
+
+    </div>
+
+    <p>
+      Au-delà des récompenses, le principal enjeu est la capacité des
+      entreprises technologiques ouest-africaines à accéder à des marchés
+      dépassant leur pays d’origine. La CEDEAO présente ainsi l’initiative
+      comme un outil de transformation numérique, d’intégration régionale et
+      de constitution de chaînes de valeur capables de franchir les frontières
+      nationales.
+    </p>
+
+    <p class="source-line">
+      Source :
+      <a
+        href="https://www.ecowas.int/la-cedeao-veut-primer-cette-semaine-a-abuja-les-60-start-ups-les-plus-prometteuses-dafrique-de-louest/?lang=fr"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Commission de la CEDEAO — ECOWAS Startup Awards
+      </a>.
+    </p>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- 4. MARCHÉS INTERNATIONAUX                                 -->
+  <!-- ========================================================= -->
+
+  <section>
+
+    <h2>
+      4. Marchés internationaux : l’IA porte le Nasdaq, le pétrole redescend
+    </h2>
+
+    <p>
+      Le Nasdaq a atteint mardi un nouveau sommet, porté par les valeurs
+      liées à l’intelligence artificielle et aux semi-conducteurs.
+      Le mouvement contraste avec une évolution plus modérée du reste du
+      marché américain.
+    </p>
+
+    <table class="market-table">
+
+      <thead>
+        <tr>
+          <th>Marché</th>
+          <th>Situation du 22 septembre</th>
+          <th>Lecture</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>Nasdaq Composite</td>
+          <td class="up">▲ Nouveau record</td>
+          <td>
+            Soutenu par l’optimisme autour de l’intelligence artificielle.
+          </td>
+        </tr>
+
+        <tr>
+          <td>S&amp;P 500</td>
+          <td class="flat">→ Proche de ses sommets</td>
+          <td>
+            Marché américain toujours élevé mais moins homogène que le Nasdaq.
+          </td>
+        </tr>
+
+        <tr>
+          <td>Brent</td>
+          <td class="down">▼ autour de 100 $/baril</td>
+          <td>
+            Repli lié notamment à l’amélioration des perspectives
+            d’approvisionnement au Moyen-Orient.
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+    <p>
+      Pour l’Afrique de l’Ouest, le mouvement du pétrole demeure nettement
+      plus important que le record du Nasdaq dans l’immédiat. Une détente
+      durable du brut réduirait une partie de la pression supportée par les
+      pays importateurs de produits pétroliers, notamment à travers les coûts
+      de transport, de production et les mécanismes de soutien aux carburants.
+    </p>
+
+    <p>
+      À l’inverse, les pays producteurs — notamment le Nigeria et, dans une
+      moindre mesure, le Ghana, la Côte d’Ivoire ou le Sénégal — sont exposés
+      à l’effet du prix du brut sur les recettes d’exportation et les finances
+      publiques.
+    </p>
+
+    <p class="source-line">
+      Source :
+      <a
+        href="https://www.reuters.com/world/china/global-markets-wrapup-1-2026-09-22/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Reuters — marchés mondiaux, 22 septembre 2026
+      </a>.
+    </p>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- 5. MATIÈRES PREMIÈRES                                     -->
+  <!-- ========================================================= -->
+
+  <section>
+
+    <h2>
+      5. Matières premières : détente du pétrole, enjeu direct pour l’Afrique de l’Ouest
+    </h2>
+
+    <table class="market-table">
+
+      <thead>
+        <tr>
+          <th>Matière première</th>
+          <th>Cours / variation</th>
+          <th>Pays particulièrement exposés</th>
+          <th>Incidence régionale</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>Brent</td>
+
+          <td>
+            Environ 99,92 $/baril<br />
+            <span class="down">▼ −0,43 %</span>
+          </td>
+
+          <td>
+            Nigeria, Ghana, Côte d’Ivoire, Sénégal et pays importateurs
+            de produits pétroliers
+          </td>
+
+          <td>
+            Impact sur les recettes pétrolières des producteurs et sur la
+            facture énergétique, le transport et les finances publiques des
+            importateurs.
+          </td>
+        </tr>
+
+        <tr>
+          <td>Produits énergétiques</td>
+
+          <td>
+            <span class="up">▲ +19,9 %</span>
+            au deuxième trimestre 2026
+          </td>
+
+          <td>
+            Ensemble de l’UEMOA
+          </td>
+
+          <td>
+            La BCEAO relie cette hausse trimestrielle essentiellement au
+            renchérissement du pétrole brut.
+          </td>
+        </tr>
+
+        <tr>
+          <td>Matières premières UEMOA hors pétrole</td>
+
+          <td>
+            <span class="down">▼ −2,7 %</span>
+            au deuxième trimestre 2026
+          </td>
+
+          <td>
+            Principaux pays exportateurs agricoles et miniers de l’Union
+          </td>
+
+          <td>
+            Repli des prix d’exportation, avec notamment des baisses
+            relevées sur le café et l’or au cours du trimestre.
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+    <p>
+      Cette combinaison est importante pour la région :
+      la hausse de l’énergie accroît les coûts des économies importatrices,
+      alors qu’un affaiblissement parallèle du prix de certaines matières
+      premières exportées peut réduire les recettes extérieures.
+    </p>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- REPÈRES                                                   -->
+  <!-- ========================================================= -->
+
+  <section>
+
+    <h2>Les repères à retenir</h2>
+
+    <div class="repere-box">
+
+      <ul>
+
+        <li>
+          <b>BRVM Composite :</b>
+          535,90 points,
+          <span class="down">▼ −1,61 %</span>.
+        </li>
+
+        <li>
+          <b>Transactions BRVM :</b>
+          environ 3,21 milliards FCFA.
+        </li>
+
+        <li>
+          <b>Bridge Bank Group CI :</b>
+          première cotation prévue le 24 septembre.
+        </li>
+
+        <li>
+          <b>Croissance UEMOA :</b>
+          6,0 % au deuxième trimestre 2026.
+        </li>
+
+        <li>
+          <b>Inflation UEMOA :</b>
+          0,4 % au deuxième trimestre.
+        </li>
+
+        <li>
+          <b>Taux directeur BCEAO :</b>
+          3,00 %.
+        </li>
+
+        <li>
+          <b>Déficit budgétaire UEMOA :</b>
+          3,4 % du PIB au premier semestre 2026.
+        </li>
+
+        <li>
+          <b>ECOWAS Startup Awards :</b>
+          60 start-up réunies à Abuja.
+        </li>
+
+        <li>
+          <b>Marchés mondiaux :</b>
+          Nasdaq à un record, pétrole en recul.
+        </li>
+
+      </ul>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- NOTE DE LA RÉDACTION                                      -->
+  <!-- ========================================================= -->
+
+  <div class="note">
+
+    <b>Note de la rédaction —</b>
+
+    Les données et informations de cette édition correspondent aux éléments
+    disponibles à l’heure de clôture éditoriale. Elles peuvent être révisées
+    ou complétées après publication. Cette analyse est destinée à
+    l’information du public et ne constitue pas une recommandation
+    d’investissement.
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- SOURCES                                                   -->
+  <!-- ========================================================= -->
+
+  <div class="sources">
+
+    <h2>Sources</h2>
+
+    <ul>
+
+      <li>
+        <a
+          href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          BRVM — données de marché du 22 septembre 2026 et première cotation
+          de Bridge Bank Group Côte d’Ivoire
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://www.bceao.int/fr/publications/rapport-sur-la-politique-monetaire-dans-lumoa-septembre-2026"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          BCEAO — Rapport sur la politique monétaire dans l’UMOA,
+          septembre 2026
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://downloads.bceao.int/index.php/fr/communique-presse/communique-de-presse-de-la-reunion-ordinaire-du-comite-de-politique-monetaire-19"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          BCEAO — Comité de politique monétaire du 9 septembre 2026
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://www.ecowas.int/la-cedeao-veut-primer-cette-semaine-a-abuja-les-60-start-ups-les-plus-prometteuses-dafrique-de-louest/?lang=fr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CEDEAO — ECOWAS Startup Awards 2026
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://www.reuters.com/world/china/global-markets-wrapup-1-2026-09-22/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Reuters — marchés internationaux du 22 septembre 2026
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+
+  <p class="disclaimer">
+    ECONOZONE — Contenu publié à des fins d’information économique et
+    financière. Les données de marché sont susceptibles d’être ajustées par
+    leurs producteurs ou diffuseurs après publication.
+  </p>
+
+</div>
+
 </Layout>
