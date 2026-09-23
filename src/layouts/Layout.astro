@@ -54,6 +54,20 @@ import Analytics from '@vercel/analytics/astro';
     table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 14px; margin: 18px 0; }
     table.z th { background: var(--panel-alt); text-align: left; padding: 11px 15px; font-size: 12px; font-weight: 700; letter-spacing: 0.4px; color: var(--blue-dark); text-transform: uppercase; border-bottom: 2px solid var(--border); }
     table.z td { padding: 11px 15px; border-bottom: 1px solid var(--row-border); }
+    /* Les nombres et leur signe % restent toujours sur la même ligne. */
+    .up, .down, .flat {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    td.numeric-percent {
+      text-align: right !important;
+      white-space: nowrap !important;
+      font-variant-numeric: tabular-nums;
+    }
+    th.numeric-percent-header {
+      text-align: right !important;
+      white-space: nowrap !important;
+    }
     .note { background: var(--panel-alt); border-left: 4px solid var(--blue); padding: 16px 18px; font-size: 14px; color: var(--text-muted); margin: 18px 0; }
     .note b { color: var(--blue); }
     .disclaimer { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 12px; color: var(--label); }
@@ -116,6 +130,29 @@ import Analytics from '@vercel/analytics/astro';
   </footer>
   <Analytics />
   <script>
+    document.querySelectorAll('table').forEach(function (table) {
+      const percentColumns = new Set();
+
+      table.querySelectorAll('tbody tr').forEach(function (row) {
+        Array.from(row.children).forEach(function (cell, index) {
+          const value = (cell.textContent || '').replace(/\s+/g, ' ').trim();
+          const beginsWithNumber = /^[🟢🔴▲▼≈+\-−]?\s*\d/.test(value);
+
+          if (beginsWithNumber && value.includes('%')) {
+            cell.classList.add('numeric-percent');
+            percentColumns.add(index);
+          }
+        });
+      });
+
+      table.querySelectorAll('thead tr').forEach(function (row) {
+        percentColumns.forEach(function (index) {
+          const header = row.children[index];
+          if (header) header.classList.add('numeric-percent-header');
+        });
+      });
+    });
+
     document.querySelectorAll('.nav-dropdown-trigger').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
