@@ -3,10 +3,12 @@
 // Fournisseurs IA utilisés par ECONOZONE.
 //
 // Rôles :
-// - OpenAI / ChatGPT : rédaction automatique principale (L'Essentiel, Matières premières)
-// - Gemini / Google : contrôle qualité indépendant
-// - Claude / Anthropic : conservé comme option disponible pour le développement du site,
-//   non appelé automatiquement dans le pipeline de publication.
+// - OpenAI : génération automatique de la zone "Matières premières" uniquement.
+// - L'Essentiel n'est plus rédigé automatiquement par ce module : la rédaction,
+//   la validation et la publication éditoriale sont pilotées depuis ChatGPT puis GitHub.
+// - Gemini : fournisseur disponible pour des contrôles indépendants ; les scripts QA
+//   l'appellent directement pour conserver une séparation claire entre rédaction et contrôle.
+// - Claude : option technique disponible, non appelée automatiquement.
 //
 // Chaque fonction prend (systemPrompt, userMessage) et retourne une chaîne de texte.
 
@@ -29,7 +31,7 @@ async function callOpenAI(systemPrompt, userMessage) {
       'Authorization': `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: 'gpt-5.6-luna',
+      model: process.env.OPENAI_MODEL || 'gpt-5.6-luna',
       instructions: systemPrompt,
       input: userMessage,
       max_output_tokens: 10000
@@ -69,7 +71,7 @@ async function callGemini(systemPrompt, userMessage) {
     throw new Error('GEMINI_API_KEY manquante');
   }
 
-  const model = 'gemini-3.6-flash';
+  const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
   const res = await fetch(url, {
@@ -81,7 +83,7 @@ async function callGemini(systemPrompt, userMessage) {
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: systemPrompt }] },
       contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-      generationConfig: { maxOutputTokens: 10000, temperature: 0 }
+      generationConfig: { maxOutputTokens: 10000 }
     })
   });
 
