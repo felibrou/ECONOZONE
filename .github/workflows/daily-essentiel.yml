@@ -18,10 +18,10 @@ on:
 
 # Évite deux générations simultanées.
 concurrency:
-  group: essentiel-production
+  group: econozone-production
   cancel-in-progress: false
 
-# Le workflow doit pouvoir écrire la nouvelle édition dans le dépôt.
+# Le workflow doit pouvoir écrire les nouvelles éditions dans le dépôt.
 permissions:
   contents: write
 
@@ -48,12 +48,15 @@ jobs:
 
       # ---------------------------------------------------------------------
       # 2. INSTALLER NODE.JS
+      #
+      # Astro demande désormais Node.js >= 22.12.
+      # Node.js 24 est utilisé pour éviter les avertissements de dépréciation.
       # ---------------------------------------------------------------------
 
       - name: Installer Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
 
       # ---------------------------------------------------------------------
@@ -64,6 +67,10 @@ jobs:
         run: npm install
 
 
+      # =====================================================================
+      # L'ESSENTIEL
+      # =====================================================================
+
       # ---------------------------------------------------------------------
       # 4. OPENAI RÉDIGE L'ESSENTIEL
       # ---------------------------------------------------------------------
@@ -71,44 +78,54 @@ jobs:
       - name: Rédiger L'Essentiel avec OpenAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
         run: |
           echo ""
           echo "=========================================="
           echo "✍️  RÉDACTION DE L'ESSENTIEL — OPENAI"
           echo "=========================================="
+
           node scripts/generate-essentiel.mjs
 
 
       # ---------------------------------------------------------------------
       # 5. GEMINI CONTRÔLE L'ESSENTIEL
       #
-      # PASS → workflow continue
-      # FAIL → workflow s'arrête, aucune publication
+      # PASS → le workflow continue
+      # FAIL → aucune publication
       # ---------------------------------------------------------------------
 
       - name: Contrôler L'Essentiel avec Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
         run: |
           echo ""
           echo "=========================================="
           echo "🔎 CONTRÔLE QUALITÉ — L'ESSENTIEL"
           echo "=========================================="
+
           node scripts/qa-essentiel.mjs
 
 
+      # =====================================================================
+      # MATIÈRES PREMIÈRES
+      # =====================================================================
+
       # ---------------------------------------------------------------------
-      # 6. OPENAI RÉDIGE LA ZONE DYNAMIQUE DE MATIÈRES PREMIÈRES
+      # 6. OPENAI MET À JOUR LA ZONE DYNAMIQUE MATIÈRES PREMIÈRES
       # ---------------------------------------------------------------------
 
       - name: Rédiger Matières premières avec OpenAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
         run: |
           echo ""
           echo "=========================================="
           echo "✍️  RÉDACTION MATIÈRES PREMIÈRES — OPENAI"
           echo "=========================================="
+
           node scripts/generate-commodities.mjs
 
 
@@ -119,19 +136,25 @@ jobs:
       - name: Contrôler Matières premières avec Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
         run: |
           echo ""
           echo "=========================================="
           echo "🔎 CONTRÔLE QUALITÉ — MATIÈRES PREMIÈRES"
           echo "=========================================="
+
           node scripts/qa-commodities.mjs
 
 
+      # =====================================================================
+      # TEST TECHNIQUE DU SITE
+      # =====================================================================
+
       # ---------------------------------------------------------------------
-      # 8. CONTRÔLE TECHNIQUE ASTRO
+      # 8. VÉRIFIER QUE LE SITE ASTRO COMPILE
       #
-      # Même si Gemini donne PASS aux deux pages, on vérifie que le nouveau
-      # contenu ne casse pas le site.
+      # Si la génération IA produit du HTML/Astro invalide,
+      # le workflow s'arrête ici avant toute publication.
       # ---------------------------------------------------------------------
 
       - name: Vérifier la compilation du site
@@ -140,46 +163,76 @@ jobs:
           echo "=========================================="
           echo "🧪 TEST DE COMPILATION DU SITE"
           echo "=========================================="
+
           npm run build
 
 
+      # =====================================================================
+      # VÉRIFICATION DES MODIFICATIONS
+      # =====================================================================
+
       # ---------------------------------------------------------------------
-      # 9. VÉRIFIER LES MODIFICATIONS
+      # 9. VÉRIFIER SI UNE NOUVELLE ÉDITION EXISTE
       # ---------------------------------------------------------------------
 
       - name: Vérifier qu'une nouvelle édition a été générée
         id: changes
+
         run: |
-          git add src/pages/essentiel.astro src/pages/matieres-premieres.astro
+          git add \
+            src/pages/essentiel.astro \
+            src/pages/matieres-premieres.astro
 
           if git diff --cached --quiet; then
+
             echo "changed=false" >> "$GITHUB_OUTPUT"
+
+            echo ""
             echo "ℹ️ Aucune modification détectée."
+            echo "→ Aucun commit ne sera créé."
+
           else
+
             echo "changed=true" >> "$GITHUB_OUTPUT"
+
+            echo ""
             echo "✅ Une nouvelle édition a été générée."
+
+            echo ""
+            echo "Fichiers modifiés :"
+            git diff --cached --name-only
+
           fi
 
 
+      # =====================================================================
+      # PUBLICATION
+      # =====================================================================
+
       # ---------------------------------------------------------------------
-      # 10. COMMIT ET PUBLICATION SUR MAIN
+      # 10. COMMIT SUR MAIN
       #
-      # Cette étape n'est exécutée que :
-      # - si OpenAI a réussi sur les deux pages ;
-      # - si Gemini a donné PASS sur les deux pages ;
-      # - si npm run build a réussi ;
-      # - si du contenu a réellement changé.
+      # Cette étape n'est exécutée que si :
       #
-      # Vercel détectera ensuite le commit sur main.
+      # - OpenAI a réussi pour L'Essentiel ;
+      # - Gemini a validé L'Essentiel ;
+      # - OpenAI a réussi pour Matières premières ;
+      # - Gemini a validé Matières premières ;
+      # - Astro compile correctement ;
+      # - au moins une page a réellement changé.
+      #
+      # Vercel détectera ensuite automatiquement le commit sur main.
       # ---------------------------------------------------------------------
 
       - name: Publier sur GitHub
         if: steps.changes.outputs.changed == 'true'
+
         run: |
           git config user.name "ECONOZONE Automation"
           git config user.email "actions@github.com"
 
-          git commit -m "Publication automatique — L'Essentiel et Matières premières"
+          git commit -m "Publication automatique ECONOZONE"
+
           git push origin main
 
 
@@ -189,25 +242,44 @@ jobs:
 
       - name: Confirmer la publication
         if: steps.changes.outputs.changed == 'true'
+
         run: |
           echo ""
           echo "=========================================="
           echo "✅ PUBLICATION AUTORISÉE"
           echo "=========================================="
-          echo "OpenAI        : rédaction réussie (2 pages)"
-          echo "Gemini        : contrôle qualité réussi (2 pages)"
-          echo "Astro         : compilation réussie"
-          echo "GitHub        : nouvelle édition enregistrée"
-          echo "Vercel        : déploiement attendu automatiquement"
+
+          echo "✅ OpenAI — rédaction L'Essentiel"
+          echo "✅ Gemini — contrôle L'Essentiel"
+          echo "✅ OpenAI — rédaction Matières premières"
+          echo "✅ Gemini — contrôle Matières premières"
+          echo "✅ Astro — compilation du site"
+          echo "✅ GitHub — commit sur main"
+          echo "✅ Vercel — déploiement attendu automatiquement"
+
+          echo ""
+          echo "ECONOZONE peut maintenant être mis à jour."
+
           echo "=========================================="
 
 
       # ---------------------------------------------------------------------
-      # 12. CAS OÙ AUCUNE MODIFICATION N'EST NÉCESSAIRE
+      # 12. CAS OÙ RIEN N'A CHANGÉ
       # ---------------------------------------------------------------------
 
       - name: Aucune publication nécessaire
         if: steps.changes.outputs.changed == 'false'
+
         run: |
-          echo "ℹ️ Le contenu généré est identique au contenu déjà publié."
+          echo ""
+          echo "=========================================="
+          echo "ℹ️ AUCUNE PUBLICATION NÉCESSAIRE"
+          echo "=========================================="
+
+          echo "Les contrôles ont réussi,"
+          echo "mais aucune différence n'a été détectée"
+          echo "dans les pages générées."
+
           echo "Aucun nouveau commit n'a été créé."
+
+          echo "=========================================="
