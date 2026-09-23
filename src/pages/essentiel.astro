@@ -2,863 +2,244 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="ECONOZONE — L'Essentiel | BRVM, Économie, Marchés — 22 septembre 2026">
-
-<style>
-  .essentiel {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 32px 22px 64px;
-  }
-
-  .masthead {
-    margin-bottom: 24px;
-  }
-
-  .masthead h1 {
-    margin-bottom: 8px;
-  }
-
-  .edition-date {
-    margin: 0;
-    font-size: 1rem;
-    color: #5c6470;
-  }
-
-  .chapô {
-    font-size: 1.08rem;
-    line-height: 1.75;
-    margin: 24px 0 30px;
-  }
-
-  .hero-photo,
-  .article-photo {
-    margin: 28px 0 30px;
-  }
-
-  .hero-photo img,
-  .article-photo img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 480px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-
-  .article-photo.startup {
-    text-align: center;
-  }
-
-  .article-photo.startup img {
-    display: inline-block;
-    width: 100%;
-    max-width: 620px;
-    max-height: 360px;
-    object-fit: contain;
-    background: #f7f8fa;
-  }
-
-  figcaption {
-    margin-top: 8px;
-    color: #667085;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    text-align: left;
-  }
-
-  section {
-    margin-top: 46px;
-  }
-
-  section h2 {
-    margin-bottom: 20px;
-  }
-
-  .kpi-strip {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
-    margin: 22px 0 26px;
-  }
-
-  .kpi {
-    border-top: 3px solid #0d47a1;
-    padding: 12px 4px 8px;
-  }
-
-  .kpi-label {
-    font-size: 0.82rem;
-    color: #667085;
-    margin-bottom: 5px;
-  }
-
-  .kpi-value {
-    font-weight: 700;
-    line-height: 1.45;
-  }
-
-  .up {
-    color: #18864b;
-    font-weight: 700;
-  }
-
-  .down {
-    color: #c62828;
-    font-weight: 700;
-  }
-
-  .flat {
-    color: #5f6368;
-    font-weight: 600;
-  }
-
-  .market-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0 26px;
-  }
-
-  .market-table th {
-    text-align: left;
-    padding: 10px 8px;
-    border-bottom: 2px solid #cfd6df;
-    font-size: 0.88rem;
-  }
-
-  .market-table td {
-    padding: 11px 8px;
-    border-bottom: 1px solid #e4e7ec;
-    vertical-align: top;
-  }
-
-  .highlight {
-    border-left: 4px solid #0d47a1;
-    background: #f6f8fb;
-    padding: 18px 20px;
-    margin: 24px 0;
-  }
-
-  .highlight h3 {
-    margin-top: 0;
-  }
-
-  .chart-card {
-    margin: 30px 0;
-    padding: 22px;
-    border: 1px solid #dde3ea;
-    border-radius: 8px;
-    background: #fff;
-  }
-
-  .chart-title {
-    margin: 0 0 4px;
-    font-size: 1.05rem;
-    font-weight: 700;
-  }
-
-  .chart-subtitle {
-    margin: 0 0 20px;
-    font-size: 0.86rem;
-    color: #667085;
-  }
-
-  .chart-wrap {
-    overflow-x: auto;
-  }
-
-  .chart-wrap svg {
-    width: 100%;
-    min-width: 620px;
-    height: auto;
-    display: block;
-  }
-
-  .source-line {
-    font-size: 0.82rem;
-    color: #667085;
-    margin-top: 12px;
-  }
-
-  .source-line a {
-    color: #0d47a1;
-  }
-
-  .note {
-    margin-top: 40px;
-    padding: 18px 20px;
-    background: #f6f8fb;
-    border-left: 4px solid #0d47a1;
-    line-height: 1.65;
-  }
-
-  .sources {
-    margin-top: 40px;
-    padding-top: 22px;
-    border-top: 1px solid #d9dee7;
-  }
-
-  .sources h2 {
-    font-size: 1.15rem;
-  }
-
-  .sources li {
-    margin-bottom: 10px;
-  }
-
-  .sources a {
-    color: #0d47a1;
-  }
-
-  .disclaimer {
-    margin-top: 28px;
-    color: #667085;
-    font-size: 0.82rem;
-    line-height: 1.55;
-  }
-
-  @media (max-width: 760px) {
-    .essentiel {
-      padding: 24px 16px 48px;
+<Layout title="ECONOZONE — L'Essentiel | BRVM, Économie, Marchés — 23 septembre 2026">
+  <style>
+    .essentiel { max-width: 980px; margin: 0 auto; padding: 32px 22px 64px; }
+    .masthead { margin-bottom: 24px; }
+    .masthead h1 { margin-bottom: 8px; }
+    .edition-date { margin: 0; font-size: 1rem; color: #5c6470; }
+    .chapo { font-size: 1.08rem; line-height: 1.75; margin: 24px 0 30px; max-width: 860px; }
+    .hero-photo, .article-photo { margin: 28px 0 30px; }
+    .hero-photo img, .article-photo img { display: block; width: 100%; height: auto; max-height: 480px; object-fit: cover; border-radius: 5px; }
+    figcaption { margin-top: 8px; color: #667085; font-size: .82rem; line-height: 1.45; }
+    section { margin-top: 46px; }
+    section h2 { margin-bottom: 12px; }
+    .subtitle { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.1rem; line-height: 1.55; color: #344054; font-weight: 600; margin: 0 0 22px; max-width: 850px; }
+    .kpi-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 20px 0 26px; }
+    .kpi { border-top: 3px solid #0d47a1; padding: 12px 4px 8px; }
+    .kpi-label { font-size: .82rem; color: #667085; margin-bottom: 5px; }
+    .kpi-value { font-weight: 700; line-height: 1.45; }
+    .up { color: #18864b; font-weight: 700; }
+    .down { color: #c62828; font-weight: 700; }
+    .flat { color: #5f6368; font-weight: 600; }
+    .market-table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: .92rem; }
+    .market-table th { text-align: left; padding: 10px 8px; border-bottom: 2px solid #cfd6df; font-size: .82rem; }
+    .market-table td { padding: 11px 8px; border-bottom: 1px solid #e4e7ec; vertical-align: top; }
+    .highlight { border-left: 4px solid #0d47a1; background: #f6f8fb; padding: 18px 20px; margin: 24px 0; }
+    .highlight h3 { margin-top: 0; }
+    .breadth { margin: 25px 0; padding: 20px; border: 1px solid #dde3ea; border-radius: 8px; }
+    .breadth-bar { display: flex; height: 22px; border-radius: 4px; overflow: hidden; margin: 12px 0 8px; background: #edf0f4; }
+    .breadth-up { width: 4.26%; background: #18864b; }
+    .breadth-flat { width: 6.38%; background: #9aa4b2; }
+    .breadth-down { width: 89.36%; background: #c62828; }
+    .breadth-legend { display: flex; gap: 18px; flex-wrap: wrap; color: #667085; font-size: .82rem; }
+    .source-line { font-size: .82rem; color: #667085; margin-top: 12px; max-width: 900px; }
+    .source-line a, .sources a { color: #0d47a1; text-decoration: underline; }
+    .note { margin-top: 40px; padding: 18px 20px; background: #f6f8fb; border-left: 4px solid #0d47a1; line-height: 1.65; }
+    .sources { margin-top: 40px; padding-top: 22px; border-top: 1px solid #d9dee7; }
+    .sources h2 { font-size: 1.15rem; }
+    .sources li { margin-bottom: 10px; }
+    .disclaimer { margin-top: 28px; color: #667085; font-size: .82rem; line-height: 1.55; }
+    @media (max-width: 760px) {
+      .essentiel { padding: 24px 16px 48px; }
+      .kpi-strip { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .market-table { display: block; overflow-x: auto; white-space: normal; }
     }
+    @media (max-width: 480px) { .kpi-strip { grid-template-columns: 1fr; } }
+  </style>
 
-    .kpi-strip {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  <article class="essentiel">
+    <header class="masthead">
+      <h1>L’ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉ</h1>
+      <p class="edition-date"><b>Mercredi 23 septembre 2026</b> — Point de 12 h 30 GMT</p>
+      <p class="edition-date">Données BRVM arrêtées à 12 h 15 GMT, provisoires et diffusées avec un décalage de 15 minutes.</p>
+    </header>
 
-    .market-table {
-      font-size: 0.88rem;
-    }
-
-    .article-photo.startup img {
-      max-width: 100%;
-      max-height: 300px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .kpi-strip {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
-
-<div class="essentiel">
-
-  <div class="masthead">
-    <h1>L’ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉS</h1>
-    <p class="edition-date">
-      <b>22 septembre 2026</b> — Édition de clôture
-    </p>
-  </div>
-
-  <p class="chapô">
-    La BRVM a connu une séance difficile mardi, avec un recul simultané de ses
-    trois principaux indices et une pression vendeuse particulièrement marquée
-    sur plusieurs compartiments de la cote. Dans l’UEMOA, l’activité économique
-    reste robuste, avec une croissance de 6,0 % au deuxième trimestre, mais le
-    déficit budgétaire régional se creuse et l’inflation repart progressivement.
-    À Abuja, la CEDEAO rassemble parallèlement 60 start-up ouest-africaines,
-    tandis que sur les marchés internationaux la technologie et l’intelligence
-    artificielle soutiennent le Nasdaq dans un environnement toujours fortement
-    influencé par le pétrole et les taux d’intérêt.
-  </p>
-
-  <figure class="hero-photo">
-    <img
-      src="https://www.brvm.org/sites/default/files/styles/large/public/brvm-bannire-site-web-02_0.jpg?itok=7qogQMrV"
-      alt="Activité au siège de la BRVM à Abidjan"
-      loading="eager"
-    />
-    <figcaption>
-      La Bourse Régionale des Valeurs Mobilières à Abidjan.
-      Photo : BRVM.
-    </figcaption>
-  </figure>
-
-  <section>
-    <h2>1. BRVM : forte pression vendeuse sur la cote</h2>
-
-    <div class="kpi-strip">
-      <div class="kpi">
-        <div class="kpi-label">BRVM Composite</div>
-        <div class="kpi-value">
-          535,90 pts<br />
-          <span class="down">▼ −1,61 %</span>
-        </div>
-      </div>
-
-      <div class="kpi">
-        <div class="kpi-label">BRVM 30</div>
-        <div class="kpi-value">
-          259,68 pts<br />
-          <span class="down">▼ −1,57 %</span>
-        </div>
-      </div>
-
-      <div class="kpi">
-        <div class="kpi-label">BRVM Prestige</div>
-        <div class="kpi-value">
-          198,54 pts<br />
-          <span class="down">▼ −0,48 %</span>
-        </div>
-      </div>
-
-      <div class="kpi">
-        <div class="kpi-label">Transactions</div>
-        <div class="kpi-value">
-          3,21 milliards FCFA
-        </div>
-      </div>
-    </div>
-
-    <p>
-      La séance du 22 septembre s’est soldée par un repli généralisé.
-      Le <b>BRVM Composite a abandonné 1,61 % à 535,90 points</b>,
-      le BRVM 30 a reculé de 1,57 % à 259,68 points et le BRVM Prestige
-      de 0,48 % à 198,54 points.
+    <p class="chapo">
+      La correction de la BRVM s’intensifie : le Composite perd 3,34 %, dans un marché où 42 valeurs reculent et seulement deux progressent. Sur le front économique, le Fonds monétaire international et la Banque mondiale viennent d’approuver une refonte de leur méthode d’évaluation de la dette des pays à faible revenu, avec une attention accrue à la dette intérieure, aux garanties publiques et aux chocs climatiques. Au Nigeria, le lancement commercial d’un fonds de 300 millions de dollars consacré à l’énergie décentralisée pourrait faciliter le financement des mini-réseaux et des entreprises solaires. Le pétrole demeure proche de 100 dollars, tandis que les rendements américains élevés continuent de renchérir l’accès aux capitaux internationaux.
     </p>
 
-    <p>
-      La valeur des transactions a atteint
-      <b>3,208 milliards de FCFA</b>, tandis que la capitalisation du marché
-      des actions s’est établie à environ
-      <b>20 665 milliards de FCFA</b>.
-      La séance reflète ainsi une faiblesse assez large du marché, au-delà
-      d’un simple mouvement isolé sur quelques titres.
-    </p>
-
-    <h3>Radar BRVM — Top 5 / Flop 5</h3>
-
-    <table class="market-table">
-      <thead>
-        <tr>
-          <th>Rang</th>
-          <th>Titre</th>
-          <th>Cours</th>
-          <th>Variation</th>
-          <th>Commentaire</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Africa Global Logistics CI (SDSC)</td>
-          <td>2 840 FCFA</td>
-          <td class="up">▲ +1,43 %</td>
-          <td>Première hausse de la séance parmi les valeurs cotées.</td>
-        </tr>
-
-        <tr>
-          <td>2</td>
-          <td>Société Générale CI (SGBC)</td>
-          <td>38 495 FCFA</td>
-          <td class="up">▲ +1,30 %</td>
-          <td>Progression dans une séance globalement orientée à la baisse.</td>
-        </tr>
-
-        <tr>
-          <td>3</td>
-          <td>Ecobank Côte d’Ivoire (ECOC)</td>
-          <td>17 145 FCFA</td>
-          <td class="up">▲ +0,85 %</td>
-          <td>Le titre termine parmi les rares valeurs en territoire positif.</td>
-        </tr>
-
-        <tr>
-          <td>4</td>
-          <td>SETAO CI (STAC)</td>
-          <td>2 115 FCFA</td>
-          <td class="up">▲ +0,48 %</td>
-          <td>Progression modérée.</td>
-        </tr>
-
-        <tr>
-          <td>5</td>
-          <td>Servair Abidjan (ABJC)</td>
-          <td>3 955 FCFA</td>
-          <td class="up">▲ +0,13 %</td>
-          <td>Variation légèrement positive.</td>
-        </tr>
-
-        <tr>
-          <td>↓ 1</td>
-          <td>BIIC Bénin (BICB)</td>
-          <td>9 250 FCFA</td>
-          <td class="down">▼ −7,50 %</td>
-          <td>Plus fort recul de la séance.</td>
-        </tr>
-
-        <tr>
-          <td>↓ 2</td>
-          <td>Vivo Energy CI (SHEC)</td>
-          <td>2 675 FCFA</td>
-          <td class="down">▼ −7,44 %</td>
-          <td>Forte correction après la progression enregistrée précédemment.</td>
-        </tr>
-
-        <tr>
-          <td>↓ 3</td>
-          <td>Filtisac CI (FTSC)</td>
-          <td>1 910 FCFA</td>
-          <td class="down">▼ −6,83 %</td>
-          <td>Repli marqué du titre industriel.</td>
-        </tr>
-
-        <tr>
-          <td>↓ 4</td>
-          <td>SAFCA CI (SAFC)</td>
-          <td>4 300 FCFA</td>
-          <td class="down">▼ −6,72 %</td>
-          <td>Forte baisse au sein d’une séance largement négative.</td>
-        </tr>
-
-        <tr>
-          <td>↓ 5</td>
-          <td>CIE CI (CIEC)</td>
-          <td>6 300 FCFA</td>
-          <td class="down">▼ −6,25 %</td>
-          <td>Le titre des services publics figure parmi les principales baisses.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="highlight">
-      <h3>Bridge Bank Group CI entre en scène le 24 septembre</h3>
-
-      <p>
-        Le marché se prépare également à l’arrivée de
-        <b>Bridge Bank Group Côte d’Ivoire</b>.
-        La BRVM a fixé sa première cotation au
-        <b>jeudi 24 septembre 2026</b>, au compartiment principal du marché
-        des actions. L’opération élargira encore la représentation du secteur
-        bancaire sur la cote régionale.
-      </p>
-    </div>
-
-    <p class="source-line">
-      Source :
-      <a
-        href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        BRVM — séance et avis de première cotation de Bridge Bank Group CI
-      </a>.
-    </p>
-  </section>
-
-  <section>
-    <h2>
-      2. UEMOA : croissance solide, mais les finances publiques restent sous pression
-    </h2>
-
-    <p>
-      L’activité économique de l’Union économique et monétaire ouest-africaine
-      est restée dynamique au deuxième trimestre 2026 :
-      <b>le PIB réel a progressé de 6,0 % sur un an</b>, après 6,1 % au
-      trimestre précédent.
-    </p>
-
-    <p>
-      L’inflation est remontée à <b>0,4 %</b>, contre −0,2 % au premier
-      trimestre. La BCEAO attribue notamment ce mouvement au renchérissement
-      des transports et à une diminution moins marquée des prix alimentaires.
-      Le taux d’inflation sous-jacente s’est établi à 0,8 %.
-    </p>
-
-    <p>
-      Le Comité de politique monétaire de la BCEAO a par ailleurs maintenu
-      le 9 septembre son principal taux directeur à
-      <b>3,00 %</b> et le taux du guichet de prêt marginal à 5,00 %.
-    </p>
-
-    <div class="chart-card">
-      <p class="chart-title">
-        Déficit budgétaire de l’UEMOA
-      </p>
-
-      <p class="chart-subtitle">
-        En % du PIB — données BCEAO. S1 2026 = réalisation au premier semestre ;
-        2026 et 2027 = projections annuelles.
-      </p>
-
-      <div class="chart-wrap">
-        <svg
-          viewBox="0 0 760 330"
-          role="img"
-          aria-labelledby="budget-chart-title budget-chart-desc"
-        >
-          <title id="budget-chart-title">
-            Déficit budgétaire de l’UEMOA
-          </title>
-
-          <desc id="budget-chart-desc">
-            Le déficit représente 3,2 % du PIB en 2025,
-            3,4 % au premier semestre 2026,
-            3,5 % projeté sur l’ensemble de 2026
-            et 3,1 % projeté en 2027.
-          </desc>
-
-          <line x1="90" y1="250" x2="710" y2="250" stroke="#bcc4cf" stroke-width="1" />
-          <line x1="90" y1="200" x2="710" y2="200" stroke="#e3e7ed" stroke-width="1" />
-          <line x1="90" y1="150" x2="710" y2="150" stroke="#e3e7ed" stroke-width="1" />
-          <line x1="90" y1="100" x2="710" y2="100" stroke="#e3e7ed" stroke-width="1" />
-          <line x1="90" y1="50" x2="710" y2="50" stroke="#e3e7ed" stroke-width="1" />
-
-          <text x="48" y="255" font-size="13" fill="#667085">0</text>
-          <text x="48" y="205" font-size="13" fill="#667085">1</text>
-          <text x="48" y="155" font-size="13" fill="#667085">2</text>
-          <text x="48" y="105" font-size="13" fill="#667085">3</text>
-          <text x="48" y="55" font-size="13" fill="#667085">4 %</text>
-
-          <rect x="125" y="90" width="90" height="160" rx="3" fill="#315fa8" />
-          <text x="170" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#173c73">3,2 %</text>
-          <text x="170" y="278" text-anchor="middle" font-size="14" fill="#344054">2025</text>
-
-          <rect x="270" y="80" width="90" height="170" rx="3" fill="#315fa8" />
-          <text x="315" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#173c73">3,4 %</text>
-          <text x="315" y="278" text-anchor="middle" font-size="14" fill="#344054">S1 2026</text>
-
-          <rect x="415" y="75" width="90" height="175" rx="3" fill="#8094b5" />
-          <text x="460" y="63" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5f7c">3,5 %</text>
-          <text x="460" y="278" text-anchor="middle" font-size="14" fill="#344054">2026 prév.</text>
-
-          <rect x="560" y="95" width="90" height="155" rx="3" fill="#8094b5" />
-          <text x="605" y="83" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5f7c">3,1 %</text>
-          <text x="605" y="278" text-anchor="middle" font-size="14" fill="#344054">2027 prév.</text>
-
-          <rect x="205" y="305" width="12" height="12" fill="#315fa8" />
-          <text x="224" y="315" font-size="12" fill="#667085">Réalisé</text>
-
-          <rect x="340" y="305" width="12" height="12" fill="#8094b5" />
-          <text x="359" y="315" font-size="12" fill="#667085">Projection BCEAO</text>
-        </svg>
-      </div>
-
-      <p class="source-line">
-        Source :
-        <a
-          href="https://www.bceao.int/fr/publications/rapport-sur-la-politique-monetaire-dans-lumoa-septembre-2026"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          BCEAO — Rapport sur la politique monétaire dans l’UMOA,
-          septembre 2026
-        </a>.
-      </p>
-    </div>
-
-    <p>
-      Au premier semestre 2026, le déficit budgétaire global de l’Union
-      s’est établi à <b>2 492,9 milliards de FCFA</b>, soit
-      <b>3,4 % du PIB</b>, contre 3,2 % du PIB un an auparavant.
-    </p>
-
-    <p>
-      La BCEAO projette désormais un déficit de 3,5 % du PIB sur l’ensemble
-      de 2026, avant un retour à 3,1 % en 2027. Elle relie notamment la
-      détérioration attendue en 2026 aux mesures temporaires mises en œuvre
-      par plusieurs États pour amortir les conséquences économiques de la
-      hausse des prix énergétiques.
-    </p>
-  </section>
-
-  <section>
-    <h2>
-      3. Start-up : la CEDEAO réunit 60 entreprises innovantes à Abuja
-    </h2>
-
-    <figure class="article-photo startup">
-      <img
-        src="https://www.ecowas.int/wp-content/uploads/2026/09/2nd-ECOWAS-Startup-Awards_White-918x1024.jpeg"
-        alt="Affiche officielle des ECOWAS Startup Awards 2026"
-        loading="lazy"
-      />
-
-      <figcaption>
-        La deuxième édition des ECOWAS Startup Awards se déroule du
-        21 au 30 septembre 2026 à Abuja.
-        Visuel : Commission de la CEDEAO.
-      </figcaption>
+    <figure class="hero-photo">
+      <img src="https://www.brvm.org/sites/default/files/styles/large/public/brvm-bannire-site-web-02_0.jpg?itok=7qogQMrV" alt="Siège et activité de la BRVM à Abidjan" loading="eager" />
+      <figcaption>La Bourse Régionale des Valeurs Mobilières à Abidjan. Photo : BRVM.</figcaption>
     </figure>
 
-    <p>
-      La Communauté économique des États de l’Afrique de l’Ouest organise
-      du <b>21 au 30 septembre 2026</b>, à son nouveau siège d’Abuja,
-      la deuxième édition des <b>ECOWAS Startup Awards</b>.
-    </p>
+    <section>
+      <h2>1. La correction s’accélère à la BRVM, avec 42 valeurs en baisse</h2>
 
-    <p>
-      Soixante start-up de la région ont été sélectionnées dans six domaines :
-      FinTech, HealthTech, AgriTech et systèmes alimentaires, EdTech,
-      technologies propres et climat, ainsi que tourisme et technologies
-      du voyage.
-    </p>
+      <div class="kpi-strip" aria-label="Indicateurs BRVM à 12 h 15 GMT">
+        <div class="kpi"><div class="kpi-label">BRVM Composite</div><div class="kpi-value">517,98 pts<br /><span class="down">−3,34 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">BRVM 30</div><div class="kpi-value">251,23 pts<br /><span class="down">−3,25 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">BRVM Prestige</div><div class="kpi-value">195,00 pts<br /><span class="down">−1,78 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">Transactions</div><div class="kpi-value">1,31 milliard<br />de FCFA</div></div>
+      </div>
 
-    <p>
-      Après une série de masterclasses programmées du 21 au 25 septembre,
-      les présentations aux investisseurs, l’exposition et les remises de prix
-      doivent se dérouler du 28 au 30 septembre.
-    </p>
+      <p class="subtitle">Les replis proches de la limite quotidienne se multiplient dans les banques, l’énergie et l’industrie, mais le volume d’affaires demeure inférieur à celui observé mardi à la même heure.</p>
 
-    <div class="highlight">
-      <h3>Des prix, mais surtout un enjeu de changement d’échelle</h3>
+      <p>La correction de la <b>Bourse Régionale des Valeurs Mobilières (BRVM)</b> change d’échelle. Après avoir clôturé mardi à 535,90 points, le Composite abandonne encore 3,34 % à la mi-journée. Il a désormais perdu environ 6,45 % en trois séances par rapport aux 553,71 points enregistrés vendredi.</p>
 
-      <p>
-        Les trois premiers projets recevront respectivement
-        <b>30 000, 20 000 et 15 000 dollars</b> de financement d’amorçage.
-        La CEDEAO indique également viser la génération de
-        <b>5 millions de dollars de contrats</b> à travers les différents
-        secteurs représentés.
-      </p>
+      <div class="breadth" aria-label="Répartition des valeurs en hausse, stables et en baisse">
+        <b>Largeur du marché : 47 valeurs observées</b>
+        <div class="breadth-bar" role="img" aria-label="2 valeurs en hausse, 3 stables et 42 en baisse">
+          <span class="breadth-up"></span><span class="breadth-flat"></span><span class="breadth-down"></span>
+        </div>
+        <div class="breadth-legend"><span class="up">2 en hausse</span><span class="flat">3 stables</span><span class="down">42 en baisse</span></div>
+      </div>
+
+      <p>L’ampleur du mouvement est plus préoccupante que la seule baisse des indices. La largeur négative montre que les investisseurs réduisent leur exposition dans plusieurs secteurs simultanément, plutôt que de sanctionner une entreprise ou une actualité isolée.</p>
+
+      <p>Bank of Africa Côte d’Ivoire, Coris Bank International Burkina Faso et NSIA Banque Côte d’Ivoire perdent chacune environ 7,5 %. BICICI, Vivo Energy Côte d’Ivoire et plusieurs autres valeurs terminent également proches de la limite quotidienne de baisse.</p>
+
+      <p>Vivo Energy Côte d’Ivoire recule de 7,48 % à 2 475 FCFA, à la veille du détachement de son dividende net de 96,67 FCFA. Le coupon représente environ 3,9 % du cours actuel : la baisse dépasse donc nettement l’ajustement économique lié au dividende et traduit avant tout une forte pression vendeuse. Le paiement demeure prévu le 25 septembre.</p>
+
+      <p>Les valeurs financières concentrent une partie importante de la correction. Toutes les filiales Bank of Africa cotées reculent, de 2,88 % au Sénégal à 7,50 % en Côte d’Ivoire. Ecobank Transnational Incorporated perd 4,35 % sur plus de 1,49 million d’actions échangées, ce qui lui confère une influence particulière sur l’activité du marché.</p>
+
+      <h3>Radar BRVM — Top 5 / Flop 5</h3>
+      <p>Le classement est relatif : seules deux valeurs progressent. Les trois autres places du « Top 5 » correspondent aux actions stables.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Rang</th><th>Top 5</th><th>Variation</th><th>Commentaire analytique</th><th>Flop 5</th><th>Variation</th><th>Commentaire analytique</th></tr></thead>
+        <tbody>
+          <tr><td>1 / 1</td><td>Filtisac CI</td><td class="up">+6,02 %</td><td>Rebond isolé dans un compartiment industriel fortement baissier.</td><td>Bank of Africa CI</td><td class="down">−7,50 %</td><td>Limite quotidienne atteinte dans un secteur bancaire sous pression.</td></tr>
+          <tr><td>2 / 2</td><td>TotalEnergies Sénégal</td><td class="up">+0,92 %</td><td>Seule valeur énergétique positive à la mi-journée.</td><td>Coris Bank International BF</td><td class="down">−7,50 %</td><td>Forte prise de bénéfices sur une valeur bancaire jusque-là recherchée.</td></tr>
+          <tr><td>3 / 3</td><td>CROWN SIEM</td><td class="flat">0,00 %</td><td>Stabilité remarquable face au recul généralisé des industrielles.</td><td>NSIA Banque CI</td><td class="down">−7,49 %</td><td>Correction sévère au sein des grandes banques ivoiriennes.</td></tr>
+          <tr><td>4 / 4</td><td>SICOR</td><td class="flat">0,00 %</td><td>Absence de variation, mais liquidité limitée.</td><td>Vivo Energy CI</td><td class="down">−7,48 %</td><td>Baisse très supérieure au rendement du dividende attendu.</td></tr>
+          <tr><td>5 / 5</td><td>Air Liquide CI</td><td class="flat">0,00 %</td><td>Résistance relative, sans signal haussier confirmé.</td><td>BICICI</td><td class="down">−7,46 %</td><td>Deuxième banque ivoirienne proche de la limite de baisse.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Les transactions n’atteignent que 1,31 milliard de FCFA, contre environ 1,95 milliard mardi à la même heure, alors même que la baisse des indices est beaucoup plus forte. Cette combinaison suggère que la faible profondeur des carnets d’ordres amplifie certains écarts : les cours peuvent chuter rapidement sans qu’un volume exceptionnel de titres soit nécessaire.</p>
+
+      <div class="highlight">
+        <h3>Bridge Bank Group Côte d’Ivoire attendue à la cote le 24 septembre</h3>
+        <p>La première cotation de Bridge Bank Group Côte d’Ivoire doit porter à 48 le nombre de sociétés inscrites au marché des actions. Cette admission constitue un événement structurel positif pour la profondeur de la cote, même si elle intervient dans un environnement immédiat de forte volatilité.</p>
+      </div>
+
+      <p>La correction reste compatible avec des prises de bénéfices après une hausse annuelle très importante du marché. Toutefois, sa diffusion à presque toute la cote et la répétition des baisses proches de 7,5 % montrent qu’elle ne doit plus être considérée comme une simple oscillation de quelques valeurs.</p>
+
+      <p class="source-line">Sources : <a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels</a> · <a href="https://www.brvm.org/fr/esv/paiement-de-dividendes" target="_blank" rel="noopener noreferrer">BRVM — calendrier des dividendes</a> · <a href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation" target="_blank" rel="noopener noreferrer">BRVM — première cotation de Bridge Bank Group CI</a>.</p>
+    </section>
+
+    <section>
+      <h2>2. Le FMI et la Banque mondiale changent leur méthode d’évaluation de la dette</h2>
+      <p class="subtitle">La dette intérieure, les garanties publiques et les risques climatiques pèseront davantage dans les diagnostics, avec des conséquences possibles sur les programmes et les financements concessionnels en Afrique de l’Ouest.</p>
+
+      <figure class="article-photo">
+        <img src="https://pbs.twimg.com/media/GpQPtqbX0AAgaDO.jpg" alt="Réunion internationale consacrée à la dette souveraine" loading="lazy" />
+        <figcaption>Réunion de la Table ronde mondiale sur la dette souveraine, organisée dans le cadre des réunions du FMI et de la Banque mondiale. Photo : FMI/Banque mondiale.</figcaption>
+      </figure>
+
+      <p>Les conseils d’administration du <b>Fonds monétaire international (FMI)</b> et de la Banque mondiale ont approuvé en septembre une réforme de leur cadre conjoint d’analyse de viabilité de la dette. Il s’agit de la première révision importante depuis 2017.</p>
+
+      <p>Le changement intervient dans un environnement dégradé : 14 % des pays à faible revenu suivis par les deux institutions sont déjà considérés en situation de surendettement, tandis que 33 % présentent un risque élevé. Le nouveau dispositif doit entrer en application au second semestre 2027, après une phase de préparation technique.</p>
+
+      <p>L’enjeu central pour l’Afrique de l’Ouest est la meilleure prise en compte de la <b>dette intérieure</b>. Les États de l’Union économique et monétaire ouest-africaine financent une part importante de leurs besoins sur le marché régional, auprès des banques, des assureurs et des fonds de pension. Une dette libellée en francs CFA évite le risque de change direct, mais elle peut absorber les ressources bancaires qui auraient autrement financé les entreprises et les ménages.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Réforme approuvée</th><th>Ce qui doit évoluer</th><th>Incidence possible en Afrique de l’Ouest</th></tr></thead>
+        <tbody>
+          <tr><td>Dette intérieure mieux intégrée</td><td>Analyse renforcée des obligations et bons détenus localement.</td><td>Meilleure mesure de la pression exercée sur les banques et le crédit privé.</td></tr>
+          <tr><td>Prévisions plus réalistes</td><td>Tests plus sévères sur la croissance, les recettes et les taux.</td><td>Réduction du risque de plans budgétaires fondés sur des hypothèses trop favorables.</td></tr>
+          <tr><td>Garanties et entreprises publiques</td><td>Meilleur suivi des engagements susceptibles de revenir à l’État.</td><td>Visibilité accrue sur les risques liés aux sociétés d’électricité, d’eau ou de transport.</td></tr>
+          <tr><td>Risques climatiques</td><td>Simulation des sécheresses, inondations et chocs agricoles.</td><td>Pertinence particulière pour le Sahel et les économies dépendantes du cacao ou du coton.</td></tr>
+          <tr><td>Transparence de la dette</td><td>Exigences accrues sur la publication et la couverture des données.</td><td>Confiance renforcée, mais possibilité de révéler des engagements mal comptabilisés.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Pour le Sénégal, dont les statistiques de dette font l’objet d’un examen approfondi, la réforme souligne l’importance d’une couverture exhaustive des engagements publics. En Côte d’Ivoire, au Bénin et au Togo, elle pourrait accroître l’attention portée aux garanties de l’État, aux partenariats public-privé et aux passifs des entreprises publiques. Au Burkina Faso, au Mali et au Niger, les dépenses de sécurité, les chocs climatiques et les besoins sociaux compliquent davantage l’équilibre entre consolidation budgétaire et investissement.</p>
+
+      <p>Ces conséquences constituent des implications probables de la nouvelle méthode, et non de nouvelles notations déjà attribuées à ces pays. Pour les populations, l’enjeu dépasse la seule comptabilité publique : une dette mieux mesurée peut prévenir une crise, mais un ajustement reposant sur la compression de l’éducation, de la santé ou de l’investissement peut dégrader le niveau de vie.</p>
+
+      <p class="source-line">Sources : <a href="https://www.imf.org/en/news/articles/2026/09/21/pr26296-lics-imf-executive-board-reviews-the-joint-world-bank-debt-sustainability-framework" target="_blank" rel="noopener noreferrer">FMI — révision du cadre de viabilité de la dette</a> · <a href="https://www.worldbank.org/en/news/statement/2026/09/21/world-bank-board-endorses-reforms-to-the-bank-fund-debt-sustainability-framework-f" target="_blank" rel="noopener noreferrer">Banque mondiale — approbation des réformes</a>.</p>
+    </section>
+
+    <section>
+      <h2>3. Le Nigeria lance un fonds de 300 millions de dollars pour les mini-réseaux</h2>
+      <p class="subtitle">Le dispositif veut transformer l’énergie décentralisée en actif finançable, mais la révision du montant annoncé et l’absence de projets détaillés appellent encore des clarifications.</p>
+
+      <figure class="article-photo">
+        <img src="https://cdn.prod.website-files.com/642b027c4cf20e3a937c9379/642f03c29e2ff9de6f248dad_Rokota-Comissioning-Photo-1.jpeg" alt="Mini-réseau solaire à Rokota dans l'État du Niger au Nigeria" loading="lazy" />
+        <figcaption>Un mini-réseau solaire mis en service à Rokota, dans l’État du Niger au Nigeria. Photo : Odyssey Energy Solutions / Nigeria Electrification Project.</figcaption>
+      </figure>
+
+      <p>Le Nigeria a procédé le 20 septembre au lancement commercial du <b>Distributed Renewable Energy Fund</b>, un fonds de 300 millions de dollars consacré aux mini-réseaux, aux installations solaires autonomes et aux autres infrastructures électriques décentralisées.</p>
+
+      <p>Le fonds est cogéré par la Nigeria Sovereign Investment Authority et Africa50. La Banque mondiale intervient comme partenaire fondateur, avec une contribution initiale de 25 millions de dollars provenant de l’Association internationale de développement, son guichet concessionnel destiné aux pays les plus pauvres.</p>
+
+      <p>Pour les jeunes entreprises du secteur, le principal apport pourrait être l’accès à des financements de plus longue durée. Les développeurs de mini-réseaux supportent des coûts initiaux élevés avant de générer des revenus mensuels auprès des ménages, des commerces et des ateliers. Des capitaux mieux adaptés peuvent financer les panneaux, les batteries, les compteurs intelligents, la maintenance et les équipements productifs utilisés par les clients.</p>
+
+      <p>Le dispositif peut ainsi favoriser tout un écosystème : installateurs locaux, sociétés de paiement, fabricants d’équipements, opérateurs de froid agricole et entreprises utilisant l’électricité pour la transformation ou la conservation des produits.</p>
+
+      <div class="highlight">
+        <h3>Un montant revu de 500 à 300 millions de dollars</h3>
+        <p>Le projet avait été présenté en mars 2025 comme un fonds de 500 millions de dollars, contre 300 millions au moment de son lancement commercial. Les communiqués disponibles n’expliquent pas encore cet écart et ne détaillent ni la liste des projets retenus, ni les décaissements réalisés, ni l’origine de la totalité des engagements.</p>
+      </div>
+
+      <p>Il s’agit donc d’un véhicule désormais lancé et prêt à investir, mais pas encore de 300 millions de dollars effectivement injectés dans des installations opérationnelles. Son succès dépendra de sa capacité à gérer le risque de change, à proposer des tarifs supportables et à sélectionner des projets dont les revenus permettent l’entretien durable des équipements.</p>
+
+      <p class="source-line">Sources : <a href="https://www.africa50.com/media/news/article/nigeria-dre-fund-reaches-commercial-launch-milestone-a-model-for-scaling-dre-investment-across-africa/" target="_blank" rel="noopener noreferrer">Africa50 — lancement commercial du Nigeria DRE Fund</a> · <a href="https://www.africa50.com/media/news/article/sia-seforall-isa-and-africa50-unveil-us700-million-dre-africa-platform-with-us500-million-dre-nigeria-fund/" target="_blank" rel="noopener noreferrer">Africa50 — annonce initiale de mars 2025</a>.</p>
+    </section>
+
+    <section>
+      <h2>4. Les taux américains proches de 5 % pèsent sur le financement ouest-africain</h2>
+
+      <div class="kpi-strip">
+        <div class="kpi"><div class="kpi-label">Nasdaq</div><div class="kpi-value"><span class="up">+0,45 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">S&amp;P 500</div><div class="kpi-value"><span class="flat">0,00 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">Dow Jones</div><div class="kpi-value"><span class="down">−0,36 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">US 10 ans</div><div class="kpi-value">4,95 %</div></div>
+      </div>
+
+      <p class="subtitle">La résistance des valeurs technologiques contraste avec des marchés asiatiques plus faibles, tandis que le coût du capital reste le signal le plus important pour l’Afrique de l’Ouest.</p>
+
+      <p>Le Nasdaq a terminé mardi sur un nouveau record, soutenu par les grandes valeurs technologiques, alors que le S&amp;P 500 est resté pratiquement inchangé et que le Dow Jones a reculé. Mercredi, le FTSE 100 gagnait environ 0,10 %, tandis que le Hang Seng reculait de 1,01 %.</p>
+
+      <p>La <b>Réserve fédérale américaine (Fed)</b> a relevé le 16 septembre sa <b>fourchette cible</b> de taux directeur à 3,75–4,00 %. Les marchés continuent d’envisager une nouvelle hausse, ce qui maintient le rendement de l’obligation américaine à dix ans autour de 4,95 %.</p>
+
+      <p>Pour les États ouest-africains, ce rendement constitue un plancher de comparaison. Si un investisseur peut obtenir près de 5 % sur une obligation américaine très liquide et considérée comme sûre, il exigera une rémunération nettement supérieure pour acheter une euro-obligation sénégalaise, ivoirienne, béninoise ou nigériane. Le service de la dette, le financement des infrastructures et les emprunts des grandes entreprises régionales peuvent alors devenir plus coûteux.</p>
+
+      <p>La faiblesse des marchés chinois présente un second enjeu. Un écart de taux important entre les États-Unis et la Chine peut attirer des capitaux vers les actifs américains et exercer une pression sur <b>la monnaie chinoise, le yuan</b>. Pour l’Afrique de l’Ouest, les conséquences passent par les prix des équipements importés, la demande chinoise de minerais et les conditions de financement de certains projets.</p>
+
+      <p class="source-line">Source : <a href="https://www.reuters.com/business/wall-st-futures-pause-after-ai-rally-focus-mideast-tensions-2026-09-22/" target="_blank" rel="noopener noreferrer">Reuters — marchés internationaux, 22 et 23 septembre 2026</a>.</p>
+    </section>
+
+    <section>
+      <h2>5. Le cacao et l’or reculent, tandis que le gaz et l’hévéa progressent</h2>
+      <p class="subtitle">La configuration du jour favorise modérément les importateurs de pétrole, mais elle est moins favorable aux exportateurs de cacao et d’or.</p>
+
+      <p>Le Brent se stabilise près de 99,50 dollars le baril, tandis que le pétrole américain reste orienté à la baisse. Sur les marchés agricoles, le cacao poursuit sa correction. L’hévéa progresse, offrant un soutien ponctuel aux producteurs ivoiriens et libériens.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Matière première</th><th>Cours / variation</th><th>Pays particulièrement exposés</th><th>Incidence régionale</th></tr></thead>
+        <tbody>
+          <tr><td>Brent</td><td><b>99,43 $/baril</b><br /><span class="up">+0,18 %</span></td><td>Nigeria, Ghana, Sénégal, Côte d’Ivoire et importateurs de l’UEMOA</td><td>Niveau toujours élevé pour les importateurs; stabilisation favorable aux recettes des producteurs.</td></tr>
+          <tr><td>Pétrole américain WTI</td><td><b>90,12 $/baril</b><br /><span class="down">−0,44 %</span></td><td>Nigeria, Ghana et marchés régionaux des carburants</td><td>Léger répit sur les coûts énergétiques, sans baisse automatique des prix à la pompe.</td></tr>
+          <tr><td>Gaz naturel américain</td><td><b>3,01 $/MMBtu</b><br /><span class="up">+1,57 %</span></td><td>Nigeria, Sénégal, Ghana et Côte d’Ivoire</td><td>Soutient la valeur potentielle des projets gaziers, mais renchérit le gaz importé.</td></tr>
+          <tr><td>Or</td><td><b>4 317,21 $/once</b><br /><span class="down">−1,08 %</span></td><td>Ghana, Mali, Burkina Faso et Côte d’Ivoire</td><td>Repli quotidien défavorable aux recettes minières, malgré un cours encore historiquement élevé.</td></tr>
+          <tr><td>Cacao</td><td><b>5 357,59 $/tonne</b><br />soit 5,36 $/kg<br /><span class="down">−0,82 %</span></td><td>Côte d’Ivoire, Ghana et Nigeria</td><td>Réduit les perspectives de recettes d’exportation si le recul se prolonge.</td></tr>
+          <tr><td>Coton</td><td><b>1,82 $/kg</b><br /><span class="down">−0,60 %</span></td><td>Bénin, Burkina Faso, Mali et Côte d’Ivoire</td><td>Peut peser sur les futurs prix d’achat et sur les revenus des producteurs sahéliens.</td></tr>
+          <tr><td>Hévéa</td><td><b>2,42 $/kg</b><br /><span class="up">+1,55 %</span></td><td>Côte d’Ivoire, Liberia, Ghana et Nigeria</td><td>Soutient les planteurs et exportateurs, sous réserve du fret et de la demande asiatique.</td></tr>
+        </tbody>
+      </table>
+
+      <p>La combinaison reste contrastée pour la région. Les économies importatrices d’énergie bénéficient d’un pétrole moins tendu, mais la Côte d’Ivoire et le Ghana subissent simultanément le repli du cacao. Pour les pays aurifères du Sahel, la baisse de l’or réduit marginalement la valeur des exportations, sans remettre en cause pour l’instant un environnement de prix exceptionnellement favorable au secteur minier.</p>
+
+      <p class="source-line">Sources : <a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank" rel="noopener noreferrer">Brent</a> · <a href="https://tradingeconomics.com/commodity/gold" target="_blank" rel="noopener noreferrer">Or</a> · <a href="https://tradingeconomics.com/commodity/cocoa" target="_blank" rel="noopener noreferrer">Cacao</a> · <a href="https://tradingeconomics.com/commodity/cotton" target="_blank" rel="noopener noreferrer">Coton</a> · <a href="https://tradingeconomics.com/commodity/rubber" target="_blank" rel="noopener noreferrer">Hévéa</a>.</p>
+    </section>
+
+    <div class="note"><b>Note de la rédaction —</b> Les données de marché correspondent aux informations disponibles à 12 h 15 GMT et peuvent évoluer avant la clôture. Cette publication est destinée à l’information du public et ne constitue pas une recommandation d’investissement.</div>
+
+    <div class="sources">
+      <h2>Sources principales</h2>
+      <ul>
+        <li><a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels et informations sur valeurs</a></li>
+        <li><a href="https://www.imf.org/en/news/articles/2026/09/21/pr26296-lics-imf-executive-board-reviews-the-joint-world-bank-debt-sustainability-framework" target="_blank" rel="noopener noreferrer">FMI — cadre de viabilité de la dette des pays à faible revenu</a></li>
+        <li><a href="https://www.worldbank.org/en/news/statement/2026/09/21/world-bank-board-endorses-reforms-to-the-bank-fund-debt-sustainability-framework-f" target="_blank" rel="noopener noreferrer">Banque mondiale — réforme du cadre d’analyse de la dette</a></li>
+        <li><a href="https://www.africa50.com/media/news/article/nigeria-dre-fund-reaches-commercial-launch-milestone-a-model-for-scaling-dre-investment-across-africa/" target="_blank" rel="noopener noreferrer">Africa50 — Nigeria Distributed Renewable Energy Fund</a></li>
+        <li><a href="https://www.reuters.com/business/wall-st-futures-pause-after-ai-rally-focus-mideast-tensions-2026-09-22/" target="_blank" rel="noopener noreferrer">Reuters — marchés internationaux</a></li>
+      </ul>
     </div>
 
-    <p>
-      Au-delà des récompenses, le principal enjeu est la capacité des
-      entreprises technologiques ouest-africaines à accéder à des marchés
-      dépassant leur pays d’origine. La CEDEAO présente ainsi l’initiative
-      comme un outil de transformation numérique, d’intégration régionale et
-      de constitution de chaînes de valeur capables de franchir les frontières
-      nationales.
-    </p>
-
-    <p class="source-line">
-      Source :
-      <a
-        href="https://www.ecowas.int/la-cedeao-veut-primer-cette-semaine-a-abuja-les-60-start-ups-les-plus-prometteuses-dafrique-de-louest/?lang=fr"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Commission de la CEDEAO — ECOWAS Startup Awards
-      </a>.
-    </p>
-  </section>
-
-  <section>
-    <h2>
-      4. Marchés internationaux : l’IA porte le Nasdaq, le pétrole redescend
-    </h2>
-
-    <p>
-      Le Nasdaq a atteint mardi un nouveau sommet, porté par les valeurs
-      liées à l’intelligence artificielle et aux semi-conducteurs.
-      Le mouvement contraste avec une évolution plus modérée du reste du
-      marché américain.
-    </p>
-
-    <table class="market-table">
-      <thead>
-        <tr>
-          <th>Marché</th>
-          <th>Situation du 22 septembre</th>
-          <th>Commentaire</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>Nasdaq Composite</td>
-          <td class="up">▲ Nouveau record</td>
-          <td>
-            Soutenu par l’optimisme autour de l’intelligence artificielle.
-          </td>
-        </tr>
-
-        <tr>
-          <td>S&amp;P 500</td>
-          <td class="flat">→ Proche de ses sommets</td>
-          <td>
-            Marché américain toujours élevé mais moins homogène que le Nasdaq.
-          </td>
-        </tr>
-
-        <tr>
-          <td>Brent</td>
-          <td class="down">▼ autour de 100 $/baril</td>
-          <td>
-            Repli lié notamment à l’amélioration des perspectives
-            d’approvisionnement au Moyen-Orient.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>
-      Pour l’Afrique de l’Ouest, le mouvement du pétrole demeure nettement
-      plus important que le record du Nasdaq dans l’immédiat. Une détente
-      durable du brut réduirait une partie de la pression supportée par les
-      pays importateurs de produits pétroliers, notamment à travers les coûts
-      de transport, de production et les mécanismes de soutien aux carburants.
-    </p>
-
-    <p>
-      À l’inverse, les pays producteurs — notamment le Nigeria et, dans une
-      moindre mesure, le Ghana, la Côte d’Ivoire ou le Sénégal — sont exposés
-      à l’effet du prix du brut sur les recettes d’exportation et les finances
-      publiques.
-    </p>
-
-    <p class="source-line">
-      Source :
-      <a
-        href="https://www.reuters.com/world/china/global-markets-wrapup-1-2026-09-22/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Reuters — marchés mondiaux, 22 septembre 2026
-      </a>.
-    </p>
-  </section>
-
-  <section>
-    <h2>
-      5. Matières premières : détente du pétrole, enjeu direct pour l’Afrique de l’Ouest
-    </h2>
-
-    <table class="market-table">
-      <thead>
-        <tr>
-          <th>Matière première</th>
-          <th>Cours / variation</th>
-          <th>Pays particulièrement exposés</th>
-          <th>Incidence régionale</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>Brent</td>
-          <td>
-            Environ 99,92 $/baril<br />
-            <span class="down">▼ −0,43 %</span>
-          </td>
-          <td>
-            Nigeria, Ghana, Côte d’Ivoire, Sénégal et pays importateurs
-            de produits pétroliers
-          </td>
-          <td>
-            Impact sur les recettes pétrolières des producteurs et sur la
-            facture énergétique, le transport et les finances publiques des
-            importateurs.
-          </td>
-        </tr>
-
-        <tr>
-          <td>Produits énergétiques</td>
-          <td>
-            <span class="up">▲ +19,9 %</span>
-            au deuxième trimestre 2026
-          </td>
-          <td>
-            Ensemble de l’UEMOA
-          </td>
-          <td>
-            La BCEAO relie cette hausse trimestrielle essentiellement au
-            renchérissement du pétrole brut.
-          </td>
-        </tr>
-
-        <tr>
-          <td>Matières premières UEMOA hors pétrole</td>
-          <td>
-            <span class="down">▼ −2,7 %</span>
-            au deuxième trimestre 2026
-          </td>
-          <td>
-            Principaux pays exportateurs agricoles et miniers de l’Union
-          </td>
-          <td>
-            Repli des prix d’exportation, avec notamment des baisses
-            relevées sur le café et l’or au cours du trimestre.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>
-      Cette combinaison est importante pour la région :
-      la hausse de l’énergie accroît les coûts des économies importatrices,
-      alors qu’un affaiblissement parallèle du prix de certaines matières
-      premières exportées peut réduire les recettes extérieures.
-    </p>
-  </section>
-
-  <div class="note">
-    <b>Note de la rédaction —</b>
-    Les données et informations de cette édition correspondent aux éléments
-    disponibles à l’heure de clôture éditoriale. Elles peuvent être révisées
-    ou complétées après publication. Cette analyse est destinée à
-    l’information du public et ne constitue pas une recommandation
-    d’investissement.
-  </div>
-
-  <div class="sources">
-    <h2>Sources</h2>
-
-    <ul>
-      <li>
-        <a
-          href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          BRVM — données de marché du 22 septembre 2026 et première cotation
-          de Bridge Bank Group Côte d’Ivoire
-        </a>
-      </li>
-
-      <li>
-        <a
-          href="https://www.bceao.int/fr/publications/rapport-sur-la-politique-monetaire-dans-lumoa-septembre-2026"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          BCEAO — Rapport sur la politique monétaire dans l’UMOA,
-          septembre 2026
-        </a>
-      </li>
-
-      <li>
-        <a
-          href="https://downloads.bceao.int/index.php/fr/communique-presse/communique-de-presse-de-la-reunion-ordinaire-du-comite-de-politique-monetaire-19"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          BCEAO — Comité de politique monétaire du 9 septembre 2026
-        </a>
-      </li>
-
-      <li>
-        <a
-          href="https://www.ecowas.int/la-cedeao-veut-primer-cette-semaine-a-abuja-les-60-start-ups-les-plus-prometteuses-dafrique-de-louest/?lang=fr"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CEDEAO — ECOWAS Startup Awards 2026
-        </a>
-      </li>
-
-      <li>
-        <a
-          href="https://www.reuters.com/world/china/global-markets-wrapup-1-2026-09-22/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Reuters — marchés internationaux du 22 septembre 2026
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <p class="disclaimer">
-    ECONOZONE — Contenu publié à des fins d’information économique et
-    financière. Les données de marché sont susceptibles d’être ajustées par
-    leurs producteurs ou diffuseurs après publication.
-  </p>
-
-</div>
-
+    <p class="disclaimer">ECONOZONE — Contenu publié à des fins d’information économique et financière. Les données de marché sont susceptibles d’être ajustées par leurs producteurs ou diffuseurs après publication.</p>
+  </article>
 </Layout>
