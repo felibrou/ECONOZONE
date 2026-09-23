@@ -76,8 +76,14 @@ import Analytics from '@vercel/analytics/astro';
 
     /* Renforce les photographies éditoriales sans modifier les graphiques ni les logos. */
     figure img:not([role="img"]) {
-      filter: contrast(1.10) saturate(1.14) brightness(0.98);
+      filter: contrast(1.12) saturate(1.16) brightness(0.98);
       box-shadow: 0 10px 28px rgba(16, 24, 43, 0.12);
+    }
+
+    /* Les grandes images de une reçoivent un traitement plus affirmé :
+       noirs plus profonds et couleurs plus présentes, sans toucher aux graphiques. */
+    .hero-photo img:not([role="img"]) {
+      filter: contrast(1.20) saturate(1.26) brightness(0.96);
     }
 
     footer.site-footer { width: 100%; background: var(--panel-alt); border-top: 1px solid var(--border); margin-top: 40px; }
