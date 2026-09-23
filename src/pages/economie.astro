@@ -1,11 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="ECONOZONE — Économie Ouest Africaine">
+<Layout title="ECONOZONE — Économie ouest-africaine">
 
-    <div class="breadcrumb">ECONOZONE &rsaquo; Économie Ouest Africaine</div>
-    <h1>Économie Ouest Africaine</h1>
-    <p class="dek">La conjoncture régionale de l'Union Économique et Monétaire Ouest Africaine (UEMOA), la politique monétaire de la BCEAO, et les comparaisons avec les grandes économies voisines (Ghana, Nigeria) et la CEDEAO élargie.</p>
+    <div class="breadcrumb">ECONOZONE &rsaquo; Économie ouest-africaine</div>
+    <h1>Économie ouest-africaine</h1>
+    <p class="dek">Cette page suit la conjoncture de l'Union économique et monétaire ouest-africaine (UEMOA), la politique monétaire de la BCEAO et les évolutions des grandes économies voisines, notamment le Ghana et le Nigeria.</p>
 
     <div class="kpi-strip">
       <div class="kpi">
@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="kpi">
         <div class="kpi-label">Inflation UEMOA (T2 2026)</div>
         <div class="kpi-value">0,4 %</div>
-        <div class="kpi-sub">contre -0,2 % au T1</div>
+        <div class="kpi-sub">contre −0,2 % au T1</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">Taux directeur BCEAO</div>
@@ -30,52 +30,48 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
-    <h2>Une croissance solide, mais qui se transmet lentement au niveau de vie</h2>
-    <p>Au deuxième trimestre 2026, le PIB réel de l'UEMOA progresse de 6,0 % sur un an, après 6,1 % au premier trimestre. La BCEAO a maintenu le 9 septembre son taux directeur à 3,00 % et son taux de prêt marginal à 5,00 %, jugeant la dynamique économique suffisamment robuste et les tensions inflationnistes encore maîtrisables. Le crédit à l'économie a progressé de 6,6 % à fin juin 2026, avec une accélération à 6,9 % anticipée sur l'ensemble de l'année.</p>
-    <p>Mais un second tableau apparaît en filigrane : le déficit budgétaire régional atteint 3,4 % du PIB au premier semestre 2026 (contre 3,2 % un an plus tôt), et la BCEAO anticipe une dégradation des termes de l'échange de 2,3 % sur l'année, sous l'effet conjoint de la hausse du pétrole et du recul de certaines matières premières agricoles exportées, notamment le cacao.</p>
+    <h2>La croissance reste solide, mais ses effets sur le niveau de vie sont plus lents</h2>
+    <p>Au deuxième trimestre 2026, le produit intérieur brut (PIB) réel de l'UEMOA progresse de 6,0 % sur un an, après 6,1 % au premier trimestre. Le 9 septembre, la Banque centrale des États de l'Afrique de l'Ouest (BCEAO) a maintenu son principal taux directeur à 3,00 % et son taux de prêt marginal à 5,00 %. Elle estime que l'activité demeure robuste et que les tensions inflationnistes restent maîtrisables. Le crédit à l'économie a augmenté de 6,6 % à fin juin 2026 ; sa progression atteindrait 6,9 % sur l'ensemble de l'année.</p>
+    <p>Cette vigueur ne résume toutefois pas toute la situation économique. Le déficit budgétaire régional atteint 3,4 % du PIB au premier semestre 2026, contre 3,2 % un an plus tôt. La BCEAO prévoit également une dégradation de 2,3 % des termes de l'échange sur l'année : la hausse du pétrole renchérit les importations, tandis que le recul de certaines matières premières agricoles, notamment le cacao, réduit les revenus tirés des exportations.</p>
 
     <h2>Une UEMOA à plusieurs vitesses</h2>
-    <p>Les projections de croissance 2026 du FMI, homogènes d'un pays à l'autre, permettent une comparaison plus rigoureuse que les seules statistiques trimestrielles nationales.</p>
+    <p>Les projections du Fonds monétaire international (FMI) pour 2026 reposent sur une méthode commune et offrent ainsi une base de comparaison plus cohérente que des statistiques nationales établies selon des périodes différentes.</p>
     <table class="z">
-      <thead><tr><th>Économie</th><th>Croissance 2026 (FMI)</th><th>Écart vs UEMOA</th><th>Lecture</th></tr></thead>
+      <thead><tr><th>Économie</th><th>Croissance 2026 (FMI)</th><th>Position par rapport à l'UEMOA</th><th>Analyse</th></tr></thead>
       <tbody>
-        <tr><td>Bénin</td><td>7,0 %</td><td style="color:var(--up);">&#9650;</td><td>Expansion supérieure de 1,5 pt à la moyenne</td></tr>
-        <tr><td>Niger</td><td>6,9 %</td><td style="color:var(--up);">&#9650;</td><td>Hydrocarbures et investissements publics</td></tr>
-        <tr><td>Côte d'Ivoire</td><td>6,2 %</td><td style="color:var(--up);">&#9650;</td><td>Croissance robuste, mieux diversifiée</td></tr>
-        <tr><td>Mali</td><td>5,5 %</td><td style="color:var(--label);">&#8594;</td><td>Exactement au niveau de la moyenne UEMOA</td></tr>
-        <tr><td>Guinée-Bissau</td><td>5,0 %</td><td style="color:var(--down);">&#9660;</td><td>Économie étroite, exposée aux chocs externes</td></tr>
-        <tr><td>Togo</td><td>5,0 %</td><td style="color:var(--down);">&#9660;</td><td>Résiliente, sous le rythme des locomotives</td></tr>
-        <tr><td>Burkina Faso</td><td>4,9 %</td><td style="color:var(--down);">&#9660;</td><td>Progression positive en contexte contraint</td></tr>
-        <tr><td>Sénégal</td><td>2,2 %</td><td style="color:var(--down);">&#9660;</td><td>Normalisation après la poussée hydrocarbures</td></tr>
-        <tr class="highlight-row"><td>UEMOA</td><td>5,5 %</td><td style="color:var(--label);">&#8594;</td><td>Projection annuelle de référence FMI</td></tr>
+        <tr><td>Bénin</td><td>7,0 %</td><td class="up">Au-dessus</td><td>Une expansion supérieure de 1,5 point à la moyenne régionale</td></tr>
+        <tr><td>Niger</td><td>6,9 %</td><td class="up">Au-dessus</td><td>Une activité soutenue par les hydrocarbures et l'investissement public</td></tr>
+        <tr><td>Côte d'Ivoire</td><td>6,2 %</td><td class="up">Au-dessus</td><td>Une croissance robuste reposant sur une économie plus diversifiée</td></tr>
+        <tr><td>Mali</td><td>5,5 %</td><td>Dans la moyenne</td><td>Un rythme identique à la projection régionale</td></tr>
+        <tr><td>Guinée-Bissau</td><td>5,0 %</td><td class="down">En dessous</td><td>Une économie peu diversifiée et très exposée aux chocs extérieurs</td></tr>
+        <tr><td>Togo</td><td>5,0 %</td><td class="down">En dessous</td><td>Une activité résiliente, mais moins dynamique que les principales économies de l'Union</td></tr>
+        <tr><td>Burkina Faso</td><td>4,9 %</td><td class="down">En dessous</td><td>Une progression positive malgré un environnement fortement contraint</td></tr>
+        <tr><td>Sénégal</td><td>2,2 %</td><td class="down">En dessous</td><td>Un ralentissement après l'accélération initiale liée aux hydrocarbures</td></tr>
+        <tr class="highlight-row"><td>UEMOA</td><td>5,5 %</td><td>Référence</td><td>La projection annuelle retenue pour l'ensemble de l'Union</td></tr>
       </tbody>
     </table>
 
-    <h2>UEMOA face à ses voisins de la CEDEAO</h2>
-    <p>La CEDEAO compte 15 pays, dont les 8 de l'UEMOA. Selon le sujet, la comparaison la plus pertinente change de pays — le Ghana et le Nigeria sont les points de comparaison les plus suivis pour la croissance et l'inflation (deux grandes économies anglophones voisines), mais d'autres rubriques du site mobilisent d'autres pays CEDEAO plus pertinents pour leur sujet (la Guinée pour la bauxite et le fer, par exemple, en page Matières premières).</p>
+    <h2>L'UEMOA comparée au Ghana et au Nigeria</h2>
+    <p>Depuis le retrait du Burkina Faso, du Mali et du Niger, devenu effectif le 29 janvier 2025, la Communauté économique des États de l'Afrique de l'Ouest (CEDEAO) compte 12 États membres. L'UEMOA conserve, pour sa part, ses huit membres. Le Ghana et le Nigeria constituent ici les deux principaux repères extérieurs à l'Union en raison de leur poids économique et de la disponibilité de données comparables sur la croissance et l'inflation.</p>
     <table class="z">
-      <thead><tr><th>Économie</th><th>Croissance 2026</th><th>Inflation 2026</th><th>Lecture</th></tr></thead>
+      <thead><tr><th>Économie</th><th>Croissance 2026</th><th>Inflation 2026</th><th>Analyse</th></tr></thead>
       <tbody>
-        <tr class="highlight-row"><td>Côte d'Ivoire</td><td>6,2 %</td><td>1,8 %</td><td>Meilleur équilibre croissance / prix</td></tr>
-        <tr><td>Ghana</td><td>4,8 %</td><td>5,8 %</td><td>Reprise réelle, inflation encore supérieure</td></tr>
-        <tr><td>Nigeria</td><td>4,1 %</td><td>16,0 %</td><td>L'inflation réduit fortement la qualité de la croissance</td></tr>
-        <tr><td>UEMOA (moyenne)</td><td>6,1 %</td><td>1,0 %</td><td>Référence régionale</td></tr>
+        <tr class="highlight-row"><td>Côte d'Ivoire</td><td>6,2 %</td><td>1,8 %</td><td>Le meilleur équilibre entre croissance et stabilité des prix parmi les économies comparées</td></tr>
+        <tr><td>Ghana</td><td>4,8 %</td><td>5,8 %</td><td>Une reprise confirmée, mais encore accompagnée d'une inflation supérieure à celle de l'UEMOA</td></tr>
+        <tr><td>Nigeria</td><td>4,1 %</td><td>16,0 %</td><td>Une inflation élevée qui réduit les gains de pouvoir d'achat associés à la croissance</td></tr>
+        <tr><td>UEMOA (moyenne)</td><td>5,5 %</td><td>1,0 %</td><td>La référence régionale pour la croissance annuelle et la stabilité des prix</td></tr>
       </tbody>
     </table>
-    <div class="note"><b>Pourquoi cet écart :</b> l'arrimage du franc CFA à l'euro limite mécaniquement les dérapages de prix qui frappent le Ghana et surtout le Nigeria, dont la monnaie flottante s'est dépréciée en continu depuis la suppression des subventions sur le carburant. Une partie de l'avantage inflationniste de l'UEMOA est donc un effet de régime monétaire, pas seulement une meilleure gestion conjoncturelle — une nuance à garder en tête dans toute comparaison entre la zone franc et ses voisins CEDEAO, quel que soit le pays choisi.</div>
+    <div class="note"><b>Des régimes monétaires différents.</b> L'arrimage du franc CFA à l'euro contribue à contenir l'inflation importée dans l'UEMOA. Le Ghana et le Nigeria disposent de monnaies flottantes, plus directement exposées aux dépréciations et au renchérissement des produits importés. L'avantage de l'UEMOA en matière d'inflation tient donc en partie à son régime monétaire ; il ne peut pas être attribué uniquement à la gestion conjoncturelle.</div>
 
-    <h2 id="historique">Données historiques : croissance UEMOA / CEDEAO</h2>
-    <p>Une série construite à partir de sources officielles (BCEAO) plutôt que d'estimations — sélectionnez l'horizon pour filtrer les années affichées.</p>
+    <h2 id="historique">L'évolution récente de la croissance dans l'UEMOA</h2>
+    <p>Cette série rassemble les données publiées par la BCEAO. Sélectionnez une période pour afficher les années correspondantes.</p>
 
     <div class="horizon-bar">
       <button class="h-chip" data-horizon="1a">1 an</button>
       <button class="h-chip" data-horizon="3a">3 ans</button>
       <button class="h-chip active" data-horizon="5a">5 ans</button>
-      <button class="h-chip disabled" data-horizon="10a" title="Nécessite une source de données historiques supplémentaire">10 ans</button>
-      <button class="h-chip disabled" data-horizon="20a" title="Nécessite une source de données historiques supplémentaire">20 ans</button>
-      <button class="h-chip disabled" data-horizon="30a" title="Nécessite une source de données historiques supplémentaire">30 ans</button>
     </div>
-    <p style="font-size:11px; color:var(--label); margin-top:-4px;">Horizons grisés : pas encore de source vérifiée disponible — activés dès qu'une base de données historique fiable est branchée, plutôt que remplis par estimation.</p>
 
     <h3>Croissance du PIB réel — UEMOA</h3>
     <table class="z">
@@ -112,20 +108,20 @@ import Layout from '../layouts/Layout.astro';
       applyHorizon('5a');
     </script>
 
-    <h2>Croissance ≠ mieux-être : ce que le PIB ne montre pas</h2>
+    <h2>Croissance et bien-être : ce que le PIB ne montre pas</h2>
     <div class="grid2">
       <div>
         <h3>Le décalage entre croissance totale et croissance par habitant</h3>
-        <p>En Côte d'Ivoire, la croissance totale prévue atteint 6,2 %, mais la croissance du PIB <b>par habitant</b> n'est estimée qu'à 3,2 % pour 2026 — une partie de la croissance totale est absorbée par la démographie. Ce chiffre se rapproche davantage de ce qu'un ménage peut ressentir dans son niveau de vie que la seule croissance nationale.</p>
+        <p>En Côte d'Ivoire, la croissance totale devrait atteindre 6,2 % en 2026, mais celle du PIB <b>par habitant</b> serait limitée à 3,2 %. Une partie de l'expansion économique est en effet absorbée par la croissance démographique. L'évolution du PIB par habitant se rapproche davantage de ce que les ménages peuvent ressentir dans leur niveau de vie.</p>
       </div>
       <div>
         <h3>Des indicateurs sociaux qui évoluent plus lentement</h3>
-        <p>La Banque mondiale indique une espérance de vie de 62 ans en Côte d'Ivoire (2024) et un taux de pauvreté de 20,8 % sous le seuil de 3 $/jour. Ces indicateurs sont publiés avec retard par rapport au PIB, mais rappellent qu'une forte expansion économique met du temps à transformer les conditions de vie.</p>
+        <p>La Banque mondiale estime l'espérance de vie à 62 ans en Côte d'Ivoire en 2024 et le taux de pauvreté à 20,8 % sous le seuil de 3 dollars par jour. Publiés moins fréquemment que le PIB, ces indicateurs rappellent que la croissance met du temps à transformer les conditions de vie.</p>
       </div>
     </div>
-    <p>L'OIT constate par ailleurs que l'emploi des jeunes dans l'UEMOA reste massivement informel, souvent concentré dans une agriculture à faible productivité, malgré plusieurs années de croissance élevée. Le nouveau Plan national de développement ivoirien 2026-2030 (206 milliards $ d'investissements visés, 7,2 % de croissance annuelle ciblée) se jugera donc moins sur le volume investi que sur sa capacité à combler cet écart entre croissance macroéconomique et progrès social.</p>
+    <p>L'Organisation internationale du Travail (OIT) constate par ailleurs que l'emploi des jeunes dans l'UEMOA reste majoritairement informel et souvent concentré dans une agriculture à faible productivité. Le Plan national de développement ivoirien 2026-2030, qui vise 206 milliards de dollars d'investissements et une croissance annuelle de 7,2 %, devra donc être évalué aussi à l'aune des emplois productifs créés, de l'amélioration des services publics et de la réduction de la pauvreté.</p>
 
-    <div class="disclaimer">Avertissement : ce contenu est publié à des fins purement informatives et ne constitue pas un conseil en investissement. Sources : BCEAO (Rapport sur la politique monétaire, septembre 2026), FMI, Banque mondiale, Organisation internationale du Travail.</div>
+    <div class="disclaimer">Sources : BCEAO (Rapport sur la politique monétaire, septembre 2026), Fonds monétaire international, Banque mondiale, Organisation internationale du Travail et <a href="https://www.ecowas.int/press-statement-2/" target="_blank" rel="noopener noreferrer">CEDEAO</a>. Ce contenu est publié à des fins purement informatives et ne constitue pas un conseil en investissement.</div>
 </Layout>
 
 <style>
