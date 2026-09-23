@@ -74,6 +74,12 @@ import Analytics from '@vercel/analytics/astro';
     .page-meta { font-size: 13px; color: var(--label); margin: -8px 0 22px; display: flex; gap: 16px; flex-wrap: wrap; }
     .page-meta b { color: var(--text-muted); font-weight: 600; }
 
+    /* Renforce les photographies éditoriales sans modifier les graphiques ni les logos. */
+    figure img:not([role="img"]) {
+      filter: contrast(1.10) saturate(1.14) brightness(0.98);
+      box-shadow: 0 10px 28px rgba(16, 24, 43, 0.12);
+    }
+
     footer.site-footer { width: 100%; background: var(--panel-alt); border-top: 1px solid var(--border); margin-top: 40px; }
     .footer-inner { max-width: 1080px; margin: 0 auto; padding: 32px 24px; }
     footer.site-footer p { font-size: 12px; color: var(--label); }
