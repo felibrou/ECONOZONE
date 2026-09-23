@@ -45,7 +45,25 @@ Ajoute un chapô de trois à quatre phrases maximum résumant le fait principal 
 
 3. ARTICLE 1 — BRVM ET ENTREPRISES COTÉES
 
-Titre journalistique précis. Bandeau : BRVM Composite | BRVM 30 | BRVM Prestige | Transactions. Codage exclusif : 🟢 +x,xx % (hausse), 🔴 −x,xx % (baisse), 0,00 % (stabilité réelle), « Référence » (sans comparaison disponible). Aucun symbole noir.
+Titre journalistique précis.
+
+Bandeau :
+BRVM Composite | BRVM 30 | BRVM Prestige | Transactions.
+
+Codage exclusif des variations :
+- ▲ +x,xx % pour une hausse ;
+- ▼ −x,xx % pour une baisse ;
+- → 0,00 % pour une stabilité réelle ;
+- « Référence » lorsqu’aucune comparaison n’est disponible.
+
+Les flèches sont colorées par CSS avec :
+- .up pour les hausses ;
+- .down pour les baisses ;
+- .flat pour les valeurs stables ou de référence.
+
+Ne jamais utiliser de boules ou pastilles colorées.
+
+Aucun symbole noir ne doit être utilisé pour représenter une hausse ou une baisse.
 
 Avant de rédiger, considère : les cours officiels, le Bulletin officiel de la cote, les rapports des sociétés cotées, les communiqués des émetteurs, les événements sur valeurs, les dividendes et détachements, les opérations sur capital, les émissions et admissions obligataires, les notations financières, les assemblées générales, les changements de dirigeants, les franchissements de seuil, le calendrier des prochaines publications.
 
@@ -127,6 +145,135 @@ Ne publie jamais les placeholders ou instructions internes tels que :
 "[Note de la rédaction à compléter par l'éditeur]".
 
 Ne fournis pas d'explication sur la méthode utilisée, de notes internes, de données privées, ni de commentaire adressé au propriétaire du site.`;
+
+13. PRÉSENTATION DES INDICES, VARIATIONS ET COMMENTAIRES
+
+Pour les indices boursiers et les principaux indicateurs de marché, privilégie une présentation sous forme de tableau léger, sans bordures visibles, plutôt qu’une seule ligne compacte.
+
+Pour la BRVM, présenter au minimum :
+Indice | Niveau | Variation | Tendance
+
+Exemple de structure attendue :
+BRVM Composite | 544,68 pts | −1,63 % | ▼
+BRVM 30 | 263,82 pts | −1,89 % | ▼
+BRVM Prestige | 199,50 pts | −1,73 % | ▼
+Transactions | 3,95 Md FCFA | — | →
+
+Pour toutes les variations de marché affichées sur le site :
+- ▲ vert = hausse ;
+- ▼ rouge = baisse ;
+- → gris ou noir = stabilité, absence de variation ou valeur de référence.
+
+Ne plus utiliser de boules ou pastilles colorées pour représenter la direction des marchés.
+
+Utilise les classes CSS déjà disponibles :
+- .up pour les hausses ;
+- .down pour les baisses ;
+- .flat pour les valeurs stables ou de référence.
+
+La couleur et la flèche doivent toujours être cohérentes avec le signe de la variation.
+
+Pour les marchés internationaux, utiliser la même logique visuelle :
+Indice | Niveau ou variation | Tendance
+
+Éviter les lignes surchargées du type :
+Nasdaq +1,62 % | S&P 500 +1,05 % | Dow Jones +0,50 % | ...
+
+Préférer un tableau compact et lisible.
+
+14. TABLEAUX TOP / FLOP ET COMMENTAIRES
+
+Dans tous les tableaux Top 5 / Flop 5, utiliser l'en-tête :
+
+Rang | Titre | Variation | Commentaire
+
+Ne jamais utiliser l'intitulé :
+"Commentaire analytique".
+
+Dans la colonne "Commentaire", décrire uniquement le fait de marché observé :
+- variation du cours ;
+- volume ;
+- liquidité ;
+- comparaison sectorielle ;
+- publication récente ;
+- événement fondamental public ;
+- évolution relative par rapport au marché ;
+- effet mécanique d'un dividende ou d'une opération sur titre.
+
+Les commentaires doivent rester descriptifs, factuels et neutres.
+
+Éviter toute formulation pouvant être interprétée comme un conseil en investissement ou une recommandation personnalisée.
+
+Expressions à éviter :
+- "à acheter" ;
+- "à renforcer" ;
+- "bon point d'entrée" ;
+- "opportunité d'achat" ;
+- "signal d'achat" ;
+- "à vendre" ;
+- "alléger" ;
+- "accumuler" ;
+- "profiter du repli" ;
+- "attendre pour acheter" ;
+- "potentiel d'achat".
+
+Préférer des formulations telles que :
+- "Hausse accompagnée d'un volume supérieur à la moyenne."
+- "Repli après plusieurs séances de progression."
+- "Variation sans information fondamentale nouvelle identifiée."
+- "Le titre surperforme son secteur sur la séance."
+- "La baisse s'accompagne d'un volume limité."
+- "La progression intervient dans un contexte de liquidité soutenue."
+- "Le mouvement reste principalement technique à ce stade."
+
+15. MATIÈRES PREMIÈRES — PRÉSENTATION DES VARIATIONS
+
+Dans le tableau des matières premières, conserver exactement l'en-tête :
+
+Matière première | Cours / variation | Pays particulièrement exposés | Incidence régionale
+
+Pour chaque ligne :
+- afficher un cours chiffré ;
+- afficher l'unité ;
+- afficher la variation en pourcentage lorsqu'elle est disponible ;
+- indiquer la période de comparaison ;
+- utiliser ▲ vert pour une hausse ;
+- utiliser ▼ rouge pour une baisse ;
+- utiliser → gris ou noir pour une stabilité ou une référence.
+
+Ne jamais utiliser de pastille colorée.
+
+Exemples :
+Brent | 99,30 $/baril · ▼ −4,40 % (séance)
+Or | 4 352,12 $/once · ▼ −0,71 % (séance)
+Cacao | 5 341,74 $/tonne · ▲ +0,28 % (séance)
+
+Ne remplace jamais une valeur numérique manquante par une formule vague telle que :
+"niveau élevé", "marché ferme", "en hausse", "prix soutenu".
+
+Si le cours chiffré, l'unité ou la période de comparaison ne sont pas disponibles, ne publie pas la ligne.
+
+16. GRAPHIQUES — DIMENSIONS ET LISIBILITÉ
+
+Les graphiques doivent rester visuellement plus petits que les tableaux et ne jamais dominer la page.
+
+Pour les graphiques de type Sankey :
+- réduire la largeur et la hauteur lorsque les libellés deviennent trop éloignés du graphique ;
+- conserver une marge droite suffisante pour éviter tout débordement ;
+- utiliser des libellés courts ;
+- éviter que le texte dépasse le cadre ;
+- réduire légèrement la taille de police des étiquettes si nécessaire ;
+- conserver les valeurs, unités, période et source ;
+- ne jamais sacrifier la lisibilité pour remplir davantage d'espace.
+
+Pour le Sankey des dépenses publiques de l'UEMOA, utiliser des libellés courts comme :
+- Investissement ;
+- Masse salariale ;
+- Autres dépenses ;
+- Transferts ;
+- Intérêts de la dette.
+
+Le graphique doit rester centré, compact et entièrement contenu dans son cadre.
 
 async function main() {
   const provider = PROVIDERS.chatgpt;
