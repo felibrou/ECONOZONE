@@ -4448,12 +4448,10 @@ const optionLabel = (sgi) => {
 
   .sgi-card-top {
     display: flex;
-
-    align-items: center;
-
+    align-items: flex-start;
     justify-content: space-between;
-
     min-height: 22px;
+    gap: 8px;
   }
 
 
@@ -4626,33 +4624,56 @@ const optionLabel = (sgi) => {
   }
 
   .sgi-logo-wrap {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    min-height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
+    border-radius: 4px;
     background: #FFFFFF;
-    border: 1px solid rgba(255,255,255,.35);
-    display: inline-flex;
+    border: 1px solid rgba(255,255,255,.28);
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    flex: 0 0 30px;
+    flex: 0 0 22px !important;
     margin-right: auto;
+    padding: 2px;
   }
 
+  .sgi-card img.sgi-logo,
   .sgi-logo {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    display: block;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    object-fit: contain !important;
+    display: block !important;
   }
 
   .sgi-logo-fallback {
     display: none;
     color: #10243E !important;
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 800;
     line-height: 1;
     text-align: center;
+    letter-spacing: 0;
+  }
+
+  .sgi-card .sgi-logo-wrap,
+  .sgi-card .sgi-logo-wrap * {
+    box-sizing: border-box;
+  }
+
+  .sgi-card .sgi-logo-wrap img {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
   }
 
 
