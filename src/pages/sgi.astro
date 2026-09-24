@@ -248,6 +248,7 @@ const optionLabel = (sgi) => {
     <h2 id="tableau-frais">3 — Frais et conditions d'accès</h2>
 
     <div id="contact-counter" class="counter-badge">📊 <span id="counter-value">…</span> clics vers les sites des SGI enregistrés depuis ECONOZONE</div>
+    <p class="directory-note">Annuaire affiché : <strong>37 SGI agréées recensées par la BRVM</strong>, auxquelles s'ajoute Daba Finance comme plateforme d'accès non agréée directement en qualité de SGI.</p>
 
     <div class="filter-bar">
       <div class="filter-group">
@@ -662,6 +663,22 @@ const optionLabel = (sgi) => {
         <a href="https://www.ucasgi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
       </div>
 
+      <div class="sgi-card intermediary-card" data-country="DIGITAL" data-lowdeposit="1" data-online="1" data-mandat="0">
+        <div class="sgi-card-top">
+          <span class="badge-non-sgi">PLATEFORME — NON-SGI</span>
+          <span class="flag">🌍</span>
+        </div>
+        <h3>Daba Finance</h3>
+        <p class="sgi-group">Plateforme digitale d'accès à l'investissement ; les ordres BRVM passent par un intermédiaire agréé.</p>
+        <div class="sgi-stats">
+          <div><span>Dépôt indicatif</span><b>Dès 10 000 FCFA</b></div>
+          <div><span>Accès</span><b>100 % digital</b></div>
+          <div><span>Statut</span><b>Pas une SGI agréée directement</b></div>
+          <div><span>Frais</span><b>À vérifier selon l'offre</b></div>
+        </div>
+        <a href="https://www.dabafinance.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
+      </div>
+
     </div>
 
     <p style="font-size:12px; color:var(--label); margin-top:8px;">* Chiffre confirmé par écrit directement par la SGI. Montants pour un compte en <b>gestion libre</b> (autogérée) — la <b>gestion sous mandat</b> exige généralement un dépôt nettement supérieur, parfois 5 000 000 FCFA ou plus (NSIA Finance, Sirius Capital). "Accès digital confirmé" signifie une ouverture de compte ou un suivi de portefeuille en ligne effectivement vérifié pour cette SGI — l'absence de coche ne veut pas dire "non disponible", seulement "non confirmé à ce stade".</p>
@@ -683,7 +700,7 @@ const optionLabel = (sgi) => {
             card.style.display = show ? '' : 'none';
             if (show) visible++;
           });
-          countBox.textContent = visible + ' SGI affichée' + (visible > 1 ? 's' : '') + ' sur ' + cards.length + '.';
+          countBox.textContent = visible + ' intermédiaire' + (visible > 1 ? 's' : '') + ' affiché' + (visible > 1 ? 's' : '') + ' sur ' + cards.length + '.';
         }
 
         document.querySelectorAll('.chip[data-filter-type="country"]').forEach(function (btn) {
@@ -902,28 +919,30 @@ const optionLabel = (sgi) => {
   .chip.active { background: var(--accent); border-color: var(--accent); color: #FFFFFF; font-weight: 600; }
 
   .sgi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
+  .directory-note { font-size: 13px !important; color: var(--label) !important; margin: -8px 0 14px; max-width: 900px; }
   .sgi-card {
-    background: #10243E;
-    border: 1px solid #223B5A;
+    background: #000000;
+    border: 1px solid #2C2C2C;
     padding: 18px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     transition: border-color .12s, transform .12s;
   }
-  .sgi-card:hover { border-color: #5EA97A; transform: translateY(-1px); }
+  .sgi-card:hover { border-color: #6FBE8B; transform: translateY(-1px); }
   .sgi-card-top { display: flex; align-items: center; justify-content: space-between; }
   .sgi-card .flag { font-size: 20px; }
-  .badge-rank { font-size: 10px; font-weight: 700; color: #0B6B36; background: #EEF6F0; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.3px; }
+  .badge-rank { font-size: 10px; font-weight: 700; color: #0A5B2C; background: #EAF6EE; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.3px; }
+  .badge-non-sgi { font-size: 10px; font-weight: 700; color: #111111; background: #F2C94C; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.3px; }
   .sgi-card h3 { margin: 0; font-size: 16px; color: #FFFFFF !important; }
-  .sgi-card .sgi-group { margin: -6px 0 0; font-size: 12px; color: #C9D4E3 !important; }
+  .sgi-card .sgi-group { margin: -6px 0 0; font-size: 12px; color: #D5D5D5 !important; }
   .sgi-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 2px; }
   .sgi-stats div { display: flex; flex-direction: column; gap: 2px; }
-  .sgi-stats span { font-size: 10px; letter-spacing: 0.3px; color: #9FB1C7 !important; text-transform: uppercase; }
+  .sgi-stats span { font-size: 10px; letter-spacing: 0.3px; color: #AFAFAF !important; text-transform: uppercase; }
   .sgi-stats b { font-size: 13px; color: #FFFFFF !important; font-weight: 600; }
-  .sgi-card p { color: #DCE4EE !important; }
-  .sgi-link { margin-top: auto; font-size: 12px; font-weight: 700; color: #7ED39A !important; }
-  .sgi-link:hover { color: #A7E6BB !important; }
+  .sgi-card p { color: #E6E6E6 !important; }
+  .sgi-link { margin-top: auto; font-size: 12px; font-weight: 700; color: #77D196 !important; }
+  .sgi-link:hover { color: #A3E6B8 !important; }
   dl.glossary { margin: 16px 0; }
   dl.glossary dt { font-weight: 700; color: var(--navy); font-size: 13px; margin-top: 12px; }
   dl.glossary dd { margin: 2px 0 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; max-width: 700px; }
