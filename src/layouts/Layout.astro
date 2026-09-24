@@ -33,7 +33,7 @@ import Analytics from '@vercel/analytics/astro';
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700;8..60,800&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap">
   <style is:global>
     :root {
       --bg: #FFFFFF; --panel: #FFFFFF; --panel-alt: #F4F7FB; --border: #D9E0EA; --row-border: #EEF2F7;
@@ -42,22 +42,22 @@ import Analytics from '@vercel/analytics/astro';
       --accent: #00843D; --up: #00843D; --down: #C0392B;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Open Sans', Arial, sans-serif; font-size: 17px; }
     a { color: inherit; text-decoration: none; }
     .wrap { width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
 
     .topstripe { width: 100%; height: 6px; background: linear-gradient(90deg, var(--green) 0%, var(--green) 50%, var(--blue) 50%, var(--blue) 100%); }
     .topbar { width: 100%; background: var(--blue); box-shadow: 0 2px 8px rgba(0,61,165,0.15); }
     .topbar-inner { max-width: 1080px; margin: 0 auto; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
-    .brand { color: #fff; font-family: 'Source Serif 4', Georgia, serif; font-weight: 800; font-size: 24px; letter-spacing: 0.3px; }
+    .brand { color: #fff; font-family: 'Open Sans', Arial, sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.3px; }
     .brand .dot { color: var(--green); }
     nav { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
-    nav a { color: #DCE6F7; font-size: 14px; font-weight: 600; padding: 6px 2px; border-bottom: 2px solid transparent; transition: all .15s; }
+    nav a { color: #DCE6F7; font-size: 15px; font-weight: 600; padding: 6px 2px; border-bottom: 2px solid transparent; transition: all .15s; }
     nav a:hover { color: #fff; border-bottom-color: var(--green); }
     .nav-home { display: flex; align-items: center; }
     .nav-home svg { width: 18px; height: 18px; }
     .nav-dropdown { position: relative; }
-    .nav-dropdown-trigger { background: none; border: none; color: #DCE6F7; font-size: 14px; font-weight: 600; font-family: 'IBM Plex Sans'; cursor: pointer; padding: 6px 2px; display: flex; align-items: center; gap: 4px; border-bottom: 2px solid transparent; }
+    .nav-dropdown-trigger { background: none; border: none; color: #DCE6F7; font-size: 15px; font-weight: 600; font-family: 'Open Sans', Arial, sans-serif; cursor: pointer; padding: 6px 2px; display: flex; align-items: center; gap: 4px; border-bottom: 2px solid transparent; }
     .nav-dropdown-trigger:hover, .nav-dropdown.open .nav-dropdown-trigger { color: #fff; border-bottom-color: var(--green); }
     .nav-dropdown .caret { font-size: 10px; }
     .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 12px; background: #fff; border: 1px solid var(--border); border-top: 3px solid var(--green); min-width: 210px; padding: 8px 0; z-index: 20; box-shadow: 0 8px 24px rgba(0,20,60,0.15); }
@@ -68,12 +68,12 @@ import Analytics from '@vercel/analytics/astro';
 
     .col { width: 100%; max-width: 1080px; padding: 36px 24px 90px; }
     .breadcrumb { font-size: 13px; color: var(--label); margin-bottom: 16px; font-weight: 500; }
-    h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 38px; font-weight: 700; color: var(--blue); margin: 0 0 10px; letter-spacing: -0.01em; line-height: 1.15; }
-    h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 24px; font-weight: 700; color: var(--blue); margin: 44px 0 10px; padding-top: 20px; border-top: 3px solid var(--panel-alt); scroll-margin-top: 20px; }
-    h3 { font-size: 18px; font-weight: 700; color: var(--blue-dark); margin: 22px 0 8px; letter-spacing: -0.005em; }
-    p { font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 740px; margin: 0 0 14px; }
-    .dek { font-size: 17px; color: var(--text-muted); max-width: 740px; margin: 0 0 26px; line-height: 1.65; }
-    table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 14px; margin: 18px 0; }
+    h1 { font-family: 'Open Sans', Arial, sans-serif; font-size: 38px; font-weight: 700; color: var(--blue); margin: 0 0 10px; letter-spacing: -0.01em; line-height: 1.2; }
+    h2 { font-family: 'Open Sans', Arial, sans-serif; font-size: 25px; font-weight: 700; color: var(--blue); margin: 44px 0 12px; padding-top: 20px; border-top: 3px solid var(--panel-alt); scroll-margin-top: 20px; line-height: 1.3; }
+    h3 { font-family: 'Open Sans', Arial, sans-serif; font-size: 19px; font-weight: 700; color: var(--blue-dark); margin: 22px 0 9px; letter-spacing: -0.005em; line-height: 1.35; }
+    p { font-size: 17px; line-height: 1.75; color: var(--text-muted); max-width: 780px; margin: 0 0 16px; }
+    .dek { font-size: 18px; color: var(--text-muted); max-width: 800px; margin: 0 0 28px; line-height: 1.7; }
+    table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 15px; margin: 18px 0; }
     table.z th { background: var(--panel-alt); text-align: left; padding: 11px 15px; font-size: 12px; font-weight: 700; letter-spacing: 0.4px; color: var(--blue-dark); text-transform: uppercase; border-bottom: 2px solid var(--border); }
     table.z td { padding: 11px 15px; border-bottom: 1px solid var(--row-border); }
     /* Les nombres et leur signe % restent toujours sur la même ligne. */
@@ -90,11 +90,30 @@ import Analytics from '@vercel/analytics/astro';
       text-align: right !important;
       white-space: nowrap !important;
     }
-    .note { background: var(--panel-alt); border-left: 4px solid var(--blue); padding: 16px 18px; font-size: 14px; color: var(--text-muted); margin: 18px 0; }
+    .note { background: var(--panel-alt); border-left: 4px solid var(--blue); padding: 16px 18px; font-size: 16px; line-height: 1.7; color: var(--text-muted); margin: 18px 0; }
     .note b { color: var(--blue); }
     .disclaimer { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 12px; color: var(--label); }
     .page-meta { font-size: 13px; color: var(--label); margin: -8px 0 22px; display: flex; gap: 16px; flex-wrap: wrap; }
     .page-meta b { color: var(--text-muted); font-weight: 600; }
+
+    /* Typographie éditoriale unique, inspirée de la lisibilité du site du Fonds mondial. */
+    body, button, input, select, textarea,
+    h1, h2, h3, h4, h5, h6, p, li, td, th, a, span, div {
+      font-family: 'Open Sans', Arial, sans-serif !important;
+    }
+    /* Les styles locaux plus anciens ne doivent plus réduire le corps de lecture. */
+    main p, .col > p, article p, section p,
+    .country-card p, .deal p, .chapo {
+      font-size: 17px !important;
+      line-height: 1.75 !important;
+    }
+    .dek { font-size: 18px !important; line-height: 1.7 !important; }
+    .source-line, .edition-meta, .page-meta, .breadcrumb,
+    figcaption, .disclaimer, footer.site-footer p {
+      font-size: 13px !important;
+      line-height: 1.55 !important;
+    }
+    table.z, .market-table { font-size: 15px !important; }
 
     /* Renforce les photographies éditoriales sans modifier les graphiques ni les logos. */
     figure img:not([role="img"]) {
