@@ -34,9 +34,9 @@ import Layout from '../layouts/Layout.astro';
     .highlight h3 { margin-top: 0; }
     .breadth { margin: 25px 0; padding: 20px; border: 1px solid #dde3ea; border-radius: 8px; }
     .breadth-bar { display: flex; height: 22px; border-radius: 4px; overflow: hidden; margin: 12px 0 8px; background: #edf0f4; }
-    .breadth-up { width: 4.26%; background: #18864b; }
-    .breadth-flat { width: 6.38%; background: #9aa4b2; }
-    .breadth-down { width: 89.36%; background: #c62828; }
+    .breadth-up { width: 58.33%; background: #18864b; }
+    .breadth-flat { width: 20.83%; background: #9aa4b2; }
+    .breadth-down { width: 20.83%; background: #c62828; }
     .breadth-legend { display: flex; gap: 18px; flex-wrap: wrap; color: #667085; font-size: .82rem; }
     .source-line { font-size: .82rem; color: #667085; margin-top: 12px; max-width: 900px; }
     .source-line a, .sources a { color: #0d47a1; text-decoration: underline; }
@@ -56,13 +56,13 @@ import Layout from '../layouts/Layout.astro';
   <article class="essentiel">
     <header class="masthead">
       <h1>L’ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉS</h1>
-      <p class="edition-date"><b>Jeudi 24 septembre 2026</b> — Édition de mi-journée</p>
-      <p class="edition-date">Données vérifiées à partir des dernières publications disponibles ; les cours BRVM intrajournaliers peuvent être différés.</p>
+      <p class="edition-date"><b>Jeudi 24 septembre 2026</b> — Édition de clôture</p>
+      <p class="edition-date">Séance BRVM clôturée ; données de marché consolidées à partir de la publication officielle disponible à 17 h 30 GMT.</p>
       <p class="byline"><b>Par la rédaction d’ECONOZONE</b></p>
     </header>
 
     <p class="chapo">
-      Bridge Bank Group Côte d’Ivoire fait son entrée à la BRVM ce 24 septembre sous le symbole BBGC, au prix de référence de 6 750 FCFA, après une offre publique de vente de 67,5 milliards de FCFA souscrite à environ 142 %. La cote régionale compte désormais 48 sociétés. En parallèle, la BCEAO maintient son principal taux directeur à 3,00 %, tandis que la remontée du Brent au-dessus de 102 dollars renchérit le risque énergétique pour les économies importatrices de la région. Le cacao rebondit à 5 528 dollars la tonne, mais reste nettement sous son niveau d’il y a un an.
+      La BRVM efface une large part de la correction de la veille : le Composite clôture à 531,63 points (+2,97 %), le BRVM-30 à 258,18 points (+3,19 %) et le BRVM Prestige à 197,74 points (+2,36 %), pour 4,72 milliards de FCFA échangés. Bridge Bank Group Côte d’Ivoire (BBGC) signe sa première séance à 7 255 FCFA, après une introduction réalisée à 6 750 FCFA. La cote régionale compte désormais 48 sociétés. En toile de fond, la BCEAO maintient son principal taux directeur à 3,00 %, tandis que le pétrole reste au-dessus de 100 dollars le baril, un niveau qui entretient la vigilance sur la facture énergétique ouest-africaine.
     </p>
 
     <figure class="hero-photo">
@@ -71,30 +71,51 @@ import Layout from '../layouts/Layout.astro';
     </figure>
 
     <section>
-      <h2>1. Bridge Bank Group Côte d’Ivoire entre à la BRVM sous le symbole BBGC</h2>
+      <h2>1. La BRVM rebondit de 2,97 % et BBGC réussit sa première séance</h2>
 
-      <div class="kpi-strip" aria-label="Repères de la première cotation de Bridge Bank Group Côte d'Ivoire">
-        <div class="kpi"><div class="kpi-label">Prix de référence</div><div class="kpi-value kpi-neutral">6 750 FCFA</div></div>
-        <div class="kpi"><div class="kpi-label">Montant offert</div><div class="kpi-value kpi-neutral">67,5 milliards<br />de FCFA</div></div>
-        <div class="kpi"><div class="kpi-label">Souscription</div><div class="kpi-value kpi-up">≈ 142 %</div></div>
-        <div class="kpi"><div class="kpi-label">Sociétés cotées</div><div class="kpi-value kpi-up">48</div></div>
+      <div class="kpi-strip" aria-label="Repères de la clôture BRVM du 24 septembre 2026">
+        <div class="kpi"><div class="kpi-label">BRVM Composite</div><div class="kpi-value kpi-up">531,63<br />+2,97 %</div></div>
+        <div class="kpi"><div class="kpi-label">BRVM-30</div><div class="kpi-value kpi-up">258,18<br />+3,19 %</div></div>
+        <div class="kpi"><div class="kpi-label">Transactions</div><div class="kpi-value kpi-neutral">4,72 milliards<br />FCFA</div></div>
+        <div class="kpi"><div class="kpi-label">BBGC</div><div class="kpi-value kpi-up">7 255 FCFA<br />1re séance</div></div>
       </div>
 
-      <p class="subtitle">L’introduction de BBGC élargit le compartiment financier de la BRVM et ouvre une phase de découverte du prix après une offre publique fortement demandée.</p>
+      <p class="subtitle">Après la chute de 3,66 % du Composite mercredi, les acheteurs reviennent nettement : 28 valeurs progressent, 10 reculent et 10 terminent inchangées sur les 48 sociétés désormais présentes à la cote.</p>
 
-      <p>Bridge Bank Group Côte d’Ivoire effectue ce jeudi 24 septembre sa première cotation à la Bourse Régionale des Valeurs Mobilières. Le prix de référence annoncé est de 6 750 FCFA par action. L’offre publique de vente a mobilisé 67,5 milliards de FCFA et la demande a représenté environ 142 % des titres proposés, signe d’un intérêt initial élevé avant l’ouverture des échanges.</p>
+      <p>Le BRVM Composite clôture jeudi à <b>531,63 points</b>, en hausse de <span class="up">2,97 %</span>. Le BRVM-30 gagne <span class="up">3,19 %</span> à 258,18 points et le BRVM Prestige avance de <span class="up">2,36 %</span> à 197,74 points. La valeur des transactions atteint <b>4 722 060 399 FCFA</b>, soit près du double des 2,36 milliards de FCFA échangés la veille.</p>
 
-      <p>Cette admission porte à 48 le nombre de sociétés cotées sur le marché actions. Pour la BRVM, l’apport est surtout structurel : une nouvelle banque ivoirienne rejoint un secteur déjà très représenté, ce qui enrichit les comparaisons de valorisation, de rentabilité et de croissance entre établissements financiers de l’UEMOA.</p>
+      <div class="breadth">
+        <b>Largeur du marché — 48 valeurs</b>
+        <div class="breadth-bar" aria-label="28 hausses, 10 stables, 10 baisses">
+          <div class="breadth-up"></div><div class="breadth-flat"></div><div class="breadth-down"></div>
+        </div>
+        <div class="breadth-legend">
+          <span>▲ 28 hausses</span><span>● 10 stables</span><span>▼ 10 baisses</span>
+        </div>
+      </div>
+
+      <p>Le rebond est large, mais il ne doit pas être lu comme l'effacement complet de la volatilité observée depuis le début de la semaine. Plusieurs valeurs bancaires et industrielles enregistrent des hausses proches de leur limite quotidienne : BOA Mali gagne 7,50 %, BOA Burkina Faso, Sucrivoire et LNB Bénin 7,43 %, tandis que SETAO progresse de 7,14 %. À l'inverse, BICB cède 7,48 %, Servair Abidjan 3,31 % et Tractafric Motors Côte d'Ivoire 2,86 %.</p>
+
+      <h3>BBGC : une première cotation au-dessus du prix d'introduction</h3>
+      <p>Bridge Bank Group Côte d’Ivoire entre officiellement au compartiment principal sous le symbole <b>BBGC</b>. Le titre ressort à <b>7 255 FCFA</b> pour 20 926 actions échangées, contre un prix d'introduction de 6 750 FCFA. L'offre publique portait sur 10 millions d'actions, soit 67,5 milliards de FCFA, et avait été souscrite à environ 142 %. L'arrivée de la banque porte le nombre de sociétés cotées à 48.</p>
 
       <div class="highlight">
-        <h3>Ce qu’il faut observer pendant les premières séances</h3>
-        <p>Le taux de souscription élevé ne préjuge pas, à lui seul, de la trajectoire du cours. Les premiers signaux utiles seront la profondeur du carnet d’ordres, les volumes réellement échangés, l’écart entre acheteurs et vendeurs et la capacité du titre à construire une zone de prix stable autour de son niveau d’introduction.</p>
+        <h3>À surveiller vendredi 25 septembre</h3>
+        <p>La question centrale sera la capacité du rebond à se prolonger sans emballement : volumes, comportement des valeurs ayant touché ou approché leurs limites de variation, stabilisation de BBGC après sa séance inaugurale et réaction des titres bancaires seront les premiers indicateurs. Vivo Energy Côte d'Ivoire doit par ailleurs procéder au paiement d'un dividende annoncé de 96,67 FCFA par action le 25 septembre.</p>
       </div>
 
-      <h3>Le marché sort d’une séance de forte correction</h3>
-      <p>La veille, mercredi 23 septembre, le BRVM Composite avait clôturé à 516,29 points, en baisse de <span class="down">3,66 %</span>, avec 41 valeurs en recul sur 47 observées. La première séance de BBGC intervient donc dans un environnement de marché plus nerveux qu’au moment de l’offre publique. Les données intrajournalières du 24 septembre doivent être lues avec prudence tant que la séance n’est pas clôturée et consolidée par la BRVM.</p>
+      <table class="market-table">
+        <thead><tr><th>Valeur</th><th>Clôture</th><th>Variation</th><th>Lecture de séance</th></tr></thead>
+        <tbody>
+          <tr><td>BOAM</td><td>5 880 FCFA</td><td class="up">+7,50 %</td><td>Plus forte hausse du jour.</td></tr>
+          <tr><td>BOABF</td><td>7 950 FCFA</td><td class="up">+7,43 %</td><td>Rebond marqué du compartiment bancaire.</td></tr>
+          <tr><td>BOAC</td><td>11 470 FCFA</td><td class="up">+6,20 %</td><td>Hausse soutenue avec 28 332 titres échangés.</td></tr>
+          <tr><td>ETIT</td><td>68 FCFA</td><td class="up">+6,25 %</td><td>Rebond après la forte baisse de la veille ; 873 985 titres échangés.</td></tr>
+          <tr><td>BICB</td><td>7 920 FCFA</td><td class="down">−7,48 %</td><td>Plus forte baisse de la séance.</td></tr>
+        </tbody>
+      </table>
 
-      <p class="source-line">Sources : <a href="https://www.brvm.org/en/search/node/bridge%20bank%20cote%20d%27ivoire" target="_blank" rel="noopener noreferrer">BRVM — avis de première cotation</a> · <a href="https://www.agenceecofin.com/actualites-finance/0909-141442-brvm-apres-une-opv-souscrite-a-142-bridge-bank-sera-cotee-le-24-septembre" target="_blank" rel="noopener noreferrer">Agence Ecofin — OPV et première cotation</a> · <a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels</a>.</p>
+      <p class="source-line">Sources : <a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels du 24 septembre 2026</a> · <a href="https://www.brvm.org/sites/default/files/boc_20260916_2.pdf" target="_blank" rel="noopener noreferrer">BRVM — avis et opérations en cours</a> · <a href="https://news.abidjan.net/articles/749363/bourse-bridge-bank-group-cote-divoire-fait-son-entree-a-la-brvm-sous-le-symbole-bbgc" target="_blank" rel="noopener noreferrer">Abidjan.net — première cotation de BBGC</a>.</p>
     </section>
 
     <section>
