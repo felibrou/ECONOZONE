@@ -47,901 +47,4423 @@ const optionLabel = (sgi) => {
   return `${sgi.name} — courtage indicatif ${sgi.courtage.toLocaleString('fr-FR')} %`;
 };
 ---
+
 <Layout title="ECONOZONE — Comparatif des SGI agréées auprès de la BRVM">
 
-    <div class="breadcrumb">ECONOZONE &rsaquo; Bourse &rsaquo; SGI</div>
-    <h1>Comparatif des SGI agréées auprès de la BRVM</h1>
-    <p class="dek">Une SGI (Société de Gestion et d'Intermédiation) est l'intermédiaire obligatoire pour tout ordre d'achat ou de vente sur la BRVM. Ses tarifs sont libres mais homologués par l'AMF-UMOA — ce qui n'empêche pas des écarts significatifs entre courtiers, sur les frais comme sur les conditions d'accès.</p>
+  <div class="breadcrumb">ECONOZONE &rsaquo; Bourse &rsaquo; SGI</div>
 
-    <div class="note">&#9888; Données indicatives issues de sources publiques (BRVM, Sikafinance, AMF-UMOA — anciennement CREPMF). Toutes les SGI citées sont agréées par l'AMF-UMOA — vérifiez toujours les tarifs directement auprès de chaque SGI avant ouverture de compte.</div>
-    <p style="font-size:12px; color:var(--label); margin-top:-10px;">Dernière vérification des homologations AMF-UMOA : septembre 2026 (BICI Bourse : déc. 2024 · BOA Capital Securities : fév. 2024 · Atlantique Finance : 2024 · Coris Bourse : 29 janv. 2018 (décision CREPMF PCR/DA/2018/052, document officiel) · FGI : mars 2025 — aucune décision plus récente retrouvée à cette date).</p>
-    <p style="font-size:12px; color:var(--label); margin-top:6px;"><b style="color:var(--navy);">ECONOZONE n'est affilié à aucune des SGI listées ci-dessous et ne perçoit aucune commission sur l'ouverture d'un compte.</b> Sauf indication contraire, les données proviennent de la grille tarifaire officielle homologuée de chaque SGI ; celles fondées sur des relevés de transactions réels ou une confirmation directe sont signalées comme telles.</p>
+  <h1>Comparatif des SGI agréées auprès de la BRVM</h1>
+
+  <p class="dek">
+    Une SGI (Société de Gestion et d'Intermédiation) est l'intermédiaire obligatoire
+    pour tout ordre d'achat ou de vente sur la BRVM. Ses tarifs sont libres mais
+    homologués par l'AMF-UMOA — ce qui n'empêche pas des écarts significatifs entre
+    courtiers, sur les frais comme sur les conditions d'accès.
+  </p>
+
+  <div class="note">
+    &#9888; Données indicatives issues de sources publiques
+    (BRVM, Sikafinance, AMF-UMOA — anciennement CREPMF).
+    Toutes les SGI citées sont agréées par l'AMF-UMOA —
+    vérifiez toujours les tarifs directement auprès de chaque SGI
+    avant ouverture de compte.
+  </div>
+
+  <p style="font-size:12px; color:var(--label); margin-top:-10px;">
+    Dernière vérification des homologations AMF-UMOA : septembre 2026
+    (BICI Bourse : déc. 2024 · BOA Capital Securities : fév. 2024 ·
+    Atlantique Finance : 2024 · Coris Bourse : 29 janv. 2018
+    (décision CREPMF PCR/DA/2018/052, document officiel) ·
+    FGI : mars 2025 — aucune décision plus récente retrouvée à cette date).
+  </p>
+
+  <p style="font-size:12px; color:var(--label); margin-top:6px;">
+    <b style="color:var(--navy);">
+      ECONOZONE n'est affilié à aucune des SGI listées ci-dessous
+      et ne perçoit aucune commission sur l'ouverture d'un compte.
+    </b>
+    Sauf indication contraire, les données proviennent de la grille tarifaire
+    officielle homologuée de chaque SGI ; celles fondées sur des relevés de
+    transactions réels ou une confirmation directe sont signalées comme telles.
+  </p>
+
+  <p class="dek" style="margin-top:-8px;">
+    Trois outils pour comparer les SGI de la BRVM : calculez d'abord le coût exact
+    d'un ordre précis, simulez ensuite l'impact du courtage sur plusieurs années,
+    puis consultez le détail complet des frais et conditions de chaque SGI.
+  </p>
 
 
-    <p class="dek" style="margin-top:-8px;">Trois outils pour comparer les SGI de la BRVM : calculez d'abord le coût exact d'un ordre précis, simulez ensuite l'impact du courtage sur plusieurs années, puis consultez le détail complet des frais et conditions de chaque SGI.</p>
+  <!-- ========================================================= -->
+  <!-- 1 — CALCULATRICE                                          -->
+  <!-- ========================================================= -->
 
-    <h2 id="calculatrice-ordre">1 — Calculatrice d'ordre BRVM : combien coûte réellement mon achat ou ma vente ?</h2>
-    <p>La calculatrice répond à une question immédiate : <b>pour cet ordre précis, combien vais-je payer à l'achat ou recevoir net à la vente ?</b> Elle distingue le montant brut, le courtage de la SGI, les commissions BRVM et DC/BR ainsi que la taxe éventuellement observée sur le relevé.</p>
-    <div id="op-sim-box" class="tool-panel">
-      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
-        <label style="font-size:13px; color:var(--text-muted);">Type d'opération<br>
-          <select id="op-type" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
-            <option value="achat">Achat</option>
-            <option value="vente">Vente</option>
-          </select>
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">Cours de l'action (FCFA)<br>
-          <input id="op-cours" type="number" value="12000" step="5" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:140px; font-family:inherit;">
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">Nombre de titres<br>
-          <input id="op-qte" type="number" value="10" min="1" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;">
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">SGI<br>
-          <select id="op-sgi" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
-            {sgiOptions.map((sgi) => (
-              <option
-                value={sgi.id}
-                selected={sgi.id === 'coris'}
-                data-name={sgi.name}
-                data-courtage={sgi.courtage ?? ''}
-                data-brvm={sgi.brvm ?? ''}
-                data-dcbr={sgi.dcbr ?? ''}
-                data-taf={sgi.taf ?? ''}
-              >{optionLabel(sgi)}</option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <table class="z" style="margin:0;">
-        <tbody>
-          <tr><td>Montant brut (cours &times; titres)</td><td id="op-brut" style="text-align:right; font-weight:600;">—</td></tr>
-          <tr><td>Commission de courtage SGI</td><td id="op-courtage" style="text-align:right;">—</td></tr>
-          <tr><td>Commission BRVM</td><td id="op-brvm" style="text-align:right;">—</td></tr>
-          <tr><td>Commission DC/BR</td><td id="op-dcbr" style="text-align:right;">—</td></tr>
-          <tr><td>TAF sur le courtage</td><td id="op-taf" style="text-align:right;">—</td></tr>
-          <tr id="op-total-row" style="border-top:2px solid var(--navy);"><td id="op-total-label" style="font-weight:700; color:var(--navy);">Montant total à payer</td><td id="op-total" style="text-align:right; font-weight:700; color:var(--navy);">—</td></tr>
-        </tbody>
-      </table>
-      <p id="op-rate-note" style="font-size:11px; color:var(--label); margin:10px 0 0;">Pour Coris Bourse, le calcul reproduit la grille et le relevé transmis : courtage 0,80 %, BRVM 0,20 %, DC/BR 0,10 % et TAF de 14,85 % appliquée au seul courtage. Chaque ligne est arrondie au FCFA, comme sur le bordereau.</p>
+  <h2 id="calculatrice-ordre">
+    1 — Calculatrice d'ordre BRVM : combien coûte réellement mon achat ou ma vente ?
+  </h2>
+
+  <p>
+    La calculatrice répond à une question immédiate :
+    <b>pour cet ordre précis, combien vais-je payer à l'achat ou recevoir net à la vente ?</b>
+    Elle distingue le montant brut, le courtage de la SGI, les commissions BRVM
+    et DC/BR ainsi que la taxe éventuellement observée sur le relevé.
+  </p>
+
+  <div id="op-sim-box" class="tool-panel">
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+
+      <label style="font-size:13px; color:var(--text-muted);">
+        Type d'opération<br>
+        <select
+          id="op-type"
+          style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;"
+        >
+          <option value="achat">Achat</option>
+          <option value="vente">Vente</option>
+        </select>
+      </label>
+
+      <label style="font-size:13px; color:var(--text-muted);">
+        Cours de l'action (FCFA)<br>
+        <input
+          id="op-cours"
+          type="number"
+          value="12000"
+          step="5"
+          style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:140px; font-family:inherit;"
+        >
+      </label>
+
+      <label style="font-size:13px; color:var(--text-muted);">
+        Nombre de titres<br>
+        <input
+          id="op-qte"
+          type="number"
+          value="10"
+          min="1"
+          style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;"
+        >
+      </label>
+
+      <label style="font-size:13px; color:var(--text-muted);">
+        SGI<br>
+
+        <select
+          id="op-sgi"
+          style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;"
+        >
+          {sgiOptions.map((sgi) => (
+            <option
+              value={sgi.id}
+              selected={sgi.id === 'coris'}
+              data-name={sgi.name}
+              data-courtage={sgi.courtage ?? ''}
+              data-brvm={sgi.brvm ?? ''}
+              data-dcbr={sgi.dcbr ?? ''}
+              data-taf={sgi.taf ?? ''}
+            >
+              {optionLabel(sgi)}
+            </option>
+          ))}
+        </select>
+
+      </label>
+
     </div>
-    <script>
-      function ecoOpSimUpdate() {
-        var type = document.getElementById('op-type').value;
-        var cours = parseFloat(document.getElementById('op-cours').value) || 0;
-        var qte = parseFloat(document.getElementById('op-qte').value) || 0;
-        var select = document.getElementById('op-sgi');
-        var option = select.options[select.selectedIndex];
-        var courtageRate = parseFloat(option.dataset.courtage);
-        var brvmRate = parseFloat(option.dataset.brvm);
-        var dcbrRate = parseFloat(option.dataset.dcbr);
-        var tafRate = parseFloat(option.dataset.taf);
-        var brut = cours * qte;
-        var hasTariff = Number.isFinite(courtageRate);
 
-        function roundedFee(rate) {
-          return Number.isFinite(rate) ? Math.round(brut * rate / 100) : 0;
-        }
+    <table class="z" style="margin:0;">
+      <tbody>
 
-        var courtage = roundedFee(courtageRate);
-        var brvm = roundedFee(brvmRate);
-        var dcbr = roundedFee(dcbrRate);
-        var taf = Number.isFinite(tafRate) ? Math.round(courtage * tafRate / 100) : 0;
-        var fees = courtage + brvm + dcbr + taf;
-        var total = type === 'achat' ? (brut + fees) : (brut - fees);
+        <tr>
+          <td>Montant brut (cours &times; titres)</td>
+          <td id="op-brut" style="text-align:right; font-weight:600;">—</td>
+        </tr>
 
-        function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' FCFA'; }
-        document.getElementById('op-brut').textContent = fmt(brut);
-        document.getElementById('op-courtage').textContent = hasTariff ? fmt(courtage) : 'Tarif non communiqué';
-        document.getElementById('op-brvm').textContent = hasTariff ? fmt(brvm) : '—';
-        document.getElementById('op-dcbr').textContent = hasTariff ? fmt(dcbr) : '—';
-        document.getElementById('op-taf').textContent = hasTariff ? fmt(taf) : '—';
-        document.getElementById('op-total').textContent = hasTariff ? fmt(total) : 'Calcul indisponible';
-        document.getElementById('op-total-label').textContent = type === 'achat' ? 'Montant total à payer' : 'Montant net à recevoir';
-        document.getElementById('op-rate-note').textContent = option.value === 'coris'
+        <tr>
+          <td>Commission de courtage SGI</td>
+          <td id="op-courtage" style="text-align:right;">—</td>
+        </tr>
+
+        <tr>
+          <td>Commission BRVM</td>
+          <td id="op-brvm" style="text-align:right;">—</td>
+        </tr>
+
+        <tr>
+          <td>Commission DC/BR</td>
+          <td id="op-dcbr" style="text-align:right;">—</td>
+        </tr>
+
+        <tr>
+          <td>TAF sur le courtage</td>
+          <td id="op-taf" style="text-align:right;">—</td>
+        </tr>
+
+        <tr
+          id="op-total-row"
+          style="border-top:2px solid var(--navy);"
+        >
+          <td
+            id="op-total-label"
+            style="font-weight:700; color:var(--navy);"
+          >
+            Montant total à payer
+          </td>
+
+          <td
+            id="op-total"
+            style="text-align:right; font-weight:700; color:var(--navy);"
+          >
+            —
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p
+      id="op-rate-note"
+      style="font-size:11px; color:var(--label); margin:10px 0 0;"
+    >
+      Pour Coris Bourse, le calcul reproduit la grille et le relevé transmis :
+      courtage 0,80 %, BRVM 0,20 %, DC/BR 0,10 % et TAF de 14,85 %
+      appliquée au seul courtage. Chaque ligne est arrondie au FCFA,
+      comme sur le bordereau.
+    </p>
+
+  </div>
+
+  <script>
+    function ecoOpSimUpdate() {
+
+      var type =
+        document.getElementById('op-type').value;
+
+      var cours =
+        parseFloat(document.getElementById('op-cours').value) || 0;
+
+      var qte =
+        parseFloat(document.getElementById('op-qte').value) || 0;
+
+      var select =
+        document.getElementById('op-sgi');
+
+      var option =
+        select.options[select.selectedIndex];
+
+      var courtageRate =
+        parseFloat(option.dataset.courtage);
+
+      var brvmRate =
+        parseFloat(option.dataset.brvm);
+
+      var dcbrRate =
+        parseFloat(option.dataset.dcbr);
+
+      var tafRate =
+        parseFloat(option.dataset.taf);
+
+      var brut =
+        cours * qte;
+
+      var hasTariff =
+        Number.isFinite(courtageRate);
+
+
+      function roundedFee(rate) {
+        return Number.isFinite(rate)
+          ? Math.round(brut * rate / 100)
+          : 0;
+      }
+
+
+      var courtage =
+        roundedFee(courtageRate);
+
+      var brvm =
+        roundedFee(brvmRate);
+
+      var dcbr =
+        roundedFee(dcbrRate);
+
+      var taf =
+        Number.isFinite(tafRate)
+          ? Math.round(courtage * tafRate / 100)
+          : 0;
+
+      var fees =
+        courtage + brvm + dcbr + taf;
+
+      var total =
+        type === 'achat'
+          ? brut + fees
+          : brut - fees;
+
+
+      function fmt(n) {
+        return Math.round(n).toLocaleString('fr-FR') + ' FCFA';
+      }
+
+
+      document.getElementById('op-brut').textContent =
+        fmt(brut);
+
+      document.getElementById('op-courtage').textContent =
+        hasTariff
+          ? fmt(courtage)
+          : 'Tarif non communiqué';
+
+      document.getElementById('op-brvm').textContent =
+        hasTariff
+          ? fmt(brvm)
+          : '—';
+
+      document.getElementById('op-dcbr').textContent =
+        hasTariff
+          ? fmt(dcbr)
+          : '—';
+
+      document.getElementById('op-taf').textContent =
+        hasTariff
+          ? fmt(taf)
+          : '—';
+
+      document.getElementById('op-total').textContent =
+        hasTariff
+          ? fmt(total)
+          : 'Calcul indisponible';
+
+      document.getElementById('op-total-label').textContent =
+        type === 'achat'
+          ? 'Montant total à payer'
+          : 'Montant net à recevoir';
+
+
+      document.getElementById('op-rate-note').textContent =
+        option.value === 'coris'
           ? 'Pour Coris Bourse, le calcul reproduit la grille et le relevé transmis : courtage 0,80 %, BRVM 0,20 %, DC/BR 0,10 % et TAF de 14,85 % appliquée au seul courtage. Chaque ligne est arrondie au FCFA, comme sur le bordereau.'
           : hasTariff
             ? 'Estimation fondée sur le milieu de la fourchette de courtage disponible, auquel s’ajoutent 0,20 % de commission BRVM et 0,10 % de commission DC/BR. Le contrat individuel peut prévoir un tarif différent.'
             : 'Cette SGI figure bien dans l’annuaire, mais aucun tarif suffisamment fiable n’est disponible pour produire une estimation. Demandez sa grille homologuée avant toute comparaison.';
-      }
-      ['op-type', 'op-cours', 'op-qte', 'op-sgi'].forEach(function (id) {
-        document.getElementById(id).addEventListener('input', ecoOpSimUpdate);
-        document.getElementById(id).addEventListener('change', ecoOpSimUpdate);
-      });
-      ecoOpSimUpdate();
-    </script>
+    }
 
-    <h2 id="simulateur">2 — Simulateur : combien vous coûtent vraiment les frais de courtage ?</h2>
-    <p>Un écart de 0,5 point de courtage semble minime sur une seule opération. Répété sur plusieurs années, il devient un vrai montant en FCFA — sélectionnez 2 à 4 SGI pour comparer leur coût cumulé côte à côte.</p>
-    <div id="sim-box" class="tool-panel">
-      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;">
-        <label style="font-size:13px; color:var(--text-muted);">Budget investi (FCFA)<br>
-          <input id="sim-budget" type="number" value="500000" step="10000" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:160px; font-family:inherit;">
-        </label>
-        <label style="font-size:13px; color:var(--text-muted);">Opérations par an<br>
-          <input id="sim-ops" type="number" value="4" min="1" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;">
-        </label>
-      </div>
 
-      <div style="font-size:11px; font-weight:700; letter-spacing:0.5px; color:var(--label); text-transform:uppercase; margin-bottom:8px;">Comparer 2 à 4 SGI</div>
-      <div class="sim-select-grid">
-        {[1, 2, 3, 4].map((slot) => (
-          <select class="sim-sgi-select" data-slot={slot}>
-            <option value="" selected={slot > 2}>— Aucune —</option>
-            {sgiOptions.map((sgi) => (
-              <option
-                value={sgi.id}
-                selected={(slot === 1 && sgi.id === 'bici') || (slot === 2 && sgi.id === 'coris')}
-                data-name={sgi.name}
-                data-courtage={sgi.courtage ?? ''}
-                data-brvm={sgi.brvm ?? ''}
-                data-dcbr={sgi.dcbr ?? ''}
-                data-taf={sgi.taf ?? ''}
-              >{optionLabel(sgi)}</option>
-            ))}
-          </select>
-        ))}
-      </div>
+    [
+      'op-type',
+      'op-cours',
+      'op-qte',
+      'op-sgi'
+    ].forEach(function (id) {
 
-      <table class="z" style="margin:16px 0 0;">
-        <thead><tr><th>SGI</th><th>1 an</th><th>3 ans</th><th>5 ans</th></tr></thead>
-        <tbody id="sim-results">
-          <tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:11px; color:var(--label); margin:10px 0 0;">Le coût cumulé inclut le courtage et les commissions BRVM/DC-BR à chaque opération. Pour Coris Bourse, il inclut aussi la TAF de 14,85 % appliquée au courtage. Les SGI dont le tarif n'est pas communiqué restent visibles dans la liste, mais aucun montant n'est inventé.</p>
+      document
+        .getElementById(id)
+        .addEventListener(
+          'input',
+          ecoOpSimUpdate
+        );
+
+      document
+        .getElementById(id)
+        .addEventListener(
+          'change',
+          ecoOpSimUpdate
+        );
+
+    });
+
+    ecoOpSimUpdate();
+  </script>
+
+
+  <!-- ========================================================= -->
+  <!-- 2 — SIMULATEUR                                            -->
+  <!-- ========================================================= -->
+
+  <h2 id="simulateur">
+    2 — Simulateur : combien vous coûtent vraiment les frais de courtage ?
+  </h2>
+
+  <p>
+    Un écart de 0,5 point de courtage semble minime sur une seule opération.
+    Répété sur plusieurs années, il devient un vrai montant en FCFA —
+    sélectionnez 2 à 4 SGI pour comparer leur coût cumulé côte à côte.
+  </p>
+
+  <div id="sim-box" class="tool-panel">
+
+    <div
+      style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;"
+    >
+
+      <label style="font-size:13px; color:var(--text-muted);">
+        Budget investi (FCFA)<br>
+
+        <input
+          id="sim-budget"
+          type="number"
+          value="500000"
+          step="10000"
+          style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:160px; font-family:inherit;"
+        >
+      </label>
+
+
+      <label style="font-size:13px; color:var(--text-muted);">
+        Opérations par an<br>
+
+        <input
+          id="sim-ops"
+          type="number"
+          value="4"
+          min="1"
+          style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:100px; font-family:inherit;"
+        >
+      </label>
+
     </div>
-    <style>
-      .sim-select-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
-      .sim-select-grid select { padding: 7px 10px; border: 1px solid var(--border); font-family: inherit; font-size: 13px; width: 100%; }
-      #sim-results tr.sim-best td { font-weight: 700; color: var(--up); }
-    </style>
-    <script>
-      function ecoSimUpdate() {
-        var budget = parseFloat(document.getElementById('sim-budget').value) || 0;
-        var ops = parseFloat(document.getElementById('sim-ops').value) || 0;
-        var selects = document.querySelectorAll('.sim-sgi-select');
-        var rows = [];
 
-        selects.forEach(function (sel) {
-          if (!sel.value) return;
-          var opt = sel.options[sel.selectedIndex];
-          var name = opt.getAttribute('data-name');
-          var courtageRate = parseFloat(opt.dataset.courtage);
-          var brvmRate = parseFloat(opt.dataset.brvm);
-          var dcbrRate = parseFloat(opt.dataset.dcbr);
-          var tafRate = parseFloat(opt.dataset.taf);
-          var hasTariff = Number.isFinite(courtageRate);
-          var effectiveTafRate = Number.isFinite(tafRate) ? courtageRate * tafRate / 100 : 0;
-          var totalRate = hasTariff
-            ? (courtageRate + (Number.isFinite(brvmRate) ? brvmRate : 0) + (Number.isFinite(dcbrRate) ? dcbrRate : 0) + effectiveTafRate) / 100
+
+    <div
+      style="
+        font-size:11px;
+        font-weight:700;
+        letter-spacing:0.5px;
+        color:var(--label);
+        text-transform:uppercase;
+        margin-bottom:8px;
+      "
+    >
+      Comparer 2 à 4 SGI
+    </div>
+
+
+    <div class="sim-select-grid">
+
+      {[1, 2, 3, 4].map((slot) => (
+
+        <select
+          class="sim-sgi-select"
+          data-slot={slot}
+        >
+
+          <option
+            value=""
+            selected={slot > 2}
+          >
+            — Aucune —
+          </option>
+
+
+          {sgiOptions.map((sgi) => (
+
+            <option
+              value={sgi.id}
+
+              selected={
+                (slot === 1 && sgi.id === 'bici') ||
+                (slot === 2 && sgi.id === 'coris')
+              }
+
+              data-name={sgi.name}
+              data-courtage={sgi.courtage ?? ''}
+              data-brvm={sgi.brvm ?? ''}
+              data-dcbr={sgi.dcbr ?? ''}
+              data-taf={sgi.taf ?? ''}
+            >
+              {optionLabel(sgi)}
+            </option>
+
+          ))}
+
+        </select>
+
+      ))}
+
+    </div>
+
+
+    <table
+      class="z"
+      style="margin:16px 0 0;"
+    >
+
+      <thead>
+        <tr>
+          <th>SGI</th>
+          <th>1 an</th>
+          <th>3 ans</th>
+          <th>5 ans</th>
+        </tr>
+      </thead>
+
+
+      <tbody id="sim-results">
+
+        <tr>
+          <td
+            colspan="4"
+            style="color:var(--label); font-style:italic;"
+          >
+            Sélectionnez au moins une SGI ci-dessus.
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+    <p
+      style="
+        font-size:11px;
+        color:var(--label);
+        margin:10px 0 0;
+      "
+    >
+      Le coût cumulé inclut le courtage et les commissions BRVM/DC-BR
+      à chaque opération. Pour Coris Bourse, il inclut aussi la TAF
+      de 14,85 % appliquée au courtage. Les SGI dont le tarif n'est
+      pas communiqué restent visibles dans la liste, mais aucun montant
+      n'est inventé.
+    </p>
+
+  </div>
+
+
+  <style>
+
+    .sim-select-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+    }
+
+    .sim-select-grid select {
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 13px;
+      width: 100%;
+    }
+
+    #sim-results tr.sim-best td {
+      font-weight: 700;
+      color: var(--up);
+    }
+
+  </style>
+
+
+  <script>
+
+    function ecoSimUpdate() {
+
+      var budget =
+        parseFloat(
+          document.getElementById('sim-budget').value
+        ) || 0;
+
+
+      var ops =
+        parseFloat(
+          document.getElementById('sim-ops').value
+        ) || 0;
+
+
+      var selects =
+        document.querySelectorAll('.sim-sgi-select');
+
+
+      var rows = [];
+
+
+      selects.forEach(function (sel) {
+
+        if (!sel.value) return;
+
+
+        var opt =
+          sel.options[sel.selectedIndex];
+
+
+        var name =
+          opt.getAttribute('data-name');
+
+
+        var courtageRate =
+          parseFloat(opt.dataset.courtage);
+
+
+        var brvmRate =
+          parseFloat(opt.dataset.brvm);
+
+
+        var dcbrRate =
+          parseFloat(opt.dataset.dcbr);
+
+
+        var tafRate =
+          parseFloat(opt.dataset.taf);
+
+
+        var hasTariff =
+          Number.isFinite(courtageRate);
+
+
+        var effectiveTafRate =
+          Number.isFinite(tafRate)
+            ? courtageRate * tafRate / 100
+            : 0;
+
+
+        var totalRate =
+          hasTariff
+            ? (
+                courtageRate +
+                (
+                  Number.isFinite(brvmRate)
+                    ? brvmRate
+                    : 0
+                ) +
+                (
+                  Number.isFinite(dcbrRate)
+                    ? dcbrRate
+                    : 0
+                ) +
+                effectiveTafRate
+              ) / 100
             : null;
-          var annual = hasTariff ? budget * totalRate * ops : null;
-          rows.push({ name: name, y1: annual, y3: annual === null ? null : annual * 3, y5: annual === null ? null : annual * 5 });
+
+
+        var annual =
+          hasTariff
+            ? budget * totalRate * ops
+            : null;
+
+
+        rows.push({
+          name: name,
+          y1: annual,
+          y3:
+            annual === null
+              ? null
+              : annual * 3,
+          y5:
+            annual === null
+              ? null
+              : annual * 5
         });
 
-        function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' FCFA'; }
-        var tbody = document.getElementById('sim-results');
-
-        if (rows.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>';
-          return;
-        }
-
-        var comparable = rows.filter(function (r) { return r.y5 !== null; });
-        var minY5 = comparable.length ? Math.min.apply(null, comparable.map(function (r) { return r.y5; })) : null;
-        tbody.innerHTML = rows.map(function (r) {
-          var cls = (comparable.length > 1 && r.y5 === minY5) ? ' class="sim-best"' : '';
-          var unavailable = '<span style="color:var(--label)">Tarif non communiqué</span>';
-          return '<tr' + cls + '><td>' + r.name + '</td><td>' + (r.y1 === null ? unavailable : fmt(r.y1)) + '</td><td>' + (r.y3 === null ? '—' : fmt(r.y3)) + '</td><td>' + (r.y5 === null ? '—' : fmt(r.y5)) + '</td></tr>';
-        }).join('');
-      }
-      document.getElementById('sim-budget').addEventListener('input', ecoSimUpdate);
-      document.getElementById('sim-ops').addEventListener('input', ecoSimUpdate);
-      document.querySelectorAll('.sim-sgi-select').forEach(function (sel) {
-        sel.addEventListener('change', ecoSimUpdate);
       });
-      ecoSimUpdate();
-    </script>
 
-    <p style="font-size:12px; color:var(--label); margin-top:-2px;">* Coris Bourse : les 50 000 FCFA constituent un dépôt initial et non un frais. Le calculateur utilise les composantes visibles sur la grille et le relevé transmis : courtage 0,80 %, commission BRVM 0,20 %, commission DC/BR 0,10 % et TAF de 14,85 % appliquée au courtage.</p>
 
-    <h2 id="tableau-frais">3 — Frais et conditions d'accès</h2>
+      function fmt(n) {
+        return (
+          Math.round(n)
+            .toLocaleString('fr-FR') +
+          ' FCFA'
+        );
+      }
 
-    <div id="contact-counter" class="counter-badge">📊 <span id="counter-value">…</span> clics vers les sites des SGI enregistrés depuis ECONOZONE</div>
-    <p class="directory-note">Annuaire affiché : <strong>37 SGI agréées recensées par la BRVM</strong>, auxquelles s'ajoute Daba Finance comme plateforme d'accès non agréée directement en qualité de SGI.</p>
 
-    <div class="filter-bar">
-      <div class="filter-group">
-        <span class="filter-label">Pays</span>
-        <button class="chip active" data-filter-type="country" data-filter-value="all">🌍 Tous</button>
-        <button class="chip" data-filter-type="country" data-filter-value="CI">🇨🇮 Côte d'Ivoire</button>
-        <button class="chip" data-filter-type="country" data-filter-value="BF">🇧🇫 Burkina Faso</button>
-        <button class="chip" data-filter-type="country" data-filter-value="SN">🇸🇳 Sénégal</button>
-        <button class="chip" data-filter-type="country" data-filter-value="TG">🇹🇬 Togo</button>
-        <button class="chip" data-filter-type="country" data-filter-value="ML">🇲🇱 Mali</button>
-        <button class="chip" data-filter-type="country" data-filter-value="BJ">🇧🇯 Bénin</button>
-        <button class="chip" data-filter-type="country" data-filter-value="NE">🇳🇪 Niger</button>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Critères</span>
-        <button class="chip toggle" data-filter-type="online">💻 Accès digital confirmé</button>
-        <button class="chip toggle" data-filter-type="lowdeposit">💰 Dépôt &lt; 300 000 FCFA</button>
-        <button class="chip toggle" data-filter-type="mandat">🎓 Gestion sous mandat proposée</button>
-      </div>
-    </div>
-    <p id="filter-count" style="font-size:12px; color:var(--label); margin:10px 0 0;"></p>
+      var tbody =
+        document.getElementById('sim-results');
 
-    <div class="sgi-grid">
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="1" data-online="0" data-mandat="0">
-        <div class="sgi-card-top">
-          <span class="badge-rank">#1 capitalisation groupe</span>
-          <span class="flag">🇨🇮</span>
-        </div>
-        <h3>BICIBourse</h3>
-        <p class="sgi-group">BICICI (consortium ivoirien depuis 2022)</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>Aucun (200k conseillé)</b></div>
-          <div><span>Courtage</span><b>0,4 % – 1 %</b></div>
-          <div><span>Conservation</span><b>0,1 – 0,5 %/an</b></div>
-          <div><span>Gestion mandat</span><b>Non proposé</b></div>
-        </div>
-        <a href="https://www.bicici.com/professionnels/epargne-placements/investir-en-bourse/bicici-bourse/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+      if (rows.length === 0) {
 
-      <div class="sgi-card" data-country="BF" data-lowdeposit="1" data-online="1" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
-        <h3>Coris Bourse</h3>
-        <p class="sgi-group">Groupe Coris (Coris Bank International)</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>50 000 FCFA*</b></div>
-          <div><span>Courtage</span><b>0,80 %*</b></div>
-          <div><span>Commission BRVM</span><b>0,20 %*</b></div>
-          <div><span>Commission DC/BR</span><b>0,10 %*</b></div>
-        </div>
-        <div class="sgi-stats">
-          <div><span>TAF sur courtage</span><b>14,85 %*</b></div>
-          <div><span>Coût effectif estimé</span><b>≈ 1,22 %*</b></div>
-        </div>
-        <p style="font-size:11px; color:var(--label); margin:4px 0 0;">Le courtage et les commissions BRVM/DC-BR sont calculés sur le montant brut. La TAF est ensuite calculée sur le courtage : pour 12 600 FCFA, le relevé affiche 101 FCFA de courtage, 25 FCFA de commission BRVM, 13 FCFA de commission DC/BR et 15 FCFA de taxe.</p>
-        <a href="https://www.coris-bourse.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+        tbody.innerHTML =
+          '<tr><td colspan="4" style="color:var(--label); font-style:italic;">Sélectionnez au moins une SGI ci-dessus.</td></tr>';
 
-      <div class="sgi-card" data-country="SN" data-lowdeposit="1" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
-        <h3>CGF Bourse</h3>
-        <p class="sgi-group">Indépendant — 1ʳᵉ SGI agréée AMF-UMOA</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>100 000 FCFA*</b></div>
-          <div><span>Courtage</span><b>1 % – 1,5 %*</b></div>
-          <div><span>Conservation</span><b>Non communiqué</b></div>
-          <div><span>Gestion mandat</span><b>Sur devis</b></div>
-        </div>
-        <a href="https://www.cgfbourse.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+        return;
+      }
 
-      <div class="sgi-card" data-country="TG" data-lowdeposit="1" data-online="1" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇹🇬</span></div>
-        <h3>SGI Togo</h3>
-        <p class="sgi-group">Ouverture 100 % à distance confirmée</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>160 000 FCFA*</b></div>
-          <div><span>Courtage</span><b>1,15 % – 1,3 %*</b></div>
-          <div><span>Conservation</span><b>0,095 %/trim.</b></div>
-          <div><span>Gestion mandat</span><b>0,2 %/trim.</b></div>
-        </div>
-        <a href="https://www.sgitogo.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="1" data-online="0" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>NSIA Finance</h3>
-        <p class="sgi-group">Groupe NSIA</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>200 000 FCFA*</b></div>
-          <div><span>Courtage</span><b>1 % – 1,5 %*</b></div>
-          <div><span>Conservation</span><b>Non communiqué</b></div>
-          <div><span>Gestion mandat</span><b>5M FCFA min.</b></div>
-        </div>
-        <a href="https://www.nsiafinance.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+      var comparable =
+        rows.filter(
+          function (r) {
+            return r.y5 !== null;
+          }
+        );
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Sirius Capital</h3>
-        <p class="sgi-group">Positionnement clientèle capital élevé</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>1 000 000 FCFA*</b></div>
-          <div><span>Courtage</span><b>1 % – 1,5 %*</b></div>
-          <div><span>Conservation</span><b>Non communiqué</b></div>
-          <div><span>Gestion mandat</span><b>5M FCFA min.</b></div>
-        </div>
-        <a href="https://www.siriuscapitalsgi.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>EDC Investment Corporation</h3>
-        <p class="sgi-group">Ecobank Group</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>1 000 000 FCFA</b></div>
-          <div><span>Courtage</span><b>0,4 % – 1 %</b></div>
-          <div><span>Conservation</span><b>0,5 %/an</b></div>
-          <div><span>Gestion mandat</span><b>0,3 – 2 %/trim.</b></div>
-        </div>
-        <a href="https://www.brvm.org/fr/sgi-edc-investment-corporation" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
+      var minY5 =
+        comparable.length
+          ? Math.min.apply(
+              null,
+              comparable.map(
+                function (r) {
+                  return r.y5;
+                }
+              )
+            )
+          : null;
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>SG Capital Securities West Africa</h3>
-        <p class="sgi-group">Société Générale</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>Variable (agence)</b></div>
-          <div><span>Courtage</span><b>0,7 % – 1 %</b></div>
-          <div><span>Conservation</span><b>0,3 %/an (est.)</b></div>
-          <div><span>Gestion mandat</span><b>Sur devis</b></div>
-        </div>
-        <a href="https://entreprises.societegenerale.ci/fr/votre-banque/pole-marches-financiers/societe-generale-capital-securities-west-africa/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Atlantique Finance</h3>
-        <p class="sgi-group">Banque Atlantique / BGFI</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>2 000 000 FCFA</b></div>
-          <div><span>Courtage</span><b>0,65 % – 1 %</b></div>
-          <div><span>Conservation</span><b>0,3 – 0,5 %/trim.</b></div>
-          <div><span>Gestion mandat</span><b>0,3 – 2 %/an</b></div>
-        </div>
-        <a href="https://www.atlantiquefinance.net/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+      tbody.innerHTML =
+        rows.map(function (r) {
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="1" data-online="0" data-mandat="1">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Hudson &amp; Cie</h3>
-        <p class="sgi-group">Indépendant (1998)</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt min.</span><b>250 000 FCFA (est.)</b></div>
-          <div><span>Courtage</span><b>1 %</b></div>
-          <div><span>Conservation</span><b>0,5 %/an</b></div>
-          <div><span>Gestion mandat</span><b>2 %/an</b></div>
-        </div>
-        <a href="http://www.hudson-cie.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+          var cls =
+            (
+              comparable.length > 1 &&
+              r.y5 === minY5
+            )
+              ? ' class="sim-best"'
+              : '';
 
-      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
-        <h3>ABCO Bourse</h3>
-        <p class="sgi-group">Dakar, Sénégal</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>(+221) 33 822 68 00</b></div>
-        </div>
-        <a href="https://www.abcobourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
-        <h3>Africaine de Gestion et d'Intermédiation (AGI)</h3>
-        <p class="sgi-group">Cotonou, Bénin</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>+229 21318733</b></div>
-        </div>
-        <a href="https://www.sgi-agi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+          var unavailable =
+            '<span style="color:var(--label)">Tarif non communiqué</span>';
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Attijari Securities West Africa</h3>
-        <p class="sgi-group">Groupe Attijariwafa Bank / SIB</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>(225) 27 20 21 98 26</b></div>
-        </div>
-        <a href="https://www.sib.ci" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>BOA Capital Securities</h3>
-        <p class="sgi-group">Groupe Bank of Africa</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>(225) 27 20 30 21 22</b></div>
-        </div>
-        <a href="https://www.boacapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+          return (
+            '<tr' +
+            cls +
+            '>' +
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Bridge Securities</h3>
-        <p class="sgi-group">Abidjan, Cocody</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>(225) 05 85 74 98 98</b></div>
-        </div>
-        <a href="https://www.bridge-securities.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+            '<td>' +
+            r.name +
+            '</td>' +
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>BSIC Capital</h3>
-        <p class="sgi-group">Groupe BSIC</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>+225 27 20 31 71 11</b></div>
-        </div>
-        <a href="https://bsiccapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+            '<td>' +
+            (
+              r.y1 === null
+                ? unavailable
+                : fmt(r.y1)
+            ) +
+            '</td>' +
 
-      <div class="sgi-card" data-country="ML" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇲🇱</span></div>
-        <h3>CIFA Bourse</h3>
-        <p class="sgi-group">Compagnie d'Ingénierie Financière et d'Assistance en Bourse, Bamako</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>00223 20 23 50 20</b></div>
-        </div>
-        <a href="https://www.cifabourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+            '<td>' +
+            (
+              r.y3 === null
+                ? '—'
+                : fmt(r.y3)
+            ) +
+            '</td>' +
 
-      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
-        <h3>Everest Finance</h3>
-        <p class="sgi-group">Dakar, Sénégal</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>(221) 33 82 28 700</b></div>
-        </div>
-        <a href="https://www.everestfin.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+            '<td>' +
+            (
+              r.y5 === null
+                ? '—'
+                : fmt(r.y5)
+            ) +
+            '</td>' +
 
-      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
-        <h3>FGI — Finance Gestion Intermédiation</h3>
-        <p class="sgi-group">Dakar, Sénégal</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>(+221) 33 867 60 42</b></div>
-        </div>
-        <a href="https://www.fgi-bourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+            '</tr>'
+          );
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>GEK Capital</h3>
-        <p class="sgi-group">Abidjan, Cocody</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>+225 27 22 22 43 60</b></div>
-        </div>
-        <a href="https://www.gekcapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+        }).join('');
 
-      <div class="sgi-card" data-country="ML" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇲🇱</span></div>
-        <h3>Global Capital</h3>
-        <p class="sgi-group">Bamako, Mali</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Contact</span><b>+223 44 90 59 74</b></div>
-        </div>
-        <a href="https://www.sgiglobalcapital.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+    }
 
-      <div class="sgi-card" data-country="BF" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
-        <h3>SA2IF</h3>
-        <p class="sgi-group">Société Africaine d'Ingénierie et d'Intermédiation Financières, Ouagadougou</p>
-        <div class="sgi-stats">
-          <div><span>Frais</span><b>Non communiqués</b></div>
-          <div><span>Localisation</span><b>Ouaga 2000</b></div>
-        </div>
-        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="BF" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
-        <h3>Image Finances Internationales</h3>
-        <p class="sgi-group">Ouagadougou, Burkina Faso</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+226 25 66 78 78</b></div></div>
-        <a href="https://www.image-finance.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+    document
+      .getElementById('sim-budget')
+      .addEventListener(
+        'input',
+        ecoSimUpdate
+      );
 
-      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
-        <h3>Invictus Capital &amp; Finance</h3>
-        <p class="sgi-group">Dakar, Sénégal</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(221) 33 864 58 58</b></div></div>
-        <a href="https://www.invictuscapfin.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Matha Securities</h3>
-        <p class="sgi-group">Plateau, Abidjan</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>+225 27 20 24 30 30</b></div></div>
-        <a href="https://mathasecurities.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+    document
+      .getElementById('sim-ops')
+      .addEventListener(
+        'input',
+        ecoSimUpdate
+      );
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Oragroup Securities</h3>
-        <p class="sgi-group">Groupe Oragroup/Orabank, Cocody Mermoz</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(00225) 07 88 77 15 69</b></div></div>
-        <a href="https://www.oragroupsecurities.net" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Phoenix Capital Management</h3>
-        <p class="sgi-group">Cocody Riviera, Abidjan</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>27 22 59 85 80</b></div></div>
-        <a href="https://phoenixafricaholding.com/pcm/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+    document
+      .querySelectorAll('.sim-sgi-select')
+      .forEach(function (sel) {
 
-      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
-        <h3>SGI Africabourse</h3>
-        <p class="sgi-group">Cotonou, Bénin</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 31 88 35</b></div></div>
-        <a href="https://www.africabourse.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+        sel.addEventListener(
+          'change',
+          ecoSimUpdate
+        );
 
-      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
-        <h3>SGI Bénin S.A.</h3>
-        <p class="sgi-group">Cotonou, Bénin</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 31 15 41</b></div></div>
-        <a href="https://www.sgibenin.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+      });
 
-      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
-        <h3>SGI BIIC Financial Services</h3>
-        <p class="sgi-group">Cotonou, Bénin</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 32 48 75</b></div></div>
-        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>SGI BNI Finances</h3>
-        <p class="sgi-group">Groupe BNI, Plateau, Abidjan</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(225) 27 20 31 07 77</b></div></div>
-        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
+    ecoSimUpdate();
 
-      <div class="sgi-card" data-country="SN" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇸🇳</span></div>
-        <h3>Impaxis Securities</h3>
-        <p class="sgi-group">Sacré Cœur, Dakar</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(221) 33 869 31 40</b></div></div>
-        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
+  </script>
 
-      <div class="sgi-card" data-country="CI" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇨🇮</span></div>
-        <h3>Mac African</h3>
-        <p class="sgi-group">Cocody Riviera M'Badon, Abidjan</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(225) 07 68 311 125</b></div></div>
-        <a href="https://www.macafricansgi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="ML" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇲🇱</span></div>
-        <h3>SGI Mali S.A.</h3>
-        <p class="sgi-group">Bamako, Mali</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(223) 20 29 41 19</b></div></div>
-        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
+  <p
+    style="
+      font-size:12px;
+      color:var(--label);
+      margin-top:-2px;
+    "
+  >
+    * Coris Bourse : les 50 000 FCFA constituent un dépôt initial
+    et non un frais. Le calculateur utilise les composantes visibles
+    sur la grille et le relevé transmis : courtage 0,80 %,
+    commission BRVM 0,20 %, commission DC/BR 0,10 %
+    et TAF de 14,85 % appliquée au courtage.
+  </p>
 
-      <div class="sgi-card" data-country="NE" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇳🇪</span></div>
-        <h3>SGI Niger S.A.</h3>
-        <p class="sgi-group">Niamey, Niger</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(227) 20 73 78 18</b></div></div>
-        <a href="https://www.sginiger.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
 
-      <div class="sgi-card" data-country="BF" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇫</span></div>
-        <h3>SGI SBIF</h3>
-        <p class="sgi-group">Ouagadougou, Burkina Faso</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(226) 25 33 04 91</b></div></div>
-        <a href="https://www.brvm.org/fr/intervenants/sgi/tous" target="_blank" class="sgi-link contact-click">Fiche BRVM &#8599;</a>
-      </div>
+  <!-- ========================================================= -->
+  <!-- 3 — ANNUAIRE SGI                                          -->
+  <!-- ========================================================= -->
 
-      <div class="sgi-card" data-country="BJ" data-lowdeposit="0" data-online="0" data-mandat="0">
-        <div class="sgi-card-top"><span class="flag">🇧🇯</span></div>
-        <h3>United Capital for Africa</h3>
-        <p class="sgi-group">Cotonou, Bénin</p>
-        <div class="sgi-stats"><div><span>Frais</span><b>Non communiqués</b></div><div><span>Contact</span><b>(229) 21 31 00 21</b></div></div>
-        <a href="https://www.ucasgi.com" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+  <h2 id="tableau-frais">
+    3 — Frais et conditions d'accès
+  </h2>
 
-      <div class="sgi-card intermediary-card" data-country="DIGITAL" data-lowdeposit="1" data-online="1" data-mandat="0">
-        <div class="sgi-card-top">
-          <span class="badge-non-sgi">PLATEFORME — NON-SGI</span>
-          <span class="flag">🌍</span>
-        </div>
-        <h3>Daba Finance</h3>
-        <p class="sgi-group">Plateforme digitale d'accès à l'investissement ; les ordres BRVM passent par un intermédiaire agréé.</p>
-        <div class="sgi-stats">
-          <div><span>Dépôt indicatif</span><b>Dès 10 000 FCFA</b></div>
-          <div><span>Accès</span><b>100 % digital</b></div>
-          <div><span>Statut</span><b>Pas une SGI agréée directement</b></div>
-          <div><span>Frais</span><b>À vérifier selon l'offre</b></div>
-        </div>
-        <a href="https://www.dabafinance.com/" target="_blank" class="sgi-link contact-click">Site officiel &#8599;</a>
-      </div>
+
+  <div
+    id="contact-counter"
+    class="counter-badge"
+  >
+    📊
+    <span id="counter-value">…</span>
+    clics vers les sites des SGI enregistrés depuis ECONOZONE
+  </div>
+
+
+  <p class="directory-note">
+    Annuaire affiché :
+    <strong>37 SGI agréées recensées par la BRVM</strong>,
+    auxquelles s'ajoute Daba Finance comme plateforme d'accès
+    non agréée directement en qualité de SGI.
+  </p>
+
+
+  <div class="filter-bar">
+
+    <div class="filter-group">
+
+      <span class="filter-label">
+        Pays
+      </span>
+
+      <button
+        class="chip active"
+        data-filter-type="country"
+        data-filter-value="all"
+      >
+        🌍 Tous
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="CI"
+      >
+        🇨🇮 Côte d'Ivoire
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="BF"
+      >
+        🇧🇫 Burkina Faso
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="SN"
+      >
+        🇸🇳 Sénégal
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="TG"
+      >
+        🇹🇬 Togo
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="ML"
+      >
+        🇲🇱 Mali
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="BJ"
+      >
+        🇧🇯 Bénin
+      </button>
+
+      <button
+        class="chip"
+        data-filter-type="country"
+        data-filter-value="NE"
+      >
+        🇳🇪 Niger
+      </button>
 
     </div>
 
-    <p class="sgi-footnote">* Tarifs confirmés lorsqu'ils ont été vérifiés auprès de la SGI. Montants indiqués pour la gestion libre. « Accès digital confirmé » signifie que l'ouverture ou le suivi en ligne a été vérifié.</p>
 
-    <script>
-      (function () {
-        var state = { country: 'all', online: false, lowdeposit: false, mandat: false };
-        var cards = document.querySelectorAll('.sgi-card');
-        var countBox = document.getElementById('filter-count');
+    <div class="filter-group">
 
-        function applyFilters() {
-          var visible = 0;
-          cards.forEach(function (card) {
-            var okCountry = state.country === 'all' || card.dataset.country === state.country;
-            var okOnline = !state.online || card.dataset.online === '1';
-            var okDeposit = !state.lowdeposit || card.dataset.lowdeposit === '1';
-            var okMandat = !state.mandat || card.dataset.mandat === '1';
-            var show = okCountry && okOnline && okDeposit && okMandat;
-            card.style.display = show ? '' : 'none';
-            if (show) visible++;
-          });
-          countBox.textContent = visible + ' intermédiaire' + (visible > 1 ? 's' : '') + ' affiché' + (visible > 1 ? 's' : '') + ' sur ' + cards.length + '.';
-        }
+      <span class="filter-label">
+        Critères
+      </span>
 
-        document.querySelectorAll('.chip[data-filter-type="country"]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            document.querySelectorAll('.chip[data-filter-type="country"]').forEach(function (b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            state.country = btn.dataset.filterValue;
-            applyFilters();
-          });
+      <button
+        class="chip toggle"
+        data-filter-type="online"
+      >
+        💻 Accès digital confirmé
+      </button>
+
+      <button
+        class="chip toggle"
+        data-filter-type="lowdeposit"
+      >
+        💰 Dépôt &lt; 300 000 FCFA
+      </button>
+
+      <button
+        class="chip toggle"
+        data-filter-type="mandat"
+      >
+        🎓 Gestion sous mandat proposée
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <p
+    id="filter-count"
+    style="
+      font-size:12px;
+      color:var(--label);
+      margin:10px 0 0;
+    "
+  ></p>
+
+
+  <div class="sgi-grid">
+
+
+    <!-- BICIBOURSE -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="1"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+
+        <span class="badge-rank">
+          #1 capitalisation groupe
+        </span>
+
+        <span class="flag">
+          🇨🇮
+        </span>
+
+      </div>
+
+      <h3>BICIBourse</h3>
+
+      <p class="sgi-group">
+        BICICI (consortium ivoirien depuis 2022)
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>Aucun (200k conseillé)</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>0,4 % – 1 %</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>0,1 – 0,5 %/an</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>Non proposé</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.bicici.com/professionnels/epargne-placements/investir-en-bourse/bicici-bourse/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- CORIS -->
+
+    <div
+      class="sgi-card"
+      data-country="BF"
+      data-lowdeposit="1"
+      data-online="1"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇫</span>
+      </div>
+
+      <h3>Coris Bourse</h3>
+
+      <p class="sgi-group">
+        Groupe Coris (Coris Bank International)
+      </p>
+
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>50 000 FCFA*</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>0,80 %*</b>
+        </div>
+
+        <div>
+          <span>Commission BRVM</span>
+          <b>0,20 %*</b>
+        </div>
+
+        <div>
+          <span>Commission DC/BR</span>
+          <b>0,10 %*</b>
+        </div>
+
+      </div>
+
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>TAF sur courtage</span>
+          <b>14,85 %*</b>
+        </div>
+
+        <div>
+          <span>Coût effectif estimé</span>
+          <b>≈ 1,22 %*</b>
+        </div>
+
+      </div>
+
+
+      <p
+        style="
+          font-size:11px;
+          color:var(--label);
+          margin:4px 0 0;
+        "
+      >
+        Le courtage et les commissions BRVM/DC-BR sont calculés sur
+        le montant brut. La TAF est ensuite calculée sur le courtage :
+        pour 12 600 FCFA, le relevé affiche 101 FCFA de courtage,
+        25 FCFA de commission BRVM, 13 FCFA de commission DC/BR
+        et 15 FCFA de taxe.
+      </p>
+
+
+      <a
+        href="https://www.coris-bourse.com/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- CGF -->
+
+    <div
+      class="sgi-card"
+      data-country="SN"
+      data-lowdeposit="1"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇸🇳</span>
+      </div>
+
+      <h3>CGF Bourse</h3>
+
+      <p class="sgi-group">
+        Indépendant — 1ʳᵉ SGI agréée AMF-UMOA
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>100 000 FCFA*</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>1 % – 1,5 %*</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>Non communiqué</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>Sur devis</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.cgfbourse.com/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SGI TOGO -->
+
+    <div
+      class="sgi-card"
+      data-country="TG"
+      data-lowdeposit="1"
+      data-online="1"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇹🇬</span>
+      </div>
+
+      <h3>SGI Togo</h3>
+
+      <p class="sgi-group">
+        Ouverture 100 % à distance confirmée
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>160 000 FCFA*</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>1,15 % – 1,3 %*</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>0,095 %/trim.</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>0,2 %/trim.</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.sgitogo.com/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- NSIA -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="1"
+      data-online="0"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>NSIA Finance</h3>
+
+      <p class="sgi-group">
+        Groupe NSIA
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>200 000 FCFA*</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>1 % – 1,5 %*</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>Non communiqué</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>5M FCFA min.</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.nsiafinance.com/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SIRIUS -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Sirius Capital</h3>
+
+      <p class="sgi-group">
+        Positionnement clientèle capital élevé
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>1 000 000 FCFA*</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>1 % – 1,5 %*</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>Non communiqué</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>5M FCFA min.</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.siriuscapitalsgi.com/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- EDC -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>EDC Investment Corporation</h3>
+
+      <p class="sgi-group">
+        Ecobank Group
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>1 000 000 FCFA</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>0,4 % – 1 %</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>0,5 %/an</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>0,3 – 2 %/trim.</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/sgi-edc-investment-corporation"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SG CAPITAL -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>SG Capital Securities West Africa</h3>
+
+      <p class="sgi-group">
+        Société Générale
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>Variable (agence)</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>0,7 % – 1 %</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>0,3 %/an (est.)</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>Sur devis</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://entreprises.societegenerale.ci/fr/votre-banque/pole-marches-financiers/societe-generale-capital-securities-west-africa/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- ATLANTIQUE -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Atlantique Finance</h3>
+
+      <p class="sgi-group">
+        Banque Atlantique / BGFI
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>2 000 000 FCFA</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>0,65 % – 1 %</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>0,3 – 0,5 %/trim.</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>0,3 – 2 %/an</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.atlantiquefinance.net/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- HUDSON -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="1"
+      data-online="0"
+      data-mandat="1"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Hudson &amp; Cie</h3>
+
+      <p class="sgi-group">
+        Indépendant (1998)
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt min.</span>
+          <b>250 000 FCFA (est.)</b>
+        </div>
+
+        <div>
+          <span>Courtage</span>
+          <b>1 %</b>
+        </div>
+
+        <div>
+          <span>Conservation</span>
+          <b>0,5 %/an</b>
+        </div>
+
+        <div>
+          <span>Gestion mandat</span>
+          <b>2 %/an</b>
+        </div>
+
+      </div>
+
+      <a
+        href="http://www.hudson-cie.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- ABCO -->
+
+    <div
+      class="sgi-card"
+      data-country="SN"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇸🇳</span>
+      </div>
+
+      <h3>ABCO Bourse</h3>
+
+      <p class="sgi-group">
+        Dakar, Sénégal
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(+221) 33 822 68 00</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.abcobourse.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- AGI -->
+
+    <div
+      class="sgi-card"
+      data-country="BJ"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇯</span>
+      </div>
+
+      <h3>
+        Africaine de Gestion et d'Intermédiation (AGI)
+      </h3>
+
+      <p class="sgi-group">
+        Cotonou, Bénin
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>+229 21318733</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.sgi-agi.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- ATTIJARI -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Attijari Securities West Africa</h3>
+
+      <p class="sgi-group">
+        Groupe Attijariwafa Bank / SIB
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(225) 27 20 21 98 26</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.sib.ci"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- BOA CAPITAL -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>BOA Capital Securities</h3>
+
+      <p class="sgi-group">
+        Groupe Bank of Africa
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(225) 27 20 30 21 22</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.boacapital.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- BRIDGE -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Bridge Securities</h3>
+
+      <p class="sgi-group">
+        Abidjan, Cocody
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(225) 05 85 74 98 98</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.bridge-securities.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- BSIC -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>BSIC Capital</h3>
+
+      <p class="sgi-group">
+        Groupe BSIC
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>+225 27 20 31 71 11</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://bsiccapital.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- CIFA -->
+
+    <div
+      class="sgi-card"
+      data-country="ML"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇲🇱</span>
+      </div>
+
+      <h3>CIFA Bourse</h3>
+
+      <p class="sgi-group">
+        Compagnie d'Ingénierie Financière et d'Assistance en Bourse,
+        Bamako
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>00223 20 23 50 20</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.cifabourse.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- EVEREST -->
+
+    <div
+      class="sgi-card"
+      data-country="SN"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇸🇳</span>
+      </div>
+
+      <h3>Everest Finance</h3>
+
+      <p class="sgi-group">
+        Dakar, Sénégal
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(221) 33 82 28 700</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.everestfin.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- FGI -->
+
+    <div
+      class="sgi-card"
+      data-country="SN"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇸🇳</span>
+      </div>
+
+      <h3>FGI — Finance Gestion Intermédiation</h3>
+
+      <p class="sgi-group">
+        Dakar, Sénégal
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(+221) 33 867 60 42</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.fgi-bourse.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- GEK -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>GEK Capital</h3>
+
+      <p class="sgi-group">
+        Abidjan, Cocody
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>+225 27 22 22 43 60</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.gekcapital.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- GLOBAL -->
+
+    <div
+      class="sgi-card"
+      data-country="ML"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇲🇱</span>
+      </div>
+
+      <h3>Global Capital</h3>
+
+      <p class="sgi-group">
+        Bamako, Mali
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>+223 44 90 59 74</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.sgiglobalcapital.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SA2IF -->
+
+    <div
+      class="sgi-card"
+      data-country="BF"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇫</span>
+      </div>
+
+      <h3>SA2IF</h3>
+
+      <p class="sgi-group">
+        Société Africaine d'Ingénierie et d'Intermédiation Financières,
+        Ouagadougou
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Localisation</span>
+          <b>Ouaga 2000</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/intervenants/sgi/tous"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- IMAGE FINANCES -->
+
+    <div
+      class="sgi-card"
+      data-country="BF"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇫</span>
+      </div>
+
+      <h3>Image Finances Internationales</h3>
+
+      <p class="sgi-group">
+        Ouagadougou, Burkina Faso
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>+226 25 66 78 78</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.image-finance.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- INVICTUS -->
+
+    <div
+      class="sgi-card"
+      data-country="SN"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇸🇳</span>
+      </div>
+
+      <h3>Invictus Capital &amp; Finance</h3>
+
+      <p class="sgi-group">
+        Dakar, Sénégal
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(221) 33 864 58 58</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.invictuscapfin.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- MATHA -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Matha Securities</h3>
+
+      <p class="sgi-group">
+        Plateau, Abidjan
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>+225 27 20 24 30 30</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://mathasecurities.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- ORAGROUP -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Oragroup Securities</h3>
+
+      <p class="sgi-group">
+        Groupe Oragroup/Orabank, Cocody Mermoz
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(00225) 07 88 77 15 69</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.oragroupsecurities.net"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- PHOENIX -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Phoenix Capital Management</h3>
+
+      <p class="sgi-group">
+        Cocody Riviera, Abidjan
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>27 22 59 85 80</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://phoenixafricaholding.com/pcm/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- AFRICABOURSE -->
+
+    <div
+      class="sgi-card"
+      data-country="BJ"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇯</span>
+      </div>
+
+      <h3>SGI Africabourse</h3>
+
+      <p class="sgi-group">
+        Cotonou, Bénin
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(229) 21 31 88 35</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.africabourse.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SGI BENIN -->
+
+    <div
+      class="sgi-card"
+      data-country="BJ"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇯</span>
+      </div>
+
+      <h3>SGI Bénin S.A.</h3>
+
+      <p class="sgi-group">
+        Cotonou, Bénin
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(229) 21 31 15 41</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.sgibenin.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- BIIC -->
+
+    <div
+      class="sgi-card"
+      data-country="BJ"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇯</span>
+      </div>
+
+      <h3>SGI BIIC Financial Services</h3>
+
+      <p class="sgi-group">
+        Cotonou, Bénin
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(229) 21 32 48 75</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/intervenants/sgi/tous"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- BNI -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>SGI BNI Finances</h3>
+
+      <p class="sgi-group">
+        Groupe BNI, Plateau, Abidjan
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(225) 27 20 31 07 77</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/intervenants/sgi/tous"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- IMPAXIS -->
+
+    <div
+      class="sgi-card"
+      data-country="SN"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇸🇳</span>
+      </div>
+
+      <h3>Impaxis Securities</h3>
+
+      <p class="sgi-group">
+        Sacré Cœur, Dakar
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(221) 33 869 31 40</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/intervenants/sgi/tous"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- MAC AFRICAN -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Mac African</h3>
+
+      <p class="sgi-group">
+        Cocody Riviera M'Badon, Abidjan
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(225) 07 68 311 125</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.macafricansgi.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SGI MALI -->
+
+    <div
+      class="sgi-card"
+      data-country="ML"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇲🇱</span>
+      </div>
+
+      <h3>SGI Mali S.A.</h3>
+
+      <p class="sgi-group">
+        Bamako, Mali
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(223) 20 29 41 19</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/intervenants/sgi/tous"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SGI NIGER -->
+
+    <div
+      class="sgi-card"
+      data-country="NE"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇳🇪</span>
+      </div>
+
+      <h3>SGI Niger S.A.</h3>
+
+      <p class="sgi-group">
+        Niamey, Niger
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(227) 20 73 78 18</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.sginiger.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- SBIF -->
+
+    <div
+      class="sgi-card"
+      data-country="BF"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇫</span>
+      </div>
+
+      <h3>SGI SBIF</h3>
+
+      <p class="sgi-group">
+        Ouagadougou, Burkina Faso
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(226) 25 33 04 91</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/intervenants/sgi/tous"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- UNITED CAPITAL -->
+
+    <div
+      class="sgi-card"
+      data-country="BJ"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+        <span class="flag">🇧🇯</span>
+      </div>
+
+      <h3>United Capital for Africa</h3>
+
+      <p class="sgi-group">
+        Cotonou, Bénin
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Frais</span>
+          <b>Non communiqués</b>
+        </div>
+
+        <div>
+          <span>Contact</span>
+          <b>(229) 21 31 00 21</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.ucasgi.com"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+
+    <!-- DABA -->
+
+    <div
+      class="sgi-card intermediary-card"
+      data-country="DIGITAL"
+      data-lowdeposit="1"
+      data-online="1"
+      data-mandat="0"
+    >
+
+      <div class="sgi-card-top">
+
+        <span class="badge-non-sgi">
+          PLATEFORME — NON-SGI
+        </span>
+
+        <span class="flag">
+          🌍
+        </span>
+
+      </div>
+
+      <h3>Daba Finance</h3>
+
+      <p class="sgi-group">
+        Plateforme digitale d'accès à l'investissement ;
+        les ordres BRVM passent par un intermédiaire agréé.
+      </p>
+
+      <div class="sgi-stats">
+
+        <div>
+          <span>Dépôt indicatif</span>
+          <b>Dès 10 000 FCFA</b>
+        </div>
+
+        <div>
+          <span>Accès</span>
+          <b>100 % digital</b>
+        </div>
+
+        <div>
+          <span>Statut</span>
+          <b>Pas une SGI agréée directement</b>
+        </div>
+
+        <div>
+          <span>Frais</span>
+          <b>À vérifier selon l'offre</b>
+        </div>
+
+      </div>
+
+      <a
+        href="https://www.dabafinance.com/"
+        target="_blank"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <p class="sgi-footnote">
+    * Tarifs confirmés lorsqu'ils ont été vérifiés auprès de la SGI.
+    Montants indiqués pour la gestion libre.
+    « Accès digital confirmé » signifie que l'ouverture ou le suivi
+    en ligne a été vérifié.
+  </p>
+
+
+  <script>
+
+    (function () {
+
+      var state = {
+        country: 'all',
+        online: false,
+        lowdeposit: false,
+        mandat: false
+      };
+
+
+      var cards =
+        document.querySelectorAll('.sgi-card');
+
+
+      var countBox =
+        document.getElementById('filter-count');
+
+
+      function applyFilters() {
+
+        var visible = 0;
+
+
+        cards.forEach(function (card) {
+
+          var okCountry =
+            state.country === 'all' ||
+            card.dataset.country === state.country;
+
+
+          var okOnline =
+            !state.online ||
+            card.dataset.online === '1';
+
+
+          var okDeposit =
+            !state.lowdeposit ||
+            card.dataset.lowdeposit === '1';
+
+
+          var okMandat =
+            !state.mandat ||
+            card.dataset.mandat === '1';
+
+
+          var show =
+            okCountry &&
+            okOnline &&
+            okDeposit &&
+            okMandat;
+
+
+          card.style.display =
+            show ? '' : 'none';
+
+
+          if (show) {
+            visible++;
+          }
+
         });
 
-        document.querySelectorAll('.chip.toggle').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var key = btn.dataset.filterType;
-            state[key] = !state[key];
-            btn.classList.toggle('active', state[key]);
-            applyFilters();
-          });
+
+        countBox.textContent =
+          visible +
+          ' intermédiaire' +
+          (visible > 1 ? 's' : '') +
+          ' affiché' +
+          (visible > 1 ? 's' : '') +
+          ' sur ' +
+          cards.length +
+          '.';
+
+      }
+
+
+      document
+        .querySelectorAll(
+          '.chip[data-filter-type="country"]'
+        )
+        .forEach(function (btn) {
+
+          btn.addEventListener(
+            'click',
+            function () {
+
+              document
+                .querySelectorAll(
+                  '.chip[data-filter-type="country"]'
+                )
+                .forEach(function (b) {
+                  b.classList.remove('active');
+                });
+
+
+              btn.classList.add('active');
+
+
+              state.country =
+                btn.dataset.filterValue;
+
+
+              applyFilters();
+
+            }
+          );
+
         });
 
-        applyFilters();
-      })();
-    </script>
 
-    <h2>4 — Synthèse des scores (sur 5 par critère)</h2>
-    <p style="font-size:12px; color:var(--label);">CGF Bourse, SGI Togo, NSIA Finance et Sirius Capital ne sont pas encore notées ci-dessous — nous ne disposons pour l'instant que de leurs données de frais et dépôt (tableau ci-dessus), pas d'éléments qualitatifs vérifiés sur leur application mobile ou leur service client.</p>
-    <table>
-      <thead><tr><th>SGI</th><th class="score-cell">Frais</th><th class="score-cell">Fondamental</th><th class="score-cell">Technique</th><th class="score-cell">App mobile</th><th class="score-cell">Service client</th><th class="score-cell">Total /25</th></tr></thead>
+      document
+        .querySelectorAll('.chip.toggle')
+        .forEach(function (btn) {
+
+          btn.addEventListener(
+            'click',
+            function () {
+
+              var key =
+                btn.dataset.filterType;
+
+
+              state[key] =
+                !state[key];
+
+
+              btn.classList.toggle(
+                'active',
+                state[key]
+              );
+
+
+              applyFilters();
+
+            }
+          );
+
+        });
+
+
+      applyFilters();
+
+    })();
+
+  </script>
+
+
+  <!-- ========================================================= -->
+  <!-- 4 — SCORES                                                -->
+  <!-- ========================================================= -->
+
+  <h2>
+    4 — Synthèse des scores (sur 5 par critère)
+  </h2>
+
+  <p
+    style="
+      font-size:12px;
+      color:var(--label);
+    "
+  >
+    CGF Bourse, SGI Togo, NSIA Finance et Sirius Capital
+    ne sont pas encore notées ci-dessous — nous ne disposons pour
+    l'instant que de leurs données de frais et dépôt
+    (tableau ci-dessus), pas d'éléments qualitatifs vérifiés
+    sur leur application mobile ou leur service client.
+  </p>
+
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>SGI</th>
+        <th class="score-cell">Frais</th>
+        <th class="score-cell">Fondamental</th>
+        <th class="score-cell">Technique</th>
+        <th class="score-cell">App mobile</th>
+        <th class="score-cell">Service client</th>
+        <th class="score-cell">Total /25</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>BICIBourse</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell"><b>21</b></td>
+      </tr>
+
+      <tr>
+        <td>EDC Investment Corporation</td>
+        <td class="score-cell">3</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell"><b>22</b></td>
+      </tr>
+
+      <tr>
+        <td>SG Capital Securities West Africa</td>
+        <td class="score-cell">3</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell"><b>21</b></td>
+      </tr>
+
+      <tr>
+        <td>Atlantique Finance</td>
+        <td class="score-cell">2</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell">3</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell"><b>17</b></td>
+      </tr>
+
+      <tr>
+        <td>Hudson &amp; Cie</td>
+        <td class="score-cell">3</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">5</td>
+        <td class="score-cell">3</td>
+        <td class="score-cell">4</td>
+        <td class="score-cell"><b>20</b></td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+  <!-- ========================================================= -->
+  <!-- 5 — POINTS FORTS                                          -->
+  <!-- ========================================================= -->
+
+  <h2>
+    5 — Points forts, limites et pièges par SGI
+  </h2>
+
+
+  <h3>
+    1. BICIBourse — les frais les plus bas,
+    aucune barrière à l'entrée
+  </h3>
+
+  <p>
+    <b>Points forts :</b>
+    frais parmi les plus bas du marché, aucun dépôt minimum,
+    adossé à BNP Paribas, analyses fondamentales régulières,
+    plateforme web et mobile.
+    <br>
+
+    <b>Limites :</b>
+    application mobile moins intuitive que les fintech,
+    moins adaptée à la gestion patrimoniale avancée.
+    <br>
+
+    <b>Piège à éviter :</b>
+    vérifier les frais de tenue de compte annuels
+    (5 000 FCFA) et s'assurer que les ordres passés
+    en ligne sont bien confirmés.
+  </p>
+
+
+  <h3>
+    2. EDC Investment Corporation — la meilleure plateforme digitale,
+    réservée aux capitaux plus élevés
+  </h3>
+
+  <p>
+    <b>Points forts :</b>
+    meilleure plateforme digitale de l'UEMOA,
+    analyses très détaillées, réseau Ecobank dans 14 pays,
+    alertes en temps réel.
+    <br>
+
+    <b>Limites :</b>
+    dépôt minimum d'1 million FCFA,
+    frais de tenue élevés.
+    <br>
+
+    <b>Piège à éviter :</b>
+    ne pas confondre frais de courtage et frais de gestion sous mandat —
+    jusqu'à 2 %/trimestre équivaut à 8 %/an.
+    Lire le contrat de mandat en détail.
+  </p>
+
+
+  <h3>
+    3. SG Capital Securities West Africa —
+    le réseau institutionnel
+  </h3>
+
+  <p>
+    <b>Points forts :</b>
+    distinguée aux BRVM Awards,
+    plus de 16 000 clients,
+    réseau SG dans 8 pays UEMOA,
+    service client institutionnel réactif.
+    <br>
+
+    <b>Limites :</b>
+    tarifs peu transparents en ligne,
+    dépôt minimum variable selon l'agence.
+    <br>
+
+    <b>Piège à éviter :</b>
+    certaines agences appliquent des frais majorés pour les petits ordres —
+    demander le barème complet avant ouverture de compte.
+  </p>
+
+
+  <h3>
+    4. Atlantique Finance — solide,
+    mais pour les portefeuilles conséquents
+  </h3>
+
+  <p>
+    <b>Points forts :</b>
+    plus de 25 ans d'historique,
+    réseau Banque Atlantique dans 7 pays,
+    bonne gestion sous mandat pour gros portefeuilles.
+    <br>
+
+    <b>Limites :</b>
+    dépôt minimum de 2 millions FCFA,
+    conservation facturée par trimestre.
+    <br>
+
+    <b>Piège à éviter :</b>
+    la conservation trimestrielle
+    (0,5 % × 4 = jusqu'à 2 %/an)
+    est souvent sous-estimée et pèse lourd sur un petit portefeuille —
+    à réserver aux portefeuilles au-delà de 500 000 FCFA.
+  </p>
+
+
+  <h3>
+    5. Hudson &amp; Cie —
+    la référence institutionnelle indépendante
+  </h3>
+
+  <p>
+    <b>Points forts :</b>
+    plus ancienne SGI indépendante de la BRVM,
+    analyses reconnues parmi les meilleures,
+    référence pour les institutionnels.
+    <br>
+
+    <b>Limites :</b>
+    application mobile limitée,
+    interface moins moderne.
+    <br>
+
+    <b>Piège à éviter :</b>
+    les frais de mandat à 2 %/an peuvent être élevés —
+    vérifier le seuil minimum réel en agence avant de candidater
+    avec un petit capital.
+  </p>
+
+
+  <!-- ========================================================= -->
+  <!-- 6 — BUDGET MODESTE                                        -->
+  <!-- ========================================================= -->
+
+  <h2>
+    6 — Quelle SGI pour un budget de départ modeste ?
+  </h2>
+
+  <p>
+    Cas illustratif : un investisseur débutant démarrant
+    avec 200 000 FCFA, puis 50 000 FCFA par mois.
+  </p>
+
+
+  <div class="verdict">
+
+    <h3>
+      Verdict pour ce profil : BICIBourse
+    </h3>
+
+    <p style="margin-bottom:6px;">
+      Aucun minimum exigé, seulement 200 000 FCFA conseillés
+      (aucune barrière d'entrée réelle),
+      frais de courtage parmi les plus bas du top 6
+      (dès 0,4 %),
+      frais de tenue négligeables
+      (5 000 FCFA/an),
+      et adossement à la BICICI,
+      désormais majoritairement ivoirienne
+      (consortium BNI/CNPS/CGRAE/CDC-CI,
+      67,49 % depuis la sortie de BNP Paribas en 2022).
+    </p>
+
+
+    <table
+      class="calc-table"
+      style="margin-top:14px;"
+    >
+
       <tbody>
-        <tr><td>BICIBourse</td><td class="score-cell">5</td><td class="score-cell">4</td><td class="score-cell">4</td><td class="score-cell">4</td><td class="score-cell">4</td><td class="score-cell"><b>21</b></td></tr>
-        <tr><td>EDC Investment Corporation</td><td class="score-cell">3</td><td class="score-cell">5</td><td class="score-cell">5</td><td class="score-cell">5</td><td class="score-cell">4</td><td class="score-cell"><b>22</b></td></tr>
-        <tr><td>SG Capital Securities West Africa</td><td class="score-cell">3</td><td class="score-cell">5</td><td class="score-cell">4</td><td class="score-cell">4</td><td class="score-cell">5</td><td class="score-cell"><b>21</b></td></tr>
-        <tr><td>Atlantique Finance</td><td class="score-cell">2</td><td class="score-cell">4</td><td class="score-cell">4</td><td class="score-cell">3</td><td class="score-cell">4</td><td class="score-cell"><b>17</b></td></tr>
-        <tr><td>Hudson &amp; Cie</td><td class="score-cell">3</td><td class="score-cell">5</td><td class="score-cell">5</td><td class="score-cell">3</td><td class="score-cell">4</td><td class="score-cell"><b>20</b></td></tr>
+
+        <tr>
+          <td>
+            Achat initial 200 000 FCFA
+            (courtage 0,4 %)
+          </td>
+          <td>800 FCFA</td>
+        </tr>
+
+        <tr>
+          <td>
+            12 × 50 000 FCFA/mois
+            (0,4 % chacun)
+          </td>
+          <td>2 400 FCFA</td>
+        </tr>
+
+        <tr>
+          <td>
+            Frais de tenue de compte annuels
+          </td>
+          <td>5 000 FCFA</td>
+        </tr>
+
+        <tr class="calc-total">
+          <td>
+            Total frais estimé sur 12 mois
+          </td>
+          <td>
+            ≈ 8 200 FCFA
+            (~1,3 % du capital investi)
+          </td>
+        </tr>
+
       </tbody>
+
     </table>
 
-    <h2>5 — Points forts, limites et pièges par SGI</h2>
-
-    <h3>1. BICIBourse — les frais les plus bas, aucune barrière à l'entrée</h3>
-    <p><b>Points forts :</b> frais parmi les plus bas du marché, aucun dépôt minimum, adossé à BNP Paribas, analyses fondamentales régulières, plateforme web et mobile.<br><b>Limites :</b> application mobile moins intuitive que les fintech, moins adaptée à la gestion patrimoniale avancée.<br><b>Piège à éviter :</b> vérifier les frais de tenue de compte annuels (5 000 FCFA) et s'assurer que les ordres passés en ligne sont bien confirmés.</p>
-
-    <h3>2. EDC Investment Corporation — la meilleure plateforme digitale, réservée aux capitaux plus élevés</h3>
-    <p><b>Points forts :</b> meilleure plateforme digitale de l'UEMOA, analyses très détaillées, réseau Ecobank dans 14 pays, alertes en temps réel.<br><b>Limites :</b> dépôt minimum d'1 million FCFA, frais de tenue élevés.<br><b>Piège à éviter :</b> ne pas confondre frais de courtage et frais de gestion sous mandat — jusqu'à 2 %/trimestre équivaut à 8 %/an. Lire le contrat de mandat en détail.</p>
-
-    <h3>3. SG Capital Securities West Africa — le réseau institutionnel</h3>
-    <p><b>Points forts :</b> distinguée aux BRVM Awards, plus de 16 000 clients, réseau SG dans 8 pays UEMOA, service client institutionnel réactif.<br><b>Limites :</b> tarifs peu transparents en ligne, dépôt minimum variable selon l'agence.<br><b>Piège à éviter :</b> certaines agences appliquent des frais majorés pour les petits ordres — demander le barème complet avant ouverture de compte.</p>
-
-    <h3>4. Atlantique Finance — solide, mais pour les portefeuilles conséquents</h3>
-    <p><b>Points forts :</b> plus de 25 ans d'historique, réseau Banque Atlantique dans 7 pays, bonne gestion sous mandat pour gros portefeuilles.<br><b>Limites :</b> dépôt minimum de 2 millions FCFA, conservation facturée par trimestre.<br><b>Piège à éviter :</b> la conservation trimestrielle (0,5 % × 4 = jusqu'à 2 %/an) est souvent sous-estimée et pèse lourd sur un petit portefeuille — à réserver aux portefeuilles au-delà de 500 000 FCFA.</p>
-
-    <h3>5. Hudson &amp; Cie — la référence institutionnelle indépendante</h3>
-    <p><b>Points forts :</b> plus ancienne SGI indépendante de la BRVM, analyses reconnues parmi les meilleures, référence pour les institutionnels.<br><b>Limites :</b> application mobile limitée, interface moins moderne.<br><b>Piège à éviter :</b> les frais de mandat à 2 %/an peuvent être élevés — vérifier le seuil minimum réel en agence avant de candidater avec un petit capital.</p>
-
-    <h2>6 — Quelle SGI pour un budget de départ modeste ?</h2>
-    <p>Cas illustratif : un investisseur débutant démarrant avec 200 000 FCFA, puis 50 000 FCFA par mois.</p>
-
-    <div class="verdict">
-      <h3>Verdict pour ce profil : BICIBourse</h3>
-      <p style="margin-bottom:6px;">Aucun minimum exigé, seulement 200 000 FCFA conseillés (aucune barrière d'entrée réelle), frais de courtage parmi les plus bas du top 6 (dès 0,4 %), frais de tenue négligeables (5 000 FCFA/an), et adossement à la BICICI, désormais majoritairement ivoirienne (consortium BNI/CNPS/CGRAE/CDC-CI, 67,49 % depuis la sortie de BNP Paribas en 2022).</p>
-      <table class="calc-table" style="margin-top:14px;">
-        <tbody>
-          <tr><td>Achat initial 200 000 FCFA (courtage 0,4 %)</td><td>800 FCFA</td></tr>
-          <tr><td>12 × 50 000 FCFA/mois (0,4 % chacun)</td><td>2 400 FCFA</td></tr>
-          <tr><td>Frais de tenue de compte annuels</td><td>5 000 FCFA</td></tr>
-          <tr class="calc-total"><td>Total frais estimé sur 12 mois</td><td>≈ 8 200 FCFA (~1,3 % du capital investi)</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p><b>Alternative pour le meilleur digital : EDC Investment Corporation</b> — mais prévoir d'abord 1 000 000 FCFA de capital. Stratégie possible : démarrer avec BICIBourse à 200K, épargner 50K/mois pendant 18 mois (soit 900K), puis migrer vers EDC une fois le seuil atteint — un délai estimé de 18 à 20 mois à ce rythme d'épargne.</p>
-
-    <h2>7 — Pièges généraux à éviter sur la BRVM</h2>
-    <ul class="pitfalls">
-      <li>Ne jamais investir en bourse de l'argent dont vous pourriez avoir besoin dans les 12 mois.</li>
-      <li>Ne pas confondre frais de courtage (par transaction) et frais de conservation (annuels) : les deux s'additionnent.</li>
-      <li>Éviter les SGI sans plateforme digitale : passer des ordres uniquement par email est risqué et lent.</li>
-      <li>Ne pas signer un contrat de gestion sous mandat sans lire le taux réel annuel — il peut atteindre 8 %/an chez certaines SGI.</li>
-      <li>Attention aux frais de conservation trimestriels (0,5 % × 4 = 2 %/an) qui érodent un petit portefeuille.</li>
-      <li>Ne pas concentrer son capital sur une seule action : diversifier sur 3 à 5 valeurs minimum dès 200 000 FCFA.</li>
-      <li>Vérifier que la SGI est bien agréée par l'AMF-UMOA (liste officielle sur amf-umoa.org).</li>
-      <li>Ne pas paniquer à la première baisse : la BRVM est un marché de long terme — horizon recommandé de 3 à 5 ans.</li>
-    </ul>
-
-    <h2>8 — Daba Finance : une alternative digitale, mais pas une SGI<span class="daba-badge">NON AGRÉÉE DIRECTEMENT</span></h2>
-    <p>Daba Finance est une application d'investissement, pas une Société de Gestion et d'Intermédiation agréée par l'AMF-UMOA. Elle opère via une SGI partenaire agréée, qui exécute les ordres en coulisse. Son taux de courtage n'est pas publié officiellement, mais peut être approché selon les clients consultés.</p>
-
-    <table>
-      <thead><tr><th>Critère</th><th>Daba Finance</th><th>SGI traditionnelles</th><th>Avantage</th></tr></thead>
-      <tbody>
-        <tr><td>Dépôt minimum</td><td>10 000 FCFA</td><td>100 000 – 1 000 000 FCFA</td><td>Daba Finance</td></tr>
-        <tr><td>Application mobile</td><td>Oui (iOS &amp; Android)</td><td>Rare / inexistante</td><td>Daba Finance</td></tr>
-        <tr><td>Ouverture de compte</td><td>Digitale, &lt; 10 min</td><td>Souvent en agence</td><td>Daba Finance</td></tr>
-        <tr><td>Commission de courtage</td><td><b>≈2,00 %</b> (jusqu'à 4,5 % sur petit ordre — minimum forfaitaire probable), non publiée officiellement, confirmée par des clients consultés</td><td>0,40 % – 1,00 % (grilles homologuées)</td><td>SGI</td></tr>
-        <tr><td>Frais de plate-forme</td><td>≈ 200 – 250 FCFA / ordre</td><td>Non applicable</td><td>SGI</td></tr>
-        <tr><td>Frais d'activation du fonds</td><td>2 500 FCFA (une seule fois)</td><td>Non applicable</td><td>SGI</td></tr>
-        <tr><td>Accès multi-devises (USD/EUR)</td><td>Oui</td><td>FCFA uniquement</td><td>Daba Finance</td></tr>
-        <tr><td>Accès diaspora / non-résidents</td><td>Oui, 100 % digital</td><td>Souvent limité</td><td>Daba Finance</td></tr>
-        <tr><td>Conseil personnalisé</td><td>Non (automatisé)</td><td>Oui</td><td>SGI</td></tr>
-        <tr><td>Gestion sous mandat</td><td>Non disponible</td><td>Disponible</td><td>SGI</td></tr>
-        <tr><td>Frais de dépôt / retrait</td><td>1,80 % (Standard &amp; Pro)</td><td>Généralement inclus</td><td>SGI</td></tr>
-      </tbody>
-    </table>
+  </div>
 
 
-    <div class="note"><b>Pour quel profil ?</b> Daba Finance reste pertinente pour un premier investissement modeste ou pour la diaspora sans accès facile à une agence — mais son coût de courtage (≈2 % selon les clients consultés, non publié officiellement) doit être comparé honnêtement aux SGI traditionnelles avant de conclure qu'elle est la moins chère : sur un ordre de taille moyenne, une SGI à 0,65 %–1 % de courtage revient souvent moins cher, malgré un dépôt minimum plus élevé.</div>
+  <p>
+    <b>
+      Alternative pour le meilleur digital :
+      EDC Investment Corporation
+    </b>
+    — mais prévoir d'abord 1 000 000 FCFA de capital.
 
-    <h2>9 — Glossaire</h2>
-    <dl class="glossary">
-      <dt>AMF-UMOA</dt><dd>Autorité des Marchés Financiers de l'Union Monétaire Ouest Africaine. Régulateur des 8 pays UEMOA — a remplacé le CREPMF le 1er octobre 2022.</dd>
-      <dt>SGI</dt><dd>Société de Gestion et d'Intermédiation. Seul intermédiaire habilité à exécuter des ordres sur la BRVM pour le compte de tiers.</dd>
-      <dt>DC/BR</dt><dd>Dépositaire Central / Banque de Règlement. Conserve les titres et assure le règlement-livraison des transactions (indépendant des SGI).</dd>
-      <dt>Commission de courtage</dt><dd>Rémunération de la SGI pour l'exécution d'un ordre, en % du montant de la transaction.</dd>
-      <dt>Frais de garde / conservation</dt><dd>Frais périodiques pour la conservation des titres en portefeuille, calculés sur la valeur du portefeuille.</dd>
-      <dt>Frais de tenue de compte</dt><dd>Frais administratifs forfaitaires, distincts des frais de garde.</dd>
-      <dt>Gestion sous mandat</dt><dd>Service par lequel un investisseur confie la gestion active de son portefeuille à une SGI.</dd>
-      <dt>Marché primaire / secondaire</dt><dd>Le primaire concerne les nouvelles émissions (IPO, obligations nouvelles) ; le secondaire, l'échange de titres déjà émis — c'est le marché coté quotidien.</dd>
-      <dt>Homologation tarifaire</dt><dd>Procédure par laquelle l'AMF-UMOA valide officiellement la grille tarifaire d'une SGI avant son application.</dd>
-      <dt>Personne Physique (PP) / Personne Morale (PM)</dt><dd>Distingue un client individuel d'une entité juridique (entreprise, association) pour la tarification.</dd>
-      <dt>Délai de règlement-livraison</dt><dd>Délai entre l'exécution d'un ordre et le transfert effectif des titres et des fonds. Sur la BRVM : J+3.</dd>
-      <dt>Fonds de Garantie du Marché (FGM)</dt><dd>Mécanisme géré par l'AMF-UMOA qui protège les investisseurs en cas de défaillance d'une SGI.</dd>
-    </dl>
+    Stratégie possible :
+    démarrer avec BICIBourse à 200K,
+    épargner 50K/mois pendant 18 mois
+    (soit 900K),
+    puis migrer vers EDC une fois le seuil atteint —
+    un délai estimé de 18 à 20 mois
+    à ce rythme d'épargne.
+  </p>
 
-    <h2>10 — Questions fréquentes</h2>
-    <div class="faq-item">
-      <p class="faq-q">Quel est le capital minimum pour commencer à investir sur la BRVM ?</p>
-      <p class="faq-a">Cela dépend fortement du prestataire — la fourchette est large. Daba Finance accepte dès 10 000 FCFA. Parmi les SGI traditionnelles, BICIBourse n'exige aucun minimum (200 000 FCFA conseillés) et Coris Bourse demande 50 000 FCFA, alors qu'EDC Investment Corporation et Atlantique Finance exigent respectivement 1 000 000 et 2 000 000 FCFA. Voir le <a href="#tableau-frais" style="color:var(--accent);">tableau complet en section 1</a>.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Puis-je investir depuis l'étranger, en tant que membre de la diaspora ?</p>
-      <p class="faq-a">Oui. Daba Finance est 100 % digital et multi-devises. La plupart des SGI traditionnelles restent accessibles à distance mais demandent souvent des démarches plus longues pour un non-résident — Coris Bourse fait exception, avec une ouverture de compte directement en ligne sur son site et une application mobile (My Coris Bourse) pour le suivi ; l'approvisionnement par Mobile Money y est annoncé sur leur site mais reste, à notre connaissance, un projet en cours de déploiement plutôt qu'une fonctionnalité pleinement active.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Mes fonds sont-ils protégés en cas de défaillance d'une SGI ?</p>
-      <p class="faq-a">Oui. Les titres sont conservés par le DC/BR, indépendant des SGI, et le Fonds de Garantie du Marché intervient en cas de défaillance d'un intermédiaire.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Daba Finance est-elle une SGI agréée par l'AMF-UMOA ?</p>
-      <p class="faq-a">Non, pas directement. Daba Finance est une plateforme d'investissement qui opère via une SGI partenaire agréée, qui exécute réellement les ordres sur la BRVM.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Peut-on négocier les frais avec une SGI ?</p>
-      <p class="faq-a">Pour les portefeuilles importants (généralement au-delà de 5 000 000 FCFA), certaines SGI accordent des conditions préférentielles sur les frais de garde, dans la limite des plafonds homologués.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Comment changer de SGI ou transférer son portefeuille ?</p>
-      <p class="faq-a">En ouvrant un compte auprès de la nouvelle SGI puis en initiant un transfert de titres, qui engendre des frais côté SGI de destination (généralement entre 5 000 et 34 000 FCFA par ligne selon la SGI).</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Les dividendes sont-ils automatiquement crédités ?</p>
-      <p class="faq-a">Oui, via le DC/BR, après l'assemblée générale et le détachement du coupon — sans démarche particulière de l'investisseur.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Où trouver les grilles tarifaires officielles des SGI ?</p>
-      <p class="faq-a">Sur le site de l'AMF-UMOA (décisions d'homologation), sur les sites officiels des SGI quand ils existent, ou en agence.</p>
-    </div>
+
+  <!-- ========================================================= -->
+  <!-- 7 — PIÈGES                                                -->
+  <!-- ========================================================= -->
+
+  <h2>
+    7 — Pièges généraux à éviter sur la BRVM
+  </h2>
+
+
+  <ul class="pitfalls">
+
+    <li>
+      Ne jamais investir en bourse de l'argent
+      dont vous pourriez avoir besoin dans les 12 mois.
+    </li>
+
+    <li>
+      Ne pas confondre frais de courtage
+      (par transaction)
+      et frais de conservation
+      (annuels) :
+      les deux s'additionnent.
+    </li>
+
+    <li>
+      Éviter les SGI sans plateforme digitale :
+      passer des ordres uniquement par email
+      est risqué et lent.
+    </li>
+
+    <li>
+      Ne pas signer un contrat de gestion sous mandat
+      sans lire le taux réel annuel —
+      il peut atteindre 8 %/an chez certaines SGI.
+    </li>
+
+    <li>
+      Attention aux frais de conservation trimestriels
+      (0,5 % × 4 = 2 %/an)
+      qui érodent un petit portefeuille.
+    </li>
+
+    <li>
+      Ne pas concentrer son capital sur une seule action :
+      diversifier sur 3 à 5 valeurs minimum
+      dès 200 000 FCFA.
+    </li>
+
+    <li>
+      Vérifier que la SGI est bien agréée
+      par l'AMF-UMOA
+      (liste officielle sur amf-umoa.org).
+    </li>
+
+    <li>
+      Ne pas paniquer à la première baisse :
+      la BRVM est un marché de long terme —
+      horizon recommandé de 3 à 5 ans.
+    </li>
+
+  </ul>
+
+
+  <!-- ========================================================= -->
+  <!-- 8 — DABA                                                  -->
+  <!-- ========================================================= -->
+
+  <h2>
+    8 — Daba Finance :
+    une alternative digitale,
+    mais pas une SGI
+
+    <span class="daba-badge">
+      NON AGRÉÉE DIRECTEMENT
+    </span>
+  </h2>
+
+
+  <p>
+    Daba Finance est une application d'investissement,
+    pas une Société de Gestion et d'Intermédiation agréée
+    par l'AMF-UMOA.
+
+    Elle opère via une SGI partenaire agréée,
+    qui exécute les ordres en coulisse.
+
+    Son taux de courtage n'est pas publié officiellement,
+    mais peut être approché selon les clients consultés.
+  </p>
+
+
+  <table>
+
+    <thead>
+
+      <tr>
+        <th>Critère</th>
+        <th>Daba Finance</th>
+        <th>SGI traditionnelles</th>
+        <th>Avantage</th>
+      </tr>
+
+    </thead>
+
+
+    <tbody>
+
+      <tr>
+        <td>Dépôt minimum</td>
+        <td>10 000 FCFA</td>
+        <td>100 000 – 1 000 000 FCFA</td>
+        <td>Daba Finance</td>
+      </tr>
+
+      <tr>
+        <td>Application mobile</td>
+        <td>Oui (iOS &amp; Android)</td>
+        <td>Rare / inexistante</td>
+        <td>Daba Finance</td>
+      </tr>
+
+      <tr>
+        <td>Ouverture de compte</td>
+        <td>Digitale, &lt; 10 min</td>
+        <td>Souvent en agence</td>
+        <td>Daba Finance</td>
+      </tr>
+
+      <tr>
+        <td>Commission de courtage</td>
+
+        <td>
+          <b>≈2,00 %</b>
+          (jusqu'à 4,5 % sur petit ordre —
+          minimum forfaitaire probable),
+          non publiée officiellement,
+          confirmée par des clients consultés
+        </td>
+
+        <td>
+          0,40 % – 1,00 %
+          (grilles homologuées)
+        </td>
+
+        <td>SGI</td>
+      </tr>
+
+      <tr>
+        <td>Frais de plate-forme</td>
+        <td>≈ 200 – 250 FCFA / ordre</td>
+        <td>Non applicable</td>
+        <td>SGI</td>
+      </tr>
+
+      <tr>
+        <td>Frais d'activation du fonds</td>
+        <td>2 500 FCFA (une seule fois)</td>
+        <td>Non applicable</td>
+        <td>SGI</td>
+      </tr>
+
+      <tr>
+        <td>Accès multi-devises (USD/EUR)</td>
+        <td>Oui</td>
+        <td>FCFA uniquement</td>
+        <td>Daba Finance</td>
+      </tr>
+
+      <tr>
+        <td>Accès diaspora / non-résidents</td>
+        <td>Oui, 100 % digital</td>
+        <td>Souvent limité</td>
+        <td>Daba Finance</td>
+      </tr>
+
+      <tr>
+        <td>Conseil personnalisé</td>
+        <td>Non (automatisé)</td>
+        <td>Oui</td>
+        <td>SGI</td>
+      </tr>
+
+      <tr>
+        <td>Gestion sous mandat</td>
+        <td>Non disponible</td>
+        <td>Disponible</td>
+        <td>SGI</td>
+      </tr>
+
+      <tr>
+        <td>Frais de dépôt / retrait</td>
+        <td>1,80 % (Standard &amp; Pro)</td>
+        <td>Généralement inclus</td>
+        <td>SGI</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+  <div class="note">
+
+    <b>Pour quel profil ?</b>
+
+    Daba Finance reste pertinente pour un premier investissement
+    modeste ou pour la diaspora sans accès facile à une agence —
+    mais son coût de courtage
+    (≈2 % selon les clients consultés, non publié officiellement)
+    doit être comparé honnêtement aux SGI traditionnelles
+    avant de conclure qu'elle est la moins chère :
+
+    sur un ordre de taille moyenne,
+    une SGI à 0,65 %–1 % de courtage revient souvent moins cher,
+    malgré un dépôt minimum plus élevé.
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- 9 — GLOSSAIRE                                             -->
+  <!-- ========================================================= -->
+
+  <h2>
+    9 — Glossaire
+  </h2>
+
+
+  <dl class="glossary">
+
+    <dt>AMF-UMOA</dt>
+
+    <dd>
+      Autorité des Marchés Financiers
+      de l'Union Monétaire Ouest Africaine.
+      Régulateur des 8 pays UEMOA —
+      a remplacé le CREPMF le 1er octobre 2022.
+    </dd>
+
+
+    <dt>SGI</dt>
+
+    <dd>
+      Société de Gestion et d'Intermédiation.
+      Seul intermédiaire habilité à exécuter
+      des ordres sur la BRVM pour le compte de tiers.
+    </dd>
+
+
+    <dt>DC/BR</dt>
+
+    <dd>
+      Dépositaire Central / Banque de Règlement.
+      Conserve les titres et assure le règlement-livraison
+      des transactions
+      (indépendant des SGI).
+    </dd>
+
+
+    <dt>Commission de courtage</dt>
+
+    <dd>
+      Rémunération de la SGI pour l'exécution d'un ordre,
+      en % du montant de la transaction.
+    </dd>
+
+
+    <dt>Frais de garde / conservation</dt>
+
+    <dd>
+      Frais périodiques pour la conservation des titres
+      en portefeuille,
+      calculés sur la valeur du portefeuille.
+    </dd>
+
+
+    <dt>Frais de tenue de compte</dt>
+
+    <dd>
+      Frais administratifs forfaitaires,
+      distincts des frais de garde.
+    </dd>
+
+
+    <dt>Gestion sous mandat</dt>
+
+    <dd>
+      Service par lequel un investisseur confie
+      la gestion active de son portefeuille à une SGI.
+    </dd>
+
+
+    <dt>Marché primaire / secondaire</dt>
+
+    <dd>
+      Le primaire concerne les nouvelles émissions
+      (IPO, obligations nouvelles) ;
+      le secondaire, l'échange de titres déjà émis —
+      c'est le marché coté quotidien.
+    </dd>
+
+
+    <dt>Homologation tarifaire</dt>
+
+    <dd>
+      Procédure par laquelle l'AMF-UMOA valide officiellement
+      la grille tarifaire d'une SGI avant son application.
+    </dd>
+
+
+    <dt>Personne Physique (PP) / Personne Morale (PM)</dt>
+
+    <dd>
+      Distingue un client individuel
+      d'une entité juridique
+      (entreprise, association)
+      pour la tarification.
+    </dd>
+
+
+    <dt>Délai de règlement-livraison</dt>
+
+    <dd>
+      Délai entre l'exécution d'un ordre
+      et le transfert effectif des titres et des fonds.
+      Sur la BRVM : J+3.
+    </dd>
+
+
+    <dt>Fonds de Garantie du Marché (FGM)</dt>
+
+    <dd>
+      Mécanisme géré par l'AMF-UMOA
+      qui protège les investisseurs
+      en cas de défaillance d'une SGI.
+    </dd>
+
+  </dl>
+
+
+  <!-- ========================================================= -->
+  <!-- 10 — FAQ                                                  -->
+  <!-- ========================================================= -->
+
+  <h2>
+    10 — Questions fréquentes
+  </h2>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Quel est le capital minimum pour commencer
+      à investir sur la BRVM ?
+    </p>
+
+    <p class="faq-a">
+      Cela dépend fortement du prestataire —
+      la fourchette est large.
+
+      Daba Finance accepte dès 10 000 FCFA.
+
+      Parmi les SGI traditionnelles,
+      BICIBourse n'exige aucun minimum
+      (200 000 FCFA conseillés)
+      et Coris Bourse demande 50 000 FCFA,
+      alors qu'EDC Investment Corporation
+      et Atlantique Finance exigent respectivement
+      1 000 000 et 2 000 000 FCFA.
+
+      Voir le
+      <a
+        href="#tableau-frais"
+        style="color:var(--accent);"
+      >
+        tableau complet en section 1
+      </a>.
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Puis-je investir depuis l'étranger,
+      en tant que membre de la diaspora ?
+    </p>
+
+    <p class="faq-a">
+      Oui.
+
+      Daba Finance est 100 % digital et multi-devises.
+
+      La plupart des SGI traditionnelles restent accessibles
+      à distance mais demandent souvent des démarches plus longues
+      pour un non-résident —
+
+      Coris Bourse fait exception,
+      avec une ouverture de compte directement en ligne
+      sur son site et une application mobile
+      (My Coris Bourse) pour le suivi ;
+
+      l'approvisionnement par Mobile Money y est annoncé
+      sur leur site mais reste,
+      à notre connaissance,
+      un projet en cours de déploiement
+      plutôt qu'une fonctionnalité pleinement active.
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Mes fonds sont-ils protégés
+      en cas de défaillance d'une SGI ?
+    </p>
+
+    <p class="faq-a">
+      Oui.
+
+      Les titres sont conservés par le DC/BR,
+      indépendant des SGI,
+      et le Fonds de Garantie du Marché intervient
+      en cas de défaillance d'un intermédiaire.
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Daba Finance est-elle une SGI agréée
+      par l'AMF-UMOA ?
+    </p>
+
+    <p class="faq-a">
+      Non, pas directement.
+
+      Daba Finance est une plateforme d'investissement
+      qui opère via une SGI partenaire agréée,
+      qui exécute réellement les ordres sur la BRVM.
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Peut-on négocier les frais avec une SGI ?
+    </p>
+
+    <p class="faq-a">
+      Pour les portefeuilles importants
+      (généralement au-delà de 5 000 000 FCFA),
+      certaines SGI accordent des conditions préférentielles
+      sur les frais de garde,
+      dans la limite des plafonds homologués.
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Comment changer de SGI
+      ou transférer son portefeuille ?
+    </p>
+
+    <p class="faq-a">
+      En ouvrant un compte auprès de la nouvelle SGI
+      puis en initiant un transfert de titres,
+      qui engendre des frais côté SGI de destination
+      (généralement entre 5 000 et 34 000 FCFA par ligne
+      selon la SGI).
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Les dividendes sont-ils automatiquement crédités ?
+    </p>
+
+    <p class="faq-a">
+      Oui, via le DC/BR,
+      après l'assemblée générale et le détachement du coupon —
+      sans démarche particulière de l'investisseur.
+    </p>
+
+  </div>
+
+
+  <div class="faq-item">
+
+    <p class="faq-q">
+      Où trouver les grilles tarifaires officielles des SGI ?
+    </p>
+
+    <p class="faq-a">
+      Sur le site de l'AMF-UMOA
+      (décisions d'homologation),
+      sur les sites officiels des SGI quand ils existent,
+      ou en agence.
+    </p>
+
+  </div>
+
 </Layout>
 
-<style>
-:root {
-    --bg: #FFFFFF; --panel: #FFFFFF; --panel-alt: #F4F7FB; --border: #D9E0EA; --row-border: #EEF2F7;
-    --blue: #003DA5; --blue-dark: #00286E; --green: #00843D; --navy: #003DA5; --text: #10182B; --text-muted: #3D4759; --label: #64708A;
-    --accent: #00843D; --up: #00843D; --down: #C0392B;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, sans-serif; }
-  a { color: inherit; text-decoration: none; }
-  .wrap { width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-  .topbar { width: 100%; background: var(--navy); }
-  .topbar-inner { max-width: 1000px; margin: 0 auto; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
-  .brand { color: #fff; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; }
-  .col { width: 100%; max-width: 1000px; padding: 28px 24px 80px; }
-  .breadcrumb { font-size: 12px; color: var(--label); margin-bottom: 14px; }
-  h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600; color: var(--navy); margin: 0 0 8px; letter-spacing: -0.01em; line-height: 1.15; }
-  .dek { font-size: 15px; color: var(--text-muted); max-width: 720px; margin: 0 0 20px; line-height: 1.6; }
-  h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--navy); margin: 40px 0 12px; padding-top: 18px; border-top: 1px solid var(--border); }
-  h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin: 24px 0 8px; }
-  p { font-size: 14px; line-height: 1.65; color: var(--text-muted); max-width: 720px; margin: 0 0 14px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; border: 1px solid var(--border); background: var(--panel); font-size: 13px; }
-  th { background: #F7F9FB; text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--label); text-transform: uppercase; border-bottom: 1px solid var(--border); }
-  td { padding: 10px 12px; border-bottom: 1px solid var(--row-border); vertical-align: top; }
-  tr.rank1 td:nth-child(2) { font-weight: 700; color: var(--accent); }
-  .note { background: var(--panel); border: 1px solid var(--border); padding: 16px 18px; font-size: 13px; color: var(--text-muted); margin: 16px 0; }
-  .note b { color: var(--navy); }
-  .verdict { background: #F6EFE0; border: 1px solid #C7D9FB; padding: 20px 22px; margin: 18px 0; }
-  .verdict h3 { margin-top: 0; color: var(--accent); }
 
-  /* Calculatrice et simulateur : même fond éditorial que le verdict BICIBourse. */
-  .tool-panel {
-    background: #F6EFE0;
-    border: 1px solid #D8C9AA;
-    padding: 20px 22px;
+<style>
+
+  :root {
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --panel-alt: #F4F7FB;
+    --border: #D9E0EA;
+    --row-border: #EEF2F7;
+
+    --blue: #003DA5;
+    --blue-dark: #00286E;
+    --green: #00843D;
+    --navy: #003DA5;
+
+    --text: #10182B;
+    --text-muted: #3D4759;
+    --label: #64708A;
+
+    --accent: #00843D;
+    --up: #00843D;
+    --down: #C0392B;
+  }
+
+
+  * {
+    box-sizing: border-box;
+  }
+
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+      'IBM Plex Sans',
+      system-ui,
+      sans-serif;
+  }
+
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+
+  .wrap {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  .topbar {
+    width: 100%;
+    background: var(--navy);
+  }
+
+
+  .topbar-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 12px 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  .brand {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+  }
+
+
+  .col {
+    width: 100%;
+    max-width: 1000px;
+    padding: 28px 24px 80px;
+  }
+
+
+  .breadcrumb {
+    font-size: 12px;
+    color: var(--label);
+    margin-bottom: 14px;
+  }
+
+
+  h1 {
+    font-family:
+      'Source Serif 4',
+      Georgia,
+      serif;
+
+    font-size: 32px;
+    font-weight: 600;
+
+    color: var(--navy);
+
+    margin: 0 0 8px;
+
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+
+  .dek {
+    font-size: 15px;
+    color: var(--text-muted);
+
+    max-width: 720px;
+
+    margin: 0 0 20px;
+
+    line-height: 1.6;
+  }
+
+
+  h2 {
+    font-family:
+      'Source Serif 4',
+      Georgia,
+      serif;
+
+    font-size: 22px;
+    font-weight: 600;
+
+    color: var(--navy);
+
+    margin: 40px 0 12px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+  }
+
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+
+    color: var(--navy);
+
+    margin: 24px 0 8px;
+  }
+
+
+  p {
+    font-size: 14px;
+    line-height: 1.65;
+
+    color: var(--text-muted);
+
+    max-width: 720px;
+
+    margin: 0 0 14px;
+  }
+
+
+  table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 16px 0;
+
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    font-size: 13px;
+  }
+
+
+  th {
+    background: #F7F9FB;
+
+    text-align: left;
+
+    padding: 10px 12px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    color: var(--label);
+
+    text-transform: uppercase;
+
+    border-bottom: 1px solid var(--border);
+  }
+
+
+  td {
+    padding: 10px 12px;
+
+    border-bottom:
+      1px solid var(--row-border);
+
+    vertical-align: top;
+  }
+
+
+  tr.rank1 td:nth-child(2) {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+
+  .note {
+    background: var(--panel);
+
+    border:
+      1px solid var(--border);
+
+    padding: 16px 18px;
+
+    font-size: 13px;
+
+    color: var(--text-muted);
+
     margin: 16px 0;
   }
-  .tool-panel table {
-    background: rgba(255,255,255,0.72);
+
+
+  .note b {
+    color: var(--navy);
   }
+
+
+  .verdict {
+    background: #F6EFE0;
+
+    border:
+      1px solid #C7D9FB;
+
+    padding: 20px 22px;
+
+    margin: 18px 0;
+  }
+
+
+  .verdict h3 {
+    margin-top: 0;
+    color: var(--accent);
+  }
+
+
+  /* ======================================================= */
+  /* CALCULATRICE + SIMULATEUR                               */
+  /* ======================================================= */
+
+  .tool-panel {
+    background: #F6EFE0;
+
+    border:
+      1px solid #D8C9AA;
+
+    padding: 20px 22px;
+
+    margin: 16px 0;
+  }
+
+
+  .tool-panel table {
+    background:
+      rgba(255,255,255,0.72);
+  }
+
+
   .tool-panel input,
   .tool-panel select {
     background: #FFFFFF;
   }
-  .calc-table td:first-child { color: var(--text-muted); }
-  .calc-table td:last-child { text-align: right; font-weight: 600; }
-  .calc-total td { border-top: 2px solid var(--navy); font-weight: 700; color: var(--navy); }
-  .pitfalls li { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
-  .pitfalls { padding-left: 18px; max-width: 720px; }
-  .score-cell { text-align: center; }
 
-  .counter-badge { background: #0F2A4A; border: 1px solid #1E4673; padding: 10px 16px; font-size: 13px; color: #FFFFFF !important; margin: -8px 0 20px; display: inline-block; }
-  .counter-badge #counter-value { font-weight: 700; color: #FFFFFF !important; }
-  .filter-bar { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-  .filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .filter-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--label); text-transform: uppercase; margin-right: 4px; }
-  .chip { font-family: 'IBM Plex Sans'; font-size: 12px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--border); background: #FFFFFF; color: var(--text-muted); border-radius: 999px; cursor: pointer; transition: all .12s; }
-  .chip:hover { border-color: var(--accent); }
-  .chip.active { background: var(--accent); border-color: var(--accent); color: #FFFFFF; font-weight: 600; }
 
-  .sgi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
-  .directory-note { font-size: 13px !important; color: var(--label) !important; margin: -8px 0 14px; max-width: 900px; }
-  .sgi-footnote { font-size: 11px !important; line-height: 1.45 !important; color: var(--label) !important; margin-top: 8px; max-width: 900px; }
-  .sgi-card {
-    background: #10243E;
-    border: 1px solid #2B3A52;
-    padding: 14px 16px;
+  .calc-table td:first-child {
+    color: var(--text-muted);
+  }
+
+
+  .calc-table td:last-child {
+    text-align: right;
+    font-weight: 600;
+  }
+
+
+  .calc-total td {
+    border-top:
+      2px solid var(--navy);
+
+    font-weight: 700;
+
+    color: var(--navy);
+  }
+
+
+  .pitfalls {
+    padding-left: 18px;
+    max-width: 720px;
+  }
+
+
+  .pitfalls li {
+    font-size: 13px;
+    color: var(--text-muted);
+
+    line-height: 1.6;
+
+    margin-bottom: 8px;
+  }
+
+
+  .score-cell {
+    text-align: center;
+  }
+
+
+  /* ======================================================= */
+  /* COMPTEUR                                                */
+  /* ======================================================= */
+
+  .counter-badge {
+    background: #0F2A4A;
+
+    border:
+      1px solid #1E4673;
+
+    padding: 10px 16px;
+
+    font-size: 13px;
+
+    color: #FFFFFF !important;
+
+    margin: -8px 0 20px;
+
+    display: inline-block;
+  }
+
+
+  .counter-badge #counter-value {
+    font-weight: 700;
+    color: #FFFFFF !important;
+  }
+
+
+  /* ======================================================= */
+  /* FILTRES                                                 */
+  /* ======================================================= */
+
+  .filter-bar {
     display: flex;
     flex-direction: column;
-    gap: 7px;
-    transition: border-color .12s, transform .12s;
+
+    gap: 10px;
+
+    margin-top: 16px;
   }
-  .sgi-card:hover { border-color: #5F8F76; transform: translateY(-1px); }
-  .sgi-card-top { display: flex; align-items: center; justify-content: space-between; min-height: 22px; }
-  .sgi-card .flag { font-size: 18px; }
-  .badge-rank { font-size: 9px; font-weight: 700; color: #FFFFFF !important; background: #2D5A3F; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.3px; }
-  .badge-non-sgi { font-size: 9px; font-weight: 700; color: #FFFFFF !important; background: #8A6A1F; border: 1px solid #A9852D; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.3px; }
-  .sgi-card h3 { margin: 0; font-size: 15px; color: #FFFFFF !important; line-height: 1.25; }
-  .sgi-card .sgi-group { margin: -3px 0 0; font-size: 11px; color: #FFFFFF !important; line-height: 1.35; }
-  .sgi-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; margin-top: 1px; }
-  .sgi-stats div { display: flex; flex-direction: column; gap: 1px; }
-  .sgi-stats span { font-size: 9px; letter-spacing: 0.25px; color: #FFFFFF !important; text-transform: uppercase; line-height: 1.2; }
-  .sgi-stats b { font-size: 12px; color: #FFFFFF !important; font-weight: 600; line-height: 1.3; }
-  /* Toutes les écritures internes aux cartes restent blanches. */
+
+
+  .filter-group {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+  }
+
+
+  .filter-label {
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    color: var(--label);
+
+    text-transform: uppercase;
+
+    margin-right: 4px;
+  }
+
+
+  .chip {
+    font-family:
+      'IBM Plex Sans';
+
+    font-size: 12px;
+    font-weight: 500;
+
+    padding: 6px 12px;
+
+    border:
+      1px solid var(--border);
+
+    background: #FFFFFF;
+
+    color: var(--text-muted);
+
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    transition: all .12s;
+  }
+
+
+  .chip:hover {
+    border-color: var(--accent);
+  }
+
+
+  .chip.active {
+    background: var(--accent);
+
+    border-color: var(--accent);
+
+    color: #FFFFFF;
+
+    font-weight: 600;
+  }
+
+
+  /* ======================================================= */
+  /* ANNUAIRE SGI                                            */
+  /* ======================================================= */
+
+  .sgi-grid {
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        auto-fill,
+        minmax(240px, 1fr)
+      );
+
+    gap: 14px;
+
+    margin-top: 18px;
+  }
+
+
+  .directory-note {
+    font-size: 13px !important;
+
+    color:
+      var(--label) !important;
+
+    margin:
+      -8px 0 14px;
+
+    max-width: 900px;
+  }
+
+
+  .sgi-footnote {
+    font-size: 11px !important;
+
+    line-height: 1.45 !important;
+
+    color:
+      var(--label) !important;
+
+    margin-top: 8px;
+
+    max-width: 900px;
+  }
+
+
+  .sgi-card {
+    background: #10243E;
+
+    border:
+      1px solid #2B3A52;
+
+    padding: 14px 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    transition:
+      border-color .12s,
+      transform .12s;
+  }
+
+
+  .sgi-card:hover {
+    border-color: #5F8F76;
+
+    transform:
+      translateY(-1px);
+  }
+
+
+  .sgi-card-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 22px;
+  }
+
+
+  .sgi-card .flag {
+    font-size: 18px;
+  }
+
+
+  .badge-rank {
+    font-size: 9px;
+
+    font-weight: 700;
+
+    color:
+      #FFFFFF !important;
+
+    background: #2D5A3F;
+
+    padding: 2px 7px;
+
+    border-radius: 3px;
+
+    letter-spacing: 0.3px;
+  }
+
+
+  .badge-non-sgi {
+    font-size: 9px;
+
+    font-weight: 700;
+
+    color:
+      #FFFFFF !important;
+
+    background: #8A6A1F;
+
+    border:
+      1px solid #A9852D;
+
+    padding: 2px 7px;
+
+    border-radius: 3px;
+
+    letter-spacing: 0.3px;
+  }
+
+
+  .sgi-card h3 {
+    margin: 0;
+
+    font-size: 15px;
+
+    color:
+      #FFFFFF !important;
+
+    line-height: 1.25;
+  }
+
+
+  .sgi-card .sgi-group {
+    margin: -3px 0 0;
+
+    font-size: 11px;
+
+    color:
+      #FFFFFF !important;
+
+    line-height: 1.35;
+  }
+
+
+  .sgi-stats {
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap: 6px 10px;
+
+    margin-top: 1px;
+  }
+
+
+  .sgi-stats div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+  }
+
+
+  .sgi-stats span {
+    font-size: 9px;
+
+    letter-spacing: 0.25px;
+
+    color:
+      #FFFFFF !important;
+
+    text-transform: uppercase;
+
+    line-height: 1.2;
+  }
+
+
+  .sgi-stats b {
+    font-size: 12px;
+
+    color:
+      #FFFFFF !important;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+  }
+
+
+  /*
+   * IMPORTANT :
+   * toutes les écritures internes aux cartes
+   * restent blanches.
+   */
+
   .sgi-card,
   .sgi-card *,
   .sgi-card p,
@@ -952,55 +4474,287 @@ const optionLabel = (sgi) => {
   .sgi-card small,
   .sgi-card h3,
   .sgi-card a {
-    color: #FFFFFF !important;
+    color:
+      #FFFFFF !important;
   }
-  .sgi-card p[style*="font-size:11px"] { font-size: 10px !important; line-height: 1.4 !important; color: #FFFFFF !important; }
-  .sgi-link { margin-top: 2px; font-size: 11px; font-weight: 700; color: #FFFFFF !important; text-decoration: underline; text-underline-offset: 2px; }
-  .sgi-link:hover { color: #DDE8F5 !important; }
-  dl.glossary { margin: 16px 0; }
-  dl.glossary dt { font-weight: 700; color: var(--navy); font-size: 13px; margin-top: 12px; }
-  dl.glossary dd { margin: 2px 0 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; max-width: 700px; }
-  .faq-item { border-bottom: 1px solid var(--row-border); padding: 14px 0; }
-  .faq-q { font-weight: 700; color: var(--navy); font-size: 14px; margin: 0 0 4px; }
-  .faq-a { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 720px; }
-  .daba-badge { display: inline-block; background: #FFF4E5; color: #B45309; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-left: 8px; }
-  .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--label); }
+
+
+  .sgi-card p[style*="font-size:11px"] {
+    font-size:
+      10px !important;
+
+    line-height:
+      1.4 !important;
+
+    color:
+      #FFFFFF !important;
+  }
+
+
+  .sgi-link {
+    margin-top: 2px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color:
+      #FFFFFF !important;
+
+    text-decoration: underline;
+
+    text-underline-offset: 2px;
+  }
+
+
+  .sgi-link:hover {
+    color:
+      #DDE8F5 !important;
+  }
+
+
+  /* ======================================================= */
+  /* GLOSSAIRE                                               */
+  /* ======================================================= */
+
+  dl.glossary {
+    margin: 16px 0;
+  }
+
+
+  dl.glossary dt {
+    font-weight: 700;
+
+    color: var(--navy);
+
+    font-size: 13px;
+
+    margin-top: 12px;
+  }
+
+
+  dl.glossary dd {
+    margin: 2px 0 0;
+
+    font-size: 13px;
+
+    color: var(--text-muted);
+
+    line-height: 1.5;
+
+    max-width: 700px;
+  }
+
+
+  /* ======================================================= */
+  /* FAQ                                                     */
+  /* ======================================================= */
+
+  .faq-item {
+    border-bottom:
+      1px solid var(--row-border);
+
+    padding: 14px 0;
+  }
+
+
+  .faq-q {
+    font-weight: 700;
+
+    color: var(--navy);
+
+    font-size: 14px;
+
+    margin: 0 0 4px;
+  }
+
+
+  .faq-a {
+    font-size: 13px;
+
+    color: var(--text-muted);
+
+    line-height: 1.6;
+
+    margin: 0;
+
+    max-width: 720px;
+  }
+
+
+  .daba-badge {
+    display: inline-block;
+
+    background: #FFF4E5;
+
+    color: #B45309;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    padding: 3px 8px;
+
+    border-radius: 3px;
+
+    margin-left: 8px;
+  }
+
+
+  .disclaimer {
+    margin-top: 48px;
+
+    padding-top: 20px;
+
+    border-top:
+      1px solid var(--border);
+
+    font-size: 11px;
+
+    color: var(--label);
+  }
+
 </style>
 
+
 <script>
-  // Compteur de clics sortants vers les sites des SGI — via CounterAPI.dev.
-  // Config requise : créer un compte gratuit sur https://app.counterapi.dev, workspace "econozone".
-  const COUNTER_WORKSPACE = 'econozone';
-  const COUNTER_KEY = 'sgi-contact-clicks';
+
+  /*
+   * Compteur de clics sortants
+   * vers les sites des SGI.
+   */
+
+  const COUNTER_WORKSPACE =
+    'econozone';
+
+  const COUNTER_KEY =
+    'sgi-contact-clicks';
+
 
   async function loadCount() {
+
     try {
-      const res = await fetch(`https://api.counterapi.dev/v2/${COUNTER_WORKSPACE}/${COUNTER_KEY}`);
-      const data = await res.json();
-      document.getElementById('counter-value').textContent = (data.data && data.data.up_count) || 0;
+
+      const res =
+        await fetch(
+          `https://api.counterapi.dev/v2/${COUNTER_WORKSPACE}/${COUNTER_KEY}`
+        );
+
+
+      const data =
+        await res.json();
+
+
+      document
+        .getElementById(
+          'counter-value'
+        )
+        .textContent =
+          (
+            data.data &&
+            data.data.up_count
+          ) || 0;
+
     } catch (e) {
-      document.getElementById('counter-value').textContent = '—';
+
+      document
+        .getElementById(
+          'counter-value'
+        )
+        .textContent =
+          '—';
+
     }
+
   }
+
 
   async function incrementCount() {
+
     try {
-      const res = await fetch(`https://api.counterapi.dev/v2/${COUNTER_WORKSPACE}/${COUNTER_KEY}/up`);
-      const data = await res.json();
-      const el = document.getElementById('counter-value');
-      if (el) el.textContent = (data.data && data.data.up_count) || '—';
-    } catch (e) { /* échec silencieux — ne bloque jamais le clic du visiteur vers la SGI */ }
+
+      const res =
+        await fetch(
+          `https://api.counterapi.dev/v2/${COUNTER_WORKSPACE}/${COUNTER_KEY}/up`
+        );
+
+
+      const data =
+        await res.json();
+
+
+      const el =
+        document.getElementById(
+          'counter-value'
+        );
+
+
+      if (el) {
+
+        el.textContent =
+          (
+            data.data &&
+            data.data.up_count
+          ) || '—';
+
+      }
+
+    } catch (e) {
+
+      /*
+       * Échec silencieux :
+       * ne bloque jamais le clic
+       * vers le site de la SGI.
+       */
+
+    }
+
   }
 
-  document.querySelectorAll('.contact-click').forEach(function (link) {
-    link.addEventListener('click', function () { incrementCount(); });
-  });
+
+  document
+    .querySelectorAll(
+      '.contact-click'
+    )
+    .forEach(function (link) {
+
+      link.addEventListener(
+        'click',
+        function () {
+
+          incrementCount();
+
+        }
+      );
+
+    });
+
 
   loadCount();
 
-  // Sécurité d'affichage : les cartes SGI sont sombres, donc tout leur texte
-  // est forcé en blanc au niveau inline après le rendu.
-  document.querySelectorAll('.sgi-card, .sgi-card *').forEach(function (el) {
-    el.style.setProperty('color', '#FFFFFF', 'important');
-  });
+
+  /*
+   * Sécurité supplémentaire :
+   * le Layout global contient des règles
+   * color:#000 !important pour le texte courant.
+   *
+   * Les cartes SGI ayant un fond sombre,
+   * on impose ici le blanc au niveau inline
+   * après le rendu.
+   */
+
+  document
+    .querySelectorAll(
+      '.sgi-card, .sgi-card *'
+    )
+    .forEach(function (el) {
+
+      el.style.setProperty(
+        'color',
+        '#FFFFFF',
+        'important'
+      );
+
+    });
+
 </script>
