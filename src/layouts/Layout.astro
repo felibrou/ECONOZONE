@@ -113,6 +113,22 @@ import Analytics from '@vercel/analytics/astro';
     .col h1, .col h2, .col h3, .col h4, .col h5, .col h6 {
       color: var(--blue) !important;
     }
+
+    /* Exception SGI : toutes les écritures des cartes restent blanches. */
+    .col .sgi-card,
+    .col .sgi-card *,
+    .col .sgi-card p,
+    .col .sgi-card span,
+    .col .sgi-card div,
+    .col .sgi-card b,
+    .col .sgi-card strong,
+    .col .sgi-card small,
+    .col .sgi-card h3,
+    .col .sgi-card a,
+    .col .sgi-card li,
+    .col .sgi-card td {
+      color: #FFFFFF !important;
+    }
     .col .source-line,
     .col .page-meta,
     .col .breadcrumb,
