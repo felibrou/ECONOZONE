@@ -62,7 +62,7 @@ const optionLabel = (sgi) => {
 
     <h2 id="calculatrice-ordre">1 — Calculatrice d'ordre BRVM : combien coûte réellement mon achat ou ma vente ?</h2>
     <p>La calculatrice répond à une question immédiate : <b>pour cet ordre précis, combien vais-je payer à l'achat ou recevoir net à la vente ?</b> Elle distingue le montant brut, le courtage de la SGI, les commissions BRVM et DC/BR ainsi que la taxe éventuellement observée sur le relevé.</p>
-    <div id="op-sim-box" style="background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin:16px 0;">
+    <div id="op-sim-box" class="tool-panel">
       <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
         <label style="font-size:13px; color:var(--text-muted);">Type d'opération<br>
           <select id="op-type" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); font-family:inherit;">
@@ -152,7 +152,7 @@ const optionLabel = (sgi) => {
 
     <h2 id="simulateur">2 — Simulateur : combien vous coûtent vraiment les frais de courtage ?</h2>
     <p>Un écart de 0,5 point de courtage semble minime sur une seule opération. Répété sur plusieurs années, il devient un vrai montant en FCFA — sélectionnez 2 à 4 SGI pour comparer leur coût cumulé côte à côte.</p>
-    <div id="sim-box" style="background:var(--panel); border:1px solid var(--border); padding:20px 22px; margin:16px 0;">
+    <div id="sim-box" class="tool-panel">
       <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;">
         <label style="font-size:13px; color:var(--text-muted);">Budget investi (FCFA)<br>
           <input id="sim-budget" type="number" value="500000" step="10000" style="margin-top:4px; padding:6px 10px; border:1px solid var(--border); width:160px; font-family:inherit;">
@@ -870,6 +870,21 @@ const optionLabel = (sgi) => {
   .note b { color: var(--navy); }
   .verdict { background: #F6EFE0; border: 1px solid #C7D9FB; padding: 20px 22px; margin: 18px 0; }
   .verdict h3 { margin-top: 0; color: var(--accent); }
+
+  /* Calculatrice et simulateur : même fond éditorial que le verdict BICIBourse. */
+  .tool-panel {
+    background: #F6EFE0;
+    border: 1px solid #D8C9AA;
+    padding: 20px 22px;
+    margin: 16px 0;
+  }
+  .tool-panel table {
+    background: rgba(255,255,255,0.72);
+  }
+  .tool-panel input,
+  .tool-panel select {
+    background: #FFFFFF;
+  }
   .calc-table td:first-child { color: var(--text-muted); }
   .calc-table td:last-child { text-align: right; font-weight: 600; }
   .calc-total td { border-top: 2px solid var(--navy); font-weight: 700; color: var(--navy); }
@@ -887,18 +902,28 @@ const optionLabel = (sgi) => {
   .chip.active { background: var(--accent); border-color: var(--accent); color: #FFFFFF; font-weight: 600; }
 
   .sgi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
-  .sgi-card { background: #FFFFFF; border: 1px solid var(--border); padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: border-color .12s; }
-  .sgi-card:hover { border-color: var(--accent); }
+  .sgi-card {
+    background: #10243E;
+    border: 1px solid #223B5A;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color .12s, transform .12s;
+  }
+  .sgi-card:hover { border-color: #5EA97A; transform: translateY(-1px); }
   .sgi-card-top { display: flex; align-items: center; justify-content: space-between; }
   .sgi-card .flag { font-size: 20px; }
-  .badge-rank { font-size: 10px; font-weight: 700; color: var(--accent); background: #F6EFE0; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.3px; }
-  .sgi-card h3 { margin: 0; font-size: 16px; color: var(--navy); }
-  .sgi-group { margin: -6px 0 0; font-size: 12px; color: var(--label); }
+  .badge-rank { font-size: 10px; font-weight: 700; color: #0B6B36; background: #EEF6F0; padding: 3px 8px; border-radius: 3px; letter-spacing: 0.3px; }
+  .sgi-card h3 { margin: 0; font-size: 16px; color: #FFFFFF !important; }
+  .sgi-card .sgi-group { margin: -6px 0 0; font-size: 12px; color: #C9D4E3 !important; }
   .sgi-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 2px; }
   .sgi-stats div { display: flex; flex-direction: column; gap: 2px; }
-  .sgi-stats span { font-size: 10px; letter-spacing: 0.3px; color: var(--label); text-transform: uppercase; }
-  .sgi-stats b { font-size: 13px; color: var(--text); font-weight: 600; }
-  .sgi-link { margin-top: auto; font-size: 12px; font-weight: 600; color: var(--accent); }
+  .sgi-stats span { font-size: 10px; letter-spacing: 0.3px; color: #9FB1C7 !important; text-transform: uppercase; }
+  .sgi-stats b { font-size: 13px; color: #FFFFFF !important; font-weight: 600; }
+  .sgi-card p { color: #DCE4EE !important; }
+  .sgi-link { margin-top: auto; font-size: 12px; font-weight: 700; color: #7ED39A !important; }
+  .sgi-link:hover { color: #A7E6BB !important; }
   dl.glossary { margin: 16px 0; }
   dl.glossary dt { font-weight: 700; color: var(--navy); font-size: 13px; margin-top: 12px; }
   dl.glossary dd { margin: 2px 0 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; max-width: 700px; }
