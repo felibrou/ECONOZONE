@@ -1,0 +1,243 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="ECONOZONE — L'Essentiel | Clôture BRVM — 23 septembre 2026">
+  <style>
+    .essentiel { max-width: 980px; margin: 0 auto; padding: 32px 22px 64px; }
+    .masthead { margin-bottom: 24px; }
+    .masthead h1 { margin-bottom: 8px; }
+    .edition-date { margin: 0; font-size: 1rem; color: #5c6470; }
+    .byline { margin: 12px 0 0; color: #1f344d; font-size: .9rem; }
+    .chapo { font-size: 1.08rem; line-height: 1.75; margin: 24px 0 30px; max-width: 860px; }
+    .hero-photo, .article-photo { margin: 28px 0 30px; }
+    .hero-photo img, .article-photo img { display: block; width: 100%; height: auto; max-height: 480px; object-fit: cover; border-radius: 5px; }
+    figcaption { margin-top: 8px; color: #667085; font-size: .82rem; line-height: 1.45; }
+    section { margin-top: 46px; }
+    section h2 { margin-bottom: 12px; }
+    .subtitle { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.1rem; line-height: 1.55; color: #344054; font-weight: 600; margin: 0 0 22px; max-width: 850px; }
+    .kpi-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 20px 0 26px; }
+    .kpi { border-top: 3px solid #0d47a1; padding: 12px 4px 8px; }
+    .kpi-label { font-size: .82rem; color: #667085; margin-bottom: 5px; }
+    .kpi-value { font-weight: 700; line-height: 1.45; }
+    .up { color: #18864b; font-weight: 700; }
+    .down { color: #c62828; font-weight: 700; }
+    .flat { color: #5f6368; font-weight: 600; }
+    .market-table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: .92rem; }
+    .market-table th { text-align: left; padding: 10px 8px; border-bottom: 2px solid #cfd6df; font-size: .82rem; }
+    .market-table td { padding: 11px 8px; border-bottom: 1px solid #e4e7ec; vertical-align: top; }
+    .highlight { border-left: 4px solid #0d47a1; background: #f6f8fb; padding: 18px 20px; margin: 24px 0; }
+    .highlight h3 { margin-top: 0; }
+    .breadth { margin: 25px 0; padding: 20px; border: 1px solid #dde3ea; border-radius: 8px; }
+    .breadth-bar { display: flex; height: 22px; border-radius: 4px; overflow: hidden; margin: 12px 0 8px; background: #edf0f4; }
+    .breadth-up { width: 4.26%; background: #18864b; }
+    .breadth-flat { width: 6.38%; background: #9aa4b2; }
+    .breadth-down { width: 89.36%; background: #c62828; }
+    .breadth-legend { display: flex; gap: 18px; flex-wrap: wrap; color: #667085; font-size: .82rem; }
+    .source-line { font-size: .82rem; color: #667085; margin-top: 12px; max-width: 900px; }
+    .source-line a, .sources a { color: #0d47a1; text-decoration: underline; }
+    .note { margin-top: 40px; padding: 18px 20px; background: #f6f8fb; border-left: 4px solid #0d47a1; line-height: 1.65; }
+    .sources { margin-top: 40px; padding-top: 22px; border-top: 1px solid #d9dee7; }
+    .sources h2 { font-size: 1.15rem; }
+    .sources li { margin-bottom: 10px; }
+    .disclaimer { margin-top: 28px; color: #667085; font-size: .82rem; line-height: 1.55; }
+    @media (max-width: 760px) {
+      .essentiel { padding: 24px 16px 48px; }
+      .kpi-strip { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .market-table { display: block; overflow-x: auto; white-space: normal; }
+    }
+    @media (max-width: 480px) { .kpi-strip { grid-template-columns: 1fr; } }
+  </style>
+
+  <article class="essentiel">
+    <header class="masthead">
+      <h1>L’ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉ</h1>
+      <p class="edition-date"><b>Mercredi 23 septembre 2026</b> — Clôture BRVM</p>
+      <p class="edition-date">Cours de clôture publiés à 15 h 15 GMT.</p>
+      <p class="byline"><b>Par la rédaction d’ECONOZONE</b></p>
+    </header>
+
+    <p class="chapo">
+      La correction de la BRVM s’est encore accentuée après la mi-journée : le Composite clôture en baisse de 3,66 %, avec seulement deux valeurs en hausse sur les 47 observées. Le nouveau cadre d’analyse de la dette adopté par le Fonds monétaire international et la Banque mondiale accordera davantage d’importance à la dette intérieure et aux garanties publiques, deux enjeux majeurs pour l’UEMOA. Au Nigeria, le lancement commercial d’un fonds de 300 millions de dollars consacré à l’énergie décentralisée ouvre une nouvelle voie de financement pour les mini-réseaux et le solaire hors réseau. Sur les marchés internationaux, le pétrole est remonté au-dessus de 100 dollars, tandis que les taux américains demeurent proches de 5 %.
+    </p>
+
+    <figure class="hero-photo">
+      <img src="https://www.brvm.org/sites/default/files/brvm-bannire-site-web-02_15.jpg" alt="Conférence de presse de présentation du bilan 2025 de la BRVM à Abidjan" loading="eager" />
+      <figcaption>Présentation du bilan 2025 de la Bourse Régionale des Valeurs Mobilières à Abidjan. Photo : BRVM.</figcaption>
+    </figure>
+
+    <section>
+      <h2>1. La BRVM perd 3,66 %, avec 41 valeurs en baisse à la clôture</h2>
+
+      <div class="kpi-strip" aria-label="Indicateurs BRVM à la clôture">
+        <div class="kpi"><div class="kpi-label">BRVM Composite</div><div class="kpi-value">516,29 pts<br /><span class="down">−3,66 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">BRVM 30</div><div class="kpi-value">250,21 pts<br /><span class="down">−3,65 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">BRVM Prestige</div><div class="kpi-value">193,18 pts<br /><span class="down">−2,70 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">Transactions</div><div class="kpi-value">2,36 milliards<br />de FCFA</div></div>
+      </div>
+
+      <p class="subtitle">La baisse s’est approfondie durant l’après-midi, particulièrement sur l’indice Prestige, tandis que Filtisac et NEI-CEDA ont conservé leurs gains.</p>
+
+      <p>La pression vendeuse observée à 12 h 30 s’est confirmée jusqu’à la clôture. Le BRVM Composite, qui reculait de 3,34 % à la mi-journée, termine à <span class="down">−3,66 %</span>. Le BRVM 30 passe de <span class="down">−3,25 %</span> à <span class="down">−3,65 %</span>, tandis que le BRVM Prestige subit la dégradation la plus nette, de <span class="down">−1,78 %</span> à <span class="down">−2,70 %</span>.</p>
+
+      <div class="breadth" aria-label="Répartition des valeurs en hausse, stables et en baisse">
+        <b>Largeur du marché : 47 valeurs observées</b>
+        <div class="breadth-bar" role="img" aria-label="2 valeurs en hausse, 4 stables et 41 en baisse">
+          <span class="breadth-up" style="width:4.26%"></span><span class="breadth-flat" style="width:8.51%"></span><span class="breadth-down" style="width:87.23%"></span>
+        </div>
+        <div class="breadth-legend"><span class="up">2 en hausse</span><span class="flat">4 stables</span><span class="down">41 en baisse</span></div>
+      </div>
+
+      <p>Les transactions ont progressé de 1,31 à <b>2,36 milliards de francs CFA</b>, soit une augmentation d’environ 81 % dans la seconde partie de séance. Le Composite a désormais perdu environ <b>6,76 % en trois séances</b>, par rapport aux 553,71 points enregistrés vendredi 18 septembre. Le mouvement reste compatible avec des prises de bénéfices après la très forte progression annuelle du marché, mais sa diffusion à presque toute la cote indique que les investisseurs réduisent leur exposition de manière généralisée.</p>
+
+      <h3>Radar BRVM — Top 5 / Flop 5</h3>
+      <p>Le classement est relatif : seules deux valeurs progressent. Les trois autres places du « Top 5 » correspondent aux actions stables.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Rang</th><th>Top 5</th><th>Variation</th><th>Commentaire analytique</th><th>Flop 5</th><th>Variation</th><th>Commentaire analytique</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Filtisac CI</td><td class="up">+4,71 %</td><td>Seule hausse industrielle significative dans une séance fortement baissière.</td><td>CFAO Motors CI</td><td class="down">−7,50 %</td><td>Limite quotidienne atteinte après une ouverture à 1 600 FCFA.</td></tr>
+          <tr><td>2</td><td>NEI-CEDA CI</td><td class="up">+4,57 %</td><td>Rebond confirmé jusqu’à la clôture après plusieurs séances volatiles.</td><td>Coris Bank International BF</td><td class="down">−7,50 %</td><td>Forte prise de bénéfices sur une banque auparavant recherchée.</td></tr>
+          <tr><td>3</td><td>Tractafric Motors CI</td><td class="flat">0,00 %</td><td>Stabilité du cours malgré 1 267 titres échangés.</td><td>Loterie nationale du Bénin</td><td class="down">−7,50 %</td><td>Limite de baisse atteinte à 3 700 FCFA.</td></tr>
+          <tr><td>4</td><td>EVIOSYS Packaging SIEM</td><td class="flat">0,00 %</td><td>Aucun échange enregistré ; stabilité sans véritable signal de résistance.</td><td>NSIA Banque CI</td><td class="down">−7,49 %</td><td>Nouvelle baisse sévère parmi les grandes banques ivoiriennes.</td></tr>
+          <tr><td>5</td><td>SICOR CI</td><td class="flat">0,00 %</td><td>Cours inchangé, mais absence de transactions.</td><td>SMB Côte d’Ivoire</td><td class="down">−7,48 %</td><td>Repli important après le récent détachement de son dividende.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Les banques concentrent une part importante de la correction. Toutes les filiales Bank of Africa clôturent en baisse, de <span class="down">−0,07 %</span> au Burkina Faso à <span class="down">−7,45 %</span> au Mali. Ecobank Transnational Incorporated chute de 7,25 % à 64 FCFA sur plus de 2,31 millions de titres.</p>
+
+      <p>Dans l’énergie, TotalEnergies Marketing Côte d’Ivoire perd 2,13 %, contre seulement 0,39 % pour TotalEnergies Marketing Sénégal. Vivo Energy Côte d’Ivoire termine à <span class="down">−7,48 %</span>, à la veille du détachement de son dividende net de 96,67 FCFA. La baisse du jour ne peut pas être assimilée à l’ajustement du coupon, puisque le titre ne deviendra ex-dividende que le 24 septembre.</p>
+
+      <div class="highlight">
+        <h3>Bridge Bank Group Côte d’Ivoire attendue à la cote le 24 septembre</h3>
+        <p>La première cotation de Bridge Bank Group Côte d’Ivoire doit porter à 48 le nombre de sociétés inscrites au marché des actions. Cette admission constitue un événement structurel positif pour la profondeur de la cote, même si elle intervient dans un environnement immédiat de forte volatilité.</p>
+      </div>
+
+      <p>Le signal de clôture reste nettement défavorable : les deux hausses du jour sont isolées et la baisse touche simultanément les banques, l’industrie, l’énergie, l’agro-industrie et les services publics.</p>
+
+      <p class="source-line">Sources : <a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels</a> · <a href="https://www.brvm.org/fr/esv/paiement-de-dividendes" target="_blank" rel="noopener noreferrer">BRVM — calendrier des dividendes</a> · <a href="https://www.brvm.org/fr/bridge-bank-group-cote-divoire-premiere-cotation" target="_blank" rel="noopener noreferrer">BRVM — première cotation de Bridge Bank Group CI</a>.</p>
+    </section>
+
+    <section>
+      <h2>2. Le FMI et la Banque mondiale changent leur méthode d’évaluation de la dette</h2>
+      <p class="subtitle">La dette intérieure, les garanties publiques et les risques climatiques pèseront davantage dans les diagnostics, avec des conséquences possibles sur les programmes et les financements concessionnels en Afrique de l’Ouest.</p>
+
+      <figure class="article-photo">
+        <img src="https://pbs.twimg.com/media/GpQPtqbX0AAgaDO.jpg" alt="Réunion internationale consacrée à la dette souveraine" loading="lazy" />
+        <figcaption>Réunion de la Table ronde mondiale sur la dette souveraine, organisée dans le cadre des réunions du FMI et de la Banque mondiale. Photo : FMI/Banque mondiale.</figcaption>
+      </figure>
+
+      <p>Les conseils d’administration du <b>Fonds monétaire international (FMI)</b> et de la Banque mondiale ont approuvé en septembre une réforme de leur cadre conjoint d’analyse de viabilité de la dette. Il s’agit de la première révision importante depuis 2017.</p>
+
+      <p>Le changement intervient dans un environnement dégradé : 14 % des pays à faible revenu suivis par les deux institutions sont déjà considérés en situation de surendettement, tandis que 33 % présentent un risque élevé. Le nouveau dispositif doit entrer en application au second semestre 2027, après une phase de préparation technique.</p>
+
+      <p>L’enjeu central pour l’Afrique de l’Ouest est la meilleure prise en compte de la <b>dette intérieure</b>. Les États de l’Union économique et monétaire ouest-africaine financent une part importante de leurs besoins sur le marché régional, auprès des banques, des assureurs et des fonds de pension. Une dette libellée en francs CFA évite le risque de change direct, mais elle peut absorber les ressources bancaires qui auraient autrement financé les entreprises et les ménages.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Réforme approuvée</th><th>Ce qui doit évoluer</th><th>Incidence possible en Afrique de l’Ouest</th></tr></thead>
+        <tbody>
+          <tr><td>Dette intérieure mieux intégrée</td><td>Analyse renforcée des obligations et bons détenus localement.</td><td>Meilleure mesure de la pression exercée sur les banques et le crédit privé.</td></tr>
+          <tr><td>Prévisions plus réalistes</td><td>Tests plus sévères sur la croissance, les recettes et les taux.</td><td>Réduction du risque de plans budgétaires fondés sur des hypothèses trop favorables.</td></tr>
+          <tr><td>Garanties et entreprises publiques</td><td>Meilleur suivi des engagements susceptibles de revenir à l’État.</td><td>Visibilité accrue sur les risques liés aux sociétés d’électricité, d’eau ou de transport.</td></tr>
+          <tr><td>Risques climatiques</td><td>Simulation des sécheresses, inondations et chocs agricoles.</td><td>Pertinence particulière pour le Sahel et les économies dépendantes du cacao ou du coton.</td></tr>
+          <tr><td>Transparence de la dette</td><td>Exigences accrues sur la publication et la couverture des données.</td><td>Confiance renforcée, mais possibilité de révéler des engagements mal comptabilisés.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Pour le Sénégal, dont les statistiques de dette font l’objet d’un examen approfondi, la réforme souligne l’importance d’une couverture exhaustive des engagements publics. En Côte d’Ivoire, au Bénin et au Togo, elle pourrait accroître l’attention portée aux garanties de l’État, aux partenariats public-privé et aux passifs des entreprises publiques. Au Burkina Faso, au Mali et au Niger, les dépenses de sécurité, les chocs climatiques et les besoins sociaux compliquent davantage l’équilibre entre consolidation budgétaire et investissement.</p>
+
+      <p>Ces conséquences constituent des implications probables de la nouvelle méthode, et non de nouvelles notations déjà attribuées à ces pays. Pour les populations, l’enjeu dépasse la seule comptabilité publique : une dette mieux mesurée peut prévenir une crise, mais un ajustement reposant sur la compression de l’éducation, de la santé ou de l’investissement peut dégrader le niveau de vie.</p>
+
+      <p class="source-line">Sources : <a href="https://www.imf.org/en/news/articles/2026/09/21/pr26296-lics-imf-executive-board-reviews-the-joint-world-bank-debt-sustainability-framework" target="_blank" rel="noopener noreferrer">FMI — révision du cadre de viabilité de la dette</a> · <a href="https://www.worldbank.org/en/news/statement/2026/09/21/world-bank-board-endorses-reforms-to-the-bank-fund-debt-sustainability-framework-f" target="_blank" rel="noopener noreferrer">Banque mondiale — approbation des réformes</a>.</p>
+    </section>
+
+    <section>
+      <h2>3. Le Nigeria lance un fonds de 300 millions de dollars pour les mini-réseaux</h2>
+      <p class="subtitle">Le dispositif veut transformer l’énergie décentralisée en actif finançable, mais la révision du montant annoncé et l’absence de projets détaillés appellent encore des clarifications.</p>
+
+      <figure class="article-photo">
+        <img src="https://www.africa50.com/fileadmin/_processed_/b/c/csm_Nigeria_DRE_Launch_6ed2e38ec8.jpeg" alt="Lancement du Nigeria Distributed Renewable Energy Fund" loading="lazy" />
+        <figcaption>Lancement commercial du Nigeria Distributed Renewable Energy Fund. Photo : Africa50.</figcaption>
+      </figure>
+
+      <p>Le Nigeria a procédé le 20 septembre au lancement commercial du <b>Distributed Renewable Energy Fund</b>, un fonds de 300 millions de dollars consacré aux mini-réseaux, aux installations solaires autonomes et aux autres infrastructures électriques décentralisées.</p>
+
+      <p>Le fonds est cogéré par la Nigeria Sovereign Investment Authority et Africa50. La Banque mondiale intervient comme partenaire fondateur, avec une contribution initiale de 25 millions de dollars provenant de l’Association internationale de développement, son guichet concessionnel destiné aux pays les plus pauvres.</p>
+
+      <p>Pour les jeunes entreprises du secteur, le principal apport pourrait être l’accès à des financements de plus longue durée. Les développeurs de mini-réseaux supportent des coûts initiaux élevés avant de générer des revenus mensuels auprès des ménages, des commerces et des ateliers. Des capitaux mieux adaptés peuvent financer les panneaux, les batteries, les compteurs intelligents, la maintenance et les équipements productifs utilisés par les clients.</p>
+
+      <p>Le dispositif peut ainsi favoriser tout un écosystème : installateurs locaux, sociétés de paiement, fabricants d’équipements, opérateurs de froid agricole et entreprises utilisant l’électricité pour la transformation ou la conservation des produits.</p>
+
+      <div class="highlight">
+        <h3>Un montant revu de 500 à 300 millions de dollars</h3>
+        <p>Le projet avait été présenté en mars 2025 comme un fonds de 500 millions de dollars, contre 300 millions au moment de son lancement commercial. Les communiqués disponibles n’expliquent pas encore cet écart et ne détaillent ni la liste des projets retenus, ni les décaissements réalisés, ni l’origine de la totalité des engagements.</p>
+      </div>
+
+      <p>Il s’agit donc d’un véhicule désormais lancé et prêt à investir, mais pas encore de 300 millions de dollars effectivement injectés dans des installations opérationnelles. Son succès dépendra de sa capacité à gérer le risque de change, à proposer des tarifs supportables et à sélectionner des projets dont les revenus permettent l’entretien durable des équipements.</p>
+
+      <p class="source-line">Sources : <a href="https://www.africa50.com/media/news/article/nigeria-dre-fund-reaches-commercial-launch-milestone-a-model-for-scaling-dre-investment-across-africa/" target="_blank" rel="noopener noreferrer">Africa50 — lancement commercial du Nigeria DRE Fund</a> · <a href="https://www.africa50.com/media/news/article/sia-seforall-isa-and-africa50-unveil-us700-million-dre-africa-platform-with-us500-million-dre-nigeria-fund/" target="_blank" rel="noopener noreferrer">Africa50 — annonce initiale de mars 2025</a>.</p>
+    </section>
+
+    <section>
+      <h2>4. Les taux américains proches de 5 % pèsent sur le financement ouest-africain</h2>
+
+      <div class="kpi-strip">
+        <div class="kpi"><div class="kpi-label">Nasdaq</div><div class="kpi-value"><span class="up">+0,45 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">S&amp;P 500</div><div class="kpi-value"><span class="flat">0,00 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">Dow Jones</div><div class="kpi-value"><span class="down">−0,36 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">US 10 ans</div><div class="kpi-value">4,95 %</div></div>
+      </div>
+
+      <p class="subtitle">La résistance des valeurs technologiques contraste avec des marchés asiatiques plus faibles, tandis que le coût du capital reste le signal le plus important pour l’Afrique de l’Ouest.</p>
+
+      <p>Le Nasdaq a terminé mardi sur un nouveau record, soutenu par les grandes valeurs technologiques, alors que le S&amp;P 500 est resté pratiquement inchangé et que le Dow Jones a reculé. Mercredi, le FTSE 100 gagnait environ 0,10 %, tandis que le Hang Seng reculait de 1,01 %.</p>
+
+      <p>La <b>Réserve fédérale américaine (Fed)</b> a relevé le 16 septembre sa <b>fourchette cible</b> de taux directeur à 3,75–4,00 %. Les marchés continuent d’envisager une nouvelle hausse, ce qui maintient le rendement de l’obligation américaine à dix ans autour de 4,95 %.</p>
+
+      <p>Pour les États ouest-africains, ce rendement constitue un plancher de comparaison. Si un investisseur peut obtenir près de 5 % sur une obligation américaine très liquide et considérée comme sûre, il exigera une rémunération nettement supérieure pour acheter une euro-obligation sénégalaise, ivoirienne, béninoise ou nigériane. Le service de la dette, le financement des infrastructures et les emprunts des grandes entreprises régionales peuvent alors devenir plus coûteux.</p>
+
+      <p>La faiblesse des marchés chinois présente un second enjeu. Un écart de taux important entre les États-Unis et la Chine peut attirer des capitaux vers les actifs américains et exercer une pression sur <b>la monnaie chinoise, le yuan</b>. Pour l’Afrique de l’Ouest, les conséquences passent par les prix des équipements importés, la demande chinoise de minerais et les conditions de financement de certains projets.</p>
+
+      <p class="source-line">Source : <a href="https://www.reuters.com/business/wall-st-futures-pause-after-ai-rally-focus-mideast-tensions-2026-09-22/" target="_blank" rel="noopener noreferrer">Reuters — marchés internationaux, 22 et 23 septembre 2026</a>.</p>
+    </section>
+
+    <section>
+      <h2>5. Le pétrole repasse au-dessus de 100 dollars, tandis que le cacao rebondit</h2>
+      <p class="subtitle">Le renchérissement de l’énergie ravive le risque d’inflation importée, alors que le redressement quotidien du cacao ne compense pas encore son recul mensuel.</p>
+
+      <p>Le Brent est repassé au-dessus de 100 dollars le baril, tandis que le cacao rebondit après sa correction récente. L’hévéa progresse également, offrant un soutien ponctuel aux producteurs ivoiriens et libériens.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Matière première</th><th>Cours / variation</th><th>Pays particulièrement exposés</th><th>Incidence régionale</th></tr></thead>
+        <tbody>
+          <tr><td>Brent</td><td><b>101,07 $/baril</b><br /><span class="up">+1,83 %</span></td><td>Nigeria, Ghana, Sénégal, Côte d’Ivoire et importateurs de l’UEMOA</td><td>Soutient les recettes des producteurs, mais renchérit les carburants et le transport chez les importateurs.</td></tr>
+          <tr><td>Pétrole américain WTI</td><td><b>91,36 $/baril</b><br /><span class="up">+0,93 %</span></td><td>Nigeria, Ghana et marchés régionaux des carburants</td><td>Confirme la reprise du pétrole sans préjuger d’une transmission immédiate aux prix à la pompe.</td></tr>
+          <tr><td>Gaz naturel américain</td><td><b>3,01 $/MMBtu</b><br /><span class="up">+1,51 %</span></td><td>Nigeria, Sénégal, Ghana et Côte d’Ivoire</td><td>Améliore légèrement la valeur des projets gaziers, mais accroît le coût potentiel des importations.</td></tr>
+          <tr><td>Or</td><td><b>4 294,44 $/once</b><br /><span class="down">−1,60 %</span></td><td>Ghana, Mali, Burkina Faso et Côte d’Ivoire</td><td>Repli quotidien défavorable aux exportateurs, mais le niveau absolu reste historiquement élevé.</td></tr>
+          <tr><td>Cacao</td><td><b>5 500,37 $/tonne</b><br />soit 5,50 $/kg<br /><span class="up">+1,82 %</span></td><td>Côte d’Ivoire, Ghana et Nigeria</td><td>Rebond favorable aux recettes d’exportation, malgré une baisse d’environ 7,5 % sur un mois.</td></tr>
+          <tr><td>Coton</td><td><b>0,829 $/livre</b><br /><span class="up">+0,07 %</span></td><td>Bénin, Burkina Faso, Mali et Côte d’Ivoire</td><td>Stabilité relative, avec peu d’incidence immédiate sur les prix versés aux producteurs.</td></tr>
+          <tr><td>Hévéa</td><td><b>2,42 $/kg</b><br /><span class="up">+1,55 %</span></td><td>Côte d’Ivoire, Liberia, Ghana et Nigeria</td><td>Soutient les planteurs et exportateurs, sous réserve du fret et de la demande asiatique.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Le retour du Brent au-dessus de 100 dollars est le mouvement le plus sensible pour les ménages ouest-africains. Dans les pays importateurs, la hausse peut se transmettre aux carburants, au transport routier, à la production électrique et aux prix alimentaires. Le cacao rebondit, mais demeure en recul d’environ 7,5 % sur un mois et de près de 22 % sur un an.</p>
+
+      <p class="source-line">Sources : <a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank" rel="noopener noreferrer">Brent</a> · <a href="https://tradingeconomics.com/commodity/gold" target="_blank" rel="noopener noreferrer">Or</a> · <a href="https://tradingeconomics.com/commodity/cocoa" target="_blank" rel="noopener noreferrer">Cacao</a> · <a href="https://tradingeconomics.com/commodity/cotton" target="_blank" rel="noopener noreferrer">Coton</a> · <a href="https://tradingeconomics.com/commodity/rubber" target="_blank" rel="noopener noreferrer">Hévéa</a>.</p>
+    </section>
+
+    <div class="note"><b>Note de la rédaction —</b> Les données BRVM correspondent aux cours définitifs publiés à 15 h 15 GMT. Cette publication est destinée à l’information du public et ne constitue pas une recommandation d’investissement.</div>
+
+    <div class="sources">
+      <h2>Sources principales</h2>
+      <ul>
+        <li><a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels et informations sur valeurs</a></li>
+        <li><a href="https://www.imf.org/en/news/articles/2026/09/21/pr26296-lics-imf-executive-board-reviews-the-joint-world-bank-debt-sustainability-framework" target="_blank" rel="noopener noreferrer">FMI — cadre de viabilité de la dette des pays à faible revenu</a></li>
+        <li><a href="https://www.worldbank.org/en/news/statement/2026/09/21/world-bank-board-endorses-reforms-to-the-bank-fund-debt-sustainability-framework-f" target="_blank" rel="noopener noreferrer">Banque mondiale — réforme du cadre d’analyse de la dette</a></li>
+        <li><a href="https://www.africa50.com/media/news/article/nigeria-dre-fund-reaches-commercial-launch-milestone-a-model-for-scaling-dre-investment-across-africa/" target="_blank" rel="noopener noreferrer">Africa50 — Nigeria Distributed Renewable Energy Fund</a></li>
+        <li><a href="https://www.reuters.com/business/wall-st-futures-pause-after-ai-rally-focus-mideast-tensions-2026-09-22/" target="_blank" rel="noopener noreferrer">Reuters — marchés internationaux</a></li>
+      </ul>
+    </div>
+
+    <p class="disclaimer">ECONOZONE — Contenu publié à des fins d’information économique et financière. Les données de marché sont susceptibles d’être ajustées par leurs producteurs ou diffuseurs après publication.</p>
+  </article>
+</Layout>
