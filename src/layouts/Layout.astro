@@ -114,6 +114,8 @@ import Analytics from '@vercel/analytics/astro';
       line-height: 1.55 !important;
     }
     table.z, .market-table { font-size: 15px !important; }
+    /* Le gras sert à hiérarchiser, pas à surligner chaque chiffre ou expression. */
+    p b, p strong, li b, li strong { font-weight: 600; }
 
     /* Renforce les photographies éditoriales sans modifier les graphiques ni les logos. */
     figure img:not([role="img"]) {
@@ -183,6 +185,30 @@ import Analytics from '@vercel/analytics/astro';
   </footer>
   <Analytics />
   <script>
+    /* Corrige les collages typographiques créés par d'anciens contenus autour des balises de gras. */
+    document.querySelectorAll('.col b, .col strong').forEach(function (el) {
+      const first = (el.textContent || '').charAt(0);
+      const last = (el.textContent || '').slice(-1);
+      const prev = el.previousSibling;
+      const next = el.nextSibling;
+      if (prev && prev.nodeType === Node.TEXT_NODE && /[\\p{L}\\p{N}]$/u.test(prev.textContent || '') && /^[\\p{L}\\p{N}]/u.test(first)) {
+        prev.textContent += ' ';
+      }
+      if (next && next.nodeType === Node.TEXT_NODE && /[\\p{L}\\p{N}]$/u.test(last) && /^[\\p{L}\\p{N}]/u.test(next.textContent || '')) {
+        next.textContent = ' ' + next.textContent;
+      }
+    });
+
+    /* Typographie française : espace insécable entre un nombre et le signe %. */
+    document.querySelectorAll('.col p, .col li, .col td, .col th, .col figcaption').forEach(function (root) {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function (node) {
+        node.textContent = (node.textContent || '').replace(/(\\d)\\s*%/g, '$1\\u00A0%');
+      });
+    });
+
     document.querySelectorAll('table').forEach(function (table) {
       const percentColumns = new Set();
 
