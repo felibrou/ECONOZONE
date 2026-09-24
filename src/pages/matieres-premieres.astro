@@ -5,11 +5,32 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="breadcrumb">ECONOZONE &rsaquo; Matières premières</div>
     <h1>Matières premières</h1>
-    <p class="dek">Pétrole, or, cacao, coton, gaz : ces marchés mondiaux ne produisent jamais un effet unique sur l'Afrique de l'Ouest — un même mouvement de prix peut simultanément soutenir un pays exportateur et pénaliser un pays importateur.</p>
+    <p class="dek">Du pétrole au cacao, les cours mondiaux agissent différemment sur les économies ouest-africaines. Une hausse peut soutenir les recettes d'un pays exportateur tout en renchérissant les importations, le transport ou l'alimentation dans le reste de la région.</p>
+
+    <section class="live-market" aria-labelledby="live-market-title">
+      <div class="live-market-head">
+        <div>
+          <p class="eyebrow">TABLEAU DE MARCHÉ</p>
+          <h2 id="live-market-title">Cours en direct des principales matières premières</h2>
+        </div>
+        <span class="live-badge"><span aria-hidden="true"></span> Mise à jour automatique</span>
+      </div>
+      <p class="live-market-note">Dernier cours, variation, ouverture, plus haut et plus bas de séance. Les données sont affichées en temps réel ou avec un léger différé selon les règles de chaque place boursière. Les symboles suivis sont des contrats à terme continus : ils peuvent différer du prix physique négocié en Afrique de l'Ouest.</p>
+
+      <div class="market-widget">
+        <script is:inline type="module" src="https://widgets.tradingview-widget.com/w/fr/tv-market-data.js"></script>
+        <tv-market-data
+          symbol-sectors='[{"sectionName":"Énergie","symbols":["ICEEUR:BRN1!","NYMEX:CL1!","NYMEX:NG1!"]},{"sectionName":"Agriculture","symbols":["ICEUS:CC1!","ICEUS:CT1!"]},{"sectionName":"Métaux et minerais","symbols":["COMEX:GC1!","LME:AH1!","SGX:FEF1!"]}]'
+        ></tv-market-data>
+        <noscript><p>Activez JavaScript pour afficher les cours actualisés, ou consultez directement les <a href="https://www.tradingview.com/markets/futures/quotes-all/" target="_blank" rel="noopener noreferrer">cotations des contrats à terme</a>.</p></noscript>
+      </div>
+
+      <p class="widget-source">Source des cotations : <a href="https://www.tradingview.com/markets/futures/quotes-all/" target="_blank" rel="noopener noreferrer">TradingView</a>, à partir des données des places concernées — ICE Futures Europe, NYMEX, COMEX, ICE Futures U.S., London Metal Exchange et Singapore Exchange.</p>
+    </section>
 
     <!-- ZONE-DYNAMIQUE-DEBUT : régénérée automatiquement par scripts/generate-commodities.mjs, ne pas éditer à la main entre ces marqueurs -->
-<p class="page-meta">Mise à jour : 22 septembre 2026</p>
-<h2>Marchés du jour</h2>
+<p class="page-meta">Cours indicatifs relevés le 23 septembre 2026 · variation par rapport à la séance précédente</p>
+<h2>Le pétrole rebondit, tandis que l'or recule</h2>
 <table class="z">
   <thead>
     <tr>
@@ -20,66 +41,75 @@ import Layout from '../layouts/Layout.astro';
     </tr>
   </thead>
   <tbody>
+    <tr><td><b>Brent</b></td><td>103,26 $/baril · <span class="up">🟢 +4,04 %</span></td><td>Nigeria, Ghana, Sénégal, Côte d'Ivoire et pays importateurs de l'UEMOA</td><td>Le rebond soutient les exportateurs, mais accroît la facture énergétique des pays importateurs.</td></tr>
+    <tr><td><b>Pétrole WTI</b></td><td>92,68 $/baril · <span class="up">🟢 +2,38 %</span></td><td>Nigeria, Ghana et marchés régionaux des carburants</td><td>La remontée du baril peut ralentir la détente des prix du transport et des produits pétroliers.</td></tr>
+    <tr><td><b>Gaz naturel</b></td><td>3,04 $/MMBtu · <span class="up">🟢 +2,56 %</span></td><td>Nigeria, Sénégal, Ghana et Côte d'Ivoire</td><td>La hausse améliore la valeur potentielle des exportations, mais peut renchérir l'électricité produite à partir de gaz importé.</td></tr>
+    <tr><td><b>Or</b></td><td>4 283,95 $/once · <span class="down">🔴 −1,84 %</span></td><td>Ghana, Mali, Burkina Faso, Côte d'Ivoire et Sénégal</td><td>Le repli quotidien réduit légèrement la valeur des exportations, malgré un cours toujours élevé sur un an.</td></tr>
+    <tr><td><b>Cacao</b></td><td>5 519 $/tonne, soit 5,52 $/kg · <span class="up">🟢 +2,17 %</span></td><td>Côte d'Ivoire, Ghana et Nigeria</td><td>Le rebond soutient les perspectives de recettes, mais les revenus des producteurs dépendent aussi des prix administrés et des ventes à terme.</td></tr>
+    <tr><td><b>Coton</b></td><td>0,829 $/livre, soit environ 1,83 $/kg · <span class="up">🟢 +0,08 %</span></td><td>Bénin, Burkina Faso, Mali, Côte d'Ivoire et Togo</td><td>La séance est presque stable ; la baisse mensuelle demeure plus importante pour les revenus futurs de la filière.</td></tr>
+    <tr><td><b>Caoutchouc naturel</b></td><td>2,417 $/kg · <span class="up">🟢 +1,55 %</span></td><td>Côte d'Ivoire, Liberia, Ghana et Nigeria</td><td>La hausse favorise les planteurs, tandis que le prix du pétrole influence la compétitivité du caoutchouc synthétique.</td></tr>
+    <tr><td><b>Aluminium</b></td><td>3 251,68 $/tonne · <span class="down">🔴 −0,30 %</span></td><td>Guinée</td><td>Le cours de l'aluminium constitue un indicateur de la demande adressée à la bauxite guinéenne, sans s'y transmettre intégralement.</td></tr>
+    <tr><td><b>Minerai de fer</b></td><td>97,32 $/tonne · <span class="down">🔴 −0,19 %</span></td><td>Guinée, Liberia et Sierra Leone</td><td>Le léger recul pèse peu à court terme, mais la demande chinoise reste déterminante pour les projets et les exportations.</td></tr>
+    <tr><td><b>Uranium</b></td><td>89,75 $/livre · <span class="up">🟢 +0,06 %</span> au 22 septembre</td><td>Niger</td><td>Le niveau du marché reste favorable, sous réserve des contrats, des débouchés et des contraintes logistiques.</td></tr>
   </tbody>
 </table>
-<p>Aucune ligne n'est publiée : les données fournies ne précisent pas la période de comparaison ni les pays ouest-africains exposés. Le cours de l'or n'est pas chiffré.</p>
+<p>Le mouvement le plus important vient du pétrole : le Brent rebondit de plus de 4 % après cinq séances de baisse, sur fond d'incertitudes persistantes autour des flux du Moyen-Orient. Le cacao se redresse également, soutenu par les inquiétudes climatiques en Côte d'Ivoire, alors que l'or recule sous l'effet d'un dollar plus ferme et d'anticipations de taux américains durablement élevés.</p>
+<p class="source-line">Sources : <a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank" rel="noopener noreferrer">Brent</a> · <a href="https://tradingeconomics.com/commodity/crude-oil" target="_blank" rel="noopener noreferrer">WTI et gaz</a> · <a href="https://tradingeconomics.com/commodity/gold" target="_blank" rel="noopener noreferrer">or et minerai de fer</a> · <a href="https://tradingeconomics.com/commodity/cocoa" target="_blank" rel="noopener noreferrer">cacao</a> · <a href="https://tradingeconomics.com/commodity/cotton" target="_blank" rel="noopener noreferrer">coton</a> · <a href="https://tradingeconomics.com/commodity/rubber" target="_blank" rel="noopener noreferrer">caoutchouc</a> · <a href="https://tradingeconomics.com/commodity/aluminum" target="_blank" rel="noopener noreferrer">aluminium</a> · <a href="https://tradingeconomics.com/commodity/uranium" target="_blank" rel="noopener noreferrer">uranium</a>.</p>
 <!-- ZONE-DYNAMIQUE-FIN -->
 
-    <h2>Grille de lecture par matière première</h2>
+    <h2>Comment les cours se transmettent aux économies régionales</h2>
     <table class="z">
       <thead><tr><th>Matière première</th><th>Pays particulièrement exposés</th><th>Canal de transmission</th></tr></thead>
       <tbody>
-        <tr><td><b>Pétrole (Brent/WTI)</b></td><td>Nigeria, Ghana, Côte d'Ivoire, Sénégal (producteurs) ; toute la région (importateurs)</td><td>Recettes d'exportation vs coût du carburant et du transport</td></tr>
-        <tr><td><b>Or</b></td><td>Mali, Burkina Faso, Côte d'Ivoire, Sénégal (UEMOA) ; Ghana (CEDEAO, 1ᵉʳ producteur du continent)</td><td>Recettes d'exportation et fiscales, avec décalage</td></tr>
-        <tr><td><b>Cacao</b></td><td>Côte d'Ivoire (1ᵉʳ producteur mondial), Ghana</td><td>Revenus des producteurs et recettes d'exportation directes</td></tr>
+        <tr><td><b>Pétrole (Brent et WTI)</b></td><td>Nigeria, Ghana, Côte d'Ivoire et Sénégal ; ensemble de la région comme zone importatrice</td><td>Recettes d'exportation, coût du carburant, transport, inflation et dépenses de soutien public</td></tr>
+        <tr><td><b>Or</b></td><td>Ghana, Mali, Burkina Faso, Côte d'Ivoire et Sénégal</td><td>Recettes d'exportation, fiscalité minière et investissements</td></tr>
+        <tr><td><b>Cacao</b></td><td>Côte d'Ivoire, Ghana et Nigeria</td><td>Revenus des producteurs, recettes d'exportation et activité de transformation</td></tr>
         <tr><td><b>Coton</b></td><td>Bénin, Burkina Faso, Mali, Côte d'Ivoire, Togo</td><td>Revenus ruraux et recettes d'exportation</td></tr>
         <tr><td><b>Hévéa / caoutchouc</b></td><td>Côte d'Ivoire, Liberia, Ghana</td><td>Demande industrielle et automobile asiatique</td></tr>
-        <tr><td><b>Gaz / GNL</b></td><td>Nigeria, Sénégal</td><td>Recettes d'exportation vs coût de l'énergie importée ailleurs</td></tr>
-        <tr><td><b>Bauxite / aluminium</b></td><td>Guinée</td><td>Demande chinoise, cycle industriel</td></tr>
+        <tr><td><b>Gaz et gaz naturel liquéfié</b></td><td>Nigeria, Sénégal, Ghana et Côte d'Ivoire</td><td>Exportations, production d'électricité et coût de l'énergie</td></tr>
+        <tr><td><b>Bauxite et aluminium</b></td><td>Guinée</td><td>Demande chinoise, investissements miniers et recettes d'exportation</td></tr>
         <tr><td><b>Minerai de fer</b></td><td>Guinée, Liberia, Sierra Leone</td><td>Cycle industriel et immobilier chinois</td></tr>
         <tr><td><b>Uranium</b></td><td>Niger</td><td>Géopolitique, sécurisation des approvisionnements mondiaux</td></tr>
       </tbody>
     </table>
 
-    <h2>Qui gagne, qui perd selon le pays</h2>
+    <h2>Des effets très différents selon les pays</h2>
 
     <div class="country-card">
       <h3>Côte d'Ivoire</h3>
-      <span class="tag tag-down">Cacao ▼ vulnérable</span><span class="tag tag-up">Or ▲ amortisseur</span><span class="tag tag-down">Pétrole cher ▼ coût importé</span>
-      <p style="margin:8px 0 0;">Exposition simultanée au cacao, à l'hévéa, à l'or et au pétrole (à la fois producteur marginal et importateur net) — une faiblesse du cacao peut être partiellement compensée par un environnement minier ou pétrolier plus favorable, selon le poids relatif de chaque filière dans l'économie du moment.</p>
+      <span class="tag tag-down">Cacao : revenu agricole</span><span class="tag tag-up">Or : recettes minières</span><span class="tag tag-down">Pétrole : coût des importations</span>
+      <p style="margin:8px 0 0;">La Côte d'Ivoire est exposée simultanément au cacao, au caoutchouc, à l'or et aux hydrocarbures. La diversification limite certains chocs, mais une baisse durable du cacao touche directement les revenus ruraux et les recettes d'exportation.</p>
     </div>
 
     <div class="country-card">
       <h3>Ghana</h3>
-      <span class="tag tag-up">Or ▲</span><span class="tag tag-down">Cacao ▼</span><span class="tag tag-up">Pétrole ▲ (producteur)</span>
-      <p style="margin:8px 0 0;">Combinaison or/cacao/pétrole unique dans la région — 1ᵉʳ producteur d'or d'Afrique (hors UEMOA), mais partage avec la Côte d'Ivoire la vulnérabilité au cours du cacao.</p>
+      <span class="tag tag-up">Or : principal soutien</span><span class="tag tag-down">Cacao : filière vulnérable</span><span class="tag tag-up">Pétrole : recettes d'exportation</span>
+      <p style="margin:8px 0 0;">Le Ghana associe trois grandes expositions : l'or, le cacao et le pétrole. Une progression de l'or ou du brut peut amortir une partie du recul du cacao, sans compenser nécessairement les pertes subies par les producteurs agricoles.</p>
     </div>
 
     <div class="country-card">
       <h3>Nigeria</h3>
-      <span class="tag tag-up">Pétrole / Gaz ▲▲</span>
-      <p style="margin:8px 0 0;">Dépendance de loin la plus forte de la région au pétrole et au gaz — les recettes budgétaires suivent presque mécaniquement le cours du baril.</p>
+      <span class="tag tag-up">Pétrole et gaz : exposition dominante</span>
+      <p style="margin:8px 0 0;">Le pétrole et le gaz influencent fortement les exportations, les recettes publiques et les réserves de change. L'effet d'une hausse du baril dépend toutefois du volume réellement produit, du taux de change et du fonctionnement des raffineries nationales.</p>
     </div>
 
     <div class="country-card">
       <h3>Mali &amp; Burkina Faso</h3>
-      <span class="tag tag-up">Or ▲▲</span><span class="tag tag-down">Coton ▼</span>
-      <p style="margin:8px 0 0;">Exposition dominante à l'or (recettes d'exportation et fiscales) et au coton (revenus ruraux) — deux matières premières qui ne bougent pas nécessairement dans le même sens.</p>
+      <span class="tag tag-up">Or : recettes minières</span><span class="tag tag-down">Coton : revenus ruraux</span>
+      <p style="margin:8px 0 0;">L'or alimente principalement les exportations et les recettes fiscales, tandis que le coton concerne directement les revenus d'un grand nombre de ménages ruraux. Les deux marchés peuvent évoluer dans des directions opposées.</p>
     </div>
 
     <div class="country-card">
       <h3>Guinée</h3>
-      <span class="tag tag-down">Bauxite / Fer — dépendance Chine</span>
+      <span class="tag tag-down">Bauxite et fer : dépendance à la demande chinoise</span>
       <p style="margin:8px 0 0;">Économie la plus directement corrélée au cycle industriel et immobilier chinois parmi les pays de la sous-région, via la bauxite et le minerai de fer.</p>
     </div>
 
     <div class="country-card">
       <h3>Niger</h3>
-      <span class="tag tag-up">Uranium — enjeu stratégique</span>
-      <p style="margin:8px 0 0;">La valeur de l'uranium nigérien dépend autant de la géopolitique et des contrats de long terme que du prix spot du marché — un cas particulier dans cette grille.</p>
+      <span class="tag tag-up">Uranium : marché stratégique</span>
+      <p style="margin:8px 0 0;">Pour le Niger, le prix au comptant ne suffit pas à mesurer les recettes possibles. Les contrats de long terme, les conditions de sécurité, la logistique et l'accès effectif aux acheteurs sont tout aussi déterminants.</p>
     </div>
-
-    <p style="margin-top:24px; font-size:13px;"><b>Ce qu'il faut retenir :</b> les matières premières ne constituent pas un risque unique pour l'Afrique de l'Ouest, mais une série de transferts de revenus entre producteurs, importateurs, États, entreprises et ménages — la bonne question n'est jamais "les prix montent ou baissent", mais "quel canal relie ce mouvement précis à quel pays, et dans quel sens".</p>
 
 </Layout>
 
@@ -96,8 +126,23 @@ import Layout from '../layouts/Layout.astro';
   .breadcrumb { font-size: 12px; color: var(--label); margin-bottom: 14px; }
   h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600; color: var(--navy); margin: 0 0 8px; letter-spacing: -0.01em; line-height: 1.15; }
   .dek { font-size: 15px; color: var(--text-muted); max-width: 720px; margin: 0 0 24px; line-height: 1.6; }
+  .live-market { margin: 28px 0 42px; padding: 24px; border: 1px solid var(--border); border-top: 4px solid var(--accent); background: #FFFFFF; }
+  .live-market-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+  .live-market .eyebrow { margin: 0 0 5px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .1em; }
+  .live-market h2 { margin: 0; padding: 0; border: 0; font-size: 24px; }
+  .live-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; background: #E6F4EC; color: #005E2B; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .live-badge span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(0,132,61,.12); }
+  .live-market-note { max-width: 900px; margin: 12px 0 18px; font-size: 13px; line-height: 1.55; }
+  .market-widget { width: 100%; min-height: 520px; overflow: hidden; border: 1px solid var(--border); background: #FFFFFF; }
+  tv-market-data { display: block; width: 100%; min-height: 520px; }
+  .widget-source { max-width: 920px; margin: 12px 0 0; font-size: 11.5px; line-height: 1.55; color: var(--label); }
+  .widget-source a, .market-widget a { color: var(--navy); text-decoration: underline; text-underline-offset: 2px; }
   h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--navy); margin: 36px 0 8px; padding-top: 18px; border-top: 1px solid var(--border); }
   p { font-size: 14.5px; line-height: 1.7; color: var(--text-muted); max-width: 720px; margin: 0 0 12px; }
+  .page-meta, .source-line { font-size: 12px; color: var(--label); }
+  .source-line a { color: var(--navy); text-decoration: underline; }
+  .up { color: var(--up); font-weight: 700; white-space: nowrap; }
+  .down { color: var(--down); font-weight: 700; white-space: nowrap; }
   table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 13px; margin: 16px 0; }
   table.z th { background: #F7F9FB; text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--label); text-transform: uppercase; border-bottom: 1px solid var(--border); }
   table.z td { padding: 10px 14px; border-bottom: 1px solid var(--row-border); }
@@ -107,4 +152,9 @@ import Layout from '../layouts/Layout.astro';
   .tag-up { background: #E6F4EC; color: var(--up); }
   .tag-down { background: #FBEAEA; color: var(--down); }
   .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--label); }
+  @media (max-width: 640px) {
+    .live-market { padding: 18px 12px; }
+    .live-market h2 { font-size: 21px; }
+    .market-widget, tv-market-data { min-height: 600px; }
+  }
 </style>
