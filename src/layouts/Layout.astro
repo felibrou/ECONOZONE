@@ -105,7 +105,7 @@ import Analytics from '@vercel/analytics/astro';
     /* Le texte éditorial courant est noir pour améliorer le confort de lecture.
        Les titres, sous-titres, métadonnées, sources et éléments de navigation
        conservent leurs couleurs éditoriales. */
-    .col p:not(.source-line):not(.edition-meta):not(.page-meta):not(.disclaimer),
+    .col p:not(.source-line):not(.edition-meta):not(.edition-date):not(.page-meta):not(.disclaimer),
     .col li,
     .col td {
       color: #000000 !important;
@@ -114,12 +114,27 @@ import Analytics from '@vercel/analytics/astro';
       color: var(--blue) !important;
     }
     .col .source-line,
-    .col .edition-meta,
     .col .page-meta,
     .col .breadcrumb,
     .col figcaption,
     .col .disclaimer {
       color: var(--label) !important;
+    }
+
+    /* Dates, heures et mentions de fraîcheur : secondaires mais bien lisibles. */
+    .col .edition-meta,
+    .col .edition-date {
+      color: #4F5968 !important;
+      font-size: 13px !important;
+      line-height: 1.55 !important;
+      font-weight: 400 !important;
+    }
+    .col .edition-meta b,
+    .col .edition-date b,
+    .col .edition-meta strong,
+    .col .edition-date strong {
+      color: inherit !important;
+      font-weight: 600 !important;
     }
     /* Les styles locaux plus anciens ne doivent plus réduire le corps de lecture. */
     main p, .col > p, article p, section p,
@@ -128,7 +143,7 @@ import Analytics from '@vercel/analytics/astro';
       line-height: 1.75 !important;
     }
     .dek { font-size: 18px !important; line-height: 1.7 !important; }
-    .source-line, .edition-meta, .page-meta, .breadcrumb,
+    .source-line, .edition-meta, .edition-date, .page-meta, .breadcrumb,
     figcaption, .disclaimer, footer.site-footer p {
       font-size: 13px !important;
       line-height: 1.55 !important;
