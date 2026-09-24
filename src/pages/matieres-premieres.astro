@@ -52,45 +52,47 @@ import Layout from '../layouts/Layout.astro';
       </tbody>
     </table>
 
-    <h2>Qui gagne, qui perd selon le pays</h2>
+    <h2>Ce que les prix changent, pays par pays</h2>
+    <p class="country-intro">Un même mouvement de marché n'a pas le même effet à Abidjan, Accra, Lagos ou Conakry. Il faut regarder ce que chaque pays exporte, ce qu'il importe et, surtout, la part de ces filières dans les recettes publiques, les devises et le coût de la vie.</p>
 
     <div class="country-card">
       <h3>Côte d'Ivoire</h3>
-      <span class="tag tag-down">Cacao ▼ vulnérable</span><span class="tag tag-up">Or ▲ amortisseur</span><span class="tag tag-down">Pétrole cher ▼ coût importé</span>
-      <p style="margin:8px 0 0;">Exposition simultanée au cacao, à l'hévéa, à l'or et au pétrole (à la fois producteur marginal et importateur net) — une faiblesse du cacao peut être partiellement compensée par un environnement minier ou pétrolier plus favorable, selon le poids relatif de chaque filière dans l'économie du moment.</p>
+      <span class="tag tag-down">Cacao : exposition forte</span><span class="tag tag-up">Or : soutien</span><span class="tag tag-down">Pétrole : facture importée</span>
+      <p style="margin:8px 0 0;">Le cacao reste le principal point de sensibilité : une baisse durable finit par peser sur les revenus des planteurs, les recettes d'exportation et l'activité des zones de production. L'or et l'hévéa apportent une diversification réelle, sans effacer ce risque. Sur le pétrole, le pays produit et raffine, mais importe aussi du brut et des produits énergétiques : un baril cher peut donc améliorer certains revenus du secteur tout en renchérissant transport, logistique et importations. Le solde dépend davantage de la durée du choc que d'une seule séance de marché.</p>
     </div>
 
     <div class="country-card">
       <h3>Ghana</h3>
-      <span class="tag tag-up">Or ▲</span><span class="tag tag-down">Cacao ▼</span><span class="tag tag-up">Pétrole ▲ (producteur)</span>
-      <p style="margin:8px 0 0;">Combinaison or/cacao/pétrole unique dans la région — 1ᵉʳ producteur d'or d'Afrique (hors UEMOA), mais partage avec la Côte d'Ivoire la vulnérabilité au cours du cacao.</p>
+      <span class="tag tag-up">Or : moteur de devises</span><span class="tag tag-down">Cacao : pression rurale</span><span class="tag tag-up">Pétrole : soutien partiel</span>
+      <p style="margin:8px 0 0;">L'or donne au Ghana un coussin que la Côte d'Ivoire possède moins : les exportations aurifères ont représenté plus de 20 milliards de dollars en 2025 selon les données commerciales de la Banque mondiale. Une hausse de l'or soutient donc directement les entrées de devises. À l'inverse, un cacao faible touche les revenus agricoles et l'équilibre de la filière. Le pétrole complète ce profil, mais son effet positif peut être réduit par les besoins d'importation de carburants et par les coûts domestiques de l'énergie.</p>
     </div>
 
     <div class="country-card">
       <h3>Nigeria</h3>
-      <span class="tag tag-up">Pétrole / Gaz ▲▲</span>
-      <p style="margin:8px 0 0;">Dépendance de loin la plus forte de la région au pétrole et au gaz — les recettes budgétaires suivent presque mécaniquement le cours du baril.</p>
+      <span class="tag tag-up">Pétrole / gaz : recettes extérieures</span><span class="tag tag-down">Carburants : transmission intérieure</span>
+      <p style="margin:8px 0 0;">Le Nigeria reste le pays où le baril se transmet le plus vite aux comptes extérieurs et aux finances publiques. Un pétrole plus cher améliore les recettes d'exportation lorsque la production suit, mais l'effet n'est pas automatique : volumes produits, coûts, change, fiscalité et prix domestiques du carburant comptent tout autant. Le FMI montre d'ailleurs que les recettes non pétrolières ont pris davantage de poids dans les finances publiques ; parler d'une économie qui suit « mécaniquement » le Brent serait désormais trop simplificateur.</p>
     </div>
 
     <div class="country-card">
       <h3>Mali &amp; Burkina Faso</h3>
-      <span class="tag tag-up">Or ▲▲</span><span class="tag tag-down">Coton ▼</span>
-      <p style="margin:8px 0 0;">Exposition dominante à l'or (recettes d'exportation et fiscales) et au coton (revenus ruraux) — deux matières premières qui ne bougent pas nécessairement dans le même sens.</p>
+      <span class="tag tag-up">Or : principal amortisseur</span><span class="tag tag-down">Coton : revenu rural</span><span class="tag tag-down">Énergie : coût importé</span>
+      <p style="margin:8px 0 0;">La hausse de l'or est favorable aux recettes d'exportation et peut soutenir les recettes fiscales, mais le bénéfice dépend des volumes produits, des régimes fiscaux et du rapatriement des recettes. Le coton joue sur un autre canal : il touche beaucoup plus directement les revenus ruraux. Ces économies restent par ailleurs importatrices d'hydrocarbures ; un pétrole cher peut donc reprendre, via le transport et les intrants, une partie du gain procuré par l'or.</p>
     </div>
 
     <div class="country-card">
       <h3>Guinée</h3>
-      <span class="tag tag-down">Bauxite / Fer — dépendance Chine</span>
-      <p style="margin:8px 0 0;">Économie la plus directement corrélée au cycle industriel et immobilier chinois parmi les pays de la sous-région, via la bauxite et le minerai de fer.</p>
+      <span class="tag tag-up">Bauxite : rente d'exportation</span><span class="tag tag-down">Chine : concentration de la demande</span>
+      <p style="margin:8px 0 0;">La bauxite domine la lecture. Quand la demande chinoise d'aluminium ralentit, le risque ne porte pas seulement sur le prix : il concerne aussi les volumes expédiés, les recettes minières, le fret et l'investissement. À l'inverse, une demande soutenue peut renforcer les devises et les recettes publiques. Le minerai de fer devient un second levier avec la montée en puissance de Simandou, ce qui devrait progressivement réduire la dépendance à une seule matière première sans supprimer l'exposition au cycle industriel chinois.</p>
     </div>
 
     <div class="country-card">
       <h3>Niger</h3>
-      <span class="tag tag-up">Uranium — enjeu stratégique</span>
-      <p style="margin:8px 0 0;">La valeur de l'uranium nigérien dépend autant de la géopolitique et des contrats de long terme que du prix spot du marché — un cas particulier dans cette grille.</p>
+      <span class="tag tag-up">Uranium : valeur stratégique</span><span class="tag tag-down">Accès au marché : contrainte majeure</span>
+      <p style="margin:8px 0 0;">Pour l'uranium, le prix spot ne raconte qu'une partie de l'histoire. Les contrats de long terme, les conditions d'exportation, la sécurité des corridors et les relations avec les acheteurs étrangers peuvent compter davantage que la cotation quotidienne. Le potentiel de revenu reste important, mais sa conversion en devises et en recettes budgétaires dépend d'abord de la capacité à produire et à exporter régulièrement.</p>
     </div>
 
-    <p style="margin-top:24px; font-size:13px;">Les matières premières ne constituent pas un risque unique pour l'Afrique de l'Ouest, mais une série de transferts de revenus entre producteurs, importateurs, États, entreprises et ménages. La bonne question n'est jamais "les prix montent ou baissent", mais "quel canal relie ce mouvement précis à quel pays, et dans quel sens".</p>
+    <p class="country-bottom"><b>À retenir :</b> la hausse d'une matière première n'est positive que si le pays en vend suffisamment, parvient à l'exporter et capte une part du revenu. À l'inverse, une baisse peut profiter aux ménages et aux entreprises lorsqu'elle réduit une facture d'importation. C'est cette balance — exportations, importations, fiscalité et coût de la vie — qui détermine le véritable gagnant.</p>
+    <p class="source-line">Repères structurels : Banque mondiale / WITS pour les échanges de la Côte d'Ivoire et du Ghana ; FMI, Article IV 2026 pour la structure des recettes publiques du Nigeria.</p>
 </Layout>
 
 <style>
@@ -112,7 +114,10 @@ import Layout from '../layouts/Layout.astro';
   table.z { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: #FFFFFF; font-size: 13px; margin: 16px 0; }
   table.z th { background: #F7F9FB; text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--label); text-transform: uppercase; border-bottom: 1px solid var(--border); }
   table.z td { padding: 10px 14px; border-bottom: 1px solid var(--row-border); }
+  .country-intro { max-width: 860px; margin-bottom: 18px; }
   .country-card { background: var(--panel); border: 1px solid var(--border); padding: 18px 20px; margin: 12px 0; }
+  .country-card p { max-width: 880px; }
+  .country-bottom { max-width: 880px; margin-top: 24px; font-size: 13.5px; }
   .country-card h3 { margin: 0 0 6px; font-size: 15px; color: var(--navy); }
   .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px; margin-right: 4px; margin-bottom: 4px; }
   .tag-up { background: #E6F4EC; color: var(--up); }
