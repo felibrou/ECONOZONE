@@ -20,6 +20,10 @@ import Layout from '../layouts/Layout.astro';
     .kpi { border-top: 3px solid #0d47a1; padding: 12px 4px 8px; }
     .kpi-label { font-size: .82rem; color: #667085; margin-bottom: 5px; }
     .kpi-value { font-weight: 700; line-height: 1.45; }
+    .kpi-value.kpi-neutral { color: #003DA5; }
+    .kpi-value.kpi-up { color: #18864b; }
+    .kpi-value.kpi-down { color: #c62828; }
+    .kpi-value.kpi-flat { color: #5f6368; }
     .up { color: #18864b; font-weight: 700; }
     .down { color: #c62828; font-weight: 700; }
     .flat { color: #5f6368; font-weight: 600; }
@@ -70,10 +74,10 @@ import Layout from '../layouts/Layout.astro';
       <h2>1. Bridge Bank Group Côte d’Ivoire entre à la BRVM sous le symbole BBGC</h2>
 
       <div class="kpi-strip" aria-label="Repères de la première cotation de Bridge Bank Group Côte d'Ivoire">
-        <div class="kpi"><div class="kpi-label">Prix de référence</div><div class="kpi-value">6 750 FCFA</div></div>
-        <div class="kpi"><div class="kpi-label">Montant offert</div><div class="kpi-value">67,5 milliards<br />de FCFA</div></div>
-        <div class="kpi"><div class="kpi-label">Souscription</div><div class="kpi-value">≈ 142 %</div></div>
-        <div class="kpi"><div class="kpi-label">Sociétés cotées</div><div class="kpi-value">48</div></div>
+        <div class="kpi"><div class="kpi-label">Prix de référence</div><div class="kpi-value kpi-neutral">6 750 FCFA</div></div>
+        <div class="kpi"><div class="kpi-label">Montant offert</div><div class="kpi-value kpi-neutral">67,5 milliards<br />de FCFA</div></div>
+        <div class="kpi"><div class="kpi-label">Souscription</div><div class="kpi-value kpi-up">≈ 142 %</div></div>
+        <div class="kpi"><div class="kpi-label">Sociétés cotées</div><div class="kpi-value kpi-up">48</div></div>
       </div>
 
       <p class="subtitle">L’introduction de BBGC élargit le compartiment financier de la BRVM et ouvre une phase de découverte du prix après une offre publique fortement demandée.</p>
