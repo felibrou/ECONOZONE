@@ -8,6 +8,12 @@ const {
   description = "ECONOZONE décrypte la BRVM, l'économie ouest-africaine, les marchés et les politiques publiques avec rigueur et pédagogie."
 } = Astro.props;
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const currentPath = Astro.url.pathname;
+const showInvestmentDisclaimer =
+  currentPath.startsWith('/essentiel') ||
+  currentPath.startsWith('/societes-cotees') ||
+  currentPath.startsWith('/sgi') ||
+  currentPath.startsWith('/comprendre-la-bourse');
 import Analytics from '@vercel/analytics/astro';
 ---
 <!doctype html>
@@ -149,7 +155,9 @@ import Analytics from '@vercel/analytics/astro';
         <span>La rédaction</span>
         <a href="mailto:contact@econozone.org">contact@econozone.org</a>
       </div>
-      <p>ECONOZONE — contenu publié à des fins purement informatives, ne constitue pas un conseil en investissement.</p>
+      {showInvestmentDisclaimer && (
+        <p>ECONOZONE — contenu publié à des fins purement informatives, ne constitue pas un conseil en investissement.</p>
+      )}
       <p>&copy; {new Date().getFullYear()} ECONOZONE. Tous droits réservés. Toute reproduction ou réutilisation du contenu, en tout ou en partie, sans autorisation écrite préalable, est interdite.</p>
       <p class="footer-links"><a href="/politique-cookies">Politique relative aux cookies</a><a href="/desabonnement">Se désabonner de nos communications</a></p>
     </div>
