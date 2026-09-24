@@ -39,6 +39,9 @@ const sgiOptions = [
   { id: 'sginiger', name: 'SGI Niger S.A.' },
   { id: 'sbif', name: 'SGI SBIF' },
   { id: 'uca', name: 'United Capital for Africa' },
+  { id: 'kerales', name: 'Kerales Finance' },
+  { id: 'mansa', name: 'Mansa Capital' },
+  { id: 'oamci', name: 'One Africa Markets Côte d’Ivoire' },
 ];
 
 const optionLabel = (sgi) => {
@@ -2763,6 +2766,117 @@ const optionLabel = (sgi) => {
     </div>
 
 
+    <!-- KERALES FINANCE -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="1"
+    >
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Kerales Finance</h3>
+
+      <p class="sgi-group">
+        SGI indépendante — Côte d'Ivoire
+      </p>
+
+      <div class="sgi-stats">
+        <div><span>Dépôt min.</span><b>Non communiqué</b></div>
+        <div><span>Courtage</span><b>Grille homologuée</b></div>
+        <div><span>Conservation</span><b>À vérifier</b></div>
+        <div><span>Gestion mandat</span><b>Oui</b></div>
+      </div>
+
+      <a
+        href="https://www.keralesfinance.net/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+    </div>
+
+
+    <!-- MANSA CAPITAL -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>Mansa Capital</h3>
+
+      <p class="sgi-group">
+        SGI agréée en 2025 — Côte d'Ivoire
+      </p>
+
+      <div class="sgi-stats">
+        <div><span>Dépôt min.</span><b>Non communiqué</b></div>
+        <div><span>Courtage</span><b>Tarifs homologués en 2026</b></div>
+        <div><span>Conservation</span><b>À vérifier</b></div>
+        <div><span>Gestion mandat</span><b>À vérifier</b></div>
+      </div>
+
+      <a
+        href="https://www.brvm.org/fr/decision-ndegamf-umoa2025351-agrement-de-la-societe-mansa-capital-en-qualite-de-sgi-sur-le-marche"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sgi-link contact-click"
+      >
+        Fiche BRVM &#8599;
+      </a>
+    </div>
+
+
+    <!-- ONE AFRICA MARKETS -->
+
+    <div
+      class="sgi-card"
+      data-country="CI"
+      data-lowdeposit="0"
+      data-online="0"
+      data-mandat="0"
+    >
+      <div class="sgi-card-top">
+        <span class="flag">🇨🇮</span>
+      </div>
+
+      <h3>One Africa Markets Côte d’Ivoire</h3>
+
+      <p class="sgi-group">
+        OAM CI — agréée SGI en mars 2026
+      </p>
+
+      <div class="sgi-stats">
+        <div><span>Dépôt min.</span><b>Non communiqué</b></div>
+        <div><span>Courtage</span><b>Tarifs homologués en juillet 2026</b></div>
+        <div><span>Conservation</span><b>À vérifier</b></div>
+        <div><span>Gestion mandat</span><b>À vérifier</b></div>
+      </div>
+
+      <a
+        href="https://www.oamarkets.ci/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sgi-link contact-click"
+      >
+        Site officiel &#8599;
+      </a>
+    </div>
+
+
     <!-- DABA -->
 
     <div
@@ -4434,15 +4548,11 @@ const optionLabel = (sgi) => {
 
   .sgi-stats span {
     font-size: 9px;
-
     letter-spacing: 0.25px;
-
-    color:
-      #FFFFFF !important;
-
+    color: #F4C95D !important;
     text-transform: uppercase;
-
     line-height: 1.2;
+    font-weight: 700;
   }
 
 
@@ -4465,17 +4575,26 @@ const optionLabel = (sgi) => {
    */
 
   .sgi-card,
-  .sgi-card *,
   .sgi-card p,
-  .sgi-card span,
   .sgi-card div,
   .sgi-card b,
   .sgi-card strong,
   .sgi-card small,
-  .sgi-card h3,
-  .sgi-card a {
-    color:
-      #FFFFFF !important;
+  .sgi-card h3 {
+    color: #FFFFFF !important;
+  }
+
+  .sgi-card .sgi-group {
+    color: #FFFFFF !important;
+  }
+
+  .sgi-card .sgi-stats span {
+    color: #F4C95D !important;
+  }
+
+  .sgi-card .sgi-link,
+  .sgi-card .sgi-contact-link {
+    color: #72D6FF !important;
   }
 
 
@@ -4491,25 +4610,49 @@ const optionLabel = (sgi) => {
   }
 
 
-  .sgi-link {
+  .sgi-link,
+  .sgi-contact-link {
     margin-top: 2px;
-
     font-size: 11px;
-
     font-weight: 700;
-
-    color:
-      #FFFFFF !important;
-
+    color: #72D6FF !important;
     text-decoration: underline;
-
     text-underline-offset: 2px;
   }
 
+  .sgi-link:hover,
+  .sgi-contact-link:hover {
+    color: #B8ECFF !important;
+  }
 
-  .sgi-link:hover {
-    color:
-      #DDE8F5 !important;
+  .sgi-logo-wrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid rgba(255,255,255,.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex: 0 0 30px;
+    margin-right: auto;
+  }
+
+  .sgi-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .sgi-logo-fallback {
+    display: none;
+    color: #10243E !important;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
   }
 
 
@@ -4734,27 +4877,123 @@ const optionLabel = (sgi) => {
 
 
   /*
-   * Sécurité supplémentaire :
-   * le Layout global contient des règles
-   * color:#000 !important pour le texte courant.
-   *
-   * Les cartes SGI ayant un fond sombre,
-   * on impose ici le blanc au niveau inline
-   * après le rendu.
+   * Habillage des cartes SGI :
+   * - texte principal blanc ;
+   * - libellés financiers dorés ;
+   * - liens et contacts bleu clair ;
+   * - logo/favicone du site officiel quand disponible.
    */
 
-  document
-    .querySelectorAll(
-      '.sgi-card, .sgi-card *'
-    )
-    .forEach(function (el) {
+  const sgiLogoDomains = {
+    'BICIBourse': 'bicici.com',
+    'Coris Bourse': 'coris-bourse.com',
+    'CGF Bourse': 'cgfbourse.com',
+    'SGI Togo': 'sgitogo.com',
+    'NSIA Finance': 'nsiafinance.com',
+    'Sirius Capital': 'siriuscapitalsgi.com',
+    'EDC Investment Corporation': 'ecobank.com',
+    'SG Capital Securities West Africa': 'societegenerale.ci',
+    'Atlantique Finance': 'atlantiquefinance.net',
+    'Hudson & Cie': 'hudson-cie.com',
+    'ABCO Bourse': 'abcobourse.com',
+    "Africaine de Gestion et d'Intermédiation (AGI)": 'sgi-agi.com',
+    'Attijari Securities West Africa': 'sib.ci',
+    'BOA Capital Securities': 'boacapital.com',
+    'Bridge Securities': 'bridge-securities.com',
+    'BSIC Capital': 'bsiccapital.com',
+    'CIFA Bourse': 'cifabourse.com',
+    'Everest Finance': 'everestfin.com',
+    'FGI — Finance Gestion Intermédiation': 'fgi-bourse.com',
+    'GEK Capital': 'gekcapital.com',
+    'Global Capital': 'sgiglobalcapital.com',
+    'Image Finances Internationales': 'image-finance.com',
+    'Invictus Capital & Finance': 'invictuscapfin.com',
+    'Matha Securities': 'mathasecurities.com',
+    'Oragroup Securities': 'oragroupsecurities.net',
+    'Phoenix Capital Management': 'phoenixafricaholding.com',
+    'SGI Africabourse': 'africabourse.com',
+    'SGI Bénin S.A.': 'sgibenin.com',
+    'SGI BIIC Financial Services': 'biicbank.com',
+    'SGI BNI Finances': 'bni.ci',
+    'Mac African': 'macafricansgi.com',
+    'SGI Niger S.A.': 'sginiger.com',
+    'United Capital for Africa': 'ucasgi.com',
+    'Kerales Finance': 'keralesfinance.net',
+    'One Africa Markets Côte d’Ivoire': 'oamarkets.ci',
+    'Daba Finance': 'dabafinance.com'
+  };
 
-      el.style.setProperty(
-        'color',
-        '#FFFFFF',
-        'important'
-      );
+  document.querySelectorAll('.sgi-card').forEach(function (card) {
+    card.style.setProperty('color', '#FFFFFF', 'important');
 
+    card.querySelectorAll('p, div, b, strong, small, h3').forEach(function (el) {
+      el.style.setProperty('color', '#FFFFFF', 'important');
     });
+
+    card.querySelectorAll('.sgi-stats span').forEach(function (el) {
+      el.style.setProperty('color', '#F4C95D', 'important');
+    });
+
+    card.querySelectorAll('.sgi-link').forEach(function (el) {
+      el.style.setProperty('color', '#72D6FF', 'important');
+    });
+
+    card.querySelectorAll('.sgi-stats > div').forEach(function (row) {
+      const label = row.querySelector('span');
+      const value = row.querySelector('b');
+      if (!label || !value) return;
+
+      if (label.textContent.trim().toLowerCase() === 'contact' && !value.querySelector('a')) {
+        const raw = value.textContent.trim();
+        const tel = raw.replace(/[^+\d]/g, '');
+        if (tel) {
+          value.innerHTML = '';
+          const a = document.createElement('a');
+          a.className = 'sgi-contact-link';
+          a.href = 'tel:' + tel;
+          a.textContent = raw;
+          a.style.setProperty('color', '#72D6FF', 'important');
+          value.appendChild(a);
+        }
+      }
+    });
+
+    const title = card.querySelector('h3');
+    const top = card.querySelector('.sgi-card-top');
+    if (!title || !top || top.querySelector('.sgi-logo-wrap')) return;
+
+    const name = title.textContent.trim();
+    const domain = sgiLogoDomains[name];
+    const wrap = document.createElement('span');
+    wrap.className = 'sgi-logo-wrap';
+
+    const fallback = document.createElement('span');
+    fallback.className = 'sgi-logo-fallback';
+    fallback.textContent = name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function (part) { return part.charAt(0).toUpperCase(); })
+      .join('');
+
+    if (domain) {
+      const img = document.createElement('img');
+      img.className = 'sgi-logo';
+      img.alt = 'Logo ' + name;
+      img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
+      img.src = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=128';
+      img.addEventListener('error', function () {
+        img.style.display = 'none';
+        fallback.style.display = 'inline';
+      });
+      wrap.appendChild(img);
+    } else {
+      fallback.style.display = 'inline';
+    }
+
+    wrap.appendChild(fallback);
+    top.insertBefore(wrap, top.firstChild);
+  });
 
 </script>
