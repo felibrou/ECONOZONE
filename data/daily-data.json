@@ -1,32 +1,86 @@
 {
-  "date": "2026-09-22",
+  "date": "2026-09-24",
   "indices": {
-    "composite": { "valeur": "548,07", "variation": "-0,27%" },
-    "brvm30": { "valeur": "265,31", "variation": "-0,41%" },
-    "prestige": { "valeur": "199,42", "variation": "-0,57%" },
-    "transactions": "3,34 milliards FCFA"
+    "composite": {
+      "valeur": "516,29",
+      "variation": "-3,66%"
+    },
+    "brvm30": {
+      "valeur": "250,21",
+      "variation": "-3,65%"
+    },
+    "prestige": {
+      "valeur": "193,18",
+      "variation": "-2,70%"
+    },
+    "transactions": "2,36 milliards FCFA",
+    "reference": "Clôture officielle du 23 septembre 2026"
   },
-  "largeur_marche": { "hausse": 13, "baisse": 29, "stable": 5 },
+  "largeur_marche": {
+    "hausse": 2,
+    "baisse": 41,
+    "stable": 4
+  },
   "faits_marquants": [
-    "SMB cloture a 17 000 FCFA (-7,56%), le jour du detachement d'un dividende de 800 FCFA.",
-    "SITAB rebondit de 5,12% a 21 970 FCFA sur 3 752 titres echanges."
+    "Bridge Bank Group Côte d'Ivoire effectue sa première cotation le 24 septembre 2026 sous le symbole BBGC, au prix de référence de 6 750 FCFA.",
+    "L'offre publique de vente de Bridge Bank Group Côte d'Ivoire, d'un montant de 67,5 milliards FCFA, a été souscrite à environ 142%."
   ],
   "radar_titres": [
-    { "symbole": "SITAB", "variation": "+5,12%", "commentaire": "Rebond avec volume significatif" },
-    { "symbole": "SMBC", "variation": "-7,56%", "commentaire": "Decote au-dela du dividende" }
+    {
+      "symbole": "BBGC",
+      "variation": "Première cotation",
+      "commentaire": "Phase de découverte du prix à partir d'un prix de référence de 6 750 FCFA"
+    },
+    {
+      "symbole": "ETIT",
+      "variation": "-7,25% au 23/09",
+      "commentaire": "Forte baisse à la clôture précédente, à surveiller dans un marché encore volatil"
+    }
   ],
   "macro_uemoa": {
     "croissance_t2": "6,0%",
     "inflation_t2": "0,4%",
-    "taux_directeur_bceao": "3,00%"
+    "taux_directeur_bceao": "3,00%",
+    "taux_pret_marginal_bceao": "5,00%",
+    "date_decision": "9 septembre 2026"
   },
   "marches_mondiaux": [
-    { "marche": "Nasdaq", "variation": "+1,69%" },
-    { "marche": "S&P 500", "variation": "+1,14%" }
+    {
+      "marche": "Dollar index (DXY)",
+      "variation": "+0,52%",
+      "niveau": "≈101,12"
+    },
+    {
+      "marche": "Brent",
+      "variation": "+3,62%",
+      "niveau": "102,85 $/bbl"
+    }
   ],
   "matieres_premieres": [
-    { "nom": "Brent", "variation": "-1%", "niveau": "104,82 $/bbl" },
-    { "nom": "Or", "variation": "+2%", "niveau": "niveau eleve" }
+    {
+      "nom": "Brent",
+      "variation": "+3,62%",
+      "niveau": "102,85 $/bbl",
+      "date_reference": "2026-09-23"
+    },
+    {
+      "nom": "Cacao",
+      "variation": "+2,33%",
+      "niveau": "5 528 $/t",
+      "date_reference": "2026-09-23"
+    },
+    {
+      "nom": "Or",
+      "variation": "-1,79%",
+      "niveau": "4 286,36 $/oz",
+      "date_reference": "2026-09-23"
+    },
+    {
+      "nom": "Gaz naturel",
+      "variation": "+2,67%",
+      "niveau": "≈3,04 $/MMBtu",
+      "date_reference": "2026-09-24"
+    }
   ],
-  "note_redaction": ""
+  "note_redaction": "Mise à jour du 24 septembre 2026. Les indices BRVM correspondent à la dernière clôture officielle consolidée disponible (23 septembre) ; ne pas les présenter comme des cours intrajournaliers du 24 septembre."
 }
