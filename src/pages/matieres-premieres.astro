@@ -11,46 +11,26 @@ import Layout from '../layouts/Layout.astro';
     <div class="tv-widget-box">
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async is:inline set:html={`{
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async is:inline set:html={`{
+          "symbols": [
+            { "proName": "TVC:UKOIL", "title": "Brent" },
+            { "proName": "TVC:USOIL", "title": "WTI" },
+            { "proName": "TVC:GOLD", "title": "Or" }
+          ],
           "colorTheme": "light",
-          "dateRange": "12M",
-          "showChart": false,
           "locale": "fr",
-          "width": "100%",
-          "height": "420",
           "largeChartUrl": "",
           "isTransparent": true,
           "showSymbolLogo": true,
-          "showFloatingTooltip": false,
-          "plotLineColorGrowing": "rgba(0, 132, 61, 1)",
-          "plotLineColorFalling": "rgba(192, 57, 43, 1)",
-          "gridLineColor": "rgba(240, 243, 250, 0)",
-          "scaleFontColor": "rgba(16, 24, 43, 1)",
-          "belowLineFillColorGrowing": "rgba(0, 132, 61, 0.12)",
-          "belowLineFillColorFalling": "rgba(192, 57, 43, 0.12)",
-          "belowLineFillColorGrowingBottom": "rgba(0, 132, 61, 0)",
-          "belowLineFillColorFallingBottom": "rgba(192, 57, 43, 0)",
-          "symbolActiveColor": "rgba(0, 61, 165, 0.12)",
-          "tabs": [
-            {
-              "title": "Matières premières",
-              "symbols": [
-                { "s": "TVC:UKOIL", "d": "Brent" },
-                { "s": "TVC:USOIL", "d": "WTI" },
-                { "s": "TVC:GOLD", "d": "Or" },
-                { "s": "TVC:NATURALGAS", "d": "Gaz naturel" }
-              ],
-              "originalTitle": "Matières premières"
-            }
-          ]
+          "displayMode": "adaptive"
         }`}></script>
       </div>
     </div>
-    <p style="font-size:11px; color:var(--label); margin-top:2px;">Cacao et coton non disponibles en direct sur l'offre gratuite TradingView — niveaux les plus récents dans l'analyse ci-dessous.</p>
+    <p style="font-size:11px; color:var(--label); margin-top:2px;">Cacao, coton et gaz naturel non disponibles en direct sur l'offre gratuite TradingView — niveaux les plus récents dans l'analyse ci-dessous.</p>
 
     <!-- ZONE-DYNAMIQUE-DEBUT : régénérée automatiquement par scripts/generate-commodities.mjs, ne pas éditer à la main entre ces marqueurs -->
     <p class="page-meta"><span><b>Analyse</b> — non encore initialisée, exécuter le pipeline pour la première fois</span></p>
-    <h2>Ce que ça signifie pour l'Afrique de l'Ouest</h2>
+    <h2>Incidence sur la région</h2>
     <p style="color:var(--label); font-style:italic;">En attente de la première génération automatique — voir data/daily-data.json puis le workflow GitHub Actions.</p>
     <!-- ZONE-DYNAMIQUE-FIN -->
 
@@ -108,7 +88,7 @@ import Layout from '../layouts/Layout.astro';
       <p style="margin:8px 0 0;">La valeur de l'uranium nigérien dépend autant de la géopolitique et des contrats de long terme que du prix spot du marché — un cas particulier dans cette grille.</p>
     </div>
 
-    <p style="margin-top:24px; font-size:13px;"><b>Ce qu'il faut retenir :</b> les matières premières ne constituent pas un risque unique pour l'Afrique de l'Ouest, mais une série de transferts de revenus entre producteurs, importateurs, États, entreprises et ménages — la bonne question n'est jamais "les prix montent ou baissent", mais "quel canal relie ce mouvement précis à quel pays, et dans quel sens".</p>
+    <p style="margin-top:24px; font-size:13px;">Les matières premières ne constituent pas un risque unique pour l'Afrique de l'Ouest, mais une série de transferts de revenus entre producteurs, importateurs, États, entreprises et ménages. La bonne question n'est jamais "les prix montent ou baissent", mais "quel canal relie ce mouvement précis à quel pays, et dans quel sens".</p>
 
     <div class="disclaimer">Avertissement : ce contenu est publié à des fins purement informatives et ne constitue pas un conseil en investissement.</div>
 </Layout>
