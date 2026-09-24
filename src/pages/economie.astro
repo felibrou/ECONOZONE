@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="breadcrumb">ECONOZONE &rsaquo; Économie ouest-africaine</div>
     <h1>Économie ouest-africaine</h1>
     <p class="dek">Cette page suit la conjoncture de l'Union économique et monétaire ouest-africaine (UEMOA), la politique monétaire de la BCEAO et les évolutions des grandes économies voisines, notamment le Ghana et le Nigeria.</p>
-    <p style="font-size:12px; color:var(--label); margin-top:-16px;"><b>Mise à jour : 24 septembre 2026</b> · <a href="/economie/archives" style="color:var(--accent); font-weight:600;">Archives économiques →</a></p>
+    <p class="edition-meta"><b>Édition mise à jour :</b> <time datetime="2026-09-24T12:30:00Z">24 septembre 2026 à 12 h 30 GMT</time> · <a href="/economie/archives">Archives économiques →</a></p>
 
     <div class="kpi-strip">
       <div class="kpi">
@@ -143,6 +143,8 @@ import Layout from '../layouts/Layout.astro';
   .topbar-inner { max-width: 1000px; margin: 0 auto; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
   .brand { color: #fff; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; }
   .col { width: 100%; max-width: 1000px; padding: 28px 24px 80px; }
+  .edition-meta { margin: -16px 0 24px; font-size: 12px; line-height: 1.5; color: var(--label); }
+  .edition-meta a { color: var(--accent); font-weight: 600; }
   .breadcrumb { font-size: 12px; color: var(--label); margin-bottom: 14px; }
   h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600; color: var(--navy); margin: 0 0 8px; letter-spacing: -0.01em; line-height: 1.15; }
   .dek { font-size: 15px; color: var(--text-muted); max-width: 720px; margin: 0 0 28px; line-height: 1.6; }
