@@ -681,7 +681,7 @@ const optionLabel = (sgi) => {
 
     </div>
 
-    <p style="font-size:12px; color:var(--label); margin-top:8px;">* Chiffre confirmé par écrit directement par la SGI. Montants pour un compte en <b>gestion libre</b> (autogérée) — la <b>gestion sous mandat</b> exige généralement un dépôt nettement supérieur, parfois 5 000 000 FCFA ou plus (NSIA Finance, Sirius Capital). "Accès digital confirmé" signifie une ouverture de compte ou un suivi de portefeuille en ligne effectivement vérifié pour cette SGI — l'absence de coche ne veut pas dire "non disponible", seulement "non confirmé à ce stade".</p>
+    <p class="sgi-footnote">* Tarifs indiqués comme confirmés lorsqu'ils ont été vérifiés auprès de la SGI. Les montants concernent la gestion libre ; la gestion sous mandat peut exiger un capital plus élevé. « Accès digital confirmé » signifie que l'ouverture ou le suivi en ligne a été vérifié.</p>
 
     <script>
       (function () {
@@ -920,6 +920,7 @@ const optionLabel = (sgi) => {
 
   .sgi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
   .directory-note { font-size: 13px !important; color: var(--label) !important; margin: -8px 0 14px; max-width: 900px; }
+  .sgi-footnote { font-size: 11px !important; line-height: 1.45 !important; color: var(--label) !important; margin-top: 8px; max-width: 900px; }
   .sgi-card {
     background: #10243E;
     border: 1px solid #2B3A52;
