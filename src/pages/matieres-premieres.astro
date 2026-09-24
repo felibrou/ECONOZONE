@@ -15,7 +15,10 @@ import Layout from '../layouts/Layout.astro';
           "symbols": [
             { "proName": "TVC:UKOIL", "title": "Brent" },
             { "proName": "TVC:USOIL", "title": "WTI" },
-            { "proName": "TVC:GOLD", "title": "Or" }
+            { "proName": "TVC:GOLD", "title": "Or" },
+            { "proName": "ICEUS:CC1!", "title": "Cacao" },
+            { "proName": "ICEUS:CT1!", "title": "Coton" },
+            { "proName": "NYMEX:NG1!", "title": "Gaz naturel" }
           ],
           "colorTheme": "light",
           "locale": "fr",
@@ -27,9 +30,10 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
     <!-- ZONE-DYNAMIQUE-DEBUT : régénérée automatiquement par scripts/generate-commodities.mjs, ne pas éditer à la main entre ces marqueurs -->
-    <p class="page-meta"><span><b>Analyse</b> — non encore initialisée, exécuter le pipeline pour la première fois</span></p>
+    <p class="page-meta"><span><b>Mise à jour</b> — 24 septembre 2026 · derniers niveaux de marché disponibles</span></p>
     <h2>Incidence sur la région</h2>
-    <p style="color:var(--label); font-style:italic;">En attente de la première génération automatique — voir data/daily-data.json puis le workflow GitHub Actions.</p>
+    <p>🟢 Le <b>Brent</b> a atteint 102,85 $/baril le 23 septembre (+3,62 %), ce qui renforce la pression sur la facture énergétique des pays ouest-africains importateurs nets de produits pétroliers. 🟢 Le <b>cacao</b> a rebondi à 5 528 $/t (+2,33 %), un soutien ponctuel pour la Côte d’Ivoire et le Ghana, mais le niveau reste inférieur d’environ 21,6 % à celui d’un an auparavant. 🔴 L’<b>or</b> a reculé à 4 286,36 $/oz (−1,79 %), tout en restant élevé sur un an pour les économies productrices comme le Ghana, le Mali et le Burkina Faso.</p>
+    <p class="source-line">Sources : <a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank" rel="noopener noreferrer">Brent</a> · <a href="https://tradingeconomics.com/commodity/cocoa" target="_blank" rel="noopener noreferrer">Cacao</a> · <a href="https://tradingeconomics.com/commodity/gold" target="_blank" rel="noopener noreferrer">Or</a>.</p>
     <!-- ZONE-DYNAMIQUE-FIN -->
 
     <h2>Grille de lecture par matière première</h2>
