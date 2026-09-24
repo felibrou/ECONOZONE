@@ -1,13 +1,11 @@
 // scripts/generate-commodities.mjs
-//
 // Lit data/daily-data.json (champ "matieres_premieres"), appelle OpenAI pour écrire
-// UNIQUEMENT la zone dynamique de src/pages/matieres-premieres.astro :
-// tableau "Marchés du jour" + brève analyse.
+// UNIQUEMENT la zone dynamique de src/pages/matieres-premieres.astro (tableau "Marchés
+// du jour" + brève analyse) — le reste de la page (grille de lecture, cartes pays,
+// avertissement) reste du contenu stable, jamais régénéré.
 //
-// Le reste de la page reste stable et n'est jamais régénéré.
-//
-// Gemini intervient séparément dans qa-commodities.mjs
-// comme contrôleur qualité indépendant.
+// Gemini intervient séparément dans qa-commodities.mjs comme contrôleur qualité
+// indépendant, sur le même modèle que qa-essentiel.mjs.
 //
 // Usage local : node scripts/generate-commodities.mjs
 // Usage CI     : appelé par .github/workflows/daily-essentiel.yml
@@ -16,137 +14,29 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PROVIDERS } from './providers.mjs';
 
-const DATA_PATH = path.join(
-  process.cwd(),
-  'data',
-  'daily-data.json'
-);
-
-const OUTPUT_PATH = path.join(
-  process.cwd(),
-  'src',
-  'pages',
-  'matieres-premieres.astro'
-);
-
+const DATA_PATH = path.join(process.cwd(), 'data', 'daily-data.json');
+const OUTPUT_PATH = path.join(process.cwd(), 'src', 'pages', 'matieres-premieres.astro');
 const ZONE_START = '<!-- ZONE-DYNAMIQUE-DEBUT';
 const ZONE_END = '<!-- ZONE-DYNAMIQUE-FIN -->';
 
+const SYSTEM_PROMPT = `Tu rédiges UNIQUEMENT la section "Incidence sur la région" de la page Matières premières d'ECONOZONE, un média économique et financier ouest-africain — pas la page entière.
 
-// -----------------------------------------------------------------------------
-// PROMPT ÉDITORIAL MATIÈRES PREMIÈRES
-// -----------------------------------------------------------------------------
+Un widget TradingView affiche déjà les cours en direct juste au-dessus de ta section (Brent, WTI, Or, Cacao, Coton, Gaz naturel) — ne recrée jamais de tableau de cours, ne cite pas de niveau de prix précis que tu ne peux pas vérifier à l'instant présent. Ton rôle est uniquement d'expliquer l'incidence régionale des mouvements récents fournis dans le JSON.
 
-const SYSTEM_PROMPT = `
-Tu es le rédacteur de la zone dynamique « Marchés du jour » de la page
-Matières premières d'ECONOZONE, média économique et financier centré sur
-l'Afrique de l'Ouest.
+RÈGLES STRICTES
+- Utilise exclusivement les variations et niveaux du JSON fourni (champ "matieres_premieres") comme point de départ factuel — n'invente aucun chiffre, aucune matière première absente du JSON.
+- N'écris ni grille de lecture générale, ni cartes pays, ni avertissement légal, ni tableau de cours — ces blocs existent déjà ailleurs sur la page et ne doivent pas être dupliqués.
+- Reste bref : 2 à 4 phrases maximum, uniquement sur les mouvements réellement significatifs, toujours reliés à un pays, une filière ou un ménage ouest-africain précis.
+- Codage couleur : 🟢 pour une hausse, 🔴 pour une baisse, jamais de flèche ou symbole noir.
+- N'utilise jamais "Lecture" ou "Pourquoi cela compte" comme étiquette. N'adresse aucun commentaire au propriétaire du site.
+- N'utilise qu'exceptionnellement les expressions suivantes, jamais plus d'une fois : "l'enjeu", "autrement dit", "en clair", "dans ce contexte", "il convient de", "reste à savoir", "constitue un signal", "marque une étape importante". Varie la construction de l'analyse d'une édition à l'autre (entrée par une donnée, comparaison entre deux matières premières, question posée puis résolue) plutôt que de répéter le même schéma.
 
-Tu ne rédiges PAS la page entière et tu ne modifies jamais les autres
-rubriques de la page.
-
-OBJECTIF
-Produire un tableau utile, lisible, chiffré et régionalement pertinent,
-sans inventer de données de marché.
-
-1. SOURCES ET DONNÉES
-
-Les prix, niveaux, variations et dates doivent provenir exclusivement du JSON
-fourni. Ne fabrique jamais un cours, une variation, une unité ou une date.
-
-Si un cours et son unité sont disponibles mais qu'aucune variation comparable
-n'est fournie, la ligne peut être conservée comme valeur de référence :
-→ Référence (cours observé le [date]).
-Ne transforme jamais l'absence de variation en « 0,00 % ».
-
-Si ni le cours chiffré ni l'unité ne sont disponibles, omets la ligne.
-
-2. PORTÉE RÉGIONALE
-
-La colonne « Pays particulièrement exposés » et l'incidence régionale doivent
-rester centrées sur l'Afrique de l'Ouest.
-
-Tu peux utiliser les relations structurelles suivantes comme grille éditoriale
-lorsqu'elles sont pertinentes pour la matière première publiée :
-- cacao : Côte d'Ivoire, Ghana ;
-- or : Ghana, Mali, Burkina Faso, Côte d'Ivoire, Sénégal ;
-- pétrole : Nigeria, Ghana, Côte d'Ivoire, Sénégal et pays importateurs régionaux ;
-- bauxite : Guinée ;
-- uranium : Niger ;
-- coton : Bénin, Burkina Faso, Mali, Côte d'Ivoire ;
-- noix de cajou : Côte d'Ivoire, Bénin, Guinée-Bissau ;
-- caoutchouc naturel : Côte d'Ivoire.
-
-N'ajoute pas un pays si le lien économique n'est pas suffisamment établi.
-
-3. TABLEAU OBLIGATOIRE
-
-L'en-tête doit être exactement :
-
-Matière première | Cours / variation | Pays particulièrement exposés | Incidence régionale
-
-Pour chaque ligne :
-- matière première ;
-- cours numérique ;
-- unité ;
-- variation et période de comparaison lorsqu'elles existent ;
-- sinon → Référence avec date d'observation ;
-- pays ouest-africains concernés ;
-- incidence régionale en une phrase courte et factuelle.
-
-Codage visuel :
-- <span class="up">▲ +x,xx %</span> pour une hausse ;
-- <span class="down">▼ −x,xx %</span> pour une baisse ;
-- <span class="flat">→ 0,00 %</span> uniquement pour une stabilité réellement mesurée ;
-- <span class="flat">→ Référence</span> lorsqu'aucune comparaison n'est disponible.
-
-Aucune pastille ou boule colorée.
-
-4. ANALYSE
-
-Après le tableau, rédige un seul paragraphe de 2 à 4 phrases maximum.
-Explique uniquement les mouvements les plus importants et leurs canaux
-possibles vers l'Afrique de l'Ouest : recettes d'exportation, recettes fiscales,
-revenus agricoles, coût des importations, carburant, transport, inflation,
-balance commerciale ou activité industrielle.
-
-Distingue clairement observation et explication. N'invente pas de causalité.
-
-5. INTERDICTIONS
-
-Aucun conseil d'achat ou de vente.
-Aucune recommandation personnalisée.
-Aucune donnée de portefeuille privé.
-Aucune formule vague pour remplacer un chiffre absent, notamment :
-« niveau élevé », « marché ferme », « prix soutenu », « en hausse ».
-Aucune étiquette « À retenir », « Conclusion », « Lecture » ou « Bottom line ».
-
-6. FORMAT DE SORTIE
-
-Réponds UNIQUEMENT avec le HTML destiné à remplacer la zone dynamique.
-
-Aucun Markdown.
-Aucune balise <Layout>.
-Aucune explication avant ou après le HTML.
-
-Structure :
-1. <p class="page-meta">...</p> avec la date du JSON ;
-2. <h2>Marchés du jour</h2> ;
-3. <table class="z"> avec l'en-tête exact ;
-4. un paragraphe d'analyse de 2 à 4 phrases.
-
-Réutilise uniquement :
-.page-meta
-.z
-.up
-.down
-.flat
-`
-
-
-// -----------------------------------------------------------------------------
-// GÉNÉRATION
-// -----------------------------------------------------------------------------
+FORMAT DE SORTIE
+Réponds UNIQUEMENT avec le HTML suivant, sans rien avant ni après :
+1. Une ligne <p class="page-meta"> indiquant la date/heure de mise à jour (utilise le champ "date" du JSON).
+2. <h2>Incidence sur la région</h2>
+3. Un court paragraphe <p> d'analyse (2 à 4 phrases), sans étiquette.
+Réutilise exactement les classes déjà définies sur le site (.page-meta, .up, .down) — n'en invente pas de nouvelles.`;
 
 async function main() {
   const provider = PROVIDERS.chatgpt;
@@ -156,352 +46,96 @@ async function main() {
   console.log('✍️  RÉDACTION MATIÈRES PREMIÈRES — OPENAI');
   console.log('==========================================');
 
-
-  // ---------------------------------------------------------------------------
-  // Vérification du fournisseur
-  // ---------------------------------------------------------------------------
-
-  if (!provider) {
-    console.error(
-      '❌ Le fournisseur "chatgpt" est absent de scripts/providers.mjs.'
-    );
-
-    process.exit(1);
-  }
-
-
-  // ---------------------------------------------------------------------------
-  // Vérification de la clé OpenAI
-  // ---------------------------------------------------------------------------
-
   if (!process.env.OPENAI_API_KEY) {
-    console.error(
-      '❌ OPENAI_API_KEY est absente des secrets GitHub.'
-    );
-
+    console.error('❌ OPENAI_API_KEY est absente des secrets GitHub.');
     process.exit(1);
   }
-
-
-  // ---------------------------------------------------------------------------
-  // Vérification du fichier de données
-  // ---------------------------------------------------------------------------
 
   if (!fs.existsSync(DATA_PATH)) {
-    console.error(
-      `❌ Fichier de données introuvable : ${DATA_PATH}`
-    );
-
+    console.error(`❌ Fichier de données introuvable : ${DATA_PATH}`);
     process.exit(1);
   }
-
-
-  // ---------------------------------------------------------------------------
-  // Lecture du JSON
-  // ---------------------------------------------------------------------------
 
   let data;
-
   try {
-    const raw = fs.readFileSync(
-      DATA_PATH,
-      'utf-8'
-    );
-
+    const raw = fs.readFileSync(DATA_PATH, 'utf-8');
     data = JSON.parse(raw);
-
   } catch (err) {
-    console.error(
-      '❌ Impossible de lire data/daily-data.json :',
-      err?.message || err
-    );
-
+    console.error('❌ Impossible de lire data/daily-data.json :', err.message || err);
     process.exit(1);
   }
 
-
-  // ---------------------------------------------------------------------------
-  // Vérification de la date
-  // ---------------------------------------------------------------------------
-
-  if (!data.date) {
-    console.error(
-      '❌ Le champ "date" est absent de data/daily-data.json.'
-    );
-
-    process.exit(1);
-  }
-
-
-  // ---------------------------------------------------------------------------
-  // Vérification des données matières premières
-  // ---------------------------------------------------------------------------
-
-  if (
-    !data.matieres_premieres ||
-    (
-      Array.isArray(data.matieres_premieres) &&
-      data.matieres_premieres.length === 0
-    )
-  ) {
-    console.log(
-      'ℹ️ Aucune donnée "matieres_premieres" exploitable dans daily-data.json.'
-    );
-
-    console.log(
-      '→ La page Matières premières reste inchangée.'
-    );
-
+  if (!data.matieres_premieres || data.matieres_premieres.length === 0) {
+    console.log('ℹ️ Aucune donnée "matieres_premieres" dans daily-data.json — page inchangée.');
     return;
   }
 
+  const userMessage = `Date : ${data.date}\n\nDonnées matières premières (JSON) :\n${JSON.stringify(data.matieres_premieres, null, 2)}\n\nGénère la zone dynamique. N'invente aucune donnée absente ou non vérifiable.`;
 
-  // ---------------------------------------------------------------------------
-  // Construction du message envoyé à OpenAI
-  // ---------------------------------------------------------------------------
-
-  const userMessage =
-    `Date : ${data.date}\n\n` +
-    `Données matières premières disponibles :\n\n` +
-    `${JSON.stringify(data.matieres_premieres, null, 2)}\n\n` +
-    `Génère les lignes pour lesquelles un cours chiffré et une unité sont disponibles. ` +
-    `Si une variation comparable est absente mais que la date d'observation est connue, ` +
-    `utilise une valeur de référence sans inventer de pourcentage. ` +
-    `Reste centré sur l'Afrique de l'Ouest et n'invente aucune donnée de marché.`;
-
-  console.log(
-    `→ Données chargées pour le ${data.date}`
-  );
-
-  console.log(
-    `→ Génération via ${provider.label}...`
-  );
-
-
-  // ---------------------------------------------------------------------------
-  // Appel OpenAI
-  // ---------------------------------------------------------------------------
+  console.log(`→ Données chargées pour le ${data.date}`);
+  console.log(`→ Génération via ${provider.label}...`);
 
   let newZoneHtml;
-
   try {
-    newZoneHtml = await provider.call(
-      SYSTEM_PROMPT,
-      userMessage
-    );
-
+    newZoneHtml = await provider.call(SYSTEM_PROMPT, userMessage);
   } catch (err) {
     console.error('');
-
-    console.error(
-      `❌ Échec de la rédaction avec ${provider.label} :`
-    );
-
-    console.error(
-      err?.message || String(err)
-    );
-
+    console.error(`❌ Échec de la rédaction avec ${provider.label} :`);
+    console.error(err?.message || String(err));
     process.exit(1);
   }
 
-
-  // ---------------------------------------------------------------------------
-  // Vérification de la réponse
-  // ---------------------------------------------------------------------------
-
-  if (
-    !newZoneHtml ||
-    !String(newZoneHtml).trim()
-  ) {
-    console.error(
-      '❌ OpenAI a retourné une réponse vide.'
-    );
-
+  if (!newZoneHtml || !String(newZoneHtml).trim()) {
+    console.error('❌ OpenAI a retourné une réponse vide.');
     process.exit(1);
   }
 
-  newZoneHtml = String(
-    newZoneHtml
-  ).trim();
+  newZoneHtml = String(newZoneHtml).trim();
 
-
-  // ---------------------------------------------------------------------------
-  // Bloquer le Markdown
-  // ---------------------------------------------------------------------------
-
-  if (
-    newZoneHtml.startsWith('```html') ||
-    newZoneHtml.startsWith('```')
-  ) {
-    console.error(
-      '❌ OpenAI a retourné du Markdown au lieu du HTML attendu.'
-    );
-
+  if (newZoneHtml.startsWith('```html') || newZoneHtml.startsWith('```')) {
+    console.error('❌ OpenAI a retourné du Markdown au lieu du HTML attendu.');
     process.exit(1);
   }
 
-
-  // ---------------------------------------------------------------------------
-  // Bloquer un Layout imbriqué
-  // ---------------------------------------------------------------------------
-
-  if (
-    newZoneHtml.includes('<Layout') ||
-    newZoneHtml.includes('</Layout>')
-  ) {
-    console.error(
-      '❌ OpenAI a retourné une balise <Layout>.'
-    );
-
+  if (newZoneHtml.includes('<Layout') || newZoneHtml.includes('</Layout>')) {
+    console.error('❌ OpenAI a retourné une balise <Layout>.');
     process.exit(1);
   }
-
-
-  // ---------------------------------------------------------------------------
-  // Vérifier la page cible
-  // ---------------------------------------------------------------------------
 
   if (!fs.existsSync(OUTPUT_PATH)) {
-    console.error(
-      `❌ Fichier introuvable : ${OUTPUT_PATH}`
-    );
-
+    console.error(`❌ Fichier introuvable : ${OUTPUT_PATH}`);
     process.exit(1);
   }
 
+  const pageContent = fs.readFileSync(OUTPUT_PATH, 'utf-8');
+  const startIdx = pageContent.indexOf(ZONE_START);
+  const endIdx = pageContent.indexOf(ZONE_END);
 
-  // ---------------------------------------------------------------------------
-  // Lire la page actuelle
-  // ---------------------------------------------------------------------------
-
-  const pageContent = fs.readFileSync(
-    OUTPUT_PATH,
-    'utf-8'
-  );
-
-  const startIdx =
-    pageContent.indexOf(ZONE_START);
-
-  const endIdx =
-    pageContent.indexOf(
-      ZONE_END,
-      startIdx
-    );
-
-
-  // ---------------------------------------------------------------------------
-  // Vérifier les marqueurs dynamiques
-  // ---------------------------------------------------------------------------
-
-  if (
-    startIdx === -1 ||
-    endIdx === -1 ||
-    endIdx <= startIdx
-  ) {
-    console.error(
-      '❌ Marqueurs ZONE-DYNAMIQUE introuvables ou incohérents dans matieres-premieres.astro.'
-    );
-
-    console.error(
-      '→ Abandon pour éviter de modifier accidentellement le reste de la page.'
-    );
-
+  if (startIdx === -1 || endIdx === -1) {
+    console.error('❌ Marqueurs ZONE-DYNAMIQUE introuvables dans matieres-premieres.astro — abandon (fichier probablement modifié manuellement).');
     process.exit(1);
   }
 
-
-  // ---------------------------------------------------------------------------
-  // Identifier la fin de la ligne du marqueur de début
-  // ---------------------------------------------------------------------------
-
-  const startLineEnd =
-    pageContent.indexOf(
-      '\n',
-      startIdx
-    );
-
-  if (startLineEnd === -1) {
-    console.error(
-      '❌ Le marqueur ZONE-DYNAMIQUE-DEBUT est mal formé.'
-    );
-
-    process.exit(1);
-  }
-
-
-  // ---------------------------------------------------------------------------
-  // Construire la nouvelle page
-  // ---------------------------------------------------------------------------
-
-  const before =
-    pageContent.slice(
-      0,
-      startLineEnd + 1
-    );
-
-  const after =
-    pageContent.slice(
-      endIdx
-    );
-
-  const newPageContent =
-    `${before}${newZoneHtml}\n${after}`;
-
-
-  // ---------------------------------------------------------------------------
-  // Écriture du fichier
-  // ---------------------------------------------------------------------------
+  const zoneStartLine = pageContent.slice(startIdx, pageContent.indexOf('\n', startIdx) + 1);
+  const before = pageContent.slice(0, startIdx);
+  const after = pageContent.slice(endIdx);
+  const newPageContent = `${before}${zoneStartLine}${newZoneHtml}\n    ${after}`;
 
   try {
-    fs.writeFileSync(
-      OUTPUT_PATH,
-      newPageContent,
-      'utf-8'
-    );
-
+    fs.writeFileSync(OUTPUT_PATH, newPageContent, 'utf-8');
   } catch (err) {
-    console.error(
-      "❌ Impossible d'écrire matieres-premieres.astro :",
-      err?.message || err
-    );
-
+    console.error("❌ Impossible d'écrire matieres-premieres.astro :", err.message || err);
     process.exit(1);
   }
 
-
-  // ---------------------------------------------------------------------------
-  // Confirmation
-  // ---------------------------------------------------------------------------
-
   console.log('');
-
-  console.log(
-    `✅ ${OUTPUT_PATH} — zone dynamique régénérée pour le ${data.date}.`
-  );
-
-  console.log(
-    `✅ Rédacteur automatique : ${provider.label}`
-  );
-
-  console.log(
-    '→ Étape suivante : contrôle qualité indépendant par Gemini.'
-  );
-
-  console.log(
-    '=========================================='
-  );
+  console.log(`✅ ${OUTPUT_PATH} — zone dynamique régénérée pour le ${data.date}.`);
+  console.log(`✅ Rédacteur automatique : ${provider.label}`);
+  console.log('→ Étape suivante : contrôle qualité indépendant par Gemini.');
+  console.log('==========================================');
 }
 
-
-// -----------------------------------------------------------------------------
-// EXÉCUTION
-// -----------------------------------------------------------------------------
-
 main().catch((err) => {
-  console.error(
-    '❌ Échec général de la génération :',
-    err?.message || err
-  );
-
+  console.error('❌ Échec général de la génération :', err?.message || err);
   process.exit(1);
 });
