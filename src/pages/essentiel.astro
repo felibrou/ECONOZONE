@@ -37,7 +37,11 @@ import Layout from '../layouts/Layout.astro';
     .breadth-up { width: 58.33%; background: #18864b; }
     .breadth-flat { width: 20.83%; background: #9aa4b2; }
     .breadth-down { width: 20.83%; background: #c62828; }
-    .breadth-legend { display: flex; gap: 18px; flex-wrap: wrap; color: #667085; font-size: .82rem; }
+    .breadth-legend { display: flex; gap: 22px; flex-wrap: wrap; font-size: .84rem; font-weight: 700; align-items: center; }
+    .breadth-legend .legend-up { color: #18864b; }
+    .breadth-legend .legend-flat { color: #111827; }
+    .breadth-legend .legend-down { color: #c62828; }
+    .breadth-legend .legend-arrow { font-size: 1rem; line-height: 1; margin-right: 4px; }
     .source-line { font-size: .82rem; color: #667085; margin-top: 12px; max-width: 900px; }
     .source-line a, .sources a { color: #0d47a1; text-decoration: underline; }
     .note { margin-top: 40px; padding: 18px 20px; background: #f6f8fb; border-left: 4px solid #0d47a1; line-height: 1.65; }
@@ -88,7 +92,9 @@ import Layout from '../layouts/Layout.astro';
           <div class="breadth-up" style="width:70.83%"></div><div class="breadth-flat" style="width:14.58%"></div><div class="breadth-down" style="width:14.58%"></div>
         </div>
         <div class="breadth-legend">
-          <span>▲ 34 hausses</span><span>● 7 stables</span><span>▼ 7 baisses</span>
+          <span class="legend-up"><span class="legend-arrow">▲</span>34 hausses</span>
+          <span class="legend-flat"><span class="legend-arrow">●</span>7 stables</span>
+          <span class="legend-down"><span class="legend-arrow">▼</span>7 baisses</span>
         </div>
       </div>
 
