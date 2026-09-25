@@ -30,6 +30,10 @@ import Layout from '../layouts/Layout.astro';
     .market-table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: .92rem; }
     .market-table th { text-align: left; padding: 10px 8px; border-bottom: 2px solid #cfd6df; font-size: .82rem; }
     .market-table td { padding: 11px 8px; border-bottom: 1px solid #e4e7ec; vertical-align: top; }
+    .variation-up { color: #18864b; font-weight: 800; white-space: nowrap; }
+    .variation-down { color: #c62828; font-weight: 800; white-space: nowrap; }
+    .variation-flat { color: #111827; font-weight: 800; white-space: nowrap; }
+    .variation-arrow { font-size: .95rem; margin-right: 4px; }
     .highlight { border-left: 4px solid #0d47a1; background: #f6f8fb; padding: 18px 20px; margin: 24px 0; }
     .highlight h3 { margin-top: 0; }
     .breadth { margin: 25px 0; padding: 20px; border: 1px solid #dde3ea; border-radius: 8px; }
@@ -108,11 +112,11 @@ import Layout from '../layouts/Layout.astro';
       <table class="market-table">
         <thead><tr><th>Valeur</th><th>Clôture</th><th>Variation</th><th>Lecture</th></tr></thead>
         <tbody>
-          <tr><td>SAFC</td><td>4 300 FCFA</td><td class="up">+7,50 %</td><td>Plus forte hausse de la séance.</td></tr>
-          <tr><td>SMBC</td><td>15 810 FCFA</td><td class="up">+7,48 %</td><td>Forte accélération sur SMB Côte d’Ivoire.</td></tr>
-          <tr><td>BICB</td><td>8 510 FCFA</td><td class="up">+7,45 %</td><td>Rebond marqué après la baisse précédente.</td></tr>
-          <tr><td>BBGC</td><td>7 795 FCFA</td><td class="up">+7,44 %</td><td>Deuxième séance toujours très demandée.</td></tr>
-          <tr><td>STAC</td><td>2 085 FCFA</td><td class="down">−7,33 %</td><td>Plus forte baisse du jour.</td></tr>
+          <tr><td>SAFC</td><td>4 300 FCFA</td><td class="variation-up"><span class="variation-arrow">▲</span>+7,50 %</td><td>Plus forte hausse de la séance.</td></tr>
+          <tr><td>SMBC</td><td>15 810 FCFA</td><td class="variation-up"><span class="variation-arrow">▲</span>+7,48 %</td><td>Forte accélération sur SMB Côte d’Ivoire.</td></tr>
+          <tr><td>BICB</td><td>8 510 FCFA</td><td class="variation-up"><span class="variation-arrow">▲</span>+7,45 %</td><td>Rebond marqué après la baisse précédente.</td></tr>
+          <tr><td>BBGC</td><td>7 795 FCFA</td><td class="variation-up"><span class="variation-arrow">▲</span>+7,44 %</td><td>Deuxième séance toujours très demandée.</td></tr>
+          <tr><td>STAC</td><td>2 085 FCFA</td><td class="variation-down"><span class="variation-arrow">▼</span>−7,33 %</td><td>Plus forte baisse du jour.</td></tr>
         </tbody>
       </table>
 
