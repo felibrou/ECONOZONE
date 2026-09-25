@@ -1,45 +1,56 @@
 {
-  "date": "2026-09-24",
+  "date": "2026-09-25",
   "indices": {
     "composite": {
-      "valeur": "531,63",
-      "variation": "+2,97%"
+      "valeur": "540,78",
+      "variation": "+1,72%"
     },
     "brvm30": {
-      "valeur": "258,18",
-      "variation": "+3,19%"
+      "valeur": "262,04",
+      "variation": "+1,50%"
     },
     "prestige": {
-      "valeur": "197,74",
-      "variation": "+2,36%"
+      "valeur": "199,91",
+      "variation": "+1,10%"
     },
-    "transactions": "4,72 milliards FCFA",
-    "reference": "Clôture officielle du 24 septembre 2026"
+    "transactions": "4,498 milliards FCFA",
+    "capitalisation_actions": "21 206,6 milliards FCFA",
+    "reference": "Clôture officielle du 25 septembre 2026"
   },
   "largeur_marche": {
-    "hausse": 28,
-    "baisse": 10,
-    "stable": 10
+    "hausse": 34,
+    "baisse": 7,
+    "stable": 7
   },
   "faits_marquants": [
-    "Le BRVM Composite clôture le 24 septembre 2026 à 531,63 points, en hausse de 2,97%, après la forte baisse de la veille.",
-    "Bridge Bank Group Côte d'Ivoire (BBGC) effectue sa première cotation et ressort à 7 255 FCFA, contre un prix d'introduction de 6 750 FCFA."
+    "Le BRVM Composite clôture à 540,78 points, en hausse de 1,72%, avec 34 valeurs en progression sur 48.",
+    "Bridge Bank Group Côte d'Ivoire clôture sa deuxième séance à 7 795 FCFA, en hausse de 7,44%."
   ],
   "radar_titres": [
     {
       "symbole": "BBGC",
-      "variation": "Première cotation — 7 255 FCFA",
-      "commentaire": "20 926 titres échangés lors de la séance inaugurale ; phase de découverte du prix à suivre."
+      "variation": "+7,44% — 7 795 FCFA",
+      "commentaire": "Deuxième séance très demandée ; 17 004 titres échangés."
     },
     {
-      "symbole": "ETIT",
-      "variation": "+6,25% — 68 FCFA",
-      "commentaire": "Rebond après la correction de la veille, avec 873 985 titres échangés."
+      "symbole": "BICB",
+      "variation": "+7,45% — 8 510 FCFA",
+      "commentaire": "Fort rebond après la baisse précédente."
+    },
+    {
+      "symbole": "SMBC",
+      "variation": "+7,48% — 15 810 FCFA",
+      "commentaire": "Parmi les plus fortes hausses de la séance."
     },
     {
       "symbole": "BOAC",
-      "variation": "+6,20% — 11 470 FCFA",
-      "commentaire": "Hausse soutenue avec 28 332 titres échangés."
+      "variation": "+1,09% — 11 595 FCFA",
+      "commentaire": "Hausse modérée dans un marché largement positif."
+    },
+    {
+      "symbole": "ETIT",
+      "variation": "+1,47% — 69 FCFA",
+      "commentaire": "923 531 titres échangés, liquidité très élevée."
     }
   ],
   "macro_uemoa": {
@@ -52,45 +63,34 @@
   "marches_mondiaux": [
     {
       "marche": "Brent",
-      "variation": "niveau > 100 $/bbl",
-      "niveau": "≈103–106 $/bbl selon le moment de cotation"
+      "variation": "≈ -0,9%",
+      "niveau": "≈105,6 $/bbl"
     },
     {
       "marche": "Or",
-      "variation": "légère baisse intrajournalière",
-      "niveau": "≈4 280 $/oz"
+      "variation": "≈ +0,3%",
+      "niveau": "≈4 288 $/oz"
     }
   ],
   "matieres_premieres": [
     {
       "nom": "Brent",
-      "variation": "volatil",
-      "niveau": "≈103–106 $/bbl",
-      "date_reference": "2026-09-24"
-    },
-    {
-      "nom": "Cacao",
-      "variation": "+2,33% au dernier niveau consolidé",
-      "niveau": "5 528 $/t",
-      "date_reference": "2026-09-23"
+      "variation": "≈ -0,9%",
+      "niveau": "≈105,6 $/bbl",
+      "date_reference": "2026-09-25"
     },
     {
       "nom": "Or",
-      "variation": "≈-0,2% à -0,4%",
-      "niveau": "≈4 280 $/oz",
-      "date_reference": "2026-09-24"
+      "variation": "≈ +0,3%",
+      "niveau": "≈4 288 $/oz",
+      "date_reference": "2026-09-25"
     },
     {
       "nom": "Gaz naturel",
-      "variation": "≈+1%",
-      "niveau": "≈3,05 $/MMBtu",
-      "date_reference": "2026-09-24"
+      "variation": "≈ -3,9%",
+      "niveau": "≈3,17 $/MMBtu",
+      "date_reference": "2026-09-25"
     }
   ],
-  "agenda_2026_09_25": [
-    "Poursuite à Abidjan des travaux régionaux CEDEAO-UEMOA-CILSS sur la gouvernance intégrée des ressources en eau.",
-    "Paiement annoncé du dividende Vivo Energy Côte d'Ivoire : 96,67 FCFA par action.",
-    "Surveiller la deuxième séance de BBGC et la capacité du rebond du marché à se confirmer."
-  ],
-  "note_redaction": "Mise à jour après clôture officielle du 24 septembre 2026. Les niveaux de matières premières sont des instantanés et peuvent évoluer après la clôture de la BRVM."
+  "note_redaction": "Mise à jour de clôture du 25 septembre 2026. Les cours de matières premières sont des instantanés et peuvent évoluer après la fermeture de la BRVM."
 }
