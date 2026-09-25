@@ -1,0 +1,182 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="ECONOZONE — L'Essentiel | BRVM • Économie • Marchés — 25 septembre 2026">
+  <style>
+    .essentiel { max-width: 980px; margin: 0 auto; padding: 32px 22px 64px; }
+    .masthead { margin-bottom: 24px; }
+    .masthead h1 { margin-bottom: 8px; }
+    .edition-date { margin: 0; font-size: 1rem; color: #5c6470; }
+    .byline { margin: 12px 0 0; color: #1f344d; font-size: .9rem; }
+    .chapo { font-size: 1.08rem; line-height: 1.75; margin: 24px 0 30px; max-width: 860px; }
+    .hero-photo, .article-photo { margin: 28px 0 30px; }
+    .hero-photo img, .article-photo img { display: block; width: 100%; height: auto; max-height: 480px; object-fit: cover; border-radius: 5px; }
+    figcaption { margin-top: 8px; color: #667085; font-size: .82rem; line-height: 1.45; }
+    section { margin-top: 46px; }
+    section h2 { margin-bottom: 12px; }
+    .subtitle { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.1rem; line-height: 1.55; color: #344054; font-weight: 600; margin: 0 0 22px; max-width: 850px; }
+    .kpi-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 20px 0 26px; }
+    .kpi { border-top: 3px solid #0d47a1; padding: 12px 4px 8px; }
+    .kpi-label { font-size: .82rem; color: #667085; margin-bottom: 5px; }
+    .kpi-value { font-weight: 700; line-height: 1.45; }
+    .kpi-value.kpi-neutral { color: #003DA5; }
+    .kpi-value.kpi-up { color: #18864b; }
+    .kpi-value.kpi-down { color: #c62828; }
+    .kpi-value.kpi-flat { color: #5f6368; }
+    .up { color: #18864b; font-weight: 700; }
+    .down { color: #c62828; font-weight: 700; }
+    .flat { color: #5f6368; font-weight: 600; }
+    .market-table { width: 100%; border-collapse: collapse; margin: 20px 0 26px; font-size: .92rem; }
+    .market-table th { text-align: left; padding: 10px 8px; border-bottom: 2px solid #cfd6df; font-size: .82rem; }
+    .market-table td { padding: 11px 8px; border-bottom: 1px solid #e4e7ec; vertical-align: top; }
+    .highlight { border-left: 4px solid #0d47a1; background: #f6f8fb; padding: 18px 20px; margin: 24px 0; }
+    .highlight h3 { margin-top: 0; }
+    .breadth { margin: 25px 0; padding: 20px; border: 1px solid #dde3ea; border-radius: 8px; }
+    .breadth-bar { display: flex; height: 22px; border-radius: 4px; overflow: hidden; margin: 12px 0 8px; background: #edf0f4; }
+    .breadth-up { width: 58.33%; background: #18864b; }
+    .breadth-flat { width: 20.83%; background: #9aa4b2; }
+    .breadth-down { width: 20.83%; background: #c62828; }
+    .breadth-legend { display: flex; gap: 18px; flex-wrap: wrap; color: #667085; font-size: .82rem; }
+    .source-line { font-size: .82rem; color: #667085; margin-top: 12px; max-width: 900px; }
+    .source-line a, .sources a { color: #0d47a1; text-decoration: underline; }
+    .note { margin-top: 40px; padding: 18px 20px; background: #f6f8fb; border-left: 4px solid #0d47a1; line-height: 1.65; }
+    .sources { margin-top: 40px; padding-top: 22px; border-top: 1px solid #d9dee7; }
+    .sources h2 { font-size: 1.15rem; }
+    .sources li { margin-bottom: 10px; }
+    .disclaimer { margin-top: 28px; color: #667085; font-size: .82rem; line-height: 1.55; }
+    @media (max-width: 760px) {
+      .essentiel { padding: 24px 16px 48px; }
+      .kpi-strip { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .market-table { display: block; overflow-x: auto; white-space: normal; }
+    }
+    @media (max-width: 480px) { .kpi-strip { grid-template-columns: 1fr; } }
+  </style>
+
+  <article class="essentiel">
+    <header class="masthead">
+      <h1>L’ESSENTIEL | BRVM • ÉCONOMIE • MARCHÉS</h1>
+      <p class="edition-date"><b>Vendredi 25 septembre 2026</b> — Édition de mi-journée</p>
+      <p class="edition-date">BRVM : séance ouverte · données différées de 15 minutes · dernier relevé officiel consulté à 12 h 45 GMT.</p>
+      <p class="byline"><b>Par la rédaction d’ECONOZONE</b></p>
+    </header>
+
+    <p class="chapo">
+      La reprise se prolonge à la BRVM vendredi : vers 12 h 45 GMT, le Composite gagne 1,34 % à 538,73 points et les transactions atteignent déjà 3,72 milliards de FCFA. Pour sa deuxième séance, Bridge Bank Group Côte d’Ivoire (BBGC) progresse encore de 7,44 % à 7 795 FCFA, tandis que BICB, SAFCA, SMB et Sucrivoire figurent parmi les plus fortes hausses. En parallèle, Abidjan accueille des travaux régionaux sur l’eau, les fintechs accélèrent les paiements transfrontaliers vers l’UEMOA et le Brent reste au-dessus de 105 dollars le baril, un niveau toujours pénalisant pour la facture énergétique régionale.
+    </p>
+
+    <figure class="hero-photo">
+      <img src="https://images.pexels.com/photos/18435332/pexels-photo-18435332.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Quartier d'affaires et immeubles modernes à Abidjan" loading="eager" />
+      <figcaption>Immeubles et quartier d’affaires à Abidjan, Côte d’Ivoire. Photo : Jean Marc Bonnel / Pexels.</figcaption>
+    </figure>
+
+    <section>
+      <h2>1. BRVM : le rebond se prolonge, BBGC gagne encore 7,44 %</h2>
+
+      <div class="kpi-strip" aria-label="Repères intrajournaliers BRVM du 25 septembre 2026">
+        <div class="kpi"><div class="kpi-label">BRVM Composite</div><div class="kpi-value kpi-up">538,73<br />+1,34 %</div></div>
+        <div class="kpi"><div class="kpi-label">BRVM-30</div><div class="kpi-value kpi-up">261,02<br />+1,10 %</div></div>
+        <div class="kpi"><div class="kpi-label">Transactions</div><div class="kpi-value kpi-neutral">3,72 milliards<br />FCFA</div></div>
+        <div class="kpi"><div class="kpi-label">BBGC</div><div class="kpi-value kpi-up">7 795 FCFA<br />+7,44 %</div></div>
+      </div>
+
+      <p class="subtitle">Après le rebond de jeudi, les achats restent dominants vendredi à mi-séance. La confirmation définitive dépendra toutefois de la clôture et des volumes de fin de séance.</p>
+
+      <p>À 12 h 45 GMT, la BRVM affiche un Composite à <b>538,73 points</b>, en progression de <span class="up">1,34 %</span>. Le BRVM-30 avance de <span class="up">1,10 %</span> à 261,02 points et le BRVM Prestige de <span class="up">0,44 %</span> à 198,61 points. La valeur des transactions atteint déjà <b>3 723 062 070 FCFA</b>, dans une séance encore ouverte.</p>
+
+      <p>La deuxième séance de Bridge Bank Group Côte d’Ivoire reste très recherchée. BBGC cote <b>7 795 FCFA</b>, soit <span class="up">+7,44 %</span> par rapport au cours de référence précédent. Le titre se situe désormais environ 15,5 % au-dessus du prix d’introduction de 6 750 FCFA. Cette progression rapide confirme la forte demande initiale, mais elle signifie aussi que la phase de découverte du prix reste en cours : les volumes et la stabilité après les premières séances seront plus informatifs qu’un seul mouvement de hausse.</p>
+
+      <table class="market-table">
+        <thead><tr><th>Valeur</th><th>Cours observé</th><th>Variation</th><th>Lecture</th></tr></thead>
+        <tbody>
+          <tr><td>SAFC</td><td>4 300 FCFA</td><td class="up">+7,50 %</td><td>En tête des hausses à mi-séance.</td></tr>
+          <tr><td>BICB</td><td>8 510 FCFA</td><td class="up">+7,45 %</td><td>Fort rebond après la baisse de jeudi.</td></tr>
+          <tr><td>BBGC</td><td>7 795 FCFA</td><td class="up">+7,44 %</td><td>Deuxième séance toujours très demandée.</td></tr>
+          <tr><td>SMBC</td><td>15 800 FCFA</td><td class="up">+7,41 %</td><td>Hausse marquée sur SMB Côte d’Ivoire.</td></tr>
+          <tr><td>LNBB</td><td>3 705 FCFA</td><td class="down">−6,79 %</td><td>Principale baisse observée.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight">
+        <h3>Lecture de la séance</h3>
+        <p>Le marché reste orienté à la hausse, mais plusieurs titres évoluent à proximité des limites de variation quotidienne. La clôture permettra de distinguer une poursuite solide du rebond d’un simple mouvement de rattrapage après la forte volatilité du début de semaine.</p>
+      </div>
+
+      <p class="source-line">Source : <a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels, séance du 25 septembre 2026</a>.</p>
+    </section>
+
+    <section>
+      <h2>2. Eau : Abidjan place une infrastructure invisible au cœur de l’économie ouest-africaine</h2>
+      <p class="subtitle">La gouvernance des bassins partagés n’est pas seulement une question environnementale : elle conditionne agriculture, hydroélectricité, villes, industrie et stabilité régionale.</p>
+
+      <p>Les institutions régionales poursuivent à Abidjan une séquence consacrée à la gestion intégrée des ressources en eau. La CEDEAO rappelle que, sauf le Cap-Vert, chaque pays d’Afrique de l’Ouest partage au moins un bassin fluvial avec un voisin. Cette interdépendance transforme l’eau en véritable infrastructure économique régionale.</p>
+
+      <p>Pour l’agriculture, la qualité et la disponibilité de l’eau déterminent les rendements, l’irrigation et la sécurité alimentaire. Pour l’énergie, elles conditionnent une partie de la production hydroélectrique. Pour les villes et l’industrie, elles influencent directement les coûts d’approvisionnement, d’assainissement et d’investissement. La gouvernance transfrontalière devient donc un enjeu comparable aux corridors routiers ou électriques : une mauvaise coordination peut créer des coûts, tandis qu’une planification commune peut sécuriser les investissements.</p>
+
+      <div class="highlight">
+        <h3>Pourquoi cela compte pour les entreprises</h3>
+        <p>Les secteurs agricoles, agro-industriels, miniers, énergétiques et immobiliers sont directement exposés. Une meilleure planification des ressources réduit l’incertitude sur l’accès à l’eau, améliore la résilience climatique et peut faciliter le financement d’infrastructures régionales.</p>
+      </div>
+
+      <p class="source-line">Source : <a href="https://www.westafricawaterforum.org/official_message.php?id=13&lang=fr" target="_blank" rel="noopener noreferrer">Forum régional de l’eau de l’Afrique de l’Ouest / CEDEAO</a>.</p>
+    </section>
+
+    <section>
+      <h2>3. Paiements : Grey ouvre de nouveaux corridors vers le Sénégal et la Côte d’Ivoire</h2>
+      <p class="subtitle">La fintech nigériane étend les paiements en monnaie locale à deux marchés ouest-africains, dans un ensemble de quatre pays représentant plus de 7 milliards de dollars de flux de transferts.</p>
+
+      <p>Grey, plateforme nigériane de paiements transfrontaliers soutenue par Y Combinator, a étendu ses services de versement direct au <b>Sénégal</b>, à la <b>Côte d’Ivoire</b>, au Cameroun et au Rwanda. Les bénéficiaires peuvent recevoir des fonds en monnaie locale sur des comptes bancaires ou, selon le marché, via des portefeuilles mobiles.</p>
+
+      <p>Pour l’Afrique de l’Ouest, l’enjeu dépasse la concurrence entre applications de transfert. Les paiements transfrontaliers restent coûteux pour les diasporas, les indépendants et les petites entreprises. L’arrivée de nouveaux acteurs peut accroître la pression sur les frais, améliorer la rapidité de règlement et connecter plus directement les revenus en dollars, euros ou livres sterling aux économies locales.</p>
+
+      <p>Les quatre marchés ajoutés par Grey représentent ensemble plus de <b>7 milliards de dollars</b> de flux annuels de transferts selon les données citées par l’entreprise. Le Sénégal et la Côte d’Ivoire constituent donc deux tests importants pour l’intégration de solutions fintech anglophones dans l’espace francophone et dans la zone franc CFA.</p>
+
+      <p class="source-line">Sources : <a href="https://disruptafrica.com/2026/09/23/nigerian-fintech-startup-grey-launches-new-payout-routes-to-senegal-ivory-coast-cameroon-rwanda/" target="_blank" rel="noopener noreferrer">Disrupt Africa</a> · <a href="https://grey.co/blog-categories/product-updates" target="_blank" rel="noopener noreferrer">Grey — mises à jour produits</a>.</p>
+    </section>
+
+    <section>
+      <h2>4. Abidjan prépare la deuxième édition de l’Ivoire Tech Forum</h2>
+      <p class="subtitle">Le rendez-vous annoncé pour novembre veut connecter les start-up ivoiriennes aux investisseurs et accompagner la mise en œuvre du Startup Act.</p>
+
+      <p>L’Ivoire Tech Forum doit tenir sa deuxième édition du <b>11 au 13 novembre 2026 à Abidjan</b>. Après une première édition ayant réuni environ 3 000 participants, l’objectif annoncé est de rapprocher les jeunes entreprises des investisseurs et de structurer davantage l’écosystème autour des technologies émergentes.</p>
+
+      <p>Le signal le plus important est institutionnel : l’événement s’inscrit dans la feuille de route numérique 2026–2028, qui prévoit notamment l’opérationnalisation du Startup Act ivoirien, une plateforme nationale de labellisation et le développement d’infrastructures d’innovation hors d’Abidjan. Pour les start-up, la question sera donc de savoir si ces annonces se traduisent en mécanismes concrets : accès au financement, marchés publics, accompagnement, fiscalité et expansion régionale.</p>
+
+      <p class="source-line">Source : <a href="https://afriqueitnews.com/news/abidjan-veut-simposer-comme-le-hub-de-linnovation-ouest-africaine-avec-la-2e-edition-de-livoire-tech-forum/" target="_blank" rel="noopener noreferrer">Afrique IT News — 25 septembre 2026</a>.</p>
+    </section>
+
+    <section>
+      <h2>5. Brent à 105,60 dollars : la facture énergétique reste le principal risque externe</h2>
+
+      <div class="kpi-strip">
+        <div class="kpi"><div class="kpi-label">Brent</div><div class="kpi-value">105,60 $/baril<br /><span class="down">−0,94 % jour</span></div></div>
+        <div class="kpi"><div class="kpi-label">Variation sur 1 mois</div><div class="kpi-value"><span class="up">+21,46 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">Variation sur 1 an</div><div class="kpi-value"><span class="up">+52,55 %</span></div></div>
+        <div class="kpi"><div class="kpi-label">Signal régional</div><div class="kpi-value kpi-down">Pression sur<br />les importations</div></div>
+      </div>
+
+      <p class="subtitle">Le léger recul du jour ne change pas encore le problème de fond : le pétrole reste durablement au-dessus de 100 dollars.</p>
+
+      <p>Le Brent évolue autour de <b>105,60 dollars le baril</b> le 25 septembre, en baisse de 0,94 % sur la séance mais en hausse de 21,46 % sur un mois. Pour les économies ouest-africaines importatrices nettes de produits pétroliers, le niveau absolu compte davantage que la variation quotidienne.</p>
+
+      <p>Un pétrole durablement cher renchérit les carburants, le transport, le fret, certains intrants agricoles et la production d’électricité. Selon les politiques nationales de prix, le choc peut être absorbé directement par les ménages et les entreprises ou transféré partiellement aux budgets publics via subventions et compensations. Le Nigeria bénéficie davantage de recettes liées aux hydrocarbures, mais reste lui aussi exposé aux arbitrages entre revenus pétroliers, raffinage, importations de produits et prix intérieurs.</p>
+
+      <p class="source-line">Source : <a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank" rel="noopener noreferrer">Trading Economics — Brent, 25 septembre 2026</a>.</p>
+    </section>
+
+    <div class="note">Note de la rédaction — La séance BRVM du 25 septembre est encore ouverte au moment de cette édition. Les cours et indices mentionnés sont différés de 15 minutes et peuvent évoluer avant la clôture. Une édition de clôture remplacera ces données intrajournalières.</div>
+
+    <div class="sources">
+      <h2>Sources principales</h2>
+      <ul>
+        <li><a href="https://www.brvm.org/fr/cours-actions/0" target="_blank" rel="noopener noreferrer">BRVM — cours officiels</a></li>
+        <li><a href="https://www.westafricawaterforum.org/official_message.php?id=13&lang=fr" target="_blank" rel="noopener noreferrer">CEDEAO / Forum régional de l’eau</a></li>
+        <li><a href="https://disruptafrica.com/2026/09/23/nigerian-fintech-startup-grey-launches-new-payout-routes-to-senegal-ivory-coast-cameroon-rwanda/" target="_blank" rel="noopener noreferrer">Disrupt Africa — Grey</a></li>
+        <li><a href="https://afriqueitnews.com/news/abidjan-veut-simposer-comme-le-hub-de-linnovation-ouest-africaine-avec-la-2e-edition-de-livoire-tech-forum/" target="_blank" rel="noopener noreferrer">Afrique IT News — Ivoire Tech Forum</a></li>
+        <li><a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank" rel="noopener noreferrer">Trading Economics — Brent</a></li>
+      </ul>
+    </div>
+
+    <p class="disclaimer">ECONOZONE — contenu publié à des fins purement informatives, ne constitue pas un conseil en investissement.</p>
+  </article>
+</Layout>
