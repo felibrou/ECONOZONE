@@ -6,6 +6,8 @@ import { PROVIDERS } from './providers.mjs';
 const PAGE = 'src/pages/economie.astro';
 const START = '<!-- VEILLE-ECONOMIE-DEBUT -->';
 const END = '<!-- VEILLE-ECONOMIE-FIN -->';
+// Rotation équilibrée entre les huit pays UEMOA et deux économies voisines.
+const countries = ['Bénin','Burkina Faso','Côte d’Ivoire','Guinée-Bissau','Mali','Niger','Sénégal','Togo','Ghana','Nigeria'];
 const allowed = [
   'bceao.int','boad.org','uemoa.int','ecowas.int','brvm.org','montagegold.com',
   'financialafrik.com','afrimag.net','agenceecofin.com','sikafinance.com',
@@ -36,23 +38,27 @@ async function main() {
   if(!process.env.OPENAI_API_KEY || !process.env.GEMINI_API_KEY)
     throw Error('OPENAI_API_KEY et GEMINI_API_KEY sont nécessaires');
   const now=new Date(), today=now.toISOString().slice(0,10);
+  const country=countries[Math.floor(now.getTime()/86400000)%countries.length];
   const sources=await fs.readFile('ECONOMIE_SOURCES.md','utf8');
   const page=await fs.readFile(PAGE,'utf8');
   if(!page.includes(START)||!page.includes(END)) throw Error('Marqueurs de veille absents');
   const previous=page.slice(page.indexOf(START),page.indexOf(END));
   const research=await openAI(
-    'Tu es documentaliste de presse économique en Afrique de l’Ouest. Recherche le web. Réponds UNIQUEMENT en JSON valide : {"items":[{"title":"...","summary":"2 phrases factuelles et une incidence économique concrète, sans conjecture chiffrée","url":"lien direct de l’article ou communiqué","source":"organisme ou média","published":"AAAA-MM-JJ","event_date":"AAAA-MM-JJ"}]}. 1 à 3 nouvelles des dernières 72 heures ; priorité aux sources primaires. N’invente rien. Si aucune nouveauté vérifiable : {"items":[]}. Écarte les sujets déjà couverts.',
-    'Date UTC : '+today+'\nSources : '+sources+'\nContenu récent à éviter : '+previous.slice(0,7000)
+    'Tu es documentaliste économique de l’Afrique de l’Ouest. Recherche les sources en ligne. Retourne UNIQUEMENT un JSON valide : {"items":[{"kind":"focus_macro|focus_social|company|news","title":"titre précis","summary":"2 à 4 phrases analytiques dont les chiffres sont dans la source","url":"URL directe","source":"nom","published":"AAAA-MM-JJ","event_date":"AAAA-MM-JJ","data_period":"année/trimestre des données si focus"}]}. Fournis exactement un focus_macro (PIB, inflation, crédit, dette ou comptes extérieurs) ET un focus_social (emploi, revenu par habitant, pauvreté, santé, éducation ou coût de la vie) pour le pays imposé, idéalement des sources primaires comparables et avec période explicite. Ces données de fond peuvent être anciennes mais doivent être les dernières disponibles. Ajoute 1 à 2 nouvelles d’entreprises des sept derniers jours, priorité aux sociétés cotées à la BRVM, puis grandes entreprises publiques et privées non cotées, avec résultat publié, investissement, contrat, financement ou décision vérifiable ; précise le statut. Ajoute éventuellement une nouvelle économique récente. N’invente ni valeurs ni événements. Exclure les faits déjà traités. Si une catégorie n’a aucune source solide, omets-la. Les médias servent de veille ; préférer communiqué officiel et rapport daté.',
+    'Date UTC : '+today+' ; pays du jour : '+country+'\\nSources : '+sources+'\\nÉviter les redites : '+previous.slice(0,7000)
   );
   let items;
-  try { items=JSON.parse(research.replace(/^\`\`\`(?:json)?\s*|\s*\`\`\`$/g,'')).items; }
+  try { items=JSON.parse(research.replace(/^\`\`\`(?:json)?\\s*|\\s*\`\`\`$/g,'')).items; }
   catch { throw Error('Réponse de recherche non JSON : publication interrompue'); }
-  if(!Array.isArray(items) || !items.length) { console.log('Aucun fait nouveau vérifiable. Page inchangée.'); return; }
+  if(!Array.isArray(items) || !items.length) { console.log('Aucun fait vérifiable. Page inchangée.'); return; }
   const checked=[];
-  for(const item of items.slice(0,3)) {
+  for(const item of items.slice(0,7)) {
     if(!item.title||!item.summary||!item.url||!item.published||!item.event_date) continue;
+    if(!['focus_macro','focus_social','company','news'].includes(item.kind)) continue;
+    if(item.kind.startsWith('focus_') && !item.data_period) continue;
     const pub=new Date(item.published+'T00:00:00Z');
-    if(!Number.isFinite(pub.getTime()) || pub>now || now-pub>4*86400000) continue;
+    if(!Number.isFinite(pub.getTime()) || pub>now) continue;
+    if(!item.kind.startsWith('focus_') && now-pub>(item.kind==='company'?8:4)*86400000) continue;
     let url;
     try {url=new URL(item.url);} catch {continue;}
     if(url.protocol!=='https:'||!hostOK(url.hostname)) continue;
@@ -65,20 +71,35 @@ async function main() {
       if(sourceText.length<500) continue;
     } catch {continue;}
     const verdict=await PROVIDERS.gemini.call(
-      'Contrôle éditorial indépendant. Réponds exactement PASS ou FAIL. PASS uniquement si la source fournie soutient le titre, les chiffres, la date, le statut (annonce, approbation, réalisation) et le résumé, et si l’incidence ouest-africaine est prudente. Une source imprécise, contradictoire ou inaccessible impose FAIL.',
-      JSON.stringify({item,sourceText})
+      'Contrôle éditorial indépendant. Réponds exactement PASS ou FAIL. PASS uniquement si la source fournie soutient le titre, les chiffres, la date, le statut (annonce, approbation, réalisation) et le résumé, et si l’incidence ouest-africaine est prudente. Pour focus_macro et focus_social, vérifier que le fait concerne bien le pays du jour et que la période de la donnée est affichée. Pour company, vérifier l’entreprise, son statut coté ou non, et distinguer une annonce d’un résultat réalisé. Une source imprécise, contradictoire ou inaccessible impose FAIL.',
+      JSON.stringify({country,item,sourceText})
     );
     if(verdict.trim()==='PASS') checked.push(item);
   }
-  if(!checked.length) {console.log('Aucun article validé. Page inchangée.'); return;}
+  const macro=checked.find(i=>i.kind==='focus_macro');
+  const social=checked.find(i=>i.kind==='focus_social');
+  const focused=macro && social ? [macro,social] : [];
+  const businesses=checked.filter(i=>i.kind==='company').slice(0,2);
+  const news=checked.filter(i=>i.kind==='news').slice(0,2);
+  if(!focused.length && !businesses.length && !news.length) {
+    console.log('Aucun sujet validé. Page inchangée.'); return;
+  }
   const date=dateFR(now);
-  const zone=START+'\n  <section class="highlight" aria-label="Actualités économiques récentes">\n'+
-    '    <h2>Actualités économiques — '+esc(date)+'</h2>\n'+
-    checked.map(i=>'    <h3>'+esc(i.title)+'</h3>\n'+
-      '    <p>'+esc(i.summary)+'</p>\n'+
-      '    <p class="source-line"><a href="'+esc(i.url)+'" target="_blank" rel="noopener noreferrer">'+
-      esc(i.source||new URL(i.url).hostname)+' — '+esc(i.published)+'</a></p>').join('\n')+
-    '\n  </section>\n  '+END;
+  const article=i=>'    <h3>'+esc(i.title)+'</h3>\\n'+
+    '    <p>'+esc(i.summary)+'</p>\\n'+
+    '    <p class="source-line"><a href="'+esc(i.url)+'" target="_blank" rel="noopener noreferrer">'+
+    esc(i.source||new URL(i.url).hostname)+' — '+esc(i.published)+'</a>'+
+    (i.data_period?' · Donnée : '+esc(i.data_period):'')+'</p>';
+  const zone=START+'\\n  <section class="highlight" aria-label="Actualités économiques récentes">\\n'+
+    '    <h2>Économie ouest-africaine — '+esc(date)+'</h2>\\n'+
+    (focused.length?'    <h3>Le pays du jour : '+esc(country)+'</h3>\\n'+
+      '<p>Indicateurs macroéconomiques et conditions de vie, avec périodes distinctes.</p>\\n'+
+      focused.map(article).join('\\n'):'')+
+    (businesses.length?'\\n    <h3>Entreprises : cotées et non cotées</h3>\\n'+
+      businesses.map(article).join('\\n'):'')+
+    (news.length?'\\n    <h3>Autres décisions économiques</h3>\\n'+
+      news.map(article).join('\\n'):'')+
+    '\\n  </section>\\n  '+END;
   let next=page.slice(0,page.indexOf(START))+zone+page.slice(page.indexOf(END)+END.length);
   next=next.replace(/<time datetime="[^"]+">\s*[^<]+\s*<\/time>/,
     '<time datetime="'+now.toISOString()+'">'+date+' à '+
