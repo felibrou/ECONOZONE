@@ -44,7 +44,7 @@ async function main() {
   if(!page.includes(START)||!page.includes(END)) throw Error('Marqueurs de veille absents');
   const previous=page.slice(page.indexOf(START),page.indexOf(END));
   const research=await openAI(
-    'Tu es documentaliste économique de l’Afrique de l’Ouest. Recherche les sources en ligne. Retourne UNIQUEMENT un JSON valide : {"items":[{"kind":"focus_macro|focus_social|company|news","title":"titre précis","summary":"2 à 4 phrases analytiques dont les chiffres sont dans la source","url":"URL directe","source":"nom","published":"AAAA-MM-JJ","event_date":"AAAA-MM-JJ","data_period":"année/trimestre des données si focus"}]}. Fournis exactement un focus_macro (PIB, inflation, crédit, dette ou comptes extérieurs) ET un focus_social (emploi, revenu par habitant, pauvreté, santé, éducation ou coût de la vie) pour le pays imposé, idéalement des sources primaires comparables et avec période explicite. Ces données de fond peuvent être anciennes mais doivent être les dernières disponibles. Ajoute 1 à 2 nouvelles d’entreprises des sept derniers jours, priorité aux sociétés cotées à la BRVM, puis grandes entreprises publiques et privées non cotées, avec résultat publié, investissement, contrat, financement ou décision vérifiable ; précise le statut. Ajoute éventuellement une nouvelle économique récente. N’invente ni valeurs ni événements. Exclure les faits déjà traités. Si une catégorie n’a aucune source solide, omets-la. Les médias servent de veille ; préférer communiqué officiel et rapport daté.',
+    'Tu es documentaliste économique de l’Afrique de l’Ouest. Recherche les sources en ligne. Retourne UNIQUEMENT un JSON valide : {"items":[{"kind":"focus_macro|focus_social|company|news","title":"titre précis","summary":"2 à 4 phrases analytiques dont les chiffres sont dans la source","url":"URL directe","source":"nom","published":"AAAA-MM-JJ","event_date":"AAAA-MM-JJ","data_period":"année/trimestre des données si focus"}]}. Fournis exactement un focus_macro (PIB, inflation, crédit, dette ou comptes extérieurs) ET un focus_social (emploi, revenu par habitant, pauvreté, santé, éducation, coût de la vie ou données microéconomiques d’entreprises et ménages) pour le pays imposé, idéalement des sources primaires comparables et avec période explicite. Ces données de fond peuvent être anciennes mais doivent être les dernières disponibles. Ajoute 1 à 2 nouvelles d’entreprises des sept derniers jours, priorité aux sociétés cotées à la BRVM, puis grandes entreprises publiques et privées non cotées, avec résultat publié, investissement, contrat, financement ou décision vérifiable ; précise explicitement si elles sont cotées à la BRVM. Si possible, une entreprise du pays du jour. Cherche le Bulletin officiel de la cote et les communiqués des émetteurs. Ajoute éventuellement une nouvelle économique récente. N’invente ni valeurs ni événements. Exclure les faits déjà traités. Si une catégorie n’a aucune source solide, omets-la. Les médias servent de veille ; préférer communiqué officiel et rapport daté.',
     'Date UTC : '+today+' ; pays du jour : '+country+'\nSources : '+sources+'\nÉviter les redites : '+previous.slice(0,7000)
   );
   let items;
@@ -106,18 +106,19 @@ async function main() {
     new Intl.DateTimeFormat('fr-FR',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'UTC'}).format(now).replace(':',' h ')+' GMT</time>');
   await fs.writeFile(PAGE,next);
   const archivePath='src/pages/economie/'+today+'.astro';
-  try {
-    await fs.access(archivePath);
-  } catch {
+  {
     const archive='---\nimport Layout from \'../../layouts/Layout.astro\';\n---\n'+
       '<Layout title="ECONOZONE — Économie du '+esc(date)+'">\n'+
       '<p class="breadcrumb"><a href="/economie">Économie</a> &rsaquo; <a href="/economie/archives">Archives</a></p>\n'+
       '<h1>Économie ouest-africaine — '+esc(date)+'</h1>\n'+zone+'\n</Layout>\n';
+    const existed=await fs.access(archivePath).then(()=>true,()=>false);
     await fs.writeFile(archivePath,archive);
+    if(!existed) {
     const indexPath='src/pages/economie/archives.astro';
     const index=await fs.readFile(indexPath,'utf8');
     const entry="  { date: '"+today+"', label: '"+date+"', title: 'Actualités économiques ouest-africaines', href: '/economie/"+today+"' },";
     await fs.writeFile(indexPath,index.replace('const analyses = [','const analyses = [\n'+entry));
+    }
   }
   console.log(checked.length+' actualité(s) vérifiée(s) publiée(s) dans Économie');
 }
