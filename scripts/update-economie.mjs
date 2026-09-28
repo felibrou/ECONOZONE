@@ -83,6 +83,20 @@ async function main() {
     '<time datetime="'+now.toISOString()+'">'+date+' à '+
     new Intl.DateTimeFormat('fr-FR',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'UTC'}).format(now).replace(':',' h ')+' GMT</time>');
   await fs.writeFile(PAGE,next);
+  const archivePath='src/pages/economie/'+today+'.astro';
+  try {
+    await fs.access(archivePath);
+  } catch {
+    const archive='---\\nimport Layout from \'../../layouts/Layout.astro\';\\n---\\n'+
+      '<Layout title="ECONOZONE — Économie du '+esc(date)+'">\\n'+
+      '<p class="breadcrumb"><a href="/economie">Économie</a> &rsaquo; <a href="/economie/archives">Archives</a></p>\\n'+
+      '<h1>Économie ouest-africaine — '+esc(date)+'</h1>\\n'+zone+'\\n</Layout>\\n';
+    await fs.writeFile(archivePath,archive);
+    const indexPath='src/pages/economie/archives.astro';
+    const index=await fs.readFile(indexPath,'utf8');
+    const entry="  { date: '"+today+"', label: '"+date+"', title: 'Actualités économiques ouest-africaines', href: '/economie/"+today+"' },";
+    await fs.writeFile(indexPath,index.replace('const analyses = [','const analyses = [\\n'+entry));
+  }
   console.log(checked.length+' actualité(s) vérifiée(s) publiée(s) dans Économie');
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});
