@@ -110,6 +110,11 @@ import Analytics from '@vercel/analytics/astro';
     .col td {
       color: #000000 !important;
     }
+    /* Les variations gardent leur couleur dans les tableaux et les paragraphes.
+       Cette règle suit le texte courant pour éviter que son !important les noircisse. */
+    .col .up, .col td.up, .col td .up { color: #18864b !important; }
+    .col .down, .col td.down, .col td .down { color: #c62828 !important; }
+    .col .flat, .col td.flat, .col td .flat { color: #111827 !important; }
     .col h1, .col h2, .col h3, .col h4, .col h5, .col h6 {
       color: var(--blue) !important;
     }
