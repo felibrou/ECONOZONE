@@ -224,6 +224,7 @@ import Analytics from '@vercel/analytics/astro';
         <a href="/matieres-premieres">Matières premières</a>
         <a href="/startup">Start-up</a>
         <a href="/carrieres">Carrières</a>
+        <a href="/essentiel#inscription-essentiel">S’abonner</a>
         <a href="/a-propos">À propos</a>
       </nav>
     </div>
@@ -232,7 +233,7 @@ import Analytics from '@vercel/analytics/astro';
     <slot />
   </div>
   {showNewsletter && (
-    <aside class="newsletter-panel" aria-label="Inscription à L’Essentiel">
+    <aside id="inscription-essentiel" class="newsletter-panel" aria-label="Inscription à L’Essentiel">
       <iframe src={newsletterFormURL} title="Recevez L’Essentiel par courriel" loading="lazy" scrolling="auto"></iframe>
     </aside>
   )}
