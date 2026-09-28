@@ -4,10 +4,17 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="ECONOZONE — Se désabonner">
   <div class="breadcrumb">ECONOZONE &rsaquo; Se désabonner</div>
   <h1>Se désabonner</h1>
-  <p class="dek">Pour ne plus recevoir les communications d’ECONOZONE, demandez le retrait de votre adresse de notre liste de diffusion.</p>
+  <p class="dek">Pour ne plus recevoir les communications d’ECONOZONE, saisissez votre adresse courriel. Un lien de confirmation vous sera envoyé à cette adresse.</p>
+
+  <form action="/api/desabonnement" method="post" style="max-width:520px;margin:24px 0;display:flex;gap:12px;flex-wrap:wrap;">
+    <label for="unsubscribe-email" style="width:100%;font-weight:600;">Adresse courriel</label>
+    <input id="unsubscribe-email" name="email" type="email" autocomplete="email" required maxlength="254" style="flex:1;min-width:230px;padding:12px;border:1px solid #aab6c6;border-radius:4px;" />
+    <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;" />
+    <button type="submit" style="padding:12px 18px;border:0;border-radius:4px;background:#003da5;color:#fff;font-weight:700;cursor:pointer;">Recevoir le lien de désabonnement</button>
+  </form>
 
   <div class="note">
-    <b>Comment procéder :</b> envoyez un courriel à <a href="mailto:contact@econozone.org?subject=Désabonnement" style="color:var(--blue); font-weight:700; text-decoration:underline;">contact@econozone.org</a> avec l’objet « Désabonnement » et l’adresse à retirer. Nous confirmerons le retrait une fois effectué.
+    Si vous ne pouvez pas utiliser le formulaire, écrivez à <a href="mailto:contact@econozone.org?subject=Désabonnement" style="color:var(--blue); font-weight:700; text-decoration:underline;">contact@econozone.org</a> avec l’objet « Désabonnement » et l’adresse à retirer.
   </div>
 
   <p>Aucune de vos données n'est conservée après le retrait, hormis l'adresse elle-même sur une liste d'exclusion, pour éviter tout réabonnement accidentel.</p>
