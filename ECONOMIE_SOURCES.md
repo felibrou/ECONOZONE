@@ -14,7 +14,7 @@ Mis à jour le 28 septembre 2026. Cette liste sert à la veille éditoriale, pas
 
 ## Médias de veille
 - Jeune Afrique — https://www.jeuneafrique.com/
-- Africa Intelligence — https://www.africaintelligence.fr/.
+- Africa Intelligence — https://www.africaintelligence.fr/
 - Financial Afrik — https://www.financialafrik.com/
 - Afrimag — https://afrimag.net/
 - Agence Ecofin — https://www.agenceecofin.com/
@@ -32,7 +32,7 @@ Mis à jour le 28 septembre 2026. Cette liste sert à la veille éditoriale, pas
 Les trois articles de classement sont des pistes de lecture, pas des bases de données : avant de publier un rang ou un PIB, recouper chaque chiffre avec la même édition du FMI ou de la Banque mondiale et préciser PIB nominal ou PPA, année, monnaie et caractère estimé ou prévu. Aucun de ces articles anciens ne doit entrer dans la rubrique « actualités du jour » sans donnée nouvelle.
 
 ## Sélection et mise à jour quotidienne
-1. Rechercher les nouvelles publications de ces médias et des sources primaires chaque jour ouvré, avec date de l’événement distincte de la date de publication.
+1. Rechercher les nouvelles publications de ces médias et des sources primaires chaque jour, avec date de l’événement distincte de la date de publication.
 2. Retenir 2 à 4 informations nouvelles qui ont un effet concret sur les économies et populations d’Afrique de l’Ouest. Diversifier pays et secteurs, éviter de reprendre le même fait sous une nouvelle formulation.
 3. Pour chaque chiffre : vérifier définition, unité, période, population couverte et statut (annonce, approbation, signature, décaissement, réalisation). Lier l’article à la source précise ; ne jamais citer seulement une page d’accueil.
 4. La page Économie porte la date de sa dernière mise à jour réelle. Ne pas changer la date si aucune information nouvelle n’est vérifiée. Conserver les indicateurs structurels avec leurs périodes explicites et archiver les analyses de fond séparément.
