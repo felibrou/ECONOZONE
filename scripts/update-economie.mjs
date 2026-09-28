@@ -91,11 +91,11 @@ async function main() {
     esc(i.source||new URL(i.url).hostname)+' — '+esc(i.published)+'</a>'+
     (i.data_period?' · Donnée : '+esc(i.data_period):'')+'</p>';
   const zone=START+'\n  <section class="highlight" aria-label="Actualités économiques récentes">\n'+
-    '    <h2>Économie ouest-africaine — '+esc(date)+'</h2>\n'+
-    (focused.length?'    <h3>Le pays du jour : '+esc(country)+'</h3>\n'+
+    '    <p class="edition-meta">Actualité du '+esc(date)+'</p>\n'+
+    (focused.length?'    <h2>'+esc(country)+' : croissance et conditions de vie</h2>\n'+
       '<p>Indicateurs macroéconomiques et conditions de vie, avec périodes distinctes.</p>\n'+
       focused.map(article).join('\n'):'')+
-    (businesses.length?'\n    <h3>Entreprises : cotées et non cotées</h3>\n'+
+    (businesses.length?'\n    <h2>Résultats, investissements et décisions des entreprises</h2>\n'+
       businesses.map(article).join('\n'):'')+
     (news.length?'\n    <h3>Autres décisions économiques</h3>\n'+
       news.map(article).join('\n'):'')+
