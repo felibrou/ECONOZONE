@@ -16,12 +16,14 @@ d’ECONOZONE par courriel. » Le bouton du formulaire porte le texte « Recevoi
 L’Essentiel ». Un seul champ obligatoire est demandé : l’adresse courriel.
 Ne pas promettre une fréquence ou un contenu exclusif qui n’est pas assuré.
 
-Le formulaire doit enregistrer l’adresse dans une véritable liste de diffusion
-persistante, avec date de consentement, origine de l’inscription et état de
-l’abonnement; dédupliquer les adresses et empêcher les inscriptions abusives.
-Prévoir confirmation par courriel, lien de désabonnement dans chaque envoi et
-traitement effectif du retrait. Expliquer près du formulaire l’usage de
-l’adresse et renvoyer vers la politique de confidentialité. Ne jamais afficher
+Le formulaire doit enregistrer l’adresse saisie volontairement dans une
+véritable liste de diffusion persistante, avec date d’inscription, origine et
+état de l’abonnement; dédupliquer les adresses et empêcher les inscriptions
+abusives. La demande d’abonnement s’effectue par le bouton du formulaire :
+aucune case distincte n’est ajoutée. Chaque courriel renvoie vers la page de
+désabonnement existante `/desabonnement`; les demandes de retrait doivent être
+effectivement traitées et exclues des prochains envois. Expliquer près du
+formulaire l’usage de l’adresse. Ne jamais afficher
 un message de réussite si l’enregistrement échoue, ni déployer un formulaire
 de collecte avant que son stockage et son désabonnement soient opérationnels.
 La liste n’est pas déposée dans le code source ou un fichier public du site.
