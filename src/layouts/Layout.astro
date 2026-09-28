@@ -14,6 +14,8 @@ const showInvestmentDisclaimer =
   currentPath.startsWith('/societes-cotees') ||
   currentPath.startsWith('/sgi') ||
   currentPath.startsWith('/comprendre-la-bourse');
+const showNewsletter = currentPath.startsWith('/essentiel');
+const newsletterFormURL = 'https://e43a10f1.sibforms.com/v2/serve/MUIFAB-xnq8dxE7bOus1MmOaty0pogP3cn_o_OpNWA4msdWl2yCTwfVgjGrLz8ATEe5TQhfBdRBAH-mKp-vkDteVR4qsPWVs6QUB4zrmoY77oNsyoUg8SQq4_-39oV6bqxAEf1xS-ogrTdotmYecbPkueMXkbwGbh16hqlnRwUuH19Gte4X8xeO5hwHwuwgjbqNDMt-jWIpylphSEA==';
 import Analytics from '@vercel/analytics/astro';
 ---
 <!doctype html>
@@ -194,6 +196,9 @@ import Analytics from '@vercel/analytics/astro';
     .footer-links { margin-top: 4px; display: flex; gap: 14px; flex-wrap: wrap; }
     .footer-links a { font-size: 12px; color: #D7DFEC; text-decoration: underline; text-underline-offset: 2px; }
     .footer-links a:hover { color: #FFFFFF; }
+    .newsletter-panel { width: min(100% - 48px, 1080px); margin: 0 auto 40px; padding: 20px 12px; border-top: 3px solid var(--green); background: #f7f9fc; }
+    .newsletter-panel iframe { display: block; width: 100%; max-width: 540px; height: 340px; margin: auto; border: 0; }
+    @media (max-width: 600px) { .newsletter-panel { width: calc(100% - 32px); padding: 8px 0; } .newsletter-panel iframe { height: 420px; } }
   </style>
 </head>
 <body>
@@ -226,6 +231,11 @@ import Analytics from '@vercel/analytics/astro';
   <div class="col">
     <slot />
   </div>
+  {showNewsletter && (
+    <aside class="newsletter-panel" aria-label="Inscription à L’Essentiel">
+      <iframe src={newsletterFormURL} title="Recevez L’Essentiel par courriel" loading="lazy" scrolling="auto"></iframe>
+    </aside>
+  )}
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="social-row">
