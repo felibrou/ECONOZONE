@@ -11,7 +11,8 @@ const allowed = [
   'financialafrik.com','afrimag.net','agenceecofin.com','sikafinance.com',
   'africanews.com','rfi.fr','tv5monde.com','forbesafrique.com',
   'ecomnewsafrique.com','afriqueeconomie.net','lanation.bj',
-  'worldbank.org','imf.org','afdb.org'
+  'worldbank.org','imf.org','afdb.org','jeuneafrique.com',
+  'africaintelligence.fr','lesafriques.com','lanouvelletribune.info','digital-africa.tech'
 ];
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
