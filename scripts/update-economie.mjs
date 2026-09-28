@@ -92,8 +92,7 @@ async function main() {
     (i.data_period?' · Donnée : '+esc(i.data_period):'')+'</p>';
   const zone=START+'\n  <section class="highlight" aria-label="Actualités économiques récentes">\n'+
     '    <p class="edition-meta">Actualité du '+esc(date)+'</p>\n'+
-    (focused.length?'    <h2 class="country-focus-title">Le pays à la loupe</h2>\n'+
-      '    <h3>'+esc(country)+' : croissance et conditions de vie</h3>\n'+
+    (focused.length?'    <h2>'+esc(country)+' : croissance et conditions de vie</h2>\n'+
       '<p>Indicateurs macroéconomiques et conditions de vie, avec périodes distinctes.</p>\n'+
       focused.map(article).join('\n'):'')+
     (businesses.length?'\n    <h2>Résultats, investissements et décisions des entreprises</h2>\n'+
