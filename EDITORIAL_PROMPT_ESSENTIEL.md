@@ -20,9 +20,12 @@ Le formulaire doit enregistrer l’adresse saisie volontairement dans une
 véritable liste de diffusion persistante, avec date d’inscription, origine et
 état de l’abonnement; dédupliquer les adresses et empêcher les inscriptions
 abusives. La demande d’abonnement s’effectue par le bouton du formulaire :
-aucune case distincte n’est ajoutée. Chaque courriel renvoie vers la page de
-désabonnement existante `/desabonnement`; les demandes de retrait doivent être
-effectivement traitées et exclues des prochains envois. Expliquer près du
+aucune case distincte n’est ajoutée. Chaque campagne envoyée depuis la liste
+doit intégrer le lien personnel de désabonnement natif de la plateforme
+d’envoi : le lecteur clique dans le courriel et son retrait est enregistré
+automatiquement, sans ressaisir son adresse ni attendre une intervention
+manuelle. Conserver `/desabonnement` comme voie de secours et d’information.
+Expliquer près du
 formulaire l’usage de l’adresse. Ne jamais afficher
 un message de réussite si l’enregistrement échoue, ni déployer un formulaire
 de collecte avant que son stockage et son désabonnement soient opérationnels.
