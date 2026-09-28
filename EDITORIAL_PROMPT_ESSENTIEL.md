@@ -3,8 +3,28 @@
 Rédige en français cinq articles substantiels et sourcés sur la BRVM, l’économie
 ouest-africaine, les start-up, les marchés mondiaux ayant une incidence régionale
 et les matières premières. Distingue cours provisoires, cours de clôture,
-observations, estimations et prévisions. Date les chiffres et signe l’édition.
+observations, estimations et prévisions. Date les chiffres et signe l’édition
+exactement « Article de Félix BROU ». Ne pas utiliser « Par la rédaction
+d’ECONOZONE » comme signature des nouvelles éditions.
 Évite les tics de rédaction, notamment « l’enjeu » et « autrement dit ».
+
+## Abonnement aux articles — mention permanente
+
+Sur chaque édition de L’Essentiel, après le contenu rédactionnel, afficher un
+appel discret et constant : « Recevez L’Essentiel et les nouvelles analyses
+d’ECONOZONE par courriel. » Le bouton du formulaire porte le texte « Recevoir
+L’Essentiel ». Un seul champ obligatoire est demandé : l’adresse courriel.
+Ne pas promettre une fréquence ou un contenu exclusif qui n’est pas assuré.
+
+Le formulaire doit enregistrer l’adresse dans une véritable liste de diffusion
+persistante, avec date de consentement, origine de l’inscription et état de
+l’abonnement; dédupliquer les adresses et empêcher les inscriptions abusives.
+Prévoir confirmation par courriel, lien de désabonnement dans chaque envoi et
+traitement effectif du retrait. Expliquer près du formulaire l’usage de
+l’adresse et renvoyer vers la politique de confidentialité. Ne jamais afficher
+un message de réussite si l’enregistrement échoue, ni déployer un formulaire
+de collecte avant que son stockage et son désabonnement soient opérationnels.
+La liste n’est pas déposée dans le code source ou un fichier public du site.
 
 ## Variations — règle impérative de publication
 
