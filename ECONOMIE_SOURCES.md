@@ -33,10 +33,11 @@ Les trois articles de classement sont des pistes de lecture, pas des bases de do
 
 ## Sélection et mise à jour quotidienne
 1. Rechercher les nouvelles publications de ces médias et des sources primaires chaque jour, avec date de l’événement distincte de la date de publication.
-2. Retenir 2 à 4 informations nouvelles qui ont un effet concret sur les économies et populations d’Afrique de l’Ouest. Diversifier pays et secteurs, éviter de reprendre le même fait sous une nouvelle formulation.
-3. Pour chaque chiffre : vérifier définition, unité, période, population couverte et statut (annonce, approbation, signature, décaissement, réalisation). Lier l’article à la source précise ; ne jamais citer seulement une page d’accueil.
-4. La page Économie porte la date de sa dernière mise à jour réelle. Ne pas changer la date si aucune information nouvelle n’est vérifiée. Conserver les indicateurs structurels avec leurs périodes explicites et archiver les analyses de fond séparément.
-5. Ne pas copier les textes et photos des médias sans droits appropriés. Rédiger une analyse originale et renvoyer vers eux.
+2. Mettre chaque jour un pays à la une, en rotation entre les huit États de l’UEMOA, le Ghana et le Nigeria. Croiser au moins un indicateur macroéconomique avec une donnée de terrain sur les ménages, l’emploi, la pauvreté ou les entreprises ; dater chaque série et distinguer observation et prévision. Ne pas inventer de focus si les sources ne permettent pas de le documenter.
+3. Traiter en priorité les nouvelles vérifiables des sociétés cotées à la BRVM, puis les grandes entreprises publiques et privées non cotées. Chercher résultats, investissements, financements, contrats, gouvernance et conséquences concrètes ; préciser la place de cotation ou l’absence de cotation BRVM. Le focus entreprise peut concerner un autre pays que le pays du jour si l’actualité le justifie. Éviter les reprises et la simple variation de cours.
+4. Pour chaque chiffre : vérifier définition, unité, période, population couverte et statut (annonce, approbation, signature, décaissement, réalisation). Lier l’article à la source précise ; ne jamais citer seulement une page d’accueil.
+5. La page Économie porte la date de sa dernière mise à jour réelle. Ne pas changer la date si aucune information nouvelle n’est vérifiée. Conserver les indicateurs structurels avec leurs périodes explicites et archiver les analyses de fond séparément.
+6. Ne pas copier les textes et photos des médias sans droits appropriés. Rédiger une analyse originale et renvoyer vers eux.
 
 ## Sujets en suivi
 - Sèmè (Bénin) : cargaison d’environ 250 000 barils annoncée pour octobre 2026. Vérifier l’exportation effectivement réalisée et la source de l’exploitant ; ce serait la première de la relance actuelle, pas la première de l’histoire du pays.
