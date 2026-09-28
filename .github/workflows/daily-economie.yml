@@ -1,0 +1,43 @@
+name: Actualiser la rubrique Économie
+
+on:
+  schedule:
+    - cron: '30 17 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: econozone-production
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  economie:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Rechercher et contrôler les actualités régionales
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/update-economie.mjs
+      - name: Vérifier le site
+        run: npm run build
+      - name: Publier si un fait nouveau a été validé
+        run: |
+          git add src/pages/economie.astro
+          if git diff --cached --quiet; then
+            echo "Aucune nouveauté validée : page et date inchangées."
+            exit 0
+          fi
+          git config user.name "ECONOZONE Automation"
+          git config user.email "actions@github.com"
+          git commit -m "Mise à jour quotidienne de la page Économie"
+          git push origin main
