@@ -45,10 +45,10 @@ async function main() {
   const previous=page.slice(page.indexOf(START),page.indexOf(END));
   const research=await openAI(
     'Tu es documentaliste économique de l’Afrique de l’Ouest. Recherche les sources en ligne. Retourne UNIQUEMENT un JSON valide : {"items":[{"kind":"focus_macro|focus_social|company|news","title":"titre précis","summary":"2 à 4 phrases analytiques dont les chiffres sont dans la source","url":"URL directe","source":"nom","published":"AAAA-MM-JJ","event_date":"AAAA-MM-JJ","data_period":"année/trimestre des données si focus"}]}. Fournis exactement un focus_macro (PIB, inflation, crédit, dette ou comptes extérieurs) ET un focus_social (emploi, revenu par habitant, pauvreté, santé, éducation ou coût de la vie) pour le pays imposé, idéalement des sources primaires comparables et avec période explicite. Ces données de fond peuvent être anciennes mais doivent être les dernières disponibles. Ajoute 1 à 2 nouvelles d’entreprises des sept derniers jours, priorité aux sociétés cotées à la BRVM, puis grandes entreprises publiques et privées non cotées, avec résultat publié, investissement, contrat, financement ou décision vérifiable ; précise le statut. Ajoute éventuellement une nouvelle économique récente. N’invente ni valeurs ni événements. Exclure les faits déjà traités. Si une catégorie n’a aucune source solide, omets-la. Les médias servent de veille ; préférer communiqué officiel et rapport daté.',
-    'Date UTC : '+today+' ; pays du jour : '+country+'\\nSources : '+sources+'\\nÉviter les redites : '+previous.slice(0,7000)
+    'Date UTC : '+today+' ; pays du jour : '+country+'\nSources : '+sources+'\nÉviter les redites : '+previous.slice(0,7000)
   );
   let items;
-  try { items=JSON.parse(research.replace(/^\`\`\`(?:json)?\\s*|\\s*\`\`\`$/g,'')).items; }
+  try { items=JSON.parse(research.replace(/^\`\`\`(?:json)?\s*|\s*\`\`\`$/g,'')).items; }
   catch { throw Error('Réponse de recherche non JSON : publication interrompue'); }
   if(!Array.isArray(items) || !items.length) { console.log('Aucun fait vérifiable. Page inchangée.'); return; }
   const checked=[];
@@ -85,21 +85,21 @@ async function main() {
     console.log('Aucun sujet validé. Page inchangée.'); return;
   }
   const date=dateFR(now);
-  const article=i=>'    <h3>'+esc(i.title)+'</h3>\\n'+
-    '    <p>'+esc(i.summary)+'</p>\\n'+
+  const article=i=>'    <h3>'+esc(i.title)+'</h3>\n'+
+    '    <p>'+esc(i.summary)+'</p>\n'+
     '    <p class="source-line"><a href="'+esc(i.url)+'" target="_blank" rel="noopener noreferrer">'+
     esc(i.source||new URL(i.url).hostname)+' — '+esc(i.published)+'</a>'+
     (i.data_period?' · Donnée : '+esc(i.data_period):'')+'</p>';
-  const zone=START+'\\n  <section class="highlight" aria-label="Actualités économiques récentes">\\n'+
-    '    <h2>Économie ouest-africaine — '+esc(date)+'</h2>\\n'+
-    (focused.length?'    <h3>Le pays du jour : '+esc(country)+'</h3>\\n'+
-      '<p>Indicateurs macroéconomiques et conditions de vie, avec périodes distinctes.</p>\\n'+
-      focused.map(article).join('\\n'):'')+
-    (businesses.length?'\\n    <h3>Entreprises : cotées et non cotées</h3>\\n'+
-      businesses.map(article).join('\\n'):'')+
-    (news.length?'\\n    <h3>Autres décisions économiques</h3>\\n'+
-      news.map(article).join('\\n'):'')+
-    '\\n  </section>\\n  '+END;
+  const zone=START+'\n  <section class="highlight" aria-label="Actualités économiques récentes">\n'+
+    '    <h2>Économie ouest-africaine — '+esc(date)+'</h2>\n'+
+    (focused.length?'    <h3>Le pays du jour : '+esc(country)+'</h3>\n'+
+      '<p>Indicateurs macroéconomiques et conditions de vie, avec périodes distinctes.</p>\n'+
+      focused.map(article).join('\n'):'')+
+    (businesses.length?'\n    <h3>Entreprises : cotées et non cotées</h3>\n'+
+      businesses.map(article).join('\n'):'')+
+    (news.length?'\n    <h3>Autres décisions économiques</h3>\n'+
+      news.map(article).join('\n'):'')+
+    '\n  </section>\n  '+END;
   let next=page.slice(0,page.indexOf(START))+zone+page.slice(page.indexOf(END)+END.length);
   next=next.replace(/<time datetime="[^"]+">\s*[^<]+\s*<\/time>/,
     '<time datetime="'+now.toISOString()+'">'+date+' à '+
