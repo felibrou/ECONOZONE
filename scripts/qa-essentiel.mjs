@@ -61,10 +61,15 @@ Vérifie la cohérence entre :
 - commentaires associés ;
 - dividendes, opérations sur titres et faits corporate.
 
-Les variations doivent utiliser :
-▲ + classe .up pour une hausse ;
-▼ + classe .down pour une baisse ;
-→ + classe .flat pour stabilité ou référence.
+Toutes les variations chiffrées, dans les bandeaux, les tableaux et le texte,
+doivent garder le même code visuel :
+▲ +x,xx % en vert avec la classe .up pour une hausse ;
+▼ −x,xx % en rouge avec la classe .down pour une baisse ;
+→ 0,00 % en noir avec la classe .flat pour une stabilité réelle.
+Une valeur sans comparaison s'affiche « Référence » sans flèche de hausse ou baisse.
+Le signe, les chiffres et le symbole % restent sur la même ligne. Les colonnes
+de variation sont alignées à droite. Vérifie le rendu CSS : la règle générale
+du texte noir ne doit jamais écraser le vert ou le rouge des variations.
 
 Aucune recommandation d'achat, vente, renforcement ou allègement.
 
