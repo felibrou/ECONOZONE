@@ -87,15 +87,15 @@ async function main() {
   try {
     await fs.access(archivePath);
   } catch {
-    const archive='---\\nimport Layout from \'../../layouts/Layout.astro\';\\n---\\n'+
-      '<Layout title="ECONOZONE — Économie du '+esc(date)+'">\\n'+
-      '<p class="breadcrumb"><a href="/economie">Économie</a> &rsaquo; <a href="/economie/archives">Archives</a></p>\\n'+
-      '<h1>Économie ouest-africaine — '+esc(date)+'</h1>\\n'+zone+'\\n</Layout>\\n';
+    const archive='---\nimport Layout from \'../../layouts/Layout.astro\';\n---\n'+
+      '<Layout title="ECONOZONE — Économie du '+esc(date)+'">\n'+
+      '<p class="breadcrumb"><a href="/economie">Économie</a> &rsaquo; <a href="/economie/archives">Archives</a></p>\n'+
+      '<h1>Économie ouest-africaine — '+esc(date)+'</h1>\n'+zone+'\n</Layout>\n';
     await fs.writeFile(archivePath,archive);
     const indexPath='src/pages/economie/archives.astro';
     const index=await fs.readFile(indexPath,'utf8');
     const entry="  { date: '"+today+"', label: '"+date+"', title: 'Actualités économiques ouest-africaines', href: '/economie/"+today+"' },";
-    await fs.writeFile(indexPath,index.replace('const analyses = [','const analyses = [\\n'+entry));
+    await fs.writeFile(indexPath,index.replace('const analyses = [','const analyses = [\n'+entry));
   }
   console.log(checked.length+' actualité(s) vérifiée(s) publiée(s) dans Économie');
 }
