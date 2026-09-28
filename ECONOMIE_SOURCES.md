@@ -8,10 +8,10 @@ Mis à jour le 28 septembre 2026. Cette liste sert à la veille éditoriale, pas
 - UEMOA — https://www.uemoa.int/ ; CEDEAO — https://www.ecowas.int/ — intégration et décisions régionales.
 - BRVM — https://www.brvm.org/ — cours, bulletins, communiqués et opérations sur titres.
 - Communiqués officiels des gouvernements, autorités statistiques et entreprises concernées. Pour les résultats miniers, retrouver le communiqué de l’exploitant.
-- FMI, Banque mondiale, BAD, BIDC et agences de coopération : communiqués et rapports datés.
+- Fonds monétaire international (FMI) — https://www.imf.org/ et https://data.imf.org/ — World Economic Outlook, rapports pays, séries datées, estimations et projections.\n- Groupe de la Banque mondiale — https://www.worldbank.org/ et https://data.worldbank.org/ — rapports pays et séries statistiques comparables.\n- BAD, BIDC et agences de coopération : communiqués et rapports datés.
 
-## Médias de veille apportés par Félix Brou
-- Financial Afrik — https://www.financialafrik.com/
+## Médias de veille
+- Jeune Afrique — https://www.jeuneafrique.com/\n- Africa Intelligence — https://www.africaintelligence.fr/ (appelé « Afrique Intelligent » dans la demande).\n- Financial Afrik — https://www.financialafrik.com/
 - Afrimag — https://afrimag.net/
 - Agence Ecofin — https://www.agenceecofin.com/
 - Sika Finance — https://www.sikafinance.com/bourse/ (cours à recouper avec la BRVM).
@@ -20,9 +20,9 @@ Mis à jour le 28 septembre 2026. Cette liste sert à la veille éditoriale, pas
 - TV5MONDE Afrique — https://information.tv5monde.com/afrique/ (le reportage sur l’eco est un repère de contexte, non une annonce nouvelle).
 - Forbes Afrique — https://forbesafrique.com/
 - Ecomnews Afrique — https://ecomnewsafrique.com/
-- Afrique Économie — https://www.afriqueeconomie.net/
+- Afrique Économie — https://www.afriqueeconomie.net/\n- Les Afriques — https://lesafriques.com/ ; repère : https://lesafriques.com/2026/06/pib-afrique-2026-classement-analyse-pays/\n- La Nouvelle Tribune — https://lanouvelletribune.info/ ; repère : https://lanouvelletribune.info/2026/01/afrique-les-10-plus-grandes-economies-en-2026-dont-2-pays-du-maghreb/\n- Digital Africa — https://digital-africa.tech/ ; repère : https://digital-africa.tech/classement-voici-le-top-5-des-puissances-economiques-africaines-en-2025-le-rapport-explique-cette-dynamique-par-la-stabilisation-macroeconomique-l-integration-regionale-et-la-montee-en-puissance-des-s/
 
-## Sélection et mise à jour quotidienne
+Les trois articles de classement sont des pistes de lecture, pas des bases de données : avant de publier un rang ou un PIB, recouper chaque chiffre avec la même édition du FMI ou de la Banque mondiale et préciser PIB nominal ou PPA, année, monnaie et caractère estimé ou prévu. Aucun de ces articles anciens ne doit entrer dans la rubrique « actualités du jour » sans donnée nouvelle.\n\n## Sélection et mise à jour quotidienne
 1. Rechercher les nouvelles publications de ces médias et des sources primaires chaque jour ouvré, avec date de l’événement distincte de la date de publication.
 2. Retenir 2 à 4 informations nouvelles qui ont un effet concret sur les économies et populations d’Afrique de l’Ouest. Diversifier pays et secteurs, éviter de reprendre le même fait sous une nouvelle formulation.
 3. Pour chaque chiffre : vérifier définition, unité, période, population couverte et statut (annonce, approbation, signature, décaissement, réalisation). Lier l’article à la source précise ; ne jamais citer seulement une page d’accueil.
