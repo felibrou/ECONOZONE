@@ -1,6 +1,6 @@
 # Sources permanentes — Économie ECONOZONE
 
-Mis à jour le 28 septembre 2026. Cette liste sert à la veille éditoriale, pas à reproduire des articles. Vérifier chaque fait à la source primaire avant publication et donner une date et un lien précis.
+Mis à jour le 29 septembre 2026. Cette liste sert à la veille éditoriale, pas à reproduire des articles. Vérifier chaque fait à la source primaire avant publication et donner une date et un lien précis.
 
 ## Sources primaires prioritaires
 - BCEAO — https://www.bceao.int/ — politique monétaire, crédit, microfinance, statistiques UMOA.
@@ -11,6 +11,13 @@ Mis à jour le 28 septembre 2026. Cette liste sert à la veille éditoriale, pas
 - Fonds monétaire international (FMI) — https://www.imf.org/ et https://data.imf.org/ — World Economic Outlook, rapports pays, séries datées, estimations et projections.
 - Groupe de la Banque mondiale — https://www.worldbank.org/ et https://data.worldbank.org/ — rapports pays et séries statistiques comparables.
 - BAD, BIDC et agences de coopération : communiqués et rapports datés.
+
+
+## Notations de crédit et risque pays — veille permanente
+- **Bloomfield Investment Corporation** — https://bloomfield-investment.com/ et ses fiches déposées à la BRVM : https://www.brvm.org/fr/emetteurs/type-annonces/notations-financieres?og_group_ref_target_id=All. Suivre les notations sur l'échelle régionale en FCFA des entreprises, banques, collectivités et émissions. Distinguer les fiches de crédit de Bloomfield du score de la Conférence Risque Pays (sur 10) : ce dernier ne se convertit pas en note souveraine internationale.
+- **Moody's Ratings** — https://ratings.moodys.com/ ; **S&P Global Ratings** — https://www.spglobal.com/ratings/ ; **Fitch Ratings** — https://www.fitchratings.com/ : notations souveraines et d'émetteurs, devises locale/étrangère, horizon court/long terme, perspective et date de l'action. Recouper les documents officiels des trésors publics, par exemple https://www.dgf.gouv.ci/fr/notations/notations-financieres pour la Côte d'Ivoire. Une « mise à jour de crédit » n'est pas nécessairement une nouvelle décision de notation.
+- **Japan Credit Rating Agency (JCR)** — https://www.jcr.co.jp/en/ ; **GCR Ratings** — https://gcrratings.com/ ; **Agusto & Co.** — https://www.agusto.com/ : couverture à vérifier par pays et émetteur, notamment Afrique de l'Ouest anglophone et entreprises régionales. Ne publier que les décisions et fiches accessibles et datées.
+- Pour chaque note, publier **agence, émetteur exact, échelle (internationale ou régionale), monnaie, maturité, note, perspective, date d'action et période de validité**. Ne pas comparer directement A+ sur échelle régionale FCFA, Ba2/BB sur échelle internationale et score de risque pays sur 10. Vérifier les avertissements, réserves et éventuels retraits de note. Expliquer en prose le canal possible vers coût du financement, accès au marché et crédit bancaire sans présenter une note comme une garantie ou un taux d'emprunt automatique.
 
 ## Médias de veille
 - Jeune Afrique — https://www.jeuneafrique.com/
