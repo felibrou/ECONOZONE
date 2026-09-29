@@ -1,4 +1,4 @@
-name: Générer et publier L'Essentiel et Matières premières
+name: Vérifier les données et publier Matières premières
 
 # ---------------------------------------------------------------------------
 # DÉCLENCHEMENT
@@ -30,7 +30,7 @@ jobs:
 
   generate-check-publish:
 
-    name: Rédaction → Contrôle → Publication
+    name: Données récentes → Contrôle → Publication
 
     runs-on: ubuntu-latest
 
@@ -67,46 +67,9 @@ jobs:
         run: npm ci
 
 
-      # =====================================================================
-      # L'ESSENTIEL
-      # =====================================================================
-
-      # ---------------------------------------------------------------------
-      # 4. OPENAI RÉDIGE L'ESSENTIEL
-      # ---------------------------------------------------------------------
-
-      - name: Rédiger L'Essentiel avec OpenAI
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
+      - name: Refuser des données de marché périmées
         run: |
-          echo ""
-          echo "=========================================="
-          echo "✍️  RÉDACTION DE L'ESSENTIEL — OPENAI"
-          echo "=========================================="
-
-          node scripts/generate-essentiel.mjs
-
-
-      # ---------------------------------------------------------------------
-      # 5. GEMINI CONTRÔLE L'ESSENTIEL
-      #
-      # PASS → le workflow continue
-      # FAIL → aucune publication
-      # ---------------------------------------------------------------------
-
-      - name: Contrôler L'Essentiel avec Gemini
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
-        run: |
-          echo ""
-          echo "=========================================="
-          echo "🔎 CONTRÔLE QUALITÉ — L'ESSENTIEL"
-          echo "=========================================="
-
-          node scripts/qa-essentiel.mjs
-
+          node -e "const fs=require('fs');const d=JSON.parse(fs.readFileSync('data/daily-data.json','utf8')); const today=new Date().toISOString().slice(0,10); const raw=d.date||d.asOf||d.datation||d.meta?.date; if (!raw || String(raw).slice(0,10)!==today) { console.error('Données périmées ou sans date : '+raw+' ; aujourd’hui '+today); process.exit(1) }"
 
       # =====================================================================
       # MATIÈRES PREMIÈRES
@@ -180,7 +143,6 @@ jobs:
 
         run: |
           git add \
-            src/pages/essentiel.astro \
             src/pages/matieres-premieres.astro
 
           if git diff --cached --quiet; then
@@ -214,8 +176,6 @@ jobs:
       #
       # Cette étape n'est exécutée que si :
       #
-      # - OpenAI a réussi pour L'Essentiel ;
-      # - Gemini a validé L'Essentiel ;
       # - OpenAI a réussi pour Matières premières ;
       # - Gemini a validé Matières premières ;
       # - Astro compile correctement ;
@@ -249,8 +209,6 @@ jobs:
           echo "✅ PUBLICATION AUTORISÉE"
           echo "=========================================="
 
-          echo "✅ OpenAI — rédaction L'Essentiel"
-          echo "✅ Gemini — contrôle L'Essentiel"
           echo "✅ OpenAI — rédaction Matières premières"
           echo "✅ Gemini — contrôle Matières premières"
           echo "✅ Astro — compilation du site"
