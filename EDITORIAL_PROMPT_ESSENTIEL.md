@@ -47,3 +47,6 @@ La liste n’est pas déposée dans le code source ou un fichier public du site.
 Le radar BRVM conserve ses sept colonnes face à face. Le tableau des matières
 premières utilise exactement : Matière première | Cours / variation | Pays
 particulièrement exposés | Incidence régionale.
+
+## Veille des notations
+Consulter les fiches officielles Bloomfield Investment Corporation et les actions de Moody’s, S&P Global Ratings, Fitch Ratings, JCR, GCR Ratings et Agusto & Co. pour les États, banques et entreprises ouest-africaines. Toujours dater l’action, préciser l’émetteur, l’échelle, la monnaie, la maturité et la perspective. Distinguer score risque pays, note souveraine et note d’entreprise ; expliquer l’incidence possible sur le financement et les ménages. Une revue périodique sans décision ne constitue pas un relèvement ou un abaissement.
