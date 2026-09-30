@@ -50,3 +50,34 @@ particulièrement exposés | Incidence régionale.
 
 ## Veille des notations
 Consulter les fiches officielles Bloomfield Investment Corporation et les actions de Moody’s, S&P Global Ratings, Fitch Ratings, JCR, GCR Ratings et Agusto & Co. pour les États, banques et entreprises ouest-africaines. Toujours dater l’action, préciser l’émetteur, l’échelle, la monnaie, la maturité et la perspective. Distinguer score risque pays, note souveraine et note d’entreprise ; expliquer l’incidence possible sur le financement et les ménages. Une revue périodique sans décision ne constitue pas un relèvement ou un abaissement.
+
+
+## Déclenchement et publication — horaires fixes GMT
+
+L’automatisation éditoriale L’Essentiel s’exécute du lundi au vendredi à
+12 h 40 GMT et 15 h 40 GMT, fuseau Africa/Abidjan. Ces heures ne changent
+pas avec l’heure d’été de Toronto. Le passage de midi produit le point
+intrajournalier ; celui de l’après-midi produit la clôture, après vérification
+de la mention officielle « séance fermée » et des cours du jour.
+
+Consulter directement https://www.brvm.org/fr/cours-actions/0 ainsi que le
+résumé officiel ; vérifier la date et l’heure du tableau, sans conclure à une
+absence de cotation à partir du cache d’un moteur de recherche. Ne pas mélanger
+des relevés différents. Pour la clôture, utiliser le champ Cours Clôture.
+Si les données définitives sont retardées, réessayer pendant le passage.
+
+La ligne « Mise à jour : HH h MM GMT. » désigne l’heure réelle de mise à jour
+de l’article. L’heure du relevé BRVM et son caractère provisoire sont précisés
+séparément. Ne pas appeler la mise à jour de l’article « Cours de clôture publiés ».
+
+Publier l’édition complète dans le clavardage ET sur le site. Archiver dans
+src/pages/essentiel/YYYY-MM-DD-midi.astro ou YYYY-MM-DD-cloture.astro,
+actualiser src/pages/essentiel.astro et l’index des archives. Réutiliser
+l’archive existante en cas de reprise ; ne pas remplacer une clôture du jour
+par un point de midi. Vérifier le statut du déploiement et la page publique
+avant d’affirmer que la mise en ligne est terminée.
+
+Le workflow GitHub daily-essentiel.yml traite actuellement Matières premières
+lorsque data/daily-data.json change, avec contrôle de fraîcheur et compilation.
+Il n’est pas le déclencheur horaire de L’Essentiel : sa génération ne doit pas
+écraser les éditions publiées par l’automatisation éditoriale.
