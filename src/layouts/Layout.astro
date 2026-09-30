@@ -217,6 +217,31 @@ import Analytics from '@vercel/analytics/astro';
     .newsletter-panel { width: min(100% - 48px, 1080px); margin: 0 auto 40px; padding: 20px 12px; border-top: 3px solid var(--green); background: #f7f9fc; }
     .newsletter-panel iframe { display: block; width: 100%; max-width: 540px; height: 520px; margin: auto; border: 0; }
     @media (max-width: 600px) { .newsletter-panel { width: calc(100% - 32px); padding: 8px 0; } .newsletter-panel iframe { height: 600px; } }
+
+    /* Les cours composés de prix, variation et date ne sont pas des pourcentages seuls. */
+    .col .table-scroll { width:100%; max-width:100%; overflow-x:auto; }
+    .col table.editorial-market-table { width:100%; table-layout:fixed; min-width:720px; }
+    .col table.editorial-market-table th,
+    .col table.editorial-market-table td {
+      text-align:left !important; vertical-align:top; white-space:normal !important;
+      overflow-wrap:break-word; word-break:normal; padding:12px 14px; line-height:1.55;
+    }
+    .col table.editorial-market-table td .up,
+    .col table.editorial-market-table td .down {
+      display:inline !important; text-align:inherit !important; white-space:nowrap;
+    }
+    .col table.commodity-table th:nth-child(1) { width:20%; }
+    .col table.commodity-table th:nth-child(2) { width:28%; }
+    .col table.commodity-table th:nth-child(3) { width:22%; }
+    .col table.commodity-table th:nth-child(4) { width:30%; }
+    .col table.world-market-table th:nth-child(1) { width:24%; }
+    .col table.world-market-table th:nth-child(2) { width:27%; }
+    .col table.world-market-table th:nth-child(3) { width:49%; }
+    @media(max-width:650px) {
+      .col table.editorial-market-table { min-width:700px; font-size:14px; }
+      .col table.editorial-market-table th,
+      .col table.editorial-market-table td { padding:10px 12px; }
+    }
   </style>
 </head>
 <body>
@@ -296,13 +321,21 @@ import Analytics from '@vercel/analytics/astro';
 
     document.querySelectorAll('table').forEach(function (table) {
       const percentColumns = new Set();
+      const headers = Array.from(table.querySelectorAll('thead th')).map(function (h) {
+        return (h.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+      });
+      if (headers.length === 4 && headers[0].includes('matière') && headers[1].includes('cours')) {
+        table.classList.add('editorial-market-table', 'commodity-table');
+      } else if (headers.length === 3 && headers[0] === 'marché' && headers[1].includes('variation')) {
+        table.classList.add('editorial-market-table', 'world-market-table');
+      }
 
       table.querySelectorAll('tbody tr').forEach(function (row) {
         Array.from(row.children).forEach(function (cell, index) {
           const value = (cell.textContent || '').replace(/\s+/g, ' ').trim();
           const beginsWithNumber = /^[🟢🔴▲▼≈+\-−]?\s*\d/.test(value);
 
-          if (beginsWithNumber && value.includes('%')) {
+          if (/^(?:🟢|🔴|▲|▼)?\s*[+−-]?\s*\d[\d\s.,]*\s*%$/u.test(value)) {
             cell.classList.add('numeric-percent');
             percentColumns.add(index);
           }
