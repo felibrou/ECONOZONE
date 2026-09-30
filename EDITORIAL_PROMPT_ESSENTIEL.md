@@ -55,7 +55,7 @@ Consulter les fiches officielles Bloomfield Investment Corporation et les action
 ## Déclenchement et publication — horaires fixes GMT
 
 L’automatisation éditoriale L’Essentiel s’exécute du lundi au vendredi à
-12 h 40 GMT et 15 h 40 GMT, fuseau Africa/Abidjan. Ces heures ne changent
+12 h 00 GMT et 15 h 40 GMT, fuseau Africa/Abidjan. Ces heures ne changent
 pas avec l’heure d’été de Toronto. Le passage de midi produit le point
 intrajournalier ; celui de l’après-midi produit la clôture, après vérification
 de la mention officielle « séance fermée » et des cours du jour.
@@ -81,3 +81,13 @@ Le workflow GitHub daily-essentiel.yml traite actuellement Matières premières
 lorsque data/daily-data.json change, avec contrôle de fraîcheur et compilation.
 Il n’est pas le déclencheur horaire de L’Essentiel : sa génération ne doit pas
 écraser les éditions publiées par l’automatisation éditoriale.
+
+
+## Bilan du dimanche
+Chaque dimanche à 19 h 00 GMT (Africa/Abidjan), publier le bilan de la semaine
+et les annonces/programmes vérifiés de la semaine suivante dans le clavardage
+et sur ECONOZONE. Archiver YYYY-MM-DD-hebdo.astro et actualiser l’index.
+Vérifier les performances sur clôtures comparables, le calendrier officiel,
+la netteté et le chargement des photos sur mobile/ordinateur, puis le déploiement.
+La programmation regroupe les trois rendez-vous dans une seule tâche :
+midi et clôture du lundi au vendredi, bilan le dimanche. Pas de passage le samedi.
