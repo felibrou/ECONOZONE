@@ -1,5 +1,5 @@
 // Veille quotidienne de la rubrique Économie. Publication seulement après
-// recherche sourcée, vérification du lien et contrôle indépendant Gemini.
+// recherche sourcée, vérification du lien et contrôle éditorial avec OpenAI.
 import fs from 'node:fs/promises';
 import { PROVIDERS } from './providers.mjs';
 
@@ -53,8 +53,8 @@ async function openAI(instructions,input) {
     .map(c=>c.text).join('\n');
 }
 async function main() {
-  if(!process.env.OPENAI_API_KEY || !process.env.GEMINI_API_KEY)
-    throw Error('OPENAI_API_KEY et GEMINI_API_KEY sont nécessaires');
+  if(!process.env.OPENAI_API_KEY)
+    throw Error('OPENAI_API_KEY est nécessaire');
   const now=new Date(), today=now.toISOString().slice(0,10);
   const country=countries[Math.floor(now.getTime()/86400000)%countries.length];
   const sources=await fs.readFile('ECONOMIE_SOURCES.md','utf8');
@@ -98,7 +98,7 @@ async function main() {
       sourceText=(await response.text()).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').slice(0,18000);
       if(sourceText.length<500) continue;
     } catch {continue;}
-    const verdict=await PROVIDERS.gemini.call(
+    const verdict=await PROVIDERS.chatgpt.call(
       'Contrôle éditorial indépendant. Réponds exactement PASS ou FAIL. PASS uniquement si la source fournie soutient le titre, les chiffres, la date, le statut (annonce, approbation, réalisation) et le résumé, et si l’incidence ouest-africaine est prudente. Pour focus_macro et focus_social, vérifier que le fait concerne bien le pays du jour et que la période de la donnée est affichée. Pour company, vérifier l’entreprise, son statut coté ou non, et distinguer une annonce d’un résultat réalisé. Une source imprécise, contradictoire ou inaccessible impose FAIL.',
       JSON.stringify({country,item,sourceText})
     );
