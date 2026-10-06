@@ -32,7 +32,6 @@ jobs:
       - name: Rechercher et contrôler les actualités régionales
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/update-economie.mjs
       - name: Vérifier le site
         run: npm run build
