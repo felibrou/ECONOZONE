@@ -4,8 +4,7 @@
 // du jour" + brève analyse) — le reste de la page (grille de lecture, cartes pays,
 // avertissement) reste du contenu stable, jamais régénéré.
 //
-// Gemini intervient séparément dans qa-commodities.mjs comme contrôleur qualité
-// indépendant, sur le même modèle que qa-essentiel.mjs.
+// OpenAI intervient aussi dans qa-commodities.mjs pour le contrôle qualité avant publication.
 //
 // Usage local : node scripts/generate-commodities.mjs
 // Usage CI     : appelé par .github/workflows/daily-essentiel.yml
@@ -131,7 +130,7 @@ async function main() {
   console.log('');
   console.log(`✅ ${OUTPUT_PATH} — zone dynamique régénérée pour le ${data.date}.`);
   console.log(`✅ Rédacteur automatique : ${provider.label}`);
-  console.log('→ Étape suivante : contrôle qualité indépendant par Gemini.');
+  console.log('→ Étape suivante : contrôle qualité par OpenAI.');
   console.log('==========================================');
 }
 
