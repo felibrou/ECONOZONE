@@ -24,6 +24,22 @@ const dateFR = d => new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',
 const hostOK = host => allowed.some(d => host === d || host.endsWith('.'+d)) ||
   /(^|\.)(gov|gouv)\.[a-z.]+$/.test(host);
 
+function ensureManagedZone(page) {
+  const hasStart=page.includes(START), hasEnd=page.includes(END);
+  if(hasStart && hasEnd) return page;
+  if(hasStart !== hasEnd) throw Error('Zone de veille Économie incomplète : un seul marqueur est présent');
+
+  const emptyZone='\n'+START+'\n'+END+'\n';
+  const economySection=/<section\s+id=["']economie["'][^>]*>[\s\S]*?<\/section>/i;
+  if(economySection.test(page)) {
+    return page.replace(economySection, match => match+emptyZone);
+  }
+  if(page.includes('</article>')) {
+    return page.replace('</article>', emptyZone+'</article>');
+  }
+  throw Error('Impossible d’initialiser la zone de veille Économie : structure de page inconnue');
+}
+
 async function openAI(instructions,input) {
   const res = await fetch('https://api.openai.com/v1/responses',{
     method:'POST',headers:{'Content-Type':'application/json',
@@ -42,8 +58,10 @@ async function main() {
   const now=new Date(), today=now.toISOString().slice(0,10);
   const country=countries[Math.floor(now.getTime()/86400000)%countries.length];
   const sources=await fs.readFile('ECONOMIE_SOURCES.md','utf8');
-  const page=await fs.readFile(PAGE,'utf8');
-  if(!page.includes(START)||!page.includes(END)) throw Error('Marqueurs de veille absents');
+  let page=await fs.readFile(PAGE,'utf8');
+  const normalizedPage=ensureManagedZone(page);
+  const zoneWasInitialized=normalizedPage!==page;
+  page=normalizedPage;
   const previous=page.slice(page.indexOf(START),page.indexOf(END));
   const research=await openAI(
     'Tu es documentaliste économique de l’Afrique de l’Ouest. Recherche les sources en ligne. Retourne UNIQUEMENT un JSON valide : {"items":[{"kind":"focus_macro|focus_social|company|news","title":"titre précis","summary":"2 à 4 phrases analytiques dont les chiffres sont dans la source","url":"URL directe","source":"nom","published":"AAAA-MM-JJ","event_date":"AAAA-MM-JJ","data_period":"année/trimestre des données si focus"}]}. Fournis exactement un focus_macro (PIB, inflation, crédit, dette ou comptes extérieurs) ET un focus_social (emploi, revenu par habitant, pauvreté, santé, éducation, coût de la vie ou données microéconomiques d’entreprises et ménages) pour le pays imposé, idéalement des sources primaires comparables et avec période explicite. Ces données de fond peuvent être anciennes mais doivent être les dernières disponibles. Ajoute 1 à 2 nouvelles d’entreprises des sept derniers jours, priorité aux sociétés cotées à la BRVM, puis grandes entreprises publiques et privées non cotées, avec résultat publié, investissement, contrat, financement ou décision vérifiable ; précise explicitement si elles sont cotées à la BRVM. Si possible, une entreprise du pays du jour. Cherche le Bulletin officiel de la cote et les communiqués des émetteurs. Ajoute éventuellement une nouvelle économique récente. Vérifie les nouvelles notations de crédit souveraines et d’entreprises auprès de Bloomfield Investment Corporation, Moody’s, S&P Global Ratings, Fitch Ratings, JCR, GCR Ratings et Agusto & Co. Précise agence, émetteur, échelle, monnaie, maturité, note, perspective et date. Un score de risque pays sur 10 n’est pas une note souveraine internationale. Ne reprends aucune note si la fiche originale ou un dépôt officiel n’est pas accessible. N’invente ni valeurs ni événements. Exclure les faits déjà traités. Si une catégorie n’a aucune source solide, omets-la. Les médias servent de veille ; préférer communiqué officiel et rapport daté.',
@@ -52,7 +70,15 @@ async function main() {
   let items;
   try { items=JSON.parse(research.replace(/^\`\`\`(?:json)?\s*|\s*\`\`\`$/g,'')).items; }
   catch { throw Error('Réponse de recherche non JSON : publication interrompue'); }
-  if(!Array.isArray(items) || !items.length) { console.log('Aucun fait vérifiable. Page inchangée.'); return; }
+  if(!Array.isArray(items) || !items.length) {
+    if(zoneWasInitialized) {
+      await fs.writeFile(PAGE,page);
+      console.log('Zone de veille initialisée. Aucun fait vérifiable à publier.');
+    } else {
+      console.log('Aucun fait vérifiable. Page inchangée.');
+    }
+    return;
+  }
   const checked=[];
   for(const item of items.slice(0,7)) {
     if(!item.title||!item.summary||!item.url||!item.published||!item.event_date) continue;
@@ -84,7 +110,13 @@ async function main() {
   const businesses=checked.filter(i=>i.kind==='company').slice(0,2);
   const news=checked.filter(i=>i.kind==='news').slice(0,2);
   if(!focused.length && !businesses.length && !news.length) {
-    console.log('Aucun sujet validé. Page inchangée.'); return;
+    if(zoneWasInitialized) {
+      await fs.writeFile(PAGE,page);
+      console.log('Zone de veille initialisée. Aucun sujet validé à publier.');
+    } else {
+      console.log('Aucun sujet validé. Page inchangée.');
+    }
+    return;
   }
   const date=dateFR(now);
   const article=i=>'    <h3>'+esc(i.title)+'</h3>\n'+
