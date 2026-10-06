@@ -1,38 +1,11 @@
 // scripts/qa-essentiel.mjs
-//
-// Contrôle qualité automatique de L'Essentiel avant publication.
-//
-// Modèle principal : Gemini 3.6 Flash
-// Fallback : Gemini 3.5 Flash-Lite
-//
-// Le script :
-// 1. lit src/pages/essentiel.astro
-// 2. contrôle le contenu avec Gemini
-// 3. retente automatiquement en cas de panne temporaire
-// 4. bascule sur Flash-Lite si nécessaire
-// 5. autorise ou bloque la publication avec PASS / FAIL
+// Contrôle qualité automatique de L'Essentiel avec OpenAI, fournisseur IA unique.
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { PROVIDERS } from './providers.mjs';
 
-const PAGE_PATH = path.join(
-  process.cwd(),
-  'src',
-  'pages',
-  'essentiel.astro'
-);
-
-const apiKey = process.env.GEMINI_API_KEY;
-
-if (!apiKey) {
-  console.error('❌ GEMINI_API_KEY manquante.');
-  process.exit(1);
-}
-
-const PRIMARY_MODEL = 'gemini-3.6-flash';
-const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
-
-const MAX_RETRIES = 3;
+const PAGE_PATH = path.join(process.cwd(),'src','pages','essentiel.astro');
 
 const QA_PROMPT = `
 Tu es le contrôleur qualité éditorial et technique indépendant d'ECONOZONE.
@@ -174,337 +147,60 @@ Réponds uniquement avec un objet JSON valide :
 Aucun texte avant ou après le JSON.
 `
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function isRetryableStatus(status) {
-  return [
-    429,
-    500,
-    502,
-    503,
-    504
-  ].includes(status);
-}
-
-async function callGeminiOnce(model, content) {
-  const url =
-    `https://generativelanguage.googleapis.com/v1beta/models/` +
-    `${model}:generateContent`;
-
-  const res = await fetch(url, {
-    method: 'POST',
-
-    headers: {
-      'Content-Type': 'application/json',
-      'x-goog-api-key': apiKey
-    },
-
-    body: JSON.stringify({
-      systemInstruction: {
-        parts: [
-          {
-            text: QA_PROMPT
-          }
-        ]
-      },
-
-      contents: [
-        {
-          role: 'user',
-          parts: [
-            {
-              text:
-                `Contrôle cette édition avant publication :\n\n${content}`
-            }
-          ]
-        }
-      ],
-
-      generationConfig: {
-        maxOutputTokens: 3000,
-        responseMimeType: 'application/json'
-      }
-    })
-  });
-
-  const responseText = await res.text();
-
-  if (!res.ok) {
-    const error = new Error(
-      `Gemini QA API: ${res.status} ${responseText}`
-    );
-
-    error.status = res.status;
-
-    throw error;
-  }
-
-  let data;
-
-  try {
-    data = JSON.parse(responseText);
-  } catch {
-    throw new Error(
-      'Gemini QA : réponse HTTP valide mais JSON API illisible.'
-    );
-  }
-
-  const text =
-    data.candidates?.[0]?.content?.parts
-      ?.map(part => part.text || '')
-      ?.join('')
-      ?.trim();
-
-  if (!text) {
-    throw new Error(
-      `Gemini QA (${model}) : aucune réponse exploitable.`
-    );
-  }
-
-  return text;
-}
-
-async function callGeminiWithRetry(model, content) {
-  let lastError;
-
-  for (
-    let attempt = 1;
-    attempt <= MAX_RETRIES;
-    attempt++
-  ) {
-    try {
-      console.log(
-        `→ ${model} — tentative ${attempt}/${MAX_RETRIES}`
-      );
-
-      return await callGeminiOnce(
-        model,
-        content
-      );
-
-    } catch (err) {
-      lastError = err;
-
-      console.error(
-        `⚠️ ${model} — tentative ${attempt} échouée :`
-      );
-
-      console.error(
-        err.message || err
-      );
-
-      if (
-        !isRetryableStatus(err.status) ||
-        attempt === MAX_RETRIES
-      ) {
-        break;
-      }
-
-      const waitTime =
-        attempt === 1
-          ? 5000
-          : attempt === 2
-            ? 10000
-            : 15000;
-
-      console.log(
-        `→ Nouvelle tentative dans ${waitTime / 1000} secondes...`
-      );
-
-      await sleep(waitTime);
-    }
-  }
-
-  throw lastError;
-}
-
-async function callGemini(content) {
-  try {
-    console.log('');
-    console.log(
-      `→ Contrôle principal avec ${PRIMARY_MODEL}`
-    );
-
-    return {
-      text: await callGeminiWithRetry(
-        PRIMARY_MODEL,
-        content
-      ),
-      model: PRIMARY_MODEL
-    };
-
-  } catch (primaryError) {
-    console.error('');
-    console.error(
-      `⚠️ ${PRIMARY_MODEL} reste indisponible.`
-    );
-
-    console.log(
-      `→ Bascule sur ${FALLBACK_MODEL}...`
-    );
-
-    try {
-      return {
-        text: await callGeminiWithRetry(
-          FALLBACK_MODEL,
-          content
-        ),
-        model: FALLBACK_MODEL
-      };
-
-    } catch (fallbackError) {
-      console.error('');
-      console.error(
-        '❌ Les deux modèles Gemini ont échoué.'
-      );
-
-      throw new Error(
-        `Principal : ${primaryError.message}\n` +
-        `Fallback : ${fallbackError.message}`
-      );
-    }
-  }
-}
 
 async function main() {
-  console.log('');
-  console.log('======================================');
+  console.log('\n======================================');
   console.log('🔎 CONTRÔLE QUALITÉ — L’ESSENTIEL');
   console.log('======================================');
 
+  if (!process.env.OPENAI_API_KEY) {
+    console.error('❌ OPENAI_API_KEY manquante.');
+    process.exit(1);
+  }
   if (!fs.existsSync(PAGE_PATH)) {
-    console.error(
-      `❌ Fichier introuvable : ${PAGE_PATH}`
-    );
-
+    console.error(`❌ Fichier introuvable : ${PAGE_PATH}`);
     process.exit(1);
   }
 
-  const page = fs.readFileSync(
-    PAGE_PATH,
-    'utf-8'
-  );
-
-  if (!page.trim()) {
-    console.error(
-      '❌ Le fichier essentiel.astro est vide.'
-    );
-
+  const page=fs.readFileSync(PAGE_PATH,'utf8');
+  if(!page.trim()){
+    console.error('❌ Le fichier essentiel.astro est vide.');
     process.exit(1);
   }
 
-  let geminiResponse;
-
+  let raw;
   try {
-    geminiResponse =
-      await callGemini(page);
-
-  } catch (err) {
-    console.error('');
-    console.error(
-      '❌ Impossible d’effectuer le contrôle qualité Gemini.'
+    raw=await PROVIDERS.chatgpt.call(
+      QA_PROMPT,
+      'Contrôle cette édition avant publication :\n\n'+page
     );
-
-    console.error(
-      err.message || err
-    );
-
+  } catch(err) {
+    console.error('❌ Impossible d’effectuer le contrôle qualité OpenAI.');
+    console.error(err?.message || err);
     process.exit(1);
   }
 
   let result;
-
   try {
-    result =
-      JSON.parse(geminiResponse.text);
-
+    result=JSON.parse(String(raw).replace(/^```(?:json)?\s*|\s*```$/g,''));
   } catch {
-    console.error(
-      '❌ Gemini n’a pas retourné un JSON valide.'
-    );
-
-    console.error(
-      geminiResponse.text
-    );
-
+    console.error('❌ OpenAI n’a pas retourné un JSON valide.');
+    console.error(raw);
     process.exit(1);
   }
 
-  console.log('');
-  console.log(
-    `Modèle QA utilisé : ${geminiResponse.model}`
-  );
+  console.log(`Décision OpenAI : ${result.status}`);
+  if(Array.isArray(result.warnings)) for(const w of result.warnings) console.log('⚠️ '+w);
+  if(result.summary) console.log('Résumé : '+result.summary);
 
-  console.log(
-    `Décision Gemini : ${result.status}`
-  );
-
-  if (
-    Array.isArray(result.warnings) &&
-    result.warnings.length > 0
-  ) {
-    console.log('');
-    console.log('⚠️ Avertissements :');
-
-    for (const warning of result.warnings) {
-      console.log(`- ${warning}`);
-    }
-  }
-
-  if (result.summary) {
-    console.log('');
-    console.log(
-      `Résumé : ${result.summary}`
-    );
-  }
-
-  if (result.status !== 'PASS') {
-    console.error('');
-    console.error(
-      '❌ PUBLICATION AUTOMATIQUE BLOQUÉE'
-    );
-
-    if (
-      Array.isArray(result.critical_errors) &&
-      result.critical_errors.length > 0
-    ) {
-      console.error('');
-      console.error('Erreurs critiques :');
-
-      for (
-        const error
-        of result.critical_errors
-      ) {
-        console.error(
-          `- ${error}`
-        );
-      }
-    }
-
+  if(result.status!=='PASS'){
+    console.error('❌ PUBLICATION AUTOMATIQUE BLOQUÉE');
+    if(Array.isArray(result.critical_errors)) for(const e of result.critical_errors) console.error('- '+e);
     process.exit(1);
   }
 
-  console.log('');
-  console.log(
-    '✅ Contrôle qualité réussi.'
-  );
-
-  console.log(
-    '✅ Édition validée pour publication éditoriale.'
-  );
-
-  console.log(
-    '======================================'
-  );
+  console.log('✅ Contrôle qualité OpenAI réussi.');
+  console.log('✅ Édition validée pour publication éditoriale.');
 }
 
-main().catch((err) => {
-  console.error(
-    '❌ Échec du contrôle qualité :',
-    err?.message || err
-  );
-
-  process.exit(1);
-});
+main().catch(err=>{console.error('❌ Échec du contrôle qualité :',err?.message||err);process.exit(1);});
