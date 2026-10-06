@@ -64,6 +64,8 @@ async function callOpenAI(systemPrompt, userMessage) {
 // GOOGLE GEMINI
 // -----------------------------------------------------------------------------
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 async function callGemini(systemPrompt, userMessage) {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -73,39 +75,67 @@ async function callGemini(systemPrompt, userMessage) {
 
   const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+  const retryable = new Set([429, 500, 502, 503, 504]);
+  const maxAttempts = 4;
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-goog-api-key': apiKey
-    },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: systemPrompt }] },
-      contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-      generationConfig: { maxOutputTokens: 10000 }
-    })
-  });
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    let res;
+    try {
+      res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey
+        },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+          generationConfig: { maxOutputTokens: 10000 }
+        }),
+        signal: AbortSignal.timeout(60000)
+      });
+    } catch (error) {
+      if (attempt === maxAttempts) {
+        throw new Error(`Gemini API : erreur réseau après ${maxAttempts} tentatives — ${error.message}`);
+      }
+      const delay = 2000 * 2 ** (attempt - 1);
+      console.warn(`Gemini indisponible (réseau), nouvelle tentative ${attempt + 1}/${maxAttempts} dans ${delay / 1000}s`);
+      await sleep(delay);
+      continue;
+    }
 
-  if (!res.ok) {
+    if (res.ok) {
+      const data = await res.json();
+      const candidate = data.candidates?.[0];
+
+      if (!candidate) {
+        throw new Error('Gemini API : aucun candidat retourné');
+      }
+
+      const text = candidate.content?.parts?.map(part => part.text || '')?.join('\n')?.trim();
+
+      if (!text) {
+        throw new Error('Gemini API : réponse reçue mais aucun texte exploitable');
+      }
+
+      return text;
+    }
+
     const errorText = await res.text();
-    throw new Error(`Gemini API: ${res.status} ${errorText}`);
+    if (!retryable.has(res.status) || attempt === maxAttempts) {
+      throw new Error(`Gemini API: ${res.status} ${errorText}`);
+    }
+
+    const retryAfter = Number(res.headers.get('retry-after'));
+    const delay = Number.isFinite(retryAfter) && retryAfter > 0
+      ? retryAfter * 1000
+      : 2000 * 2 ** (attempt - 1);
+
+    console.warn(`Gemini API ${res.status}, nouvelle tentative ${attempt + 1}/${maxAttempts} dans ${Math.round(delay / 1000)}s`);
+    await sleep(delay);
   }
 
-  const data = await res.json();
-  const candidate = data.candidates?.[0];
-
-  if (!candidate) {
-    throw new Error('Gemini API : aucun candidat retourné');
-  }
-
-  const text = candidate.content?.parts?.map(part => part.text || '')?.join('\n')?.trim();
-
-  if (!text) {
-    throw new Error('Gemini API : réponse reçue mais aucun texte exploitable');
-  }
-
-  return text;
+  throw new Error('Gemini API : échec inattendu');
 }
 
 
