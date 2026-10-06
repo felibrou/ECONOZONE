@@ -41,7 +41,7 @@ jobs:
       # ---------------------------------------------------------------------
 
       - name: Récupérer le dépôt
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -54,7 +54,7 @@ jobs:
       # ---------------------------------------------------------------------
 
       - name: Installer Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '24'
 
@@ -93,12 +93,12 @@ jobs:
 
 
       # ---------------------------------------------------------------------
-      # 7. GEMINI CONTRÔLE MATIÈRES PREMIÈRES
+      # 7. OPENAI CONTRÔLE MATIÈRES PREMIÈRES
       # ---------------------------------------------------------------------
 
-      - name: Contrôler Matières premières avec Gemini
+      - name: Contrôler Matières premières avec OpenAI
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
         run: |
           echo ""
@@ -177,7 +177,7 @@ jobs:
       # Cette étape n'est exécutée que si :
       #
       # - OpenAI a réussi pour Matières premières ;
-      # - Gemini a validé Matières premières ;
+      # - OpenAI a validé Matières premières ;
       # - Astro compile correctement ;
       # - au moins une page a réellement changé.
       #
@@ -210,7 +210,7 @@ jobs:
           echo "=========================================="
 
           echo "✅ OpenAI — rédaction Matières premières"
-          echo "✅ Gemini — contrôle Matières premières"
+          echo "✅ OpenAI — contrôle Matières premières"
           echo "✅ Astro — compilation du site"
           echo "✅ GitHub — commit sur main"
           echo "✅ Vercel — déploiement attendu automatiquement"
