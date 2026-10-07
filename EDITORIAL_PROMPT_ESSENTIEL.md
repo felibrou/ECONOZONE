@@ -91,3 +91,6 @@ Vérifier les performances sur clôtures comparables, le calendrier officiel,
 la netteté et le chargement des photos sur mobile/ordinateur, puis le déploiement.
 La programmation regroupe les trois rendez-vous dans une seule tâche :
 midi et clôture du lundi au vendredi, bilan le dimanche. Pas de passage le samedi.
+
+## Dossier prioritaire — édition du 8 octobre 2026
+Pour les passages du 8 octobre 2026 uniquement, lire `editorial/2026-10-08-sujets.md` et intégrer les trois sujets validés : lancement d'AfCRA le 7 octobre, obligation ivoirienne à vingt ans du 6 octobre, sécurisation foncière en Côte d'Ivoire. Conserver les cinq rubriques, développer les sujets dans Économie et leur incidence régionale, actualiser les sources avant diffusion. Le dossier contient les corrections et points à recouper. Pour les dates ultérieures, revenir à la sélection quotidienne et suivre ces sujets seulement si un fait nouveau le justifie.

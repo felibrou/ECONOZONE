@@ -1,6 +1,6 @@
 # Sources permanentes — Économie ECONOZONE
 
-Mis à jour le 29 septembre 2026. Cette liste sert à la veille éditoriale, pas à reproduire des articles. Vérifier chaque fait à la source primaire avant publication et donner une date et un lien précis.
+Mis à jour le 7 octobre 2026. Cette liste sert à la veille éditoriale, pas à reproduire des articles. Vérifier chaque fait à la source primaire avant publication et donner une date et un lien précis.
 
 ## Sources primaires prioritaires
 - BCEAO — https://www.bceao.int/ — politique monétaire, crédit, microfinance, statistiques UMOA.
@@ -51,3 +51,22 @@ Les trois articles de classement sont des pistes de lecture, pas des bases de do
 - Koné (Côte d’Ivoire) : première coulée réalisée le 26 septembre 2026, communiquée le 27 par Montage Gold ; suivre démarrage commercial, tonnages et recettes.
 - Microfinance UMOA 2025 : 3 445,7 milliards de FCFA rapportés pour les grandes institutions ; ne pas confondre avec toutes les IMF ni avec les dépôts/encours du secteur entier.
 - BOAD : 8 milliards approuvés pour les hydrocarbures au Mali et 45 milliards approuvés pour la mécanisation/irrigation au Togo ; suivre signatures et décaissements.
+
+## Complément de veille — briefing transmis le 7 octobre 2026
+### Institutions et publications officielles
+- Union africaine — https://au.int/ — décisions, communiqués et architecture financière continentale, avec incidence documentée en Afrique de l'Ouest.
+- Mécanisme africain d'évaluation par les pairs (APRM) — https://aprm.au.int/ — gouvernance et développement de l'Africa Credit Rating Agency (AfCRA). Suivre ses publications officielles accessibles ; distinguer lancement institutionnel, début d'activité et premières notations. Ne pas présenter le lancement comme une baisse acquise du coût d'emprunt.
+- UMOA-Titres — https://www.umoatitres.org/fr/ — calendriers, avis, notes de pré-émission et résultats d'adjudication. Distinguer montant sollicité, soumissions, montant nominal retenu, produit encaissé, coupon et rendement.
+- Gouvernement de Côte d'Ivoire — https://www.gouv.ci/ ; ministère de l'Agriculture — https://agriculture.gouv.ci/ — politiques publiques et foncier. Distinguer certificat foncier, titre foncier, bornage et validation administrative ; dater les stocks statistiques.
+- Agence ivoirienne de presse (AIP) — https://www.aip.ci/ — dépêches locales, notamment agriculture et foncier ; retrouver la dépêche originale lorsqu'elle est reprise ailleurs.
+- ONU Info — https://news.un.org/fr/ — santé, développement et crises ayant une incidence régionale vérifiable.
+
+### Médias complémentaires
+- Reuters — https://www.reuters.com/ ; Associated Press (AP) — https://apnews.com/ ; BBC — https://www.bbc.com/news — actualité internationale avec incidence identifiable en Afrique de l'Ouest.
+- Radio-Canada — https://ici.radio-canada.ca/ — économie canadienne et relations avec la région lorsque pertinentes.
+- BeNews Côte d'Ivoire — https://benews.ci/ — économie et politiques publiques ivoiriennes.
+- Côte d'Ivoire Infos — https://cotedivoireinfos.net/ ; Nafa Afrique — https://nafaafrique.com/ — pistes locales à recouper avec l'AIP et les institutions concernées.
+- Financial Afrik figure déjà dans la liste permanente ; conserver cette entrée sans doublon.
+- Weather.com — https://weather.com/ — météo de contexte uniquement si son effet économique en Afrique de l'Ouest est documenté ; la météo personnelle du Québec reste hors du produit éditorial public.
+
+Le briefing de Muse Meta est une piste de veille fournie par l'utilisateur, pas une source primaire. Ne pas reprendre ses dates ou chiffres sans contrôle. Le lancement d'AfCRA a eu lieu le 7 octobre 2026, selon le communiqué officiel de l'Union africaine.
