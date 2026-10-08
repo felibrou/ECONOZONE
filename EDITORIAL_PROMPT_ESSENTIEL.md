@@ -102,3 +102,6 @@ et son bandeau défilant TradingView tout en haut du contenu, immédiatement
 avant le fil d’Ariane « ECONOZONE › Matières premières ». Le bloc reste hors
 de la zone éditoriale dynamique ; les mises à jour quotidiennes doivent préserver
 cet ordre, sans déplacer ni dupliquer le bandeau.
+
+Le libellé « Cours en direct » reste discret : police de 14 px, sans bandeau
+ni traits supérieur ou inférieur, avec un espace compact au-dessus.
