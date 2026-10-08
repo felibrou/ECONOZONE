@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import { PROVIDERS } from './providers.mjs';
 
+const DIRECT_STYLE = ' Rédige directement les faits et les mécanismes économiques. Supprime les phrases explicatives à contrario hors sujet et les consignes au rédacteur. Précise positivement les dates, unités, périmètres et statuts utiles. Nomme chaque opération et son émetteur avant son montant.';
 const PAGE = 'src/pages/economie.astro';
 const START = '<!-- VEILLE-ECONOMIE-DEBUT -->';
 const END = '<!-- VEILLE-ECONOMIE-FIN -->';
@@ -45,7 +46,7 @@ async function openAI(instructions,input) {
     method:'POST',headers:{'Content-Type':'application/json',
     Authorization:'Bearer '+process.env.OPENAI_API_KEY},
     body:JSON.stringify({model:process.env.OPENAI_MODEL || 'gpt-5.6-luna',
-      tools:[{type:'web_search'}],instructions,input,max_output_tokens:4000})
+      tools:[{type:'web_search'}],instructions: instructions + DIRECT_STYLE,input,max_output_tokens:4000})
   });
   if(!res.ok) throw Error('Recherche OpenAI : '+res.status+' '+(await res.text()).slice(0,400));
   const json=await res.json();

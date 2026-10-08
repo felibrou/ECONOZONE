@@ -70,3 +70,7 @@ Les trois articles de classement sont des pistes de lecture, pas des bases de do
 - Weather.com — https://weather.com/ — météo de contexte uniquement si son effet économique en Afrique de l'Ouest est documenté ; la météo personnelle du Québec reste hors du produit éditorial public.
 
 Le briefing de Muse Meta est une piste de veille fournie par l'utilisateur, pas une source primaire. Ne pas reprendre ses dates ou chiffres sans contrôle. Le lancement d'AfCRA a eu lieu le 7 octobre 2026, selon le communiqué officiel de l'Union africaine.
+
+
+## Rédaction directe — règle permanente pour tous les articles
+Écrire directement les faits et les mécanismes économiques. Supprimer les phrases explicatives à contrario hors sujet et les précautions adressées au rédacteur (« ce libellé ne doit pas être présenté comme… », « ce n’est pas… », « ne constitue pas… »). Quand une distinction aide réellement le lecteur, préciser positivement la date, le périmètre, l’unité ou le statut du fait (projet, objectif, réalisation, relevé intrajournalier). Nommer l’opération et son émetteur avant de citer son montant. Développer les incidences utiles sans inventer une confusion à réfuter.

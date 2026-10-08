@@ -107,3 +107,7 @@ Sur `src/pages/matieres-premieres.astro`, respecter cet ordre en tête de page :
 Conserver un espace compact au-dessus du titre. Ce bloc reste hors de la zone
 éditoriale dynamique ; préserver cette présentation lors des mises à jour
 quotidiennes, sans dupliquer le titre principal ni le bandeau.
+
+
+## Rédaction directe — règle permanente pour tous les articles
+Écrire directement les faits et les mécanismes économiques. Supprimer les phrases explicatives à contrario hors sujet et les précautions adressées au rédacteur (« ce libellé ne doit pas être présenté comme… », « ce n’est pas… », « ne constitue pas… »). Quand une distinction aide réellement le lecteur, préciser positivement la date, le périmètre, l’unité ou le statut du fait (projet, objectif, réalisation, relevé intrajournalier). Nommer l’opération et son émetteur avant de citer son montant. Développer les incidences utiles sans inventer une confusion à réfuter.
