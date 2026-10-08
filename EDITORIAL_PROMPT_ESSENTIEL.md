@@ -95,13 +95,15 @@ midi et clôture du lundi au vendredi, bilan le dimanche. Pas de passage le same
 ## Dossier prioritaire — édition du 8 octobre 2026
 Pour les passages du 8 octobre 2026 uniquement, lire `editorial/2026-10-08-sujets.md` et intégrer les trois sujets validés : lancement d'AfCRA le 7 octobre, obligation ivoirienne à vingt ans du 6 octobre, sécurisation foncière en Côte d'Ivoire. Conserver les cinq rubriques, développer les sujets dans Économie et leur incidence régionale, actualiser les sources avant diffusion. Le dossier contient les corrections et points à recouper. Pour les dates ultérieures, revenir à la sélection quotidienne et suivre ces sujets seulement si un fait nouveau le justifie.
 
-## Matières premières — emplacement permanent du bandeau
+## Matières premières — présentation permanente du bandeau
 
-Sur `src/pages/matieres-premieres.astro`, conserver le titre « Cours en direct »
-et son bandeau défilant TradingView tout en haut du contenu, immédiatement
-avant le fil d’Ariane « ECONOZONE › Matières premières ». Le bloc reste hors
-de la zone éditoriale dynamique ; les mises à jour quotidiennes doivent préserver
-cet ordre, sans déplacer ni dupliquer le bandeau.
+Sur `src/pages/matieres-premieres.astro`, respecter cet ordre en tête de page :
+1. Titre principal unique « Matières premières ».
+2. Bandeau défilant TradingView.
+3. Légende « Cours en direct » juste sous le bandeau, police de 14 px,
+   sans encadrement ni traits, couleur discrète.
+4. Fil d’Ariane « ECONOZONE › Matières premières », puis date et introduction.
 
-Le libellé « Cours en direct » reste discret : police de 14 px, sans bandeau
-ni traits supérieur ou inférieur, avec un espace compact au-dessus.
+Conserver un espace compact au-dessus du titre. Ce bloc reste hors de la zone
+éditoriale dynamique ; préserver cette présentation lors des mises à jour
+quotidiennes, sans dupliquer le titre principal ni le bandeau.
