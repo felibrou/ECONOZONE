@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="ECONOZONE — Matières premières">
 
     <!-- Bandeau permanent : conserver avant le fil d’Ariane lors des mises à jour. -->
-    <h2>Cours en direct</h2>
+    <h2 class="live-quotes-title">Cours en direct</h2>
     <div class="tv-widget-box">
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
@@ -139,3 +139,9 @@ import Layout from '../layouts/Layout.astro';
 
 <style>:global(.col table.editorial-market-table td.numeric){text-align:right!important;white-space:normal!important} .table-scroll td.numeric{text-align:right!important} .commodities th:nth-child(2){text-align:right!important} .macro th:nth-child(n+2){text-align:right!important}</style>
 
+
+<style>
+  /* Espacement compact du bandeau permanent en tête de cette page. */
+  :global(.col:has(> .live-quotes-title)) { padding-top: 12px !important; }
+  :global(.col > h2.live-quotes-title) { margin-top: 0 !important; }
+</style>
