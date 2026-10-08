@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="ECONOZONE — Matières premières">
 
     <!-- Bandeau permanent : conserver avant le fil d’Ariane lors des mises à jour. -->
-    <h2 class="live-quotes-title">Cours en direct</h2>
+    <h1 class="commodities-page-title">Matières premières</h1>
     <div class="tv-widget-box">
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
@@ -27,8 +27,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
+    <p class="live-quotes-caption">Cours en direct</p>
+
     <div class="breadcrumb">ECONOZONE &rsaquo; Matières premières</div>
-    <h1>Matières premières</h1>
     <p class="edition-meta"><b>Édition mise à jour :</b> <time datetime="2026-10-07T15:40:00Z">7 octobre 2026 à 15 h 40 GMT</time> · <a href="/essentiel/2026-10-07-cloture#matieres">Analyse de clôture du 7 octobre</a></p>
     <p class="dek">Pétrole, or, cacao, coton, gaz : ces marchés mondiaux ne produisent jamais un effet unique sur l'Afrique de l'Ouest — un même mouvement de prix peut simultanément soutenir un pays exportateur et pénaliser un pays importateur.</p>
 
@@ -142,9 +143,9 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   /* Espacement compact du bandeau permanent en tête de cette page. */
-  :global(.col:has(> .live-quotes-title)) { padding-top: 12px !important; }
-  :global(.col > h2.live-quotes-title) {
-    margin: 0 0 6px !important;
+  :global(.col:has(> .commodities-page-title)) { padding-top: 12px !important; }
+  :global(.col > p.live-quotes-caption) {
+    margin: 6px 0 18px !important;
     padding: 0 !important;
     border: 0 !important;
     background: transparent !important;
@@ -153,4 +154,8 @@ import Layout from '../layouts/Layout.astro';
     line-height: 1.4 !important;
     color: var(--label, #64708A) !important;
   }
+</style>
+
+<style>
+  :global(.col > h1.commodities-page-title) { margin-top: 0 !important; }
 </style>
